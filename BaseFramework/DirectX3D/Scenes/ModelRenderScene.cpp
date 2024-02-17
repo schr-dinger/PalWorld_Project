@@ -3,7 +3,7 @@
 
 ModelRenderScene::ModelRenderScene()
 {
-    model = new Model("Kunai");
+    model = new Model("Player");
 }
 
 ModelRenderScene::~ModelRenderScene()
