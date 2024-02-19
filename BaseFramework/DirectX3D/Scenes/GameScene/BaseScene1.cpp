@@ -3,7 +3,8 @@
 
 BaseScene1::BaseScene1()
 {
-	penguin = new Penguin();
+	player = new Player();
+	//penguin = new Penguin();
 }
 
 BaseScene1::~BaseScene1()
@@ -12,7 +13,8 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	penguin->Update();
+	player->Update();
+	//penguin->Update();
 }
 
 void BaseScene1::PreRender()
@@ -21,7 +23,8 @@ void BaseScene1::PreRender()
 
 void BaseScene1::Render()
 {
-	penguin->Render();
+	player->Render();
+	//penguin->Render();
 }
 
 void BaseScene1::PostRender()
@@ -30,5 +33,6 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	penguin->GUIRender();
+	player->GUIRender();
+	//penguin->GUIRender();
 }

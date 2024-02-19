@@ -189,6 +189,8 @@ using namespace GameMath;
 #include "Objects/Character/FoxD.h"
 #include "Objects/Character/Fox.h"
 #include "Objects/Character/Penguin.h"
+#include "Objects/Character/Player.h"
+
 
 
 #include "Objects/Manager/BlockManager.h"
