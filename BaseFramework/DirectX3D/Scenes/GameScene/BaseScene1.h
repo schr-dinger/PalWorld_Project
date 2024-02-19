@@ -13,6 +13,7 @@ public:
 	virtual void GUIRender() override;
 
 private:
-	Penguin* penguin;
+	Player* player;
+	//Penguin* penguin;
 };
 

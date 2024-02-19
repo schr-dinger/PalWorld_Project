@@ -35,7 +35,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
-    SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
     //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
