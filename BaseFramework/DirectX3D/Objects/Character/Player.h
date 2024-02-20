@@ -30,12 +30,26 @@ public:
 private:
     void ClipSync();
     void Control();
+    void Move();
+    void Rotate();
     void Jump();
+
+    void SetAnimation();
+    void SetState(ACTION state);
 
 private:
     ACTION action;
+    ACTION curState = ACTION::IDLE;
 
-    float moveSpeed = 0;
+
+    POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
+
+    Vector3 velocity;
+
+    float moveSpeed = 50;
+    float rotSpeed = 1;
+    float deceleration = 5;
+
     float jumpVelocity = 0;
     float jumpForce = 0.5f;
     float gravityMult = 0.5f;
