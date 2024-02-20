@@ -75,8 +75,10 @@ void Player::Control()
     //{
     //    Rot().y -= DELTA;
     //}
-
-    Rotate();
+    if (KEY_PRESS('V'))
+    {
+        Rotate();
+    }
     Jump();
 }
 
@@ -109,6 +111,14 @@ void Player::Move()
         isMoveX = true;
     }
 
+    if (KEY_DOWN(VK_SPACE))
+    {
+        action = ACTION::JUMP;
+        jumpVelocity = jumpForce;
+        isJump = true;
+    }
+
+
     if (velocity.Length() > 1) velocity.Normalize();
 
     if (!isMoveZ)
@@ -126,31 +136,53 @@ void Player::Move()
 
 void Player::Rotate()
 {
-    Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
-    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
-
-    Rot().y += delta.x * rotSpeed * DELTA;
-    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
-
+     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
+     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+     Rot().y += delta.x * rotSpeed * DELTA;
+     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
 }
 
 void Player::Jump()
 {
+    jumpVelocity -= 9.8f * gravityMult * DELTA;
+    Pos().y += jumpVelocity;
+
+    if (Pos().y > 0)
+    {
+        if (action != ACTION::JUMP) action = ACTION::JUMP;
+        isJump = true;
+    }
+
+    if (Pos().y < 0)
+    {
+        Pos().y = 0;
+        jumpVelocity = 0;
+        if (action == ACTION::JUMP) action = ACTION::IDLE;
+        isJump = false;
+    }
+
 }
 
 void Player::SetAnimation()
 {
     if (curState == ACTION::SHOOT) return;
 
-    if (velocity.z > 0.1f) // 속력 기준이 현재 앞으로 +면
-        SetState(ACTION::RUNF);
-    else if (velocity.z < -0.1f) // 앞 기준 -면
-        SetState(ACTION::RUNF);
-    else if (velocity.x > 0.1f) // 좌우 기준 +면
-        SetState(ACTION::RUNR);
-    else if (velocity.x < -0.1f) //좌우 기준 -면
-        SetState(ACTION::RUNL);
-    else SetState(ACTION::IDLE); // 가만히 있으면
+    if (isJump)
+    {
+        SetState(ACTION::JUMP);
+    }
+    else
+    {
+        if (velocity.z > 0.1f)
+            SetState(ACTION::RUNF);
+        else if (velocity.z < -0.1f)
+            SetState(ACTION::RUNF);
+        else if (velocity.x > 0.1f)
+            SetState(ACTION::RUNR);
+        else if (velocity.x < -0.1f)
+            SetState(ACTION::RUNL);
+        else SetState(ACTION::IDLE);
+    }
 
 }
 

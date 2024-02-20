@@ -46,13 +46,13 @@ private:
 
     Vector3 velocity;
 
-    float moveSpeed = 50;
+    float moveSpeed = 10;
     float rotSpeed = 1;
     float deceleration = 5;
 
     float jumpVelocity = 0;
-    float jumpForce = 0.5f;
-    float gravityMult = 0.5f;
+    float jumpForce = 0.02f;
+    float gravityMult = 0.005f;
     bool isJump = false;
 
 };
