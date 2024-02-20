@@ -40,7 +40,7 @@ void Player::Update()
 {
     //ClipSync();
     Control();
-    //SetAnimation();
+    SetAnimation();
     ModelAnimator::Update();
 }
 
@@ -65,6 +65,7 @@ void Player::ClipSync()
 void Player::Control()
 {
     Move();
+
     //if (KEY_PRESS(VK_LEFT))
     //{
     //    Rot().y += DELTA;
@@ -74,7 +75,8 @@ void Player::Control()
     //{
     //    Rot().y -= DELTA;
     //}
-    //Rotate();
+
+    Rotate();
     Jump();
 }
 
