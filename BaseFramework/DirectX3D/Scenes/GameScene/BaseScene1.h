@@ -14,6 +14,6 @@ public:
 
 private:
 	Player* player;
-	//Penguin* penguin;
+	Penguin* penguin;
 };
 
