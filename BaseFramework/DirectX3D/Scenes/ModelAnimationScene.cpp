@@ -43,6 +43,11 @@ ModelAnimationScene::ModelAnimationScene()
     modelAnimator->ReadClip("test_encount");
     modelAnimator->ReadClip("test_damage");
     modelAnimator->ReadClip("test_attack");
+    modelAnimator->ReadClip("test_sleepS");
+    modelAnimator->ReadClip("test_sleepL");
+    modelAnimator->ReadClip("test_sleepE");
+
+    
     modelAnimator->Scale() *= 0.01f;
     /*modelAnimator->ReadClip("Walk");
     modelAnimator->ReadClip("Dying");
