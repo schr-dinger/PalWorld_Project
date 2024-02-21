@@ -38,12 +38,17 @@ ModelAnimationScene::ModelAnimationScene()
     //modelAnimator = new ModelAnimator("Fox");
     //modelAnimator->ReadClip("Fox_Run");
 
-    modelAnimator = new ModelAnimator("Robot");
-    modelAnimator->ReadClip("Run");
-    modelAnimator->ReadClip("Walk");
+    modelAnimator = new ModelAnimator("test");
+    modelAnimator->ReadClip("test_run");
+    modelAnimator->ReadClip("test_encount");
+    modelAnimator->ReadClip("test_damage");
+    modelAnimator->ReadClip("test_attack");
+    modelAnimator->Scale() *= 0.01f;
+    /*modelAnimator->ReadClip("Walk");
     modelAnimator->ReadClip("Dying");
     modelAnimator->ReadClip("StandUp");
-    modelAnimator->ReadClip("Hit");
+    modelAnimator->ReadClip("Hit");*/
+    modelAnimator->PlayClip(1);
 }
 
 ModelAnimationScene::~ModelAnimationScene()
@@ -63,6 +68,8 @@ void ModelAnimationScene::Update()
         modelAnimator->PlayClip(3);
     if (KEY_DOWN('5'))
         modelAnimator->PlayClip(4);
+
+
 
     modelAnimator->Update();
 }

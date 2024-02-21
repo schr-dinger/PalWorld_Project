@@ -3,7 +3,7 @@
 
 ModelExportScene::ModelExportScene()
 {
-    string name = "Robot";
+    string name = "Test";
     string file = "Models/FBX/" + name + ".fbx";
     ModelExporter* exporter;
     string clipName;
@@ -13,12 +13,19 @@ ModelExportScene::ModelExportScene()
     //exporter->ExportMesh();
     //delete exporter;    
     
-    clipName = "Dying";
+    clipName = "test_damage";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);    
     delete exporter;
-    
+   
+    /*
+    clipName = "test_attack";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);
+    delete exporter;
+    /*
     clipName = "Run";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
@@ -42,6 +49,7 @@ ModelExportScene::ModelExportScene()
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
+    */
 }
 
 ModelExportScene::~ModelExportScene()
