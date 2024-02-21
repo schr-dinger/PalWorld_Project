@@ -148,7 +148,7 @@ void Player::Jump(float _ground)
     jumpVelocity -= 9.8f * gravityMult * DELTA;
     Pos().y += jumpVelocity;
 
-    if (Pos().y >= _ground && isSpace)
+    if (Pos().y > _ground+0.5f )
     {
         if (action != ACTION::JUMP) action = ACTION::JUMP;
 
