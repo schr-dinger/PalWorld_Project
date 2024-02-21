@@ -51,7 +51,7 @@ private:
     float deceleration = 5;
 
     float jumpVelocity = 0;
-    float jumpForce = 0.02f;
+    float jumpForce = 0.03f;
     float gravityMult = 0.005f;
     bool isJump = false;
     bool isSpace = false;
