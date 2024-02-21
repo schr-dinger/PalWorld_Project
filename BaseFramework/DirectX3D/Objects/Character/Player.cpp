@@ -151,14 +151,15 @@ void Player::Jump(float _ground)
     if (Pos().y >= _ground && isSpace)
     {
         if (action != ACTION::JUMP) action = ACTION::JUMP;
+
         isJump = true;
     }
 
-    if (Pos().y < _ground)
+    if (Pos().y < _ground )
     {
 
         //Pos().y = _ground;
-        Pos().y = Lerp(Pos().y, _ground, deceleration * DELTA);
+        Pos().y = Lerp(Pos().y, _ground, 10*DELTA);
         jumpVelocity = 0;
         if (action == ACTION::JUMP) action = ACTION::IDLE;
         isJump = false;
