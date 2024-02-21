@@ -5,7 +5,7 @@ class TerrainData
     // 터레인 데이터 : 지형(을 분할한, 분할하기 위한) 데이터를 갖는 클래스
 
 private:
-    float MAX_HEIGHT = 20; //높이맵 등이 적용될 때, 최대로 정해두기 위한 높이 상한
+    float MAX_HEIGHT = 70; //높이맵 등이 적용될 때, 최대로 정해두기 위한 높이 상한
     typedef VertexUVNormal VertexType;
 
 public:

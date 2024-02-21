@@ -32,10 +32,10 @@ private:
     void Control();
     void Move();
     void Rotate();
-    void Jump();
-
     void SetAnimation();
     void SetState(ACTION state);
+public:
+    void Jump(float _ground);
 
 private:
     ACTION action;
@@ -54,6 +54,7 @@ private:
     float jumpForce = 0.02f;
     float gravityMult = 0.005f;
     bool isJump = false;
+    bool isSpace = false;
 
 };
 
