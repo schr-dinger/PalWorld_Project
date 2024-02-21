@@ -7,7 +7,7 @@ QuadTreeTerrain::QuadTreeTerrain(wstring heightFile)
     height = terrainData->GetSize().y;
 
     //매티리얼 (디퓨즈맵) 할당
-    material->SetDiffuseMap(L"Textures/Landscape/Dirt2.png"); //필요하면 매개변수로
+    material->SetDiffuseMap(L"Textures/Landscape/AWallTerrain.png"); //필요하면 매개변수로
 
     //지형 데이터에서 정리된 정점 받기
     vertices = terrainData->GetVertices(); 
@@ -81,7 +81,9 @@ void QuadTreeTerrain::RenderNode(Node* node)
     //여기까지 오면 자식 노드라고 가정하고, 해당 자식 노드로서의 렌더 수행
     node->mesh->Draw(); // 메쉬를 출력
     //노드가 갖고 있었던 삼각형 개수를 드로우콜 합산에 추가 (테스트용)
-    drawCount += node->triangleCount;
+    //drawCount += node->triangleCount;
+    drawCount++;
+
 }
 
 void QuadTreeTerrain::DeleteNode(Node* node)

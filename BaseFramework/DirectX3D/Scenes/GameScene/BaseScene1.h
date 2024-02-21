@@ -13,8 +13,8 @@ public:
 	virtual void GUIRender() override;
 
 private:
-	//QuadTreeTerrain* terrain;
-	Terrain* terrain;
+	QuadTreeTerrain* terrain;
+	//Terrain* terrain;
 
 	Player* player;
 	Penguin* penguin;

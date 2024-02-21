@@ -3,8 +3,8 @@
 
 BaseScene1::BaseScene1()
 {
-	//terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
-	terrain = new Terrain();
+	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
+	//terrain = new Terrain();
 
 	player = new Player();
 
@@ -23,7 +23,9 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	player->Jump(terrain->GetHeight(player->GlobalPos()));
+	//player->Jump(terrain->GetHeight(player->GlobalPos()));
+	player->Jump(70);
+
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 	penguin->Update();
@@ -48,4 +50,5 @@ void BaseScene1::GUIRender()
 {
 	player->GUIRender();
 	penguin->GUIRender();
+	terrain->GUIRender();
 }
