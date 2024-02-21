@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-Penguin::Penguin() :ModelAnimator("PenGuin")
+Penguin::Penguin() :ModelAnimator("Penguin")
 {
     ReadClip("Idle");
     ReadClip("Walk");
