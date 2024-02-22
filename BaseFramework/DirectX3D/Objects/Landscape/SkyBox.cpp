@@ -6,6 +6,8 @@ SkyBox::SkyBox(wstring file)
     skyMap = Texture::Add(file);
     //material->SetShader(L"Basic/Texture.hlsl"); //±‚∫ª
     material->SetShader(L"Landscape/Skybox.hlsl"); //∏¬√„ ºŒ¿Ã¥ı
+    Scale() *= 100.0f;
+    UpdateWorld();
 
     FOR(2)
     {

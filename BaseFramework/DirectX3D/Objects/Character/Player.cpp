@@ -34,6 +34,7 @@ Player::Player() :	ModelAnimator("Player")
 
 Player::~Player()
 {
+
 }
 
 void Player::Update()

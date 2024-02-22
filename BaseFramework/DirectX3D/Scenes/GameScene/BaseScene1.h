@@ -14,7 +14,9 @@ public:
 
 private:
 	QuadTreeTerrain* terrain;
-	//Terrain* terrain;
+	Terrain* terrainF;
+	SkyBox* skyBox;
+
 
 	Player* player;
 	Penguin* penguin;
