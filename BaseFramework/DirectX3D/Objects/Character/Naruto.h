@@ -19,6 +19,8 @@ public:
     void PostRender();
     void GUIRender();
 
+    Transform* GetTransform() { return mainHand; }
+
 private:
     void Control();
     void Move();

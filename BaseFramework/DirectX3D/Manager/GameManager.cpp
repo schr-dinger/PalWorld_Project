@@ -29,14 +29,14 @@ GameManager::GameManager()
     Create();
 
     SceneManager::Get()->Create("Grid", new GridScene());
-    SceneManager::Get()->Create("ModelExport", new ModelExportScene());
+    //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
 
     //SceneManager::Get()->Create("Cube", new CubeScene());
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
-    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
-    SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
+    SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
     //SceneManager::Get()->Create("BillboardScene", new BillboardScene());
@@ -54,8 +54,8 @@ GameManager::GameManager()
 
 
     SceneManager::Get()->Add("Grid");
-    SceneManager::Get()->Add("ModelExport");
-    SceneManager::Get()->Add("ModelAnimationScene");
+    //SceneManager::Get()->Add("ModelExport");
+    SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
     //SceneManager::Get()->Add("BillboardScene");

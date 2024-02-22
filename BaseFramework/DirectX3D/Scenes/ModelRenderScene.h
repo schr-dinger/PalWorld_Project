@@ -13,5 +13,8 @@ public:
     virtual void GUIRender() override;
 
 private:
-    Model* model;
+    //Model* model;
+
+    ElecPanda* test;
+    Naruto* naruto;
 };

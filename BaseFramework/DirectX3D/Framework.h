@@ -190,7 +190,7 @@ using namespace GameMath;
 #include "Objects/Character/Fox.h"
 #include "Objects/Character/Penguin.h"
 #include "Objects/Character/Player.h"
-
+#include "Objects/Character/ElecPanda.h"
 
 
 #include "Objects/Manager/BlockManager.h"
