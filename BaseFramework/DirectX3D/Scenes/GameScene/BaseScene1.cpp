@@ -6,7 +6,7 @@ BaseScene1::BaseScene1()
 	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
 	terrainF = new Terrain();
 	//skyBox = new SkyBox(L"Textures/Landscape/BlueSky.dds");
-	skyBox = new SkyBox(L"Textures/Landscape/test1.jpg");
+	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 
 
 	player = new Player();
