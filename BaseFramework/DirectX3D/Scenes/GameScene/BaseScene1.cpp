@@ -14,7 +14,9 @@ BaseScene1::BaseScene1()
 
 
 	penguin = new Penguin();
-	penguin->Scale() *= 0.01f;
+	penguin2 = new Penguin();
+	penguin2->SetTag("P2");
+	penguin2->Pos().x = 2;
 }
 
 BaseScene1::~BaseScene1()
@@ -27,6 +29,7 @@ void BaseScene1::Update()
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 	penguin->Update();
+	penguin2->Update();
 }
 
 void BaseScene1::PreRender()
@@ -38,6 +41,7 @@ void BaseScene1::Render()
 	terrain->Render();
 	player->Render();
 	penguin->Render();
+	penguin2->Render();
 }
 
 void BaseScene1::PostRender()
@@ -46,6 +50,6 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
+	//player->GUIRender();
 	penguin->GUIRender();
 }

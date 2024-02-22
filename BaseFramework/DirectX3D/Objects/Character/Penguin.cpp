@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-Penguin::Penguin() :ModelAnimator("Penguin")
+Penguin::Penguin() :ModelAnimator("PenGuin")
 {
     ReadClip("Idle");
     ReadClip("Walk");
@@ -12,6 +12,16 @@ Penguin::Penguin() :ModelAnimator("Penguin")
     action = (ACTION)frameBuffer->Get().cur.clip;
 
     PlayClip(0);
+
+    FOR(2)
+    {
+        blendState[i] = new BlendState();
+    }
+    blendState[1]->Alpha(true);
+    blendState[1]->AlphaToCoverage(true);
+
+    SetTag("P");
+    Scale() *= 0.01f;
 }
 
 Penguin::~Penguin()
@@ -20,13 +30,16 @@ Penguin::~Penguin()
 
 void Penguin::Update()
 {
-    ClipSync();
+    //ClipSync();
     ModelAnimator::Update();
 }
 
 void Penguin::Render()
 {
+    blendState[1]->SetState();
     ModelAnimator::Render();
+    blendState[0]->SetState();
+
 }
 
 void Penguin::GUIRender()

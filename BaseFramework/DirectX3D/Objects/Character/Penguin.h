@@ -33,5 +33,7 @@ private:
     float jumpForce = 0.5f;
     float gravityMult = 0.5f;
     bool isJump = false;
+
+    BlendState* blendState[2];
 };
 

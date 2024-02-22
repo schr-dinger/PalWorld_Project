@@ -54,7 +54,9 @@ GameManager::GameManager()
 
 
     SceneManager::Get()->Add("Grid");
-    SceneManager::Get()->Add("ModelRender");
+    //SceneManager::Get()->Add("ModelExport");
+
+    //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("Collision");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
