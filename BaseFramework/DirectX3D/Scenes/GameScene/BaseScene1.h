@@ -17,7 +17,6 @@ private:
 	Terrain* terrain;
 
 	Player* player;
-	Penguin* penguin;
-	Penguin* penguin2;
+	
 };
 
