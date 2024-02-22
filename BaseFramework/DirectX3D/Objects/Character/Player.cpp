@@ -79,7 +79,7 @@ void Player::Control()
     {
         Rotate();
     }
-    Jump();
+    //Jump();
 }
 
 void Player::Move()
@@ -116,6 +116,7 @@ void Player::Move()
         action = ACTION::JUMP;
         jumpVelocity = jumpForce;
         isJump = true;
+        isSpace = true;
     }
 
 
@@ -142,23 +143,27 @@ void Player::Rotate()
      CAM->Rot().x -= delta.y * rotSpeed * DELTA;
 }
 
-void Player::Jump()
+void Player::Jump(float _ground)
 {
     jumpVelocity -= 9.8f * gravityMult * DELTA;
     Pos().y += jumpVelocity;
 
-    if (Pos().y > 0)
+    if (Pos().y > _ground+0.5f )
     {
         if (action != ACTION::JUMP) action = ACTION::JUMP;
+
         isJump = true;
     }
 
-    if (Pos().y < 0)
+    if (Pos().y < _ground )
     {
-        Pos().y = 0;
+
+        //Pos().y = _ground;
+        Pos().y = Lerp(Pos().y, _ground, 10*DELTA);
         jumpVelocity = 0;
         if (action == ACTION::JUMP) action = ACTION::IDLE;
         isJump = false;
+        isSpace = false;
     }
 
 }
