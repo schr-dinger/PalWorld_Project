@@ -1,5 +1,6 @@
 #pragma once
-class Penguin : public ModelAnimator
+class Penguin : public ModelAnimator, public Pal
+//class Penguin : public Pal
 {
 private:
     enum class ACTION
@@ -14,6 +15,7 @@ private:
 
 public:
     Penguin();
+    Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index);
     ~Penguin();
 
     void Update();
