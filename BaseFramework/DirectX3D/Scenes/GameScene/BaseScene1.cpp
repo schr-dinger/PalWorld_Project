@@ -3,8 +3,9 @@
 
 BaseScene1::BaseScene1()
 {
-	//terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
-	terrain = new Terrain();
+	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
+	terrainF = new Terrain();
+	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 
 	player = new Player();
 
@@ -13,7 +14,6 @@ BaseScene1::BaseScene1()
 	//CAM->LookAtTarget(); // 팔로우캠 + 추적 대상 있음 + 그 추적 대상을 락온으로 추적 (이 경우는 나루토)
 
 	PalsManager::Get()->SetTarget(player);
-
 	
 }
 
@@ -28,7 +28,7 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	player->Jump(terrain->GetHeight(player->GlobalPos()));
+	player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
@@ -43,6 +43,8 @@ void BaseScene1::PreRender()
 
 void BaseScene1::Render()
 {
+	skyBox->Render();
+
 	terrain->Render();
 	player->Render();
 	
