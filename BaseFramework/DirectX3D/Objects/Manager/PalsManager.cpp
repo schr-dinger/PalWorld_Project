@@ -122,7 +122,7 @@ void PalsManager::OnGround(Terrain* terrain)
 {
     for (Pal* pal : pals)
     {
-        pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+        pal->GetTransform()->Pos().y = terrain->GetHeightCompute(pal->GetTransform()->GlobalPos());
     }
 }
 

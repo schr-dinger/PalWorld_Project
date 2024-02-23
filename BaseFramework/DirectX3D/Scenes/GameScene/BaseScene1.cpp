@@ -28,11 +28,11 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	player->Jump(terrainF->GetHeight(player->GlobalPos()));
+	player->Jump(terrainF->GetHeightCompute(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-	//PalsManager::Get()->OnGround(terrain); 컴퓨트 피킹 필요
+	PalsManager::Get()->OnGround(terrainF); //컴퓨트 피킹 필요
 	PalsManager::Get()->Update();
 
 }
