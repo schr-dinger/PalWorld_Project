@@ -19,6 +19,6 @@ private:
 
 
 	Player* player;
-	Penguin* penguin;
+	
 };
 
