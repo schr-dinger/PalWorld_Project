@@ -159,6 +159,7 @@ void PalsManager::Spawn()
 
     //생성거리 계수와 함께 표적의 주위에서 생성을 한다
     Vector3 randomPos = target->Pos() + (dir.GetNormalized() * 30);
+    randomPos.y = 0;
 
     // 위에서 정해진 랜덤 장소에서 로봇 하나 생성 (선착순)
     for (Pal* pal : pals)

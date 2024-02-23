@@ -174,12 +174,17 @@ void Penguin::Move()
         speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);
     }
-    else
+    else if (velocity.Length() < 30)
     {
         speed = 2;
         SetAction(ACTION::WALK);
     }
-
+    else
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
     // 뒤 돌리기(모델 Back()이 실제로 앞
