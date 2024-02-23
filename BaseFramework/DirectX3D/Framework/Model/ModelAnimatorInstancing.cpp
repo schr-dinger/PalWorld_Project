@@ -44,8 +44,6 @@ void ModelAnimatorInstancing::GUIRender()
     //{
     //    transform->GUIRender();
     //}
-    ModelAnimator::GUIRender();
-
 }
 
 Transform* ModelAnimatorInstancing::Add()
