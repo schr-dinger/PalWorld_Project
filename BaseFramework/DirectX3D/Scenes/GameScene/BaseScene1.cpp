@@ -83,8 +83,8 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
-	water->GUIRender();
-	//PalsManager::Get()->GUIRender();
+	//player->GUIRender();
+	//water->GUIRender();
+	PalsManager::Get()->GUIRender();
 
 }

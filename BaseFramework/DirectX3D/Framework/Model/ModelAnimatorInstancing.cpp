@@ -40,8 +40,12 @@ void ModelAnimatorInstancing::GUIRender()
 {
     ImGui::Text("DrawCount : %d", drawCount);
 
-    for (Transform* transform : transforms)
-        transform->GUIRender();
+    //for (Transform* transform : transforms)
+    //{
+    //    transform->GUIRender();
+    //}
+    ModelAnimator::GUIRender();
+
 }
 
 Transform* ModelAnimatorInstancing::Add()

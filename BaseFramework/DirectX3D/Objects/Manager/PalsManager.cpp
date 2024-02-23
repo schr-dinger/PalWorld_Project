@@ -84,6 +84,9 @@ void PalsManager::GUIRender()
     for (Pal* pal : pals)
         pal->GUIRender();
 
+    for (ModelAnimatorInstancing* pal : palsInstancing)
+        pal->GUIRender();
+
 }
 
 void PalsManager::SetTarget(Transform* target)
