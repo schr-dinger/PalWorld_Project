@@ -5,6 +5,7 @@ PalsManager::PalsManager()
     // 여기서부터
     InsertMAI("PenGuin");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
     palsInstancing[0]->ReadClip("Work");    // 추가 모션
+    palsInstancing[0]->SetTag("Penguin");
 
     FOR(SIZE)
     {
@@ -82,6 +83,9 @@ void PalsManager::PostRender()
 void PalsManager::GUIRender()
 {
     for (Pal* pal : pals)
+        pal->GUIRender();
+
+    for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->GUIRender();
 
 }
