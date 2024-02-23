@@ -13,7 +13,12 @@ public:
 	virtual void GUIRender() override;
 
 private:
+	QuadTreeTerrain* terrain;
+	Terrain* terrainF;
+	SkyBox* skyBox;
+
+
 	Player* player;
-	//Penguin* penguin;
+	
 };
 

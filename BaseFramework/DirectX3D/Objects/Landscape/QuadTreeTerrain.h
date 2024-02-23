@@ -5,9 +5,10 @@ class QuadTreeTerrain : public GameObject
     // 쿼드 트리 터레인 : 쿼드트리 자료 구조를 적용한 터레인 클래스
 
 private:
-    float MAX_HEIGHT = 20;
-    UINT MIN_TRIANGLE = 2048; // 자료 구조를 나눌 때, 각 단위가 성립하기 위한 최소 삼각 개수
-                              // 이 숫자를 못 채우면 지형이 쪼개지지 않도록 할 것
+    float MAX_HEIGHT = 70;
+    //UINT MIN_TRIANGLE = 2048; // 자료 구조를 나눌 때, 각 단위가 성립하기 위한 최소 삼각 개수
+    //UINT MIN_TRIANGLE = 20480;                          // 이 숫자를 못 채우면 지형이 쪼개지지 않도록 할 것
+    UINT MIN_TRIANGLE = 200000;
 
     // * 위 최소 삼각형 외에도 트리를 쪼개는 조건은 개발자가 필요에 따라 제시할 수 있다
 

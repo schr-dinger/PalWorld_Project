@@ -188,14 +188,23 @@ using namespace GameMath;
 #include "Objects/Character/Naruto.h"
 #include "Objects/Character/FoxD.h"
 #include "Objects/Character/Fox.h"
+
+//Pal
+#include "Objects/Character/Pal.h"
 #include "Objects/Character/Penguin.h"
+
+//Player
 #include "Objects/Character/Player.h"
+<<<<<<< HEAD
 #include "Objects/Character/ElecPanda.h"
 
+=======
+>>>>>>> main
 
 #include "Objects/Manager/BlockManager.h"
 #include "Objects/Manager/KunaiManager.h"
 #include "Objects/Manager/RobotManager.h"
+#include "Objects/Manager/PalsManager.h"
 
 //Scene Header
 #include "Scenes/Scene.h"

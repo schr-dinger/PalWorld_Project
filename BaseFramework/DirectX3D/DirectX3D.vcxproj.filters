@@ -384,7 +384,14 @@
     <ClInclude Include="Objects\Character\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Objects\Character\ElecPanda.h">
+=======
+    <ClInclude Include="Objects\Character\Pal.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Manager\PalsManager.h">
+>>>>>>> main
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -728,7 +735,14 @@
     <ClCompile Include="Objects\Character\Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Objects\Character\ElecPanda.cpp">
+=======
+    <ClCompile Include="Objects\Character\Pal.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Manager\PalsManager.cpp">
+>>>>>>> main
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

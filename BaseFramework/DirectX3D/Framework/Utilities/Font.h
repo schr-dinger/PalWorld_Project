@@ -10,7 +10,11 @@ public:
     void AddStyle(string key, wstring font, float size = 20.0f,
         DWRITE_FONT_WEIGHT weight = DWRITE_FONT_WEIGHT_NORMAL,
         DWRITE_FONT_STYLE style = DWRITE_FONT_STYLE_NORMAL,
-        DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL);
+        DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT alignnment = DWRITE_TEXT_ALIGNMENT_LEADING); // 정렬: 기본값 좌측 정렬,  
+                                                                           // DWRITE_TEXT_ALIGNMENT_CENTER : 가운데 정렬
+                                                                           // DWRITE_TEXT_ALIGNMENT_TRAILING : 우측 정렬
+                                                                           // DWRITE_TEXT_ALIGNMENT_JUSTIFIED : 양쪽 맞춤
 
     void SetColor(string key);
     void SetStyle(string key);
