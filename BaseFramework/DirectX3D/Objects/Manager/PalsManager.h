@@ -2,7 +2,11 @@
 class PalsManager : public Singleton<PalsManager>
 {
 private:
+<<<<<<< Updated upstream
     UINT SIZE = 100; // 매니저 안에서 굴릴 로봇 대수
+=======
+    UINT SIZE = 50; // 매니저 안에서 굴릴 로봇 대수
+>>>>>>> Stashed changes
     float SPAWN_TIME = 0.1f; // 로봇의 생성, 혹은 재생성에 필요한 시간
 
 public:
