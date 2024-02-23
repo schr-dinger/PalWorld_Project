@@ -3,7 +3,7 @@
 
 BaseScene1::BaseScene1()
 {
-	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
+	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
 	terrainF = new Terrain();
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 	//
