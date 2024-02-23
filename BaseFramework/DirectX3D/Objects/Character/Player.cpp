@@ -5,7 +5,7 @@ Player::Player() :	ModelAnimator("Player")
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
 
-
+    Pos() = { 20, 20, 20 };
     ReadClip("Idle");
 
     ReadClip("WalkF");
