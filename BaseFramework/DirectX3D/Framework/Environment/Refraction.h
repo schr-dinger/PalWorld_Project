@@ -15,7 +15,7 @@ public:
     void PostRender();
 
     void GUIRender();
-
+    WaterBuffer* GetWaterBuffer() { return waterBuffer; }
 private:
     WaterBuffer* waterBuffer;
 

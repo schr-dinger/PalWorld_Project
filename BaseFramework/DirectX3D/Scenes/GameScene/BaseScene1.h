@@ -16,6 +16,7 @@ private:
 	QuadTreeTerrain* terrain;
 	Terrain* terrainF;
 	SkyBox* skyBox;
+	Water* water;
 
 
 	Player* player;

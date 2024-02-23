@@ -13,7 +13,7 @@ public:
     // 일렁임, 반사 설정용
     void SetRefraction();
     void SetReflection();
-
+    Refraction* GetRefraction() { return refraction; }
 private:
     void MakeMesh();
 

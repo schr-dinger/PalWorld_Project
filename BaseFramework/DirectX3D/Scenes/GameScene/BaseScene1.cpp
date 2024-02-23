@@ -6,6 +6,12 @@ BaseScene1::BaseScene1()
 	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH.png");
 	terrainF = new Terrain();
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
+	//
+	water = new Water(L"Textures/Landscape/Wave.dds", 500, 500);
+	water->Pos() = { 0.0f,10.0f,0.0f };
+	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
+	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
+
 
 	player = new Player();
 
@@ -21,6 +27,8 @@ BaseScene1::~BaseScene1()
 {
 	delete player;
 	delete terrain;
+	delete terrainF;
+	delete water;
 
 	PalsManager::Get()->Delete();
 
@@ -28,6 +36,9 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
+	water->Update();
+
+
 	player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
@@ -39,13 +50,25 @@ void BaseScene1::Update()
 
 void BaseScene1::PreRender()
 {
+	water->SetRefraction();
+
+	//일렁임 쪽 클래스의 쿼드에 일렁임의 결과 출력
+	skyBox->Render();
+
+	//반사
+	water->SetReflection();
+	//반사 출력
+	skyBox->Render();
+
 }
 
 void BaseScene1::Render()
 {
 	skyBox->Render();
-
 	terrain->Render();
+	water->Render();
+
+
 	player->Render();
 	
 	PalsManager::Get()->Render();
@@ -61,6 +84,7 @@ void BaseScene1::PostRender()
 void BaseScene1::GUIRender()
 {
 	player->GUIRender();
+	water->GUIRender();
 	//PalsManager::Get()->GUIRender();
 
 }
