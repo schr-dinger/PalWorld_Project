@@ -168,7 +168,7 @@ void PalsManager::Spawn()
         if (!pal->GetTransform()->Active()) // 로봇을 조회 중인데 비활성화 중인 개체가 있으면
         {
             pal->Spawn(randomPos); // 개별 로봇 호출
-            break; //반복문(생성 절차) 종료
+            return; //반복문(생성 절차) 종료
         }
     }
 }
