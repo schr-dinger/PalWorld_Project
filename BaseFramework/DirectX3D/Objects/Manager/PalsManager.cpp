@@ -10,7 +10,7 @@ PalsManager::PalsManager()
     {
         Transform* transform = palsInstancing[0]->Add();
         transform->SetActive(false);
-        transform->Scale() *= 0.01;// 사이즈 조절
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new Penguin(transform, palsInstancing[0], i);
         pals.push_back(pal);
     }

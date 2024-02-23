@@ -31,6 +31,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     );
     hpBar->SetActive(false);
 
+    tmpN = 0;
 }
 
 Penguin::~Penguin()
@@ -58,7 +59,18 @@ void Penguin::Update()
     UpdateUI(); //UI 업데이트
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
+    //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
     collider->UpdateWorld(); //충돌체 업데이트
+
+    //if (KEY_DOWN('Q'))
+    //{
+    //    tmpN++;
+    //}
+    //else if (KEY_DOWN('E'))
+    //{
+    //    tmpN = 0;;
+    //
+    //}
 }
 
 void Penguin::Render()
@@ -82,7 +94,8 @@ void Penguin::GUIRender()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
-    collider->GUIRender();
+    ///collider->GUIRender();
+    //ImGui::Text("Node : %d", &tmpN);
 }
 
 void Penguin::Damage()

@@ -61,6 +61,6 @@ void BaseScene1::PostRender()
 void BaseScene1::GUIRender()
 {
 	player->GUIRender();
-	//PalsManager::Get()->GUIRender();
+	PalsManager::Get()->GUIRender();
 
 }
