@@ -30,6 +30,7 @@ Player::Player() :	ModelAnimator("Player")
     action = (ACTION)frameBuffer->Get().cur.clip;
 
     PlayClip(0);
+
 }
 
 Player::~Player()
@@ -80,7 +81,7 @@ void Player::Control()
     {
         Rotate();
     }
-    //Jump();
+    Jump(terrain->GetHeight(Pos()));
 }
 
 void Player::Move()

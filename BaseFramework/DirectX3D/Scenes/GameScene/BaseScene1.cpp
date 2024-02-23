@@ -14,12 +14,14 @@ BaseScene1::BaseScene1()
 
 
 	player = new Player();
+	player->SetTerrain(terrainF);
 
 	CAM->SetTarget(player);
 	CAM->TargetOptionLoad("test2"); // 나루토에 맞춘 카메라 위치 설정 로드 (있으면 로드 없으면 그대로)
 	//CAM->LookAtTarget(); // 팔로우캠 + 추적 대상 있음 + 그 추적 대상을 락온으로 추적 (이 경우는 나루토)
 
 	PalsManager::Get()->SetTarget(player);
+	PalsManager::Get()->SetTerrain(terrainF);
 	
 }
 
@@ -39,11 +41,11 @@ void BaseScene1::Update()
 	water->Update();
 
 
-	player->Jump(terrainF->GetHeight(player->GlobalPos()));
+	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-	PalsManager::Get()->OnGround(terrainF); 
+	//PalsManager::Get()->OnGround(terrainF); 
 	PalsManager::Get()->Update();
 
 }

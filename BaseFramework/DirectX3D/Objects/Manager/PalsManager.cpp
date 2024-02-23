@@ -38,6 +38,8 @@ PalsManager::~PalsManager()
 
 void PalsManager::Update()
 {
+    OnGround(terrain);
+
     // 충돌 판정 진행
     Collision();
 

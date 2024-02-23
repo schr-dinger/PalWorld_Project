@@ -34,8 +34,10 @@ private:
     void Rotate();
     void SetAnimation();
     void SetState(ACTION state);
-public:
     void Jump(float _ground);
+
+public:
+    void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
 private:
     ACTION action;
@@ -56,5 +58,6 @@ private:
     bool isJump = false;
     bool isSpace = false;
 
+    Terrain* terrain;
 };
 
