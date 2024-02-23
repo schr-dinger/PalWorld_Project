@@ -52,7 +52,6 @@ public:
     void Render();
 
     float GetHeight(const Vector3& pos, Vector3* normal = nullptr);
-    float GetHeightCompute(Vector3 pos);
 
     Vector3 Picking();
     bool ComputePicking(Vector3& pos);

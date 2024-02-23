@@ -58,7 +58,7 @@ float Terrain::GetHeight(const Vector3& pos, Vector3* normal)
     index[2] = width * z + x + 1;
     index[3] = width * (z + 1) + x + 1;
 
-    vector<VertexType> vertices = mesh->GetVertices();
+    vector<VertexType>& vertices = mesh->GetVertices();
 
     Vector3 p[4];
     for (UINT i = 0; i < 4; i++)
@@ -92,54 +92,6 @@ float Terrain::GetHeight(const Vector3& pos, Vector3* normal)
         }
         return result.y;
     }
-}
-
-float Terrain::GetHeightCompute(Vector3 pos)
-{
-    Ray ray;
-    ray.pos = pos;
-    ray.dir = Vector3(0, 1, 0);
-
-    rayBuffer->Get().pos = ray.pos;
-    rayBuffer->Get().dir = ray.dir;
-    rayBuffer->Get().triangleSize = triangleSize;
-
-    rayBuffer->SetCS(0);
-
-    DC->CSSetShaderResources(0, 1, &structuredBuffer->GetSRV());
-    DC->CSSetUnorderedAccessViews(0, 1, &structuredBuffer->GetUAV(), nullptr);
-
-    computeShader->Set();
-
-    UINT x = ceil((float)triangleSize / 64.0f);
-
-    DC->Dispatch(x, 1, 1);
-
-    structuredBuffer->Copy(outputs.data(), sizeof(OutputDesc) * triangleSize);
-
-    float minDistance = FLT_MAX;
-    int minIndex = -1;
-
-    UINT index = 0;
-    for (OutputDesc output : outputs)
-    {
-        if (output.picked)
-        {
-            if (minDistance > output.distance)
-            {
-                minDistance = output.distance;
-                minIndex = index;
-            }
-        }
-        index++;
-    }
-
-    if (minIndex >= 0)
-    {
-        return (ray.pos + ray.dir * minDistance).y;
-    }
-
-    return 0;
 }
 
 Vector3 Terrain::Picking()
