@@ -91,7 +91,7 @@ void Naruto::Move()
 
     bool isMoveZ = false; // 전후 이동 중 : 기본값 "아님"
     bool isMoveX = false; // 좌우 이동 중 : 기본값 "아님"
-
+    /*
     if (KEY_PRESS('W'))
     {
         velocity.z += DELTA; //속력 기준에 시간 경과만큼 누적값 주기
@@ -115,6 +115,7 @@ void Naruto::Move()
         velocity.x += DELTA;
         isMoveX = true;
     }
+    */
 
     // 속력 기준 값의 x,z (평면상의 xy) 값을 판단해서 방향을 구한다
     if (velocity.Length() > 1) velocity.Normalize(); // 정규화를 풀면? -> 속력이 빨라지는 것뿐만 아니라

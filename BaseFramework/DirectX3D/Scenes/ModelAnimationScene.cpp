@@ -38,10 +38,16 @@ ModelAnimationScene::ModelAnimationScene()
     //modelAnimator = new ModelAnimator("Fox");
     //modelAnimator->ReadClip("Fox_Run");
 
-    modelAnimator = new ModelAnimator("ElecP");
-    modelAnimator->ReadClip("ElecP_run");
-    modelAnimator->ReadClip("ElecP_skill");
-    modelAnimator->ReadClip("ElecP_damage");
+    modelAnimator = new ModelAnimator("NPC");
+    modelAnimator->ReadClip("Rifle_run");
+    modelAnimator->ReadClip("Rifle_draw");
+    modelAnimator->ReadClip("Rifle_reload");
+    modelAnimator->ReadClip("Rifle_idle");
+    modelAnimator->ReadClip("Rifle_crouch_aim");
+    modelAnimator->ReadClip("Rifle_crouch_Idle");
+    modelAnimator->ReadClip("Rifle_crouch_Walk");
+
+    //test = new Model ("bow_test");
 
     //modelAnimator->ReadClip("test_encount");
     //modelAnimator->ReadClip("test_damage");
@@ -62,6 +68,7 @@ ModelAnimationScene::ModelAnimationScene()
 ModelAnimationScene::~ModelAnimationScene()
 {
     delete modelAnimator;
+    delete test;
 }
 
 void ModelAnimationScene::Update()
@@ -78,7 +85,7 @@ void ModelAnimationScene::Update()
         modelAnimator->PlayClip(4);
 
 
-
+    //test->UpdateWorld();
     modelAnimator->Update();
 }
 
@@ -89,6 +96,7 @@ void ModelAnimationScene::PreRender()
 void ModelAnimationScene::Render()
 {
     modelAnimator->Render();
+    //test->Render();
 }
 
 void ModelAnimationScene::PostRender()

@@ -17,4 +17,6 @@ private:
 
 private:
     ModelAnimator* modelAnimator;
+
+    Model* test;
 };

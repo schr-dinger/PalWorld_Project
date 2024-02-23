@@ -20,6 +20,7 @@ public:
     void GUIRender();
 
     Transform* GetTransform() { return mainHand; }
+    Collider* GetCollider() { return tmpCollider; }
 
 private:
     void Control();

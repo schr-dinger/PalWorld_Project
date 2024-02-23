@@ -10,13 +10,14 @@ ElecPanda::ElecPanda() : ModelAnimator("ElecP")
 	ReadClip("ElecP_run");
 	ReadClip("ElecP_skill");
 	ReadClip("ElecP_damage");
+	ReadClip("ElecP_idle");
 
 	collider->SetParent(transform);
 	collider->Scale() *= 0.5f;
 
 	Scale() *= 0.01f;
 
-	GetClip(ATTACK)->SetEvent(bind(&ElecPanda::EndAttack, this), 0.5f);
+	GetClip(ATTACK)->SetEvent(bind(&ElecPanda::EndAttack, this), 0.7f);
 }
 
 ElecPanda::~ElecPanda()
@@ -34,6 +35,8 @@ void ElecPanda::Update()
 
 	velocity = target->GlobalPos() - transform->GlobalPos(); // target 지정하고
 
+
+	Pos() += velocity * DELTA;
 	if (KEY_PRESS('W'))
 	{
 		Pos() -= Forward() * 10 * DELTA;
@@ -45,12 +48,23 @@ void ElecPanda::Update()
 
 	if (KEY_PRESS(VK_SPACE))
 	{
+		collider->UpdateWorld();
+
 		SetState(ATTACK);
-		Pos().z -= 100 * DELTA;
+		//Pos().z -= 100 * DELTA;
 		
 			
 	}
 
+	if (test)
+	{
+		test2 += 10 * DELTA;
+		if (test2 > 0.5)
+		{
+			test = false;
+		}
+	}
+	
 
 
 	ModelAnimator::Update();
@@ -61,8 +75,13 @@ void ElecPanda::Update()
 
 void ElecPanda::Render()
 {
-	ModelAnimator::Render();
-	collider->Render();
+	if (!test)
+	{
+		ModelAnimator::Render();
+		collider->Render();
+	}
+	
+	
 }
 
 void ElecPanda::GUIRender()
@@ -90,8 +109,24 @@ void ElecPanda::Move()
 	if (curState == HIT) return;
 
 
-	transform->Pos() += velocity.GetNormalized() * 20 * DELTA;
-	transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI; 
+	Pos() += velocity.GetNormalized() * 20 * DELTA;
+	Rot().y = atan2(velocity.x, velocity.z) + XM_PI; 
+
+}
+
+void ElecPanda::Test(Collider* collider)
+{
+
+	if (this->collider->IsCollision(collider))
+	{
+		this->collider->SetColor(1, 1, 1);
+	}
+	else
+	{
+		this->collider->SetColor(1, 0, 0);
+	}
+
+
 
 }
 
@@ -144,7 +179,10 @@ void ElecPanda::SetState(State state)
 void ElecPanda::EndAttack()
 {
 	
+	test2 = 0;
+	test = true;
 	SetState(RUN);
-
+	Pos() = collider->GlobalPos();
+	
 	
 }

@@ -192,14 +192,12 @@ using namespace GameMath;
 //Pal
 #include "Objects/Character/Pal.h"
 #include "Objects/Character/Penguin.h"
+#include "Objects/Character/ElecPanda.h"
 
 //Player
 #include "Objects/Character/Player.h"
-<<<<<<< HEAD
-#include "Objects/Character/ElecPanda.h"
 
-=======
->>>>>>> main
+
 
 #include "Objects/Manager/BlockManager.h"
 #include "Objects/Manager/KunaiManager.h"

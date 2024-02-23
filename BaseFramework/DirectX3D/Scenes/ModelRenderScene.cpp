@@ -8,7 +8,7 @@ ModelRenderScene::ModelRenderScene()
     test = new ElecPanda();
     naruto = new Naruto();
 
-    naruto->Scale() *= 0.1f;
+    naruto->Scale() *= 0.01f;
 
     test->SetTarget(naruto->GetTransform());
 }
@@ -22,7 +22,7 @@ ModelRenderScene::~ModelRenderScene()
 void ModelRenderScene::Update()
 {
 
-
+    test->Test(naruto->GetCollider());
 
     //model->UpdateWorld();
     naruto->Update();

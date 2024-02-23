@@ -1,6 +1,6 @@
 <Material Name="MI_ElecPanda_Eye.002">
-    <Shader Vertex="" Pixel=""/>
-    <Texture Diffuse="Textures/Color/White.png" Specular="Textures/Color/White.png" Normal="Textures/Color/White.png"/>
+    <Shader Vertex="" Pixel="Shaders/Model/ModelAnimation.hlsl"/>
+    <Texture Diffuse="Textures\Model\ElecP\ElecPanda_eyes_tex2.png" Specular="Textures/Color/White.png" Normal="Textures/Color/White.png"/>
     <Property Shininess="25" HasNormalMap="0">
         <Diffuse R="0.30000001" G="0.30000001" B="0.30000001" A="1"/>
         <Specular R="0.30000001" G="0.30000001" B="0.30000001" A="1"/>

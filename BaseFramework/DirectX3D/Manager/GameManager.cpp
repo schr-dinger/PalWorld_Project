@@ -55,13 +55,10 @@ GameManager::GameManager()
 
     SceneManager::Get()->Add("Grid");
     //SceneManager::Get()->Add("ModelExport");
-<<<<<<< HEAD
     SceneManager::Get()->Add("ModelRender");
-=======
 
     //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("Collision");
->>>>>>> main
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
     //SceneManager::Get()->Add("BillboardScene");

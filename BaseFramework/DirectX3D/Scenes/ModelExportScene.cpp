@@ -3,64 +3,44 @@
 
 ModelExportScene::ModelExportScene()
 {
-<<<<<<< HEAD
-    string name = "ElecP";
-=======
-    string name = "PenGuin";
->>>>>>> main
+
+    string name = "NPC";
     string file = "Models/FBX/" + name + ".fbx";
     ModelExporter* exporter;
     string clipName;
 
-    exporter = new ModelExporter(name, file);
-    exporter->ExportMaterial();
-    exporter->ExportMesh();
-    delete exporter;    
-    
-    //clipName = "Dying";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     //exporter = new ModelExporter(name, file);
-<<<<<<< HEAD
     //exporter->ExportMaterial();
     //exporter->ExportMesh();
     //delete exporter;    
-    
-    clipName = "ElecP_damage";
+                
+          
+       
+    clipName = "Rifle_draw";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
-    exporter->ExportClip(clipName);    
+    exporter->ExportClip(clipName);
     delete exporter;
     
-    //clipName = "ElecP_skill";
-=======
-    //exporter->ExportClip(clipName);    
-    //delete exporter;
-    //
-    //clipName = "Run";
+
+    clipName = "Rifle_idle";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);
+    delete exporter;
+    
+    //clipName = "Rifle_Crouch_Idle";
     //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     //exporter = new ModelExporter(name, file);
     //exporter->ExportClip(clipName);
     //delete exporter;
-    //
-    //clipName = "Walk";
+    
+    //clipName = "Rifle_Crouch_Walk";
     //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     //exporter = new ModelExporter(name, file);
     //exporter->ExportClip(clipName);
     //delete exporter;
-    //
-    //clipName = "Hit";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
-    //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);
-    //delete exporter;
-    //
-    //clipName = "StandUp";
->>>>>>> main
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
-    //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);
-    //delete exporter;
-<<<<<<< HEAD
+
     /*
     clipName = "test_sleepE";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
@@ -92,8 +72,7 @@ ModelExportScene::ModelExportScene()
     exporter->ExportClip(clipName);
     delete exporter;
     */
-=======
->>>>>>> main
+
 }
 
 ModelExportScene::~ModelExportScene()

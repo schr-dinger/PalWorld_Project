@@ -32,6 +32,7 @@ public:
 	void Attack();
 	void Move();
 
+	void Test(Collider* collider);
 
 	Transform* GetTransform() { return transform; }
 	CapsuleCollider* GetCollider() { return collider; }
@@ -56,8 +57,10 @@ private:
 
 	Transform* target;
 
-
 	Vector3 velocity;
+
+	bool test = false;
+	float test2 = 0;
 
 };
 
