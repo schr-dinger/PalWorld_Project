@@ -87,6 +87,8 @@ void BaseScene1::GUIRender()
 {
 	//player->GUIRender();
 	//water->GUIRender();
+	terrain->GUIRender();
+
 	PalsManager::Get()->GUIRender();
 
 }
