@@ -200,6 +200,7 @@ using namespace GameMath;
 #include "Objects/Manager/KunaiManager.h"
 #include "Objects/Manager/RobotManager.h"
 #include "Objects/Manager/PalsManager.h"
+#include "Objects/Manager/PlayerPalsManager.h"
 
 //Scene Header
 #include "Scenes/Scene.h"

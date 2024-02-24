@@ -3,6 +3,12 @@
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
     :transform(transform), instancing(instancing), index(index)
 {
+    name = "펭키";
+    speed = 5; //속력 : 기본 스탯
+    maxHP = 100;
+    curHP = 100;
+
+
     root = new Transform(); // 콜라이더가 위치할 장소(위치)
 
     //충돌체
@@ -133,6 +139,18 @@ void Penguin::Spawn(Vector3 pos)
     hpBar->SetAmount(curHP / maxHP);
 
     transform->Pos() = pos;
+}
+
+void Penguin::Summons(Vector3 pos)
+{
+    transform->SetActive(true); //비활성화였다면 활성화 시작
+    collider->SetActive(true);
+
+    SetAction(ACTION::IDLE); // 
+    hpBar->SetAmount(curHP / maxHP);
+
+    transform->Pos() = pos;
+
 }
 
 void Penguin::SetTarget(Transform* target)
