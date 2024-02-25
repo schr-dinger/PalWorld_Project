@@ -236,11 +236,11 @@ void PalsManager::Spawn()
     Vector3 randomPos;
     if (target == nullptr) // 타겟 없는 경우 테스트
     {
-        randomPos = (dir.GetNormalized() * 30);
+        randomPos = (dir.GetNormalized() * 20);
     }
     else
     {
-        randomPos = target->Pos() + (dir.GetNormalized() * 30);
+        randomPos = target->Pos() + (dir.GetNormalized() * 20);
 
     }
     randomPos.y = 0;
