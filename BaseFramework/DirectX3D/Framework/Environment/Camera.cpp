@@ -310,7 +310,7 @@ bool Camera::ContainPoint(Vector3 point, float raidus)
     {
         Vector3 dot = XMPlaneDotCoord(planes[i], point);
 
-        if (dot.x < -raidus * 1.0f)
+        if (dot.x < -raidus * 2.0f)
             return false;
     }
 
