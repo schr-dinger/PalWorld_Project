@@ -12,6 +12,7 @@ BaseScene1::BaseScene1()
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
+	tree = new Tree(terrainF);
 
 	player = new Player();
 	player->SetTerrain(terrainF);
@@ -30,7 +31,9 @@ BaseScene1::~BaseScene1()
 	delete player;
 	delete terrain;
 	delete terrainF;
+
 	delete water;
+	delete tree;
 
 	PalsManager::Get()->Delete();
 
@@ -39,7 +42,7 @@ BaseScene1::~BaseScene1()
 void BaseScene1::Update()
 {
 	water->Update();
-
+	tree->Update();
 
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
@@ -69,7 +72,7 @@ void BaseScene1::Render()
 	skyBox->Render();
 	terrain->Render();
 	water->Render();
-
+	tree->Render();
 
 	player->Render();
 	
