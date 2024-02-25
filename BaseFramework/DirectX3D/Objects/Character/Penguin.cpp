@@ -38,6 +38,9 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     hpBar->SetActive(false);
 
     tmpN = 0;
+
+    velocity = { 0, 0, 0 };
+    target = nullptr;
 }
 
 Penguin::~Penguin()
@@ -58,10 +61,13 @@ void Penguin::Update()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     //ClipSync();
-    velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+    if (target)
+    {
+        velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+        Move(); //움직이기
+    }
 
     ExecuteEvent(); // 이벤트가 터져야 하면 수행하기
-    Move(); //움직이기
     UpdateUI(); //UI 업데이트
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
