@@ -19,13 +19,13 @@ Grass::~Grass()
 void Grass::Update()
 {
     grass1->Update();
-    //grass2->Update();
+    grass2->Update();
 }
 
 void Grass::Render()
 {
     grass1->Render();
-    //grass2->Render();
+    grass2->Render();
 }
 
 void Grass::GUIRender()
