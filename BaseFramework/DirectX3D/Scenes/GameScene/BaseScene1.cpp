@@ -21,8 +21,12 @@ BaseScene1::BaseScene1()
 	//CAM->LookAtTarget(); // 팔로우캠 + 추적 대상 있음 + 그 추적 대상을 락온으로 추적 (이 경우는 나루토)
 
 	PalsManager::Get()->SetTarget(player);
+	PalsManager::Get()->SetPlayer(player);
 	PalsManager::Get()->SetTerrain(terrainF);
 	
+	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
+	PlayerPalsManager::Get()->SetPlayer(player);
+	PlayerPalsManager::Get()->SetTerrain(terrainF);
 }
 
 BaseScene1::~BaseScene1()
@@ -33,6 +37,7 @@ BaseScene1::~BaseScene1()
 	delete water;
 
 	PalsManager::Get()->Delete();
+	PlayerPalsManager::Get()->Delete();
 
 }
 
@@ -45,8 +50,8 @@ void BaseScene1::Update()
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-	//PalsManager::Get()->OnGround(terrainF); 
 	PalsManager::Get()->Update();
+	PlayerPalsManager::Get()->Update();
 
 }
 
@@ -74,12 +79,14 @@ void BaseScene1::Render()
 	player->Render();
 	
 	PalsManager::Get()->Render();
+	PlayerPalsManager::Get()->Render();
 
 }
 
 void BaseScene1::PostRender()
 {
 	PalsManager::Get()->PostRender();
+	PlayerPalsManager::Get()->PostRender();
 
 }
 

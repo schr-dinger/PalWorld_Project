@@ -19,13 +19,20 @@ public:
 
     bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정
 
+    void Caught(Pal* CaughtPal); // 포획
+
+    // 소환 테스트용
+    void SetSelPal(int selPal) { this->selPal = selPal; }
+
+    void Summons();     // 소환
+
+
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
+
 private:
     void OnGround(Terrain* terrain);
     void InsertAllMAI();
     void Collision(); // 세부 충돌 판정 진행
-    void Summons();     // 소환
-    void Caught(Pal* CaughtPal);
 
 private:
     Terrain* terrain;
@@ -39,10 +46,10 @@ private:
 
     float time = 0; //경과된 시간
 
-   
-
     // 알파값 빼기
     BlendState* blendState[2];
+
+
 
 
 };

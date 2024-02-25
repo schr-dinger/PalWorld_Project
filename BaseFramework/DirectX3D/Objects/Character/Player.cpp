@@ -31,6 +31,9 @@ Player::Player() :	ModelAnimator("Player")
 
     PlayClip(0);
 
+    // Å×½ºÆ® : ÆÈ Æ÷È¹
+    testPalSpear = new SphereCollider(0.2f);
+    testPalSpear->SetActive(false);
 }
 
 Player::~Player()
@@ -48,6 +51,8 @@ void Player::Update()
 
 void Player::Render()
 {
+    testPalSpear->Render();
+
     ModelAnimator::Render();
 }
 
@@ -77,10 +82,27 @@ void Player::Control()
     //{
     //    Rot().y -= DELTA;
     //}
+
+    // Å×½ºÆ® : ÆÈ Æ÷È¹, ÆÈÀ» ¸ÂÃèÀ» ¶§¸¸ ÆÈ½ºÇÇ¾î ÄÝ¶óÀÌ´õ È°¼ºÈ­
+    testPalSpear->SetActive(false);
+
     if (KEY_PRESS('V'))
     {
         Rotate();
+        if (KEY_DOWN(VK_LBUTTON)) // ÆÈ °ø°Ý
+        {
+            AttackPal();
+        }
+        else if (KEY_DOWN(VK_RBUTTON)) // ÆÈ Æ÷È¹
+        {
+            CatchPal();
+        }
+        else if (KEY_DOWN('Z')) // Æ÷È¹ÇÑ ÆÈ ¼ÒÈ¯
+        {
+            SummonsPal();
+        }
     }
+   
     Jump(terrain->GetHeight(Pos()));
 }
 
@@ -168,6 +190,46 @@ void Player::Jump(float _ground)
         isSpace = false;
     }
 
+}
+
+void Player::AttackPal()
+{
+    // *ÃÑ¼Ò¸® Ãâ·Â ÇÊ¿ä
+
+    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Vector3 hitPoint;
+
+    if (PalsManager::Get()->IsCollision(ray, hitPoint))
+    {
+        // ÅÂ½ºÆ® : È÷Æ®
+        
+        // ÇÃ·¹ÀÌ¾î¿¡ ÃÑ ¸Â´Â ÀÌÆåÆ® µî Ãß°¡ ÇÊ¿ä
+
+        // ÀÌÆåÆ®´Â È÷Æ® Æ÷ÀÎÆ®¿¡¼­ Ãâ·Â
+    }
+   
+}
+
+void Player::CatchPal()
+{
+    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Vector3 hitPoint;
+
+    if (PalsManager::Get()->IsCollision(ray, hitPoint))
+    {
+        testPalSpear->SetActive(true);
+        testPalSpear->Pos() = hitPoint;
+        testPalSpear->UpdateWorld();
+    }
+
+}
+
+void Player::SummonsPal()
+{
+    // Ã¹¹øÂ° ÆÈ ¼±ÅÃ
+    PlayerPalsManager::Get()->SetSelPal(0);
+    // ÆÈ ¼ÒÈ¯
+    PlayerPalsManager::Get()->Summons();
 }
 
 void Player::SetAnimation()

@@ -7,7 +7,7 @@ PlayerPalsManager::PlayerPalsManager()
 
     selPal = -1;
 
-    InsertAllMAI(); // ¸ğµç ÆÈ ¸ğµ¨ ÀÎ½ºÅÏ½Ì »ı¼º
+    InsertAllMAI(); // ¸ğµç ÆÈ ¸ğµ¨ ÀÎ½ºÅÏ½Ì »ı¼º(ÇöÀç "ÆëÅ°" ÇÏ³ª,)
 
     FOR(2)
         blendState[i] = new BlendState();
@@ -17,6 +17,7 @@ PlayerPalsManager::PlayerPalsManager()
 
 PlayerPalsManager::~PlayerPalsManager()
 {
+    // ¸ğµ¨ ÀÎ½ºÅÏ½Ì »èÁ¦
     for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
     {
         delete iter->second;
@@ -89,7 +90,7 @@ void PlayerPalsManager::SetTarget(Transform* target)
 
 void PlayerPalsManager::SetPlayer(Player* player)
 {
-    player = this->player;
+    this->player = player;
 }
 
 bool PlayerPalsManager::IsCollision(Ray ray, Vector3& hitPoint)

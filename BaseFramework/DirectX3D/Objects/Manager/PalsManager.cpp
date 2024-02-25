@@ -25,6 +25,10 @@ PalsManager::PalsManager()
         blendState[i] = new BlendState();
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
+
+    // 테스트 : 히트
+    testHit = {};
+    testIsHit = false;
 }
 
 PalsManager::~PalsManager()
@@ -108,10 +112,16 @@ void PalsManager::SetTarget(Transform* target)
     }
 }
 
+void PalsManager::SetPlayer(Player* player)
+{
+    this->player = player;
+}
+
 bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
 {
     Contact contact;
     float minDistance = FLT_MAX;
+    int tmp = 0;
     for (Pal* pal : pals)
     {
         //외부에서 온 광선과 로봇이 충돌하면...
@@ -121,10 +131,19 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
             {
                 minDistance = contact.distance; // 갱신정보 계속 반영
                 hitPoint = contact.hitPoint;
+                hitPalIndex = tmp;
             }
         }
+        tmp++;
     }
-    return minDistance != FLT_MAX; // 충돌 확인 됐으면 리턴
+    if (minDistance != FLT_MAX) // 충돌 확인 됐으면 리턴
+    {
+        // 테스트 : 히트
+        testHit = hitPoint;
+        testIsHit = true;
+
+        return true; 
+    }
     return false; // 거리 갱신 안되면 충돌 실패
 }
 
@@ -174,15 +193,37 @@ void PalsManager::InsertAllMAI()
 
 void PalsManager::Collision()
 {
-    for (Pal* pal : pals)
+    //for (Pal* pal : pals)
+    //{
+    //    // 조건에따라 데미지 호출
+    //    if (false) // 
+    //    {
+    //        pal->Damage();
+    //        return;
+    //    }
+    //}
+
+
+    if (testIsHit) // 포획이든 공격이든 맞았으면 활성
     {
-        // 조건에따라 데미지 호출
-        if (false) // 
+        for (Pal* pal : pals)
         {
-            pal->Damage();
-            return;
+            if (pal->GetCollider()->IsCollision(player->GetPalSpearCol()))
+            {
+                // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
+                PlayerPalsManager::Get()->Caught(pal);
+                // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+                pal->GetTransform()->SetActive(false);
+                return; //팔스피어(포획)에 맞았여기서 리턴
+            }
         }
+
+        // 포획이 아니라면 맞기
+        pals[hitPalIndex]->Damage();
+        testIsHit = false;
     }
+    
+    
 }
 
 void PalsManager::Spawn()
