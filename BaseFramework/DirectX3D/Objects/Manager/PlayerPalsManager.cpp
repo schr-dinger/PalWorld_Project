@@ -17,6 +17,11 @@ PlayerPalsManager::PlayerPalsManager()
 
 PlayerPalsManager::~PlayerPalsManager()
 {
+    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    {
+        delete iter->second;
+    }
+
     for (Pal* pal : pals)
         delete pal;
 
