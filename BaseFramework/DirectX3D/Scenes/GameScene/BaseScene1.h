@@ -18,6 +18,7 @@ private:
 	SkyBox* skyBox;
 	Water* water;
 	Tree* tree;
+	Grass* grass;
 
 	Player* player;
 	

@@ -7,21 +7,27 @@ Tree::Tree(Terrain* terrain) : terrain(terrain)
 
     //tree2 = new ModelInstancing("Tree2");
     //Place(tree2);
+
+    tree2 = new ModelInstancing("Tree2");
+    Place(tree2);
 }
 
 Tree::~Tree()
 {
 	delete tree1;
+    delete tree2;
 }
 
 void Tree::Update()
 {
 	tree1->Update();
+    tree2->Update();
 }
 
 void Tree::Render()
 {
 	tree1->Render();
+    tree2->Render();
 }
 
 void Tree::GUIRender()
