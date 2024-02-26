@@ -38,17 +38,34 @@ ModelAnimationScene::ModelAnimationScene()
     //modelAnimator = new ModelAnimator("Fox");
     //modelAnimator->ReadClip("Fox_Run");
 
-    modelAnimator = new ModelAnimator("Robot");
-    modelAnimator->ReadClip("Run");
+    modelAnimator = new ModelAnimator("PenGuin");
+    modelAnimator->ReadClip("Idle");
     modelAnimator->ReadClip("Walk");
-    modelAnimator->ReadClip("Dying");
-    modelAnimator->ReadClip("StandUp");
-    modelAnimator->ReadClip("Hit");
+    modelAnimator->ReadClip("Run");
+    modelAnimator->ReadClip("Attack");
+    modelAnimator->ReadClip("Damage");
+    modelAnimator->ReadClip("Work");
+
+    modelAnimator2 = new ModelAnimator("PenGuin");
+    modelAnimator2->ReadClip("Idle");
+    modelAnimator2->ReadClip("Walk");
+    modelAnimator2->ReadClip("Run");
+    modelAnimator2->ReadClip("Attack");
+    modelAnimator2->ReadClip("Damage");
+    modelAnimator2->ReadClip("Work");
+    modelAnimator2->SetTag("2");
+    modelAnimator2->SetShader(L"Basic/Texture.hlsl");
+
+    FOR(2) blendState[i] = new BlendState();
+
+    blendState[1]->Alpha(true);
+    blendState[1]->AlphaToCoverage(true);
 }
 
 ModelAnimationScene::~ModelAnimationScene()
 {
     delete modelAnimator;
+    delete modelAnimator2;
 }
 
 void ModelAnimationScene::Update()
@@ -65,6 +82,7 @@ void ModelAnimationScene::Update()
         modelAnimator->PlayClip(4);
 
     modelAnimator->Update();
+    modelAnimator2->Update();
 }
 
 void ModelAnimationScene::PreRender()
@@ -73,7 +91,11 @@ void ModelAnimationScene::PreRender()
 
 void ModelAnimationScene::Render()
 {
+    blendState[1]->SetState();
     modelAnimator->Render();
+    modelAnimator2->Render();
+    blendState[0]->SetState();
+
 }
 
 void ModelAnimationScene::PostRender()
@@ -83,6 +105,7 @@ void ModelAnimationScene::PostRender()
 void ModelAnimationScene::GUIRender()
 {
     modelAnimator->GUIRender();
+    modelAnimator2->GUIRender();
 }
 
 void ModelAnimationScene::SetIdle()

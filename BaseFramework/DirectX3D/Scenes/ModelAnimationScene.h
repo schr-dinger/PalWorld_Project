@@ -17,4 +17,8 @@ private:
 
 private:
     ModelAnimator* modelAnimator;
+    ModelAnimator* modelAnimator2;
+
+
+    BlendState* blendState[2];
 };

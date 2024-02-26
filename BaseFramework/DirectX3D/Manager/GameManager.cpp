@@ -57,6 +57,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("ModelExport");
 
     //SceneManager::Get()->Add("ModelRender");
+    //SceneManager::Get()->Add("ModelAnimationScene");
     //SceneManager::Get()->Add("Collision");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");

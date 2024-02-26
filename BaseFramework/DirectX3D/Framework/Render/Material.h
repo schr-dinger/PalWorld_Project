@@ -61,6 +61,8 @@ public:
     string& GetName() { return name; }
     MaterialBuffer::Data& GetData() { return buffer->Get(); }
 
+    void setTag(string tag) { this->tag = tag; };
+
 private:
     void SelectMap(string name, MapType type);
     void UnselectMap(MapType type);
@@ -82,4 +84,6 @@ private:
     Texture* normalMap = nullptr;
 
     MaterialBuffer* buffer;
+
+    string tag;
 };
