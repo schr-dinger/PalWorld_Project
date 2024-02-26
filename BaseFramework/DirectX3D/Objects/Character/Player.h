@@ -32,6 +32,7 @@ private:
     void Control();
     void Move();
     void Rotate();
+
     void SetAnimation();
     void SetState(ACTION state);
     void Jump(float _ground);
@@ -50,10 +51,18 @@ private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
 
+    Transform* CamTransform;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 
     Vector3 velocity;
+
+    Vector3 w;
+    Vector3 a;
+    Vector3 s;
+    Vector3 d;
+
+    Vector3 z = { 0,0,0 };
 
     float moveSpeed = 10;
     float rotSpeed = 1;
@@ -64,7 +73,7 @@ private:
     float gravityMult = 0.005f;
     bool isJump = false;
     bool isSpace = false;
-
+    bool isAiming = false;
     Terrain* terrain;
 
     // Å×½ºÆ® : Æ÷È¹
