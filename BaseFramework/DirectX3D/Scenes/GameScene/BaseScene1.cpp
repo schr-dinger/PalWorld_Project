@@ -14,7 +14,7 @@ BaseScene1::BaseScene1()
 
 	tree = new Tree(terrainF);
 	grass = new Grass(terrainF);
-
+	rock = new Rock(terrainF);
 
 	player = new Player();
 	player->SetTerrain(terrainF);
@@ -41,6 +41,7 @@ BaseScene1::~BaseScene1()
 	delete water;
 	delete tree;
 	delete grass;
+	delete rock;
 
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
@@ -52,6 +53,7 @@ void BaseScene1::Update()
 	water->Update();
 	tree->Update();
 	grass->Update();
+	rock->Update();
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
@@ -81,6 +83,7 @@ void BaseScene1::Render()
 	terrain->Render();
 	water->Render();
 	grass->Render();
+	rock->Render();
 
 	tree->Render();
 
@@ -100,7 +103,7 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//player->GUIRender();
+	player->GUIRender();
 	//water->GUIRender();
 	terrain->GUIRender();
 
