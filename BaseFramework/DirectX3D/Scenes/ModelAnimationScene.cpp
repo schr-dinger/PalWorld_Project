@@ -41,14 +41,19 @@ ModelAnimationScene::ModelAnimationScene()
     transform = new Transform();
 
     modelAnimator = new ModelAnimator("NPC");
-    //modelAnimator->ReadClip("Throw");
-    //modelAnimator->ReadClip("Rifle_crouch_aim");
-    //modelAnimator->ReadClip("Rifle_crouch_Idle");
-    //modelAnimator->ReadClip("Rifle_crouch_Walk");
-    //modelAnimator->ReadClip("Rifle_run");
+   
     modelAnimator->ReadClip("B_Walk");
-    //modelAnimator->ReadClip("S_Idle");
-    //modelAnimator->ReadClip("S_Throw");
+    modelAnimator->ReadClip("B_Run");
+    modelAnimator->ReadClip("J_Start");
+    modelAnimator->ReadClip("J_End");
+    modelAnimator->ReadClip("J_DownLoop");
+    modelAnimator->ReadClip("J_UpLoop");
+
+    modelAnimator->ReadClip("S_Aim");
+    modelAnimator->ReadClip("S_Idle");
+    modelAnimator->ReadClip("S_Throw");
+    
+    
     
     
     
@@ -61,7 +66,7 @@ ModelAnimationScene::ModelAnimationScene()
     test->SetParent(transform);
     test->Pos().y -= 0.05f;
     test->Rot().x += 1.5f;
-    test->Rot().y -= 0.14f;
+    test->Rot().y -= 0.10f;
     
 
     //modelAnimator->ReadClip("test_encount");
@@ -90,6 +95,7 @@ ModelAnimationScene::~ModelAnimationScene()
 void ModelAnimationScene::Update()
 {
     transform->SetWorld(modelAnimator->GetTransformByNode(node));
+
     if (KEY_DOWN('1'))
         modelAnimator->PlayClip(0);
     if (KEY_DOWN('2'))
@@ -109,7 +115,10 @@ void ModelAnimationScene::Update()
     {
         modelAnimator->Pos() += modelAnimator->Forward() * 10 * DELTA;
     }
-
+    if (KEY_PRESS('E'))
+    {
+        modelAnimator->Rot().y += 10 * DELTA;
+    }
 
     test->UpdateWorld();
     modelAnimator->Update();

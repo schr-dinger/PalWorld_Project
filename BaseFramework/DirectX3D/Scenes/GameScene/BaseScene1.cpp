@@ -19,6 +19,8 @@ BaseScene1::BaseScene1()
 	player = new Player();
 	player->SetTerrain(terrainF);
 
+
+	player->Scale() *= 5.0f;
 	//CAM->SetTarget(player);
 	//CAM->TargetOptionLoad("test3");
 	//CAM->LookAtTarget(); // 팔로우캠 + 추적 대상 있음 + 그 추적 대상을 락온으로 추적 (이 경우는 나루토)
@@ -72,12 +74,12 @@ void BaseScene1::PreRender()
 
 void BaseScene1::Render()
 {
-	skyBox->Render();
+	//skyBox->Render();
 	//terrain->Render();
-	water->Render();
-	grass->Render();
+	//water->Render();
+	//grass->Render();
 
-	tree->Render();
+	//tree->Render();
 
 	player->Render();
 	

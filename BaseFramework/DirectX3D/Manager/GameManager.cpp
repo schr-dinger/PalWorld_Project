@@ -29,7 +29,7 @@ GameManager::GameManager()
     Create();
 
     SceneManager::Get()->Create("Grid", new GridScene());
-    SceneManager::Get()->Create("ModelExport", new ModelExportScene());
+    //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
     SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     //SceneManager::Get()->Create("NewScene", new BaseScene1());
     //SceneManager::Get()->Create("Cube", new CubeScene());
@@ -55,7 +55,7 @@ GameManager::GameManager()
 
 
     SceneManager::Get()->Add("Grid");
-    SceneManager::Get()->Add("ModelExport");
+    //SceneManager::Get()->Add("ModelExport");
     SceneManager::Get()->Add("ModelAnimationScene");
     //SceneManager::Get()->Add("NewScene");
 
