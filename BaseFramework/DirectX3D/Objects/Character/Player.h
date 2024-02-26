@@ -31,7 +31,9 @@ private:
     void ClipSync();
     void Control();
     void Move();
+    void AimRotate();
     void Rotate();
+
     void SetAnimation();
     void SetState(ACTION state);
     void Jump(float _ground);
@@ -50,6 +52,7 @@ private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
 
+    Transform* CamTransform;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 

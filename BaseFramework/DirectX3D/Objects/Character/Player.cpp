@@ -5,7 +5,15 @@ Player::Player() :	ModelAnimator("Player")
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
 
-    Pos() = { 20, 20, 20 };
+    //CAM->SetTarget(this);
+    //CAM->TargetOptionLoad("test3");
+
+
+    CamTransform = new Transform();
+    CAM->SetParent(CamTransform);
+    CAM->Pos() = { 10,5,10 };
+
+    Pos() = { -5, 10, 5 };
     ReadClip("Idle");
 
     ReadClip("WalkF");
@@ -38,12 +46,15 @@ Player::Player() :	ModelAnimator("Player")
 
 Player::~Player()
 {
-
+    delete CamTransform;
 }
 
 void Player::Update()
 {
+    CamTransform->Pos() = this->Pos();
+
     //ClipSync();
+    CamTransform->UpdateWorld();
     Control();
     SetAnimation();
     ModelAnimator::Update();
@@ -88,7 +99,7 @@ void Player::Control()
 
     if (KEY_PRESS('V'))
     {
-        Rotate();
+        AimRotate();
         if (KEY_DOWN(VK_LBUTTON)) // ÆÈ °ø°Ý
         {
             AttackPal();
@@ -101,6 +112,10 @@ void Player::Control()
         {
             SummonsPal();
         }
+    }
+    else
+    {
+        Rotate();
     }
    
     Jump(terrain->GetHeight(Pos()));
@@ -159,12 +174,21 @@ void Player::Move()
 
 }
 
+void Player::AimRotate()
+{
+    Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
+    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+    Rot().y += delta.x * rotSpeed * DELTA;
+    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
+}
+
 void Player::Rotate()
 {
-     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
-     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
-     Rot().y += delta.x * rotSpeed * DELTA;
-     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
+    Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
+    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
+    CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
+
 }
 
 void Player::Jump(float _ground)
