@@ -31,7 +31,6 @@ private:
     void ClipSync();
     void Control();
     void Move();
-    void AimRotate();
     void Rotate();
 
     void SetAnimation();
@@ -58,6 +57,13 @@ private:
 
     Vector3 velocity;
 
+    Vector3 w;
+    Vector3 a;
+    Vector3 s;
+    Vector3 d;
+
+    Vector3 z = { 0,0,0 };
+
     float moveSpeed = 10;
     float rotSpeed = 1;
     float deceleration = 5;
@@ -67,7 +73,7 @@ private:
     float gravityMult = 0.005f;
     bool isJump = false;
     bool isSpace = false;
-
+    bool isAiming = false;
     Terrain* terrain;
 
     // Å×½ºÆ® : Æ÷È¹

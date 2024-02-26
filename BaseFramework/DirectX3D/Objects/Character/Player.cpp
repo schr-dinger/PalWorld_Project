@@ -11,9 +11,9 @@ Player::Player() :	ModelAnimator("Player")
 
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
-    CAM->Pos() = { 10,5,10 };
+    CAM->Pos() = { -0.05,2.5,2.5 };
 
-    Pos() = { -5, 10, 5 };
+    Pos() = { 100, 0, 100 };
     ReadClip("Idle");
 
     ReadClip("WalkF");
@@ -84,22 +84,13 @@ void Player::Control()
 {
     Move();
 
-    //if (KEY_PRESS(VK_LEFT))
-    //{
-    //    Rot().y += DELTA;
-    //}
-
-    //if (KEY_PRESS(VK_RIGHT))
-    //{
-    //    Rot().y -= DELTA;
-    //}
-
     // 테스트 : 팔 포획, 팔을 맞췄을 때만 팔스피어 콜라이더 활성화
     testPalSpear->SetActive(false);
 
     if (KEY_PRESS('V'))
     {
-        AimRotate();
+        isAiming = true;
+
         if (KEY_DOWN(VK_LBUTTON)) // 팔 공격
         {
             AttackPal();
@@ -115,9 +106,12 @@ void Player::Control()
     }
     else
     {
-        Rotate();
+        isAiming = false;
+
     }
-   
+
+    Rotate();
+
     Jump(terrain->GetHeight(Pos()));
 }
 
@@ -128,26 +122,44 @@ void Player::Move()
 
     if (KEY_PRESS('W'))
     {
-        velocity.z += DELTA;
+        w = -CamTransform->Forward();
         isMoveZ = true;
+    }
+    else
+    {
+        w = z;
     }
 
     if (KEY_PRESS('S'))
     {
-        velocity.z -= DELTA;
+        s = -CamTransform->Back();
         isMoveZ = true;
     }
+    else
+    {
+        s = z;
+    }
+
 
     if (KEY_PRESS('A'))
     {
-        velocity.x -= DELTA;
+        a = -CamTransform->Left();
         isMoveX = true;
     }
+    else
+    {
+        a = z;
+    }
+
 
     if (KEY_PRESS('D'))
     {
-        velocity.x += DELTA;
+        d = -CamTransform->Right();
         isMoveX = true;
+    }
+    else
+    {
+        d = z;
     }
 
     if (KEY_DOWN(VK_SPACE))
@@ -158,28 +170,74 @@ void Player::Move()
         isSpace = true;
     }
 
+    velocity = w + a + s + d;
+    velocity.Normalize();
+    
+    //여기서부터 다시보기
+    Vector3 forward = Forward();
+    Vector3 cross = Cross(forward, velocity);
 
-    if (velocity.Length() > 1) velocity.Normalize();
+    if (cross.y < 0)
+    {
+        Rot().y += 5 * DELTA;
+    }
+    else if (cross.y > 0)
+    {
+        Rot().y -= 5 * DELTA;
+    }
 
-    if (!isMoveZ)
-        velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //보간으로 감속
 
-    if (!isMoveX)
-        velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
+    Pos() += velocity * moveSpeed * DELTA;
+    //if (KEY_PRESS('W'))
+    //{
+    //    velocity += CamTransform->Forward() * DELTA;
 
-    Matrix rotY = XMMatrixRotationY(Rot().y);
-    Vector3 direction = XMVector3TransformCoord(velocity, rotY);
+    //    isMoveZ = true;
+    //}
 
-    Pos() += direction * moveSpeed * DELTA*-1;
+    //if (KEY_PRESS('S'))
+    //{
+    //    velocity += CamTransform->Back() * DELTA;
+    //    isMoveZ = true;
+    //}
 
-}
+    //if (KEY_PRESS('A'))
+    //{
+    //    velocity += CamTransform->Left() * DELTA;
+    //    isMoveX = true;
+    //}
 
-void Player::AimRotate()
-{
-    Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
-    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
-    Rot().y += delta.x * rotSpeed * DELTA;
-    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
+    //if (KEY_PRESS('D'))
+    //{
+    //    velocity += CamTransform->Right() * DELTA;
+    //    isMoveX = true;
+    //}
+
+
+    //if (KEY_DOWN(VK_SPACE))
+    //{
+    //    action = ACTION::JUMP;
+    //    jumpVelocity = jumpForce;
+    //    isJump = true;
+    //    isSpace = true;
+    //}
+
+    //if (velocity.Length() > 1) velocity.Normalize();
+
+
+
+    //if (!isMoveZ)
+    //    velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //보간으로 감속
+
+    //if (!isMoveX)
+    //    velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
+
+    //Matrix rotY = XMMatrixRotationY(Rot().y);
+    //Vector3 direction = XMVector3TransformCoord(velocity, rotY);
+    //Rot().y = direction.y;
+
+    //Pos() += direction * moveSpeed * DELTA*-1;
+
 }
 
 void Player::Rotate()
@@ -188,6 +246,9 @@ void Player::Rotate()
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
     CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
+
+    if(isAiming)     Rot().y = CamTransform->Rot().y;
+
 
 }
 
