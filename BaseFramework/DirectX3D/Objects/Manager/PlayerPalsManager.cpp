@@ -59,6 +59,21 @@ void PlayerPalsManager::Update()
 
 void PlayerPalsManager::Render()
 {
+    // 테스트 : 모두 활성화
+    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    {
+        blendState[1]->SetState(); // 투명도 적용
+
+        iter->second->Render();
+        blendState[0]->SetState();
+
+    }
+    for (Pal* pal : pals)
+    {
+        pal->Render();
+    }
+
+
     // 소환한 팔만 활성화, 모션 랜더(현재는 한 마리만 소환)
 
     if (selPal != -1)
