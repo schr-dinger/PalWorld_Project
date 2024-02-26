@@ -37,10 +37,19 @@ void PlayerPalsManager::Update()
     // 충돌 판정 진행
     Collision();
 
-    // 소환한 펠만 업데이트
+    // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
+    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    {
+        iter->second->Update();
+    }
+    for (Pal* pal : pals)
+    {
+        pal->Update();
+    }
+
     if (selPal != -1)
     {
-        palsMAI[pals[selPal]->name]->Update();
+        //palsMAI[pals[selPal]->name]->Update();
 
         pals[selPal]->Update();
     }
