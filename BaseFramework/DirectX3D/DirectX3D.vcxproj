@@ -145,6 +145,8 @@
     <ClInclude Include="Objects\Character\ElecPanda.h" />
     <ClInclude Include="Objects\Character\Player.h" />
     <ClInclude Include="Objects\Character\Pal.h" />
+    <ClInclude Include="Objects\Landscape\Grass.h" />
+    <ClInclude Include="Objects\Landscape\Tree.h" />
     <ClInclude Include="Objects\Manager\PalsManager.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
@@ -273,6 +275,8 @@
     <ClCompile Include="Objects\Character\ElecPanda.cpp" />
     <ClCompile Include="Objects\Character\Player.cpp" />
     <ClCompile Include="Objects\Character\Pal.cpp" />
+    <ClCompile Include="Objects\Landscape\Grass.cpp" />
+    <ClCompile Include="Objects\Landscape\Tree.cpp" />
     <ClCompile Include="Objects\Manager\PalsManager.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />

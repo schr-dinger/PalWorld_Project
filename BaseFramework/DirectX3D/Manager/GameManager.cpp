@@ -29,14 +29,15 @@ GameManager::GameManager()
     Create();
 
     SceneManager::Get()->Create("Grid", new GridScene());
-    //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
-
+    SceneManager::Get()->Create("ModelExport", new ModelExportScene());
+    SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
+    //SceneManager::Get()->Create("NewScene", new BaseScene1());
     //SceneManager::Get()->Create("Cube", new CubeScene());
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
-    SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
-    //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
+    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
     //SceneManager::Get()->Create("BillboardScene", new BillboardScene());
@@ -50,12 +51,13 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("QuadTree", new QuadTreeScene());
     //SceneManager::Get()->Create("LOD", new TerrainLODScene());
     //SceneManager::Get()->Create("WaterScene", new WaterScene());
-    //SceneManager::Get()->Create("NewScene", new BaseScene1());
+    
 
 
     SceneManager::Get()->Add("Grid");
-    //SceneManager::Get()->Add("ModelExport");
-    SceneManager::Get()->Add("ModelRender");
+    SceneManager::Get()->Add("ModelExport");
+    SceneManager::Get()->Add("ModelAnimationScene");
+    //SceneManager::Get()->Add("NewScene");
 
     //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("Collision");

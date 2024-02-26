@@ -17,6 +17,9 @@ private:
 
 private:
     ModelAnimator* modelAnimator;
+    Transform* transform;
+
+    int node = 68;
 
     Model* test;
 };

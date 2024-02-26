@@ -38,16 +38,31 @@ ModelAnimationScene::ModelAnimationScene()
     //modelAnimator = new ModelAnimator("Fox");
     //modelAnimator->ReadClip("Fox_Run");
 
-    modelAnimator = new ModelAnimator("NPC");
-    modelAnimator->ReadClip("Rifle_run");
-    modelAnimator->ReadClip("Rifle_draw");
-    modelAnimator->ReadClip("Rifle_reload");
-    modelAnimator->ReadClip("Rifle_idle");
-    modelAnimator->ReadClip("Rifle_crouch_aim");
-    modelAnimator->ReadClip("Rifle_crouch_Idle");
-    modelAnimator->ReadClip("Rifle_crouch_Walk");
+    transform = new Transform();
 
-    //test = new Model ("bow_test");
+    modelAnimator = new ModelAnimator("NPC");
+    //modelAnimator->ReadClip("Throw");
+    //modelAnimator->ReadClip("Rifle_crouch_aim");
+    //modelAnimator->ReadClip("Rifle_crouch_Idle");
+    //modelAnimator->ReadClip("Rifle_crouch_Walk");
+    //modelAnimator->ReadClip("Rifle_run");
+    modelAnimator->ReadClip("B_Walk");
+    //modelAnimator->ReadClip("S_Idle");
+    //modelAnimator->ReadClip("S_Throw");
+    
+    
+    
+    
+    test = new Model ("Rifle");
+    //test->Rot() *= XM_PIDIV2;
+    //test->Rot().z += 45;
+    test->Scale() *= 0.8f;
+    
+    test->SetParent(transform);
+    test->Pos().y -= 0.05f;
+    test->Rot().x += 1.5f;
+    test->Rot().y -= 0.14f;
+    
 
     //modelAnimator->ReadClip("test_encount");
     //modelAnimator->ReadClip("test_damage");
@@ -58,6 +73,7 @@ ModelAnimationScene::ModelAnimationScene()
 
     
     modelAnimator->Scale() *= 0.01f;
+   
     /*modelAnimator->ReadClip("Walk");
     modelAnimator->ReadClip("Dying");
     modelAnimator->ReadClip("StandUp");
@@ -73,6 +89,7 @@ ModelAnimationScene::~ModelAnimationScene()
 
 void ModelAnimationScene::Update()
 {
+    transform->SetWorld(modelAnimator->GetTransformByNode(node));
     if (KEY_DOWN('1'))
         modelAnimator->PlayClip(0);
     if (KEY_DOWN('2'))
@@ -84,8 +101,17 @@ void ModelAnimationScene::Update()
     if (KEY_DOWN('5'))
         modelAnimator->PlayClip(4);
 
+    if (KEY_PRESS('W'))
+    {
+        modelAnimator->Pos() -= modelAnimator->Forward() * 10 * DELTA;
+    }
+    if (KEY_PRESS('S'))
+    {
+        modelAnimator->Pos() += modelAnimator->Forward() * 10 * DELTA;
+    }
 
-    //test->UpdateWorld();
+
+    test->UpdateWorld();
     modelAnimator->Update();
 }
 
@@ -96,7 +122,9 @@ void ModelAnimationScene::PreRender()
 void ModelAnimationScene::Render()
 {
     modelAnimator->Render();
-    //test->Render();
+
+
+    test->Render();
 }
 
 void ModelAnimationScene::PostRender()
@@ -106,6 +134,11 @@ void ModelAnimationScene::PostRender()
 void ModelAnimationScene::GUIRender()
 {
     modelAnimator->GUIRender();
+
+    test->GUIRender();
+
+    ImGui::SliderInt("node :", &node, 0, 70);
+    
 }
 
 void ModelAnimationScene::SetIdle()

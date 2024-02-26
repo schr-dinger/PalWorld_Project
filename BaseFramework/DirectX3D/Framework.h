@@ -9,7 +9,7 @@
 #define MAX_LIGHT 10
 #define MAX_BONE 512
 #define MAX_FRAME 2048
-#define MAX_INSTANCE 128
+#define MAX_INSTANCE 1000
 
 #define CENTER_X (WIN_WIDTH * 0.5f)
 #define CENTER_Y (WIN_HEIGHT * 0.5f)
@@ -169,6 +169,10 @@ using namespace GameMath;
 #include "Objects/Landscape/QuadTreeTerrain.h"
 #include "Objects/Landscape/TerrainLOD.h"
 #include "Objects/Landscape/Water.h"
+#include "Objects/Landscape/Tree.h"
+#include "Objects/Landscape/Grass.h"
+#include "Objects/Landscape/Rock.h"
+
 
 #include "Objects/Algorithm/DNode.h"
 #include "Objects/Algorithm/Dijkstra.h"

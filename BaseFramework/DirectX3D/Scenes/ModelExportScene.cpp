@@ -13,33 +13,32 @@ ModelExportScene::ModelExportScene()
     //exporter->ExportMaterial();
     //exporter->ExportMesh();
     //delete exporter;    
-                
-          
+                       
        
-    clipName = "Rifle_draw";
+    clipName = "B_Walk";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
     
-
-    clipName = "Rifle_idle";
+    
+    clipName = "S_Idle";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
     
-    //clipName = "Rifle_Crouch_Idle";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
-    //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);
-    //delete exporter;
+    clipName = "S_Throw";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);
+    delete exporter;
     
-    //clipName = "Rifle_Crouch_Walk";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
-    //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);
-    //delete exporter;
+    clipName = "Rifle_run";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);
+    delete exporter;
 
     /*
     clipName = "test_sleepE";

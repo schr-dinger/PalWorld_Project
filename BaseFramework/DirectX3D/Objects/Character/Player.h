@@ -16,7 +16,12 @@ private:
         DAMAGE,
         DRAW,
         AIM,
-        SHOOT
+        SHOOT,
+
+        R_DRAW,
+        R_IDLE,
+        R_RELOAD,
+        R_RUN
     };
 
 public:
@@ -34,8 +39,10 @@ private:
     void Rotate();
     void SetAnimation();
     void SetState(ACTION state);
-public:
     void Jump(float _ground);
+
+public:
+    void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
 private:
     ACTION action;
@@ -56,5 +63,6 @@ private:
     bool isJump = false;
     bool isSpace = false;
 
+    Terrain* terrain;
 };
 

@@ -5,12 +5,13 @@ PalsManager::PalsManager()
     // 여기서부터
     InsertMAI("PenGuin");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
     palsInstancing[0]->ReadClip("Work");    // 추가 모션
+    palsInstancing[0]->SetTag("Penguin");
 
     FOR(SIZE)
     {
         Transform* transform = palsInstancing[0]->Add();
         transform->SetActive(false);
-        transform->Scale() *= 0.01;// 사이즈 조절
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new Penguin(transform, palsInstancing[0], i);
         pals.push_back(pal);
     }
@@ -37,6 +38,8 @@ PalsManager::~PalsManager()
 
 void PalsManager::Update()
 {
+    OnGround(terrain);
+
     // 충돌 판정 진행
     Collision();
 
@@ -84,6 +87,9 @@ void PalsManager::GUIRender()
     for (Pal* pal : pals)
         pal->GUIRender();
 
+    for (ModelAnimatorInstancing* pal : palsInstancing)
+        pal->GUIRender();
+
 }
 
 void PalsManager::SetTarget(Transform* target)
@@ -122,6 +128,7 @@ void PalsManager::OnGround(Terrain* terrain)
 {
     for (Pal* pal : pals)
     {
+        //pal->GetTransform()->Pos().y = terrain->GetHeightCompute(pal->GetTransform()->GlobalPos());
         pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
     }
 }
@@ -167,7 +174,7 @@ void PalsManager::Spawn()
         if (!pal->GetTransform()->Active()) // 로봇을 조회 중인데 비활성화 중인 개체가 있으면
         {
             pal->Spawn(randomPos); // 개별 로봇 호출
-            break; //반복문(생성 절차) 종료
+            return; //반복문(생성 절차) 종료
         }
     }
 }

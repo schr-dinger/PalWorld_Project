@@ -5,7 +5,7 @@ Player::Player() :	ModelAnimator("Player")
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
 
-
+    Pos() = { 20, 20, 20 };
     ReadClip("Idle");
 
     ReadClip("WalkF");
@@ -26,10 +26,18 @@ Player::Player() :	ModelAnimator("Player")
     ReadClip("Aim");
     ReadClip("Shoot");
 
+    ReadClip("Rifle_draw");
+    ReadClip("Rifle_idle");
+    ReadClip("Rifle_reload");
+    ReadClip("Rifle_run");
+
+
+    Scale() *= 0.1f;
 
     action = (ACTION)frameBuffer->Get().cur.clip;
 
     PlayClip(0);
+
 }
 
 Player::~Player()
@@ -80,7 +88,7 @@ void Player::Control()
     {
         Rotate();
     }
-    //Jump();
+    Jump(terrain->GetHeight(Pos()));
 }
 
 void Player::Move()
@@ -171,6 +179,7 @@ void Player::Jump(float _ground)
 
 void Player::SetAnimation()
 {
+    /*
     if (curState == ACTION::SHOOT) return;
 
     if (isJump)
@@ -188,6 +197,21 @@ void Player::SetAnimation()
         else if (velocity.x < -0.1f)
             SetState(ACTION::RUNL);
         else SetState(ACTION::IDLE);
+    }
+    */
+
+
+    ////////////////////////
+
+    // test
+
+    if (KEY_DOWN('1'))
+    {
+        SetState(ACTION::R_RUN);
+    }
+    if (KEY_DOWN('2'))
+    {
+        SetState(ACTION::R_IDLE);
     }
 
 }
