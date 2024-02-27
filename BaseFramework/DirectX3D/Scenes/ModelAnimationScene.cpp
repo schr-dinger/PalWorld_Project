@@ -47,7 +47,7 @@ ModelAnimationScene::ModelAnimationScene()
     modelAnimator->ReadClip("J_Start");
     modelAnimator->ReadClip("J_End");
     modelAnimator->ReadClip("J_DownLoop");
-    modelAnimator->ReadClip("J_UpLoop");
+    
 
     modelAnimator->ReadClip("S_Aim");
     modelAnimator->ReadClip("S_Idle");

@@ -150,6 +150,8 @@
     <ClCompile Include="Scenes\WaterScene.cpp" />
     <ClCompile Include="Objects\Landscape\Tree.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
+    <ClCompile Include="Objects\Landscape\Rock.cpp" />
+    <ClCompile Include="Objects\Manager\PlayerPalsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Character\ElecPanda.h" />
@@ -280,6 +282,8 @@
     <ClInclude Include="Scenes\WaterScene.h" />
     <ClInclude Include="Objects\Landscape\Tree.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
+    <ClInclude Include="Objects\Landscape\Rock.h" />
+    <ClInclude Include="Objects\Manager\PlayerPalsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

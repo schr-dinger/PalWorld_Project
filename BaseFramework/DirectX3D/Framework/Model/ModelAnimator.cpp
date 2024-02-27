@@ -94,8 +94,21 @@ void ModelAnimator::PlayClip(int clip, float scale, float takeTime)
     frameBuffer->Get().next.clip = clip;
     frameBuffer->Get().next.scale = scale;
     frameBuffer->Get().takeTime = takeTime;
-
+        
     clips[clip]->Init();
+}
+
+void ModelAnimator::ClipOnce(int Set)
+{
+
+    int clip = frameBuffer->Get().cur.clip;
+
+    if (frameBuffer->Get().cur.curFrame > clips[clip]->frameCount - Set) frameBuffer->Get().cur.scale = 0;
+    
+
+   
+    
+
 }
 
 Matrix ModelAnimator::GetTransformByNode(int nodeIndex)

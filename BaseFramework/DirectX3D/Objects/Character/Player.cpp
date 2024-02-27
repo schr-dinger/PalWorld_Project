@@ -6,33 +6,32 @@ Player::Player() :	ModelAnimator("NPC")
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
 
     Pos() = { 20, 20, 20 };
-    ReadClip("Idle");
+
+
+    ReadClip("B_Idle");
     ReadClip("B_Walk");
-
-    ReadClip("WalkF");
-    ReadClip("WalkR");
-    ReadClip("WalkL");
-
-    ReadClip("RunF");
-    ReadClip("RunR");
-    ReadClip("RunL");
-
-    ReadClip("Jump");
-
-    ReadClip("Attack");
-
-    ReadClip("Damage");
-
-    ReadClip("Draw");
-    ReadClip("Aim");
-    ReadClip("Shoot");
+    ReadClip("B_Run");
+   
+    ReadClip("J_Start");
+    ReadClip("J_End");
+    ReadClip("J_DownLoop");
 
     ReadClip("Rifle_idle");
     ReadClip("Rifle_reload");
     ReadClip("Rifle_run");
+    ReadClip("Rifle_draw");
+    ReadClip("Rifle_Aim");
+    
+
+    ReadClip("S_Aim");
+    ReadClip("S_Idle");
+    ReadClip("S_Run");
+    ReadClip("S_Throw");
 
 
-    Scale() *= 0.1f;
+
+
+    Scale() *= 0.01f;
 
     action = (ACTION)frameBuffer->Get().cur.clip;
 
@@ -41,6 +40,28 @@ Player::Player() :	ModelAnimator("NPC")
     // Å×½ºÆ® : ÆÈ Æ÷È¹
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
+
+    // Å×½ºÆ® ÃÑ
+    Hand = new Transform();
+
+    Gun = new Model("Rifle");
+    
+    Gun->SetParent(Hand);
+    
+    Gun->Rot().x += 1.5f;
+    Gun->Rot().y -= 0.10f;
+    
+
+    
+
+
+
+    GetClip(ACTION::J_START)->SetEvent(bind(&Player::SetState, this,J_LOOP),0.5f);
+    GetClip(ACTION::J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.2f);
+    GetClip(ACTION::S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.2f);
+
+    
+
 }
 
 Player::~Player()
@@ -51,15 +72,24 @@ Player::~Player()
 void Player::Update()
 {
     //ClipSync();
+    Hand->SetWorld(GetTransformByNode(68));
+
+    
     Control();
     SetAnimation();
+    
+    Gun->UpdateWorld();
     ModelAnimator::Update();
+
+    
+    
 }
 
 void Player::Render()
 {
     testPalSpear->Render();
 
+    Gun->Render();
     ModelAnimator::Render();
 }
 
@@ -95,13 +125,22 @@ void Player::Control()
 
     if (KEY_PRESS('V'))
     {
+
         Rotate();
+                
+        if (!isThrow)
+        {
+            SetState(S_AIM);
+        }
+                
         if (KEY_DOWN(VK_LBUTTON)) // ÆÈ °ø°Ý
         {
             AttackPal();
         }
         else if (KEY_DOWN(VK_RBUTTON)) // ÆÈ Æ÷È¹
         {
+            isThrow = true;
+            SetState(S_THROW);
             CatchPal();
         }
         else if (KEY_DOWN('Z')) // Æ÷È¹ÇÑ ÆÈ ¼ÒÈ¯
@@ -109,7 +148,25 @@ void Player::Control()
             SummonsPal();
         }
     }
+    else if (KEY_UP('V'))
+    {
+        isThrow = false;
+        SetState(IDLE);
+    }
    
+    if (KEY_PRESS(VK_RBUTTON))
+    {
+        SetState(R_Aim);
+    }
+    else if (KEY_UP(VK_RBUTTON))
+    {
+        SetState(IDLE);
+    }
+    
+
+
+
+
     Jump(terrain->GetHeight(Pos()));
 }
 
@@ -122,10 +179,12 @@ void Player::Move()
     {
         velocity.z += DELTA;
         isMoveZ = true;
+
     }
 
     if (KEY_PRESS('S'))
     {
+        
         velocity.z -= DELTA;
         isMoveZ = true;
     }
@@ -144,7 +203,7 @@ void Player::Move()
 
     if (KEY_DOWN(VK_SPACE))
     {
-        action = ACTION::JUMP;
+        
         jumpVelocity = jumpForce;
         isJump = true;
         isSpace = true;
@@ -164,6 +223,10 @@ void Player::Move()
 
     Pos() += direction * moveSpeed * DELTA*-1;
 
+
+    
+
+
 }
 
 void Player::Rotate()
@@ -181,7 +244,7 @@ void Player::Jump(float _ground)
 
     if (Pos().y > _ground+0.5f )
     {
-        if (action != ACTION::JUMP) action = ACTION::JUMP;
+        if (curState != J_LOOP) SetState(J_LOOP);
 
         isJump = true;
     }
@@ -192,7 +255,8 @@ void Player::Jump(float _ground)
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10*DELTA);
         jumpVelocity = 0;
-        if (action == ACTION::JUMP) action = ACTION::IDLE;
+        if (curState == J_LOOP) SetState(J_END);
+
         isJump = false;
         isSpace = false;
     }
@@ -205,6 +269,8 @@ void Player::AttackPal()
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
+
+    
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
@@ -222,6 +288,7 @@ void Player::CatchPal()
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
 
+        
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
         testPalSpear->SetActive(true);
@@ -241,27 +308,36 @@ void Player::SummonsPal()
 
 void Player::SetAnimation()
 {
-    /*
-    if (curState == ACTION::SHOOT) return;
+    if (curState == J_LOOP)
+    {
+        
+        ClipOnce();
+        return;
+    }
+    if (curState == S_AIM|| curState == S_THROW|| curState == R_Aim)
+    {
+        return;
+    }
+
 
     if (isJump)
     {
-        SetState(ACTION::JUMP);
+        SetState(J_START);
     }
     else
     {
         if (velocity.z > 0.1f)
-            SetState(ACTION::RUNF);
+            SetState(WALK);
         else if (velocity.z < -0.1f)
-            SetState(ACTION::RUNF);
+            SetState(WALK);
         else if (velocity.x > 0.1f)
-            SetState(ACTION::RUNR);
+            SetState(WALK);
         else if (velocity.x < -0.1f)
-            SetState(ACTION::RUNL);
-        else SetState(ACTION::IDLE);
+            SetState(WALK);
+        else SetState(IDLE);
+        
     }
-    */
-
+    
 
     ////////////////////////
 
@@ -269,12 +345,9 @@ void Player::SetAnimation()
 
     if (KEY_DOWN('1'))
     {
-        PlayClip(1);
+        SetState(R_DRAW);
     }
-    if (KEY_DOWN('2'))
-    {
-        SetState(ACTION::R_IDLE);
-    }
+
 
 }
 

@@ -15,11 +15,11 @@ ModelExportScene::ModelExportScene()
     //delete exporter;    
                        
        
-    //clipName = "J_Start";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
-    //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);
-    //delete exporter;
+    clipName = "Rifle_Aim";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);
+    delete exporter;
     //
     //
     //clipName = "J_DownLoop";
