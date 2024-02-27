@@ -32,10 +32,10 @@ void PalSpear::Update()
     
     downForce += gravi * DELTA;
 
-    Vector3 tmp = (direction * speed + down * downForce) * DELTA;
+    Vector3 tmp = (direction * speed + down * downForce);
 
     //transform->Pos() += direction * speed * DELTA;
-    transform->Pos() += tmp;
+    transform->Pos() += tmp * DELTA;
 
     if (transform->Pos().y <= terrain->GetHeight(transform->GlobalPos()))
     {

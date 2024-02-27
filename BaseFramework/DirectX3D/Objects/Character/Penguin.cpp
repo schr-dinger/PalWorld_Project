@@ -100,15 +100,7 @@ void Penguin::PostRender()
     if (velocity.Length() >= 15.0f) return;
     hpBar->Render();
 
-    //
-    Vector3 tmp = transform->Pos() + Vector3(0, 2.0f, 0);
-    //tmp = CAM->WorldToScreen(tmp);
-    tmp = hpBar->GlobalPos();
-    tmp.y += 30.0f;
-    string tmpString = name + " 테스트ㅁㄴㅇㄻㄴㅇㄻㅇㄴㄹㄴㅇㅁㄹㄴㅁㅇㄴㅇㄻ";
-    Font::Get()->SetStyle("Default2");
-    Font::Get()->RenderText(tmpString, { tmp.x, tmp.y });
-    Font::Get()->SetStyle("Default");
+    
 
 
 }
@@ -269,6 +261,15 @@ void Penguin::UpdateUI()
     hpBar->Scale() = { 0.3f, 0.3f, 0.3f };
 
     hpBar->UpdateWorld(); // 조정된 정점 업데이트
+    //
+    Vector3 tmp = transform->Pos() + Vector3(0, 2.0f, 0);
+    //tmp = CAM->WorldToScreen(tmp);
+    tmp = hpBar->GlobalPos();
+    tmp.y += 30.0f;
+    string tmpString = name + " 테스트ㅁㄴㅇㄻㄴㅇㄻㅇㄴㄹㄴㅇㅁㄹㄴㅁㅇㄴㅇㄻ";
+    Font::Get()->SetStyle("Default2");
+    Font::Get()->RenderText(tmpString, { tmp.x, tmp.y });
+    Font::Get()->SetStyle("Default");
 }
 
 //void Penguin::ClipSync()
