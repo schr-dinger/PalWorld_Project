@@ -28,6 +28,9 @@ BaseScene1::BaseScene1()
 	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(terrainF);
+
+	//test
+
 }
 
 BaseScene1::~BaseScene1()
@@ -55,6 +58,9 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
+
+
+
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
@@ -87,6 +93,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
+
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 

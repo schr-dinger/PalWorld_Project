@@ -280,9 +280,13 @@ void Player::Jump(float _ground)
 void Player::AttackPal()
 {
     // *총소리 출력 필요
-
-    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Ray ray;
+    ray.pos = CAM->GlobalPos();
+    ray.dir = CAM->Forward();
     Vector3 hitPoint;
+
+    //Ray ray = CAM->ScreenPointToRay(mousePos);
+    //Vector3 hitPoint;
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
@@ -297,8 +301,13 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
-    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Ray ray;
+    ray.pos = CAM->GlobalPos();
+    ray.dir = CAM->Forward();
     Vector3 hitPoint;
+
+    //Ray ray = CAM->ScreenPointToRay(mousePos);
+    //Vector3 hitPoint;
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
