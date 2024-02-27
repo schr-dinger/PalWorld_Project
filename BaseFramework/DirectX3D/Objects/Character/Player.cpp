@@ -42,6 +42,7 @@ Player::Player() :	ModelAnimator("Player")
     // Å×½ºÆ® : ÆÈ Æ÷È¹
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
+
 }
 
 Player::~Player()
@@ -58,6 +59,8 @@ void Player::Update()
     Control();
     SetAnimation();
     ModelAnimator::Update();
+    PalSpearManager::Get()->Update();
+
 }
 
 void Player::Render()
@@ -65,11 +68,15 @@ void Player::Render()
     testPalSpear->Render();
 
     ModelAnimator::Render();
+    PalSpearManager::Get()->Render();
+
 }
 
 void Player::GUIRender()
 {
     ModelAnimator::GUIRender();
+    PalSpearManager::Get()->GUIRender();
+
 }
 
 void Player::ClipSync()
@@ -110,7 +117,7 @@ void Player::Control()
 
     }
 
-    Rotate();
+    //Rotate();
 
     Jump(terrain->GetHeight(Pos()));
 }
@@ -300,12 +307,18 @@ void Player::CatchPal()
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
 
-    if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    {
-        testPalSpear->SetActive(true);
-        testPalSpear->Pos() = hitPoint;
-        testPalSpear->UpdateWorld();
-    }
+    // Æç½ºÇÇ¾î ¸Å´ÏÀú Å×½ºÆ®
+    Vector3 tmp = this->GlobalPos();
+    tmp.y += 2;
+    PalSpearManager::Get()->Throw(tmp, this->Back());
+    //PalSpearManager::Get()->Throw(this->GlobalPos(), this->Back());
+    
+    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
+    //{
+    //    testPalSpear->SetActive(true);
+    //    testPalSpear->Pos() = hitPoint;
+    //    testPalSpear->UpdateWorld();
+    //}
 
 }
 

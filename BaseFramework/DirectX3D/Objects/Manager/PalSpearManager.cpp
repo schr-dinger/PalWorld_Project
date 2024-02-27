@@ -1,0 +1,82 @@
+#include "Framework.h"
+
+PalSpearManager::PalSpearManager()
+{
+    palSpearInstancing = new ModelInstancing("PalSpear");
+
+    palSpears.reserve(SIZE);
+    FOR(SIZE)
+    {
+        Transform* transform = palSpearInstancing->Add();
+        transform->SetActive(false);
+        PalSpear* palSpear = new PalSpear(transform);
+        palSpears.push_back(palSpear);
+    }
+}
+
+PalSpearManager::~PalSpearManager()
+{
+    // 벡터 지우기
+        for (PalSpear* palSpear : palSpears)
+            delete palSpear;
+
+    //모델도 지우기
+    delete palSpearInstancing;
+}
+
+void PalSpearManager::Update()
+{
+    palSpearInstancing->Update(); //모델 업데이트
+    for (PalSpear* palSpear : palSpears) palSpear->Update(); //데이터도 업데이트
+}
+
+void PalSpearManager::Render()
+{
+    palSpearInstancing->Render(); //모델 Render
+    for (PalSpear* palSpear : palSpears) palSpear->Render(); //데이터도 Render
+                    //지금 호출된 쿠나이Render는 원래는 필요가 없다(어디까지나 충돌체 렌더용)
+}
+
+void PalSpearManager::GUIRender()
+{
+    for (PalSpear* palSpear : palSpears) palSpear->GUIRender(); //데이터도 Render
+
+}
+
+void PalSpearManager::Throw(Vector3 pos, Vector3 dir)
+{
+    for (PalSpear* palSpear : palSpears)
+    {
+        //아직 안 던진 순번을 처음부터 판별해서 하나만 던지고 바로 종료
+        if (!palSpear->GetTransform()->Active())
+        {
+            palSpear->Throw(pos, dir);
+            return;
+        }
+    }
+}
+
+bool PalSpearManager::IsCollision(Collider* collider)
+{
+    for (PalSpear* palSpear : palSpears)
+    {
+        if (palSpear->GetCollider()->IsCollision(collider))
+        {
+            //총알이 맞았을 때, "총알이" 수행할 코드를 추가
+
+            //샘플 코드 : 충돌 후 사라지게 하기
+            palSpear->GetTransform()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void PalSpearManager::SetTerrain(Terrain* terrain)
+{
+    for (PalSpear* palSpear : palSpears)
+    {
+        palSpear->SetTerrain(terrain);
+    }
+}

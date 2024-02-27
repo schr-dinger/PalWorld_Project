@@ -28,6 +28,9 @@ BaseScene1::BaseScene1()
 	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(terrainF);
+
+	PalSpearManager::Get()->SetTerrain(terrainF);
+
 }
 
 BaseScene1::~BaseScene1()

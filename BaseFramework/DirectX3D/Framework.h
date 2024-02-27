@@ -161,6 +161,7 @@ using namespace GameMath;
 
 #include "Objects/Items/Weapons/Kunai.h"
 #include "Objects/Items/Weapons/Crowbar.h"
+#include "Objects/Items/Weapons/PalSpear.h"
 
 #include "Objects/Landscape/Terrain.h"
 #include "Objects/Landscape/TerrainEditor.h"
@@ -204,6 +205,7 @@ using namespace GameMath;
 #include "Objects/Manager/KunaiManager.h"
 #include "Objects/Manager/RobotManager.h"
 #include "Objects/Manager/PalsManager.h"
+#include "Objects/Manager/PalSpearManager.h"
 #include "Objects/Manager/PlayerPalsManager.h"
 
 //Scene Header
