@@ -1,12 +1,13 @@
 #include "Framework.h"
 
-Player::Player() :	ModelAnimator("Player")
+Player::Player() :	ModelAnimator("NPC")
 {
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
 
     Pos() = { 20, 20, 20 };
     ReadClip("Idle");
+    ReadClip("B_Walk");
 
     ReadClip("WalkF");
     ReadClip("WalkR");
@@ -26,7 +27,6 @@ Player::Player() :	ModelAnimator("Player")
     ReadClip("Aim");
     ReadClip("Shoot");
 
-    ReadClip("Rifle_draw");
     ReadClip("Rifle_idle");
     ReadClip("Rifle_reload");
     ReadClip("Rifle_run");
@@ -269,7 +269,7 @@ void Player::SetAnimation()
 
     if (KEY_DOWN('1'))
     {
-        SetState(ACTION::R_RUN);
+        PlayClip(1);
     }
     if (KEY_DOWN('2'))
     {
