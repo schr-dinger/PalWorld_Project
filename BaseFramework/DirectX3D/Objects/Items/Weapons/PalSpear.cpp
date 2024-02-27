@@ -40,6 +40,7 @@ void PalSpear::Update()
     if (transform->Pos().y <= terrain->GetHeight(transform->GlobalPos()))
     {
         downForce *= -1;
+        downForce *= 0.7f;
     }
     speed -= DELTA * 3;
     if (speed <= 0.0f)
