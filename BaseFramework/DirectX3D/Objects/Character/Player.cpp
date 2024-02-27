@@ -117,7 +117,7 @@ void Player::Control()
 
     }
 
-    //Rotate();
+    Rotate();
 
     Jump(terrain->GetHeight(Pos()));
 }
@@ -304,13 +304,23 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
-    Ray ray = CAM->ScreenPointToRay(mousePos);
+    //Ray ray = CAM->ScreenPointToRay(mousePos);
+    Ray ray;
+    ray.pos = CAM->GlobalPos();
+    ray.dir = CAM->Forward();
     Vector3 hitPoint;
 
     // 펠스피어 매니저 테스트
     Vector3 tmp = this->GlobalPos();
     tmp.y += 2;
-    PalSpearManager::Get()->Throw(tmp, this->Back());
+    PalSpearManager::Get()->Throw(tmp, ray.dir);
+
+    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
+    //{
+    //    PalSpearManager::Get()->Throw(tmp, ray.dir);
+    //}
+    
+    //PalSpearManager::Get()->Throw(tmp, this->Back());
     //PalSpearManager::Get()->Throw(this->GlobalPos(), this->Back());
     
     //if (PalsManager::Get()->IsCollision(ray, hitPoint))
