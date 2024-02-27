@@ -41,8 +41,15 @@ private:
     void SetState(ACTION state);
     void Jump(float _ground);
 
+    // 필드 팔 상호작용 함수
+    void AttackPal();
+    void CatchPal();
+    void SummonsPal();
+
 public:
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
+
+    SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
 private:
     ACTION action;
@@ -64,5 +71,8 @@ private:
     bool isSpace = false;
 
     Terrain* terrain;
+
+    // 테스트 : 포획
+    SphereCollider* testPalSpear;
 };
 

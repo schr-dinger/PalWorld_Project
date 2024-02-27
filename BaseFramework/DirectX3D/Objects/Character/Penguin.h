@@ -27,6 +27,10 @@ public:
     //액션 : 생성되기
     void Spawn(Vector3 pos);
 
+    // 소환하기 : 플레이어가 팔 소환용
+    void Summons(Vector3 pos);
+
+
     //표적 설정
     void SetTarget(Transform* target);
 
@@ -61,9 +65,9 @@ private:
     Transform* root;
     Transform* target;
 
-    float speed = 5; //속력 : 기본 스탯
-    float maxHP = 100;
-    float curHP = 100;
+    float speed; //속력 : 기본 스탯
+    float maxHP;
+    float curHP;
 
     Vector3 velocity; //속력 : 실제 움직임
 

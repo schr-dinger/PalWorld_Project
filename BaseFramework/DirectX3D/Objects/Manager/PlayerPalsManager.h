@@ -1,14 +1,13 @@
 #pragma once
-class PalsManager : public Singleton<PalsManager>
+class PlayerPalsManager : public Singleton<PlayerPalsManager>
 {
-private:
-    UINT SIZE = 1; // 매니저 안에서 굴릴 로봇 대수
-    float SPAWN_TIME = 1.0f; // 로봇의 생성, 혹은 재생성에 필요한 시간
+    // 플레이어가 팔을 잡았을 때, 팔 매니저에 있는 팔을 깊은 복사해서 여기에 넣어주기 위한 매니저
+    // 팔 매니저와 다르게 여기선 모든 팔들 업데이트 및 랜더 안함, 선택한(소환한) 팔만 업데이트 및 랜더
 
 public:
 
-    PalsManager();
-    ~PalsManager();
+    PlayerPalsManager();
+    ~PlayerPalsManager();
 
     void Update();
     void Render();
@@ -18,22 +17,29 @@ public:
     void SetTarget(Transform* target); //표적 설정
     void SetPlayer(Player* player); // 플레이어 설정
 
-
     bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정
 
+    void Caught(Pal* CaughtPal); // 포획
+
+    // 소환 테스트용
+    void SetSelPal(int selPal) { this->selPal = selPal; }
+
+    void Summons();     // 소환
+
+
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
+
 private:
     void OnGround(Terrain* terrain);
-    void InsertMAI(string palModelName);
     void InsertAllMAI();
     void Collision(); // 세부 충돌 판정 진행
-    void Spawn();     // (재)생성
 
 private:
     Terrain* terrain;
-    vector<ModelAnimatorInstancing*> palsInstancing;
     map<string, ModelAnimatorInstancing*> palsMAI;
     vector<Pal*> pals;
+    int selPal;
+    map<string, int> palsMAIIndex;
 
     Transform* target;
     Player* player;
@@ -43,9 +49,8 @@ private:
     // 알파값 빼기
     BlendState* blendState[2];
 
-    // 테스트 : 히트 판정
-    Vector3 testHit;
-    bool testIsHit;
-    int hitPalIndex;
+
+
+
 };
 

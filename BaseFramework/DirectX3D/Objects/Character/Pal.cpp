@@ -2,6 +2,7 @@
 
 Pal::Pal()
 {
+	name = "";
 }
 
 Pal::~Pal()

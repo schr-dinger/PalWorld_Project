@@ -20,7 +20,7 @@ private:
     Terrain* terrain;
 
 
-    int SIZE = 10;
+    int SIZE = 20;
     float WIDTH = 500;
     float HEIGHT = 500;
 

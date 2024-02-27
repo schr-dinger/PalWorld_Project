@@ -2,6 +2,10 @@
 
 PalsManager::PalsManager()
 {
+    // 240224 테스트 : map으로 모든 펠 모델인스턴싱르로 만들어준 뒤(모델과 각 모델이 가지고 있는 모션들까지)
+    //                 팰 트랜스폼만 넣어주기 -> 마이 팔 매니저에만 하면 될듯
+
+
     // 여기서부터
     InsertMAI("PenGuin");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
     palsInstancing[0]->ReadClip("Work");    // 추가 모션
@@ -21,6 +25,10 @@ PalsManager::PalsManager()
         blendState[i] = new BlendState();
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
+
+    // 테스트 : 히트
+    testHit = {};
+    testIsHit = false;
 }
 
 PalsManager::~PalsManager()
@@ -104,10 +112,16 @@ void PalsManager::SetTarget(Transform* target)
     }
 }
 
+void PalsManager::SetPlayer(Player* player)
+{
+    this->player = player;
+}
+
 bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
 {
     Contact contact;
     float minDistance = FLT_MAX;
+    int tmp = 0;
     for (Pal* pal : pals)
     {
         //외부에서 온 광선과 로봇이 충돌하면...
@@ -117,10 +131,19 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
             {
                 minDistance = contact.distance; // 갱신정보 계속 반영
                 hitPoint = contact.hitPoint;
+                hitPalIndex = tmp;
             }
         }
+        tmp++;
     }
-    return minDistance != FLT_MAX; // 충돌 확인 됐으면 리턴
+    if (minDistance != FLT_MAX) // 충돌 확인 됐으면 리턴
+    {
+        // 테스트 : 히트
+        testHit = hitPoint;
+        testIsHit = true;
+
+        return true; 
+    }
     return false; // 거리 갱신 안되면 충돌 실패
 }
 
@@ -136,7 +159,6 @@ void PalsManager::OnGround(Terrain* terrain)
 void PalsManager::InsertMAI(string palModelName)
 {
     ModelAnimatorInstancing* pal = new ModelAnimatorInstancing(palModelName);
-    //pal->Scale() *= 0.01f;
     pal->ReadClip("Idle");
     pal->ReadClip("Walk");
     pal->ReadClip("Run");
@@ -145,17 +167,63 @@ void PalsManager::InsertMAI(string palModelName)
     palsInstancing.push_back(pal);
 }
 
+void PalsManager::InsertAllMAI()
+{
+    ModelAnimatorInstancing* pal = new ModelAnimatorInstancing("PenGuin");
+    pal->ReadClip("Idle");
+    pal->ReadClip("Walk");
+    pal->ReadClip("Run");
+    pal->ReadClip("Attack");
+    pal->ReadClip("Damage");
+    pal->ReadClip("Work");
+    pal->SetTag("Penguin");
+    palsMAI.insert({ "펭키", pal });                                     // 넣는 법 1.
+    //palsMAI.insert(pair<string, ModelAnimatorInstancing*>("펭키", pal)); // 넣는 법 2.
+    FOR(SIZE)
+    {
+        Transform* transform = palsInstancing[0]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* pal = new Penguin(transform, palsInstancing[0], i);
+        pals.push_back(pal);
+    }
+
+
+}
+
 void PalsManager::Collision()
 {
-    for (Pal* pal : pals)
+    //for (Pal* pal : pals)
+    //{
+    //    // 조건에따라 데미지 호출
+    //    if (false) // 
+    //    {
+    //        pal->Damage();
+    //        return;
+    //    }
+    //}
+
+
+    if (testIsHit) // 포획이든 공격이든 맞았으면 활성
     {
-        // 조건에따라 데미지 호출
-        if (false) // 
+        for (Pal* pal : pals)
         {
-            pal->Damage();
-            return;
+            if (pal->GetCollider()->IsCollision(player->GetPalSpearCol()))
+            {
+                // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
+                PlayerPalsManager::Get()->Caught(pal);
+                // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+                pal->GetTransform()->SetActive(false);
+                return; //팔스피어(포획)에 맞았여기서 리턴
+            }
         }
+
+        // 포획이 아니라면 맞기
+        pals[hitPalIndex]->Damage();
+        testIsHit = false;
     }
+    
+    
 }
 
 void PalsManager::Spawn()
@@ -165,7 +233,16 @@ void PalsManager::Spawn()
     dir.z = Random(-1.0f, 1.0f);
 
     //생성거리 계수와 함께 표적의 주위에서 생성을 한다
-    Vector3 randomPos = target->Pos() + (dir.GetNormalized() * 30);
+    Vector3 randomPos;
+    if (target == nullptr) // 타겟 없는 경우 테스트
+    {
+        randomPos = (dir.GetNormalized() * 20);
+    }
+    else
+    {
+        randomPos = target->Pos() + (dir.GetNormalized() * 20);
+
+    }
     randomPos.y = 0;
 
     // 위에서 정해진 랜덤 장소에서 로봇 하나 생성 (선착순)

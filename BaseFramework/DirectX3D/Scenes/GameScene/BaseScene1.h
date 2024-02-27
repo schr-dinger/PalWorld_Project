@@ -19,6 +19,7 @@ private:
 	Water* water;
 	Tree* tree;
 	Grass* grass;
+	Rock* rock;
 
 	Player* player;
 	
