@@ -29,7 +29,11 @@ BaseScene1::BaseScene1()
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(terrainF);
 
+<<<<<<< HEAD
 	PalSpearManager::Get()->SetTerrain(terrainF);
+=======
+	//test
+>>>>>>> main
 
 }
 
@@ -58,6 +62,9 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
+
+
+
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
@@ -90,6 +97,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
+
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
