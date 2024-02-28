@@ -42,15 +42,30 @@ ModelAnimationScene::ModelAnimationScene()
 
     modelAnimator = new ModelAnimator("NPC");
    
+    modelAnimator->ReadClip("B_Idle");
     modelAnimator->ReadClip("B_Walk");
     modelAnimator->ReadClip("B_Run");
+    
     modelAnimator->ReadClip("J_Start");
     modelAnimator->ReadClip("J_End");
     modelAnimator->ReadClip("J_DownLoop");
     
-
+    modelAnimator->ReadClip("Rifle_idle");
+    modelAnimator->ReadClip("Rifle_run");
+    modelAnimator->ReadClip("Rifle_Aim");
+    modelAnimator->ReadClip("Rifle_reload");
+    modelAnimator->ReadClip("Rifle_draw");
+   
+    modelAnimator->ReadClip("Rifle_Crouch_aim");
+    //modelAnimator->ReadClip("Rifle_Crouch_Idle");
+    modelAnimator->ReadClip("Rifle_Crouch_Walk");
+   
+    modelAnimator->ReadClip("Rifle_Fwd");
+    modelAnimator->ReadClip("Rifle_Back");
+    modelAnimator->ReadClip("Rifle_Left");
+    modelAnimator->ReadClip("Rifle_Right");
+    
     modelAnimator->ReadClip("S_Aim");
-    modelAnimator->ReadClip("S_Idle");
     modelAnimator->ReadClip("S_Throw");
     
     

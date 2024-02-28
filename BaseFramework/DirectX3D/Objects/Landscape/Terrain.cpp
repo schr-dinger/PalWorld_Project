@@ -39,7 +39,7 @@ void Terrain::Render()
     //alphaMap->PSSet(10);
     //secondMap->PSSet(11);
     //thirdMap->PSSet(12);
-
+    
     GameObject::SetRender();
     mesh->Draw();
 }

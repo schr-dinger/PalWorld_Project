@@ -30,6 +30,7 @@ ElecPanda::~ElecPanda()
 void ElecPanda::Update()
 {
 	AI();
+	
 
 	transform->SetWorld(GetTransformByNode(5));
 
@@ -51,7 +52,7 @@ void ElecPanda::Update()
 		collider->UpdateWorld();
 
 		SetState(ATTACK);
-		ClipOnce();
+		ClipOnce(2);
 		//Pos().z -= 100 * DELTA;
 		
 			

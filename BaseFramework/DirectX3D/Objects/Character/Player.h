@@ -2,21 +2,30 @@
 class Player : public ModelAnimator
 {
 private:
-    enum class ACTION
+    enum ACTION
     {
         IDLE,
-        WALKF,
-        WALKR,
-        WALKL,
-        RUNF,
-        RUNR,
-        RUNL,
-        JUMP,
-        ATTACK,
-        DAMAGE,
-        DRAW,
-        AIM,
-        SHOOT
+        WALK,
+        RUN,
+
+        J_START,
+        J_END,
+        J_LOOP,
+
+        R_IDLE,
+        R_RUN,
+        R_Aim,
+        R_RELOAD,
+        R_DRAW,
+
+        RA_FWD,
+        RA_BACK,
+        RA_LEFT,
+        RA_RIGHT,
+
+        S_AIM,
+        S_THROW
+
     };
 
 public:
@@ -74,9 +83,24 @@ private:
     bool isJump = false;
     bool isSpace = false;
     bool isAiming = false;
+    bool isRun = false;
+
+
+
+
+    Model* Gun;
+
     Terrain* terrain;
 
     // 테스트 : 포획
     SphereCollider* testPalSpear;
+
+    // 무기 조준
+
+    bool isGun = false;
+    bool isGaim = false;
+    int select = 0;
+    
+
 };
 

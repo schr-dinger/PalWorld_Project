@@ -32,11 +32,15 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
     //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     SceneManager::Get()->Create("NewScene", new BaseScene1());
-    //SceneManager::Get()->Create("Render", new ModelRenderScene());
+    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    
+    //SceneManager::Get()->Create("ParticleConfig", new ParticleConfigScene());
+
+
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
-    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    
     
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
@@ -46,7 +50,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("Dijkstra", new DijkstraScene());
     //SceneManager::Get()->Create("AStar", new AStarScene());
     //SceneManager::Get()->Create("Particle", new ParticleScene());
-    //SceneManager::Get()->Create("ParticleConfig", new ParticleConfigScene());
+    
     //SceneManager::Get()->Create("HumanScene", new HumanScene());
     //SceneManager::Get()->Create("QuadTree", new QuadTreeScene());
     //SceneManager::Get()->Create("LOD", new TerrainLODScene());
@@ -58,9 +62,9 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("ModelExport");
     //SceneManager::Get()->Add("ModelAnimationScene");
     SceneManager::Get()->Add("NewScene");
-
     //SceneManager::Get()->Add("ModelRender");
-    //SceneManager::Get()->Add("ModelAnimationScene");
+    //SceneManager::Get()->Add("ParticleConfig");
+    
     //SceneManager::Get()->Add("Collision");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
@@ -70,7 +74,6 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");
     //SceneManager::Get()->Add("Particle");
-    //SceneManager::Get()->Add("ParticleConfig");
     //SceneManager::Get()->Add("HumanScene");
     //SceneManager::Get()->Add("QuadTree");
     //SceneManager::Get()->Add("LOD");

@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-Player::Player() :	ModelAnimator("Player")
+Player::Player() :	ModelAnimator("NPC")
 {
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
@@ -8,32 +8,38 @@ Player::Player() :	ModelAnimator("Player")
     //CAM->SetTarget(this);
     //CAM->TargetOptionLoad("test3");
 
-
+    
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
-    CAM->Pos() = { -0.05,2.5,2.5 };
-
+    CAM->Pos() = { -0.05,5,2.5 };
+        
     Pos() = { 100, 0, 100 };
-    ReadClip("Idle");
 
-    ReadClip("WalkF");
-    ReadClip("WalkR");
-    ReadClip("WalkL");
+    ReadClip("B_Idle");
+    ReadClip("B_Walk");
+    ReadClip("B_Run");
+    
+    ReadClip("J_Start");
+    ReadClip("J_End");
+    ReadClip("J_DownLoop");
+   
+    ReadClip("Rifle_idle");
+    ReadClip("Rifle_run");
+    ReadClip("Rifle_Aim");
+    ReadClip("Rifle_reload");
+    ReadClip("Rifle_draw");
 
-    ReadClip("RunF");
-    ReadClip("RunR");
-    ReadClip("RunL");
+       
+    ReadClip("Rifle_Fwd");
+    ReadClip("Rifle_Back");
+    ReadClip("Rifle_Left");
+    ReadClip("Rifle_Right");
+    
+    ReadClip("S_Aim");
+    ReadClip("S_Throw");
+    
 
-    ReadClip("Jump");
-
-    ReadClip("Attack");
-
-    ReadClip("Damage");
-
-    ReadClip("Draw");
-    ReadClip("Aim");
-    ReadClip("Shoot");
-
+    Scale() *= 0.01f;
 
     action = (ACTION)frameBuffer->Get().cur.clip;
 
@@ -43,11 +49,27 @@ Player::Player() :	ModelAnimator("Player")
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
+
+    //
+
+    GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP),0.3f);
+    GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+
+    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.3f);
+
+    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+
+
 }
 
 Player::~Player()
 {
     delete CamTransform;
+    delete CamTransform;
+    delete Gun;
+    delete terrain;
+    delete testPalSpear;
 }
 
 void Player::Update()
@@ -89,6 +111,7 @@ void Player::ClipSync()
 
 void Player::Control()
 {
+
     Move();
 
     // 테스트 : 팔 포획, 팔을 맞췄을 때만 팔스피어 콜라이더 활성화
@@ -100,10 +123,13 @@ void Player::Control()
 
         if (KEY_DOWN(VK_LBUTTON)) // 팔 공격
         {
+            // isThorw = true;
+
             AttackPal();
         }
         else if (KEY_DOWN(VK_RBUTTON)) // 팔 포획
         {
+            
             CatchPal();
         }
         else if (KEY_DOWN('Z')) // 포획한 팔 소환
@@ -117,6 +143,61 @@ void Player::Control()
 
     }
 
+    if (KEY_DOWN('1'))
+    {
+        isGun = true;
+        select = 1;
+    }
+
+    if (KEY_DOWN('2'))
+    {
+        isGun = false;
+        select = 2;
+    }
+
+
+
+    if (KEY_PRESS(VK_RBUTTON))
+    {
+        if (isGun)
+        {
+            isGaim = true;
+        }
+
+
+    }
+
+    if (KEY_DOWN('R'))
+    {
+        if(isGun)
+        SetState(R_RELOAD);
+    }
+
+
+
+
+
+
+
+    if (select == 1)
+    {
+        if(KEY_PRESS(VK_RBUTTON))
+        {
+             isGaim = true;
+        }
+        else
+        {
+            isGaim = false;
+        }
+
+        if (KEY_DOWN('R'))
+        {
+            SetState(R_RELOAD);
+        }
+    }
+
+
+
     Rotate();
 
     Jump(terrain->GetHeight(Pos()));
@@ -124,8 +205,65 @@ void Player::Control()
 
 void Player::Move()
 {
+    
+    /*
+    if (isGaim)
+    {
+        bool isMoveZ2 = false;
+        bool isMoveX2 = false;
+
+      
+
+        Pos() += velocity * moveSpeed * DELTA;
+
+        if (KEY_PRESS('W'))
+        {
+            velocity += CamTransform->Forward() * DELTA;
+
+            isMoveZ2 = true;
+        }
+
+        if (KEY_PRESS('S'))
+        {
+            velocity += CamTransform->Back() * DELTA;
+            isMoveZ2 = true;
+        }
+
+        if (KEY_PRESS('A'))
+        {
+            velocity += CamTransform->Left() * DELTA;
+            isMoveX2 = true;
+        }
+
+        if (KEY_PRESS('D'))
+        {
+            velocity += CamTransform->Right() * DELTA;
+            isMoveX2 = true;
+        }
+
+
+
+        if (velocity.Length() > 1) velocity.Normalize();
+
+
+        if (!isMoveZ2)
+            velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //보간으로 감속
+
+        if (!isMoveX2)
+            velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
+
+        Matrix rotY = XMMatrixRotationY(Rot().y);
+        Vector3 direction = XMVector3TransformCoord(velocity, rotY);
+        Rot().y = direction.y;
+
+        Pos() += direction * moveSpeed * DELTA * -1;
+    }
+    
+    */
+    
     bool isMoveZ = false;
     bool isMoveX = false;
+
 
     if (KEY_PRESS('W'))
     {
@@ -171,91 +309,40 @@ void Player::Move()
 
     if (KEY_DOWN(VK_SPACE))
     {
-        action = ACTION::JUMP;
+        action = J_START;
         jumpVelocity = jumpForce;
         isJump = true;
         isSpace = true;
     }
 
+
+    if (KEY_PRESS(VK_LSHIFT))
+    {
+        moveSpeed = 20;
+        isRun = true;
+    }
+
     velocity = w + a + s + d;
     velocity.Normalize();
-    
+
     //여기서부터 다시보기
     Vector3 forward = Forward();
     Vector3 cross = Cross(forward, velocity);
-
-    if (cross.y < 0)
-    {
-        Rot().y += 5 * DELTA;
-    }
-    else if (cross.y > 0)
-    {
-        Rot().y -= 5 * DELTA;
-    }
-
-
-    Pos() += velocity * moveSpeed * DELTA;
-    //if (KEY_PRESS('W'))
-    //{
-    //    velocity += CamTransform->Forward() * DELTA;
-
-    //    isMoveZ = true;
-    //}
-
-    //if (KEY_PRESS('S'))
-    //{
-    //    velocity += CamTransform->Back() * DELTA;
-    //    isMoveZ = true;
-    //}
-
-    //if (KEY_PRESS('A'))
-    //{
-    //    velocity += CamTransform->Left() * DELTA;
-    //    isMoveX = true;
-    //}
-
-    //if (KEY_PRESS('D'))
-    //{
-    //    velocity += CamTransform->Right() * DELTA;
-    //    isMoveX = true;
-    //}
-
-
-    //if (KEY_DOWN(VK_SPACE))
-    //{
-    //    action = ACTION::JUMP;
-    //    jumpVelocity = jumpForce;
-    //    isJump = true;
-    //    isSpace = true;
-    //}
-
-    //if (velocity.Length() > 1) velocity.Normalize();
-
-
-
-    //if (!isMoveZ)
-    //    velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //보간으로 감속
-
-    //if (!isMoveX)
-    //    velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
-
-    //Matrix rotY = XMMatrixRotationY(Rot().y);
-    //Vector3 direction = XMVector3TransformCoord(velocity, rotY);
-    //Rot().y = direction.y;
-
-    //Pos() += direction * moveSpeed * DELTA*-1;
+    
+   
 
 }
 
 void Player::Rotate()
 {
+    
     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
     CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
 
     if(isAiming)     Rot().y = CamTransform->Rot().y;
-
+    
 
 }
 
@@ -264,20 +351,19 @@ void Player::Jump(float _ground)
     jumpVelocity -= 9.8f * gravityMult * DELTA;
     Pos().y += jumpVelocity;
 
-    if (Pos().y > _ground+0.5f )
+    if (Pos().y > _ground+ 0.5f )
     {
-        if (action != ACTION::JUMP) action = ACTION::JUMP;
+        if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
     }
-
-    if (Pos().y < _ground )
+    else if (Pos().y < _ground )
     {
 
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10*DELTA);
         jumpVelocity = 0;
-        if (action == ACTION::JUMP) action = ACTION::IDLE;
+        if (curState == J_LOOP) SetState(J_END);
         isJump = false;
         isSpace = false;
     }
@@ -356,23 +442,70 @@ void Player::SummonsPal()
 
 void Player::SetAnimation()
 {
-    if (curState == ACTION::SHOOT) return;
+   
+
+    if (curState == J_LOOP)
+    {
+        ClipOnce();
+        return;
+    }
+      
+    if (isGun)
+    {
+        if (select != 1)
+        {
+            SetState(R_DRAW);
+            
+        }
+       
+        if (isGaim)
+        {
+            SetState(R_Aim);
+        }
+        else
+        {
+            if (velocity.Length() > 0)
+            {
+                if (isRun) SetState(RUN);
+                else SetState(WALK);
+
+            }
+            else
+            {
+                SetState(IDLE);
+            }
+        }
+
+
+        return;
+    }
+    
+   
+
+
+
 
     if (isJump)
     {
-        SetState(ACTION::JUMP);
+        SetState(J_START);
+    }
+    else if (isAiming)
+    {
+        SetState(S_AIM);
+
     }
     else
     {
-        if (velocity.z > 0.1f)
-            SetState(ACTION::RUNF);
-        else if (velocity.z < -0.1f)
-            SetState(ACTION::RUNF);
-        else if (velocity.x > 0.1f)
-            SetState(ACTION::RUNR);
-        else if (velocity.x < -0.1f)
-            SetState(ACTION::RUNL);
-        else SetState(ACTION::IDLE);
+       if (velocity.Length() > 0)
+       {    
+           if (isRun) SetState(RUN);
+           else SetState(WALK);
+          
+       }
+       else
+       {
+           SetState(IDLE);
+       }
     }
 
 }

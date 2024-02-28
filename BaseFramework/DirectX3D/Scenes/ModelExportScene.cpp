@@ -15,26 +15,25 @@ ModelExportScene::ModelExportScene()
     //delete exporter;    
                        
       
-    clipName = "J_DownLoop";
+    clipName = "Rifle_Back";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
     
-    clipName = "J_UpLoop";
+    clipName = "Rifle_Fwd";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
     
-    clipName = "J_Start";
+    clipName = "Rifle_Left";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);
     delete exporter;
 
-    /*
-    clipName = "test_sleepE";
+    clipName = "Rifle_Right";
     file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     exporter = new ModelExporter(name, file);
     exporter->ExportClip(clipName);

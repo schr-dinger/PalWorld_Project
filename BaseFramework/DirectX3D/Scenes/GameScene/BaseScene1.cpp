@@ -107,6 +107,6 @@ void BaseScene1::GUIRender()
 
 	PalsManager::Get()->GUIRender();
 
-	player->GetModel()->GUIRender();
+	// player->GetModel()->GUIRender();
 
 }
