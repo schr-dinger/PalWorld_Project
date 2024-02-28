@@ -22,13 +22,10 @@ Player::Player() :	ModelAnimator("NPC")
     ReadClip("Rifle_draw");
     ReadClip("Rifle_Aim");
     
-
     ReadClip("S_Aim");
     ReadClip("S_Idle");
     ReadClip("S_Run");
     ReadClip("S_Throw");
-
-
 
 
     Scale() *= 0.01f;
@@ -51,17 +48,12 @@ Player::Player() :	ModelAnimator("NPC")
     Gun->Rot().x += 1.5f;
     Gun->Rot().y -= 0.10f;
     
-
     
-
-
-
     GetClip(ACTION::J_START)->SetEvent(bind(&Player::SetState, this,J_LOOP),0.5f);
     GetClip(ACTION::J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.2f);
     GetClip(ACTION::S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.2f);
 
     
-
 }
 
 Player::~Player()
@@ -177,11 +169,27 @@ void Player::Move()
 
     if (KEY_PRESS('W'))
     {
-        velocity.z += DELTA;
+        //velocity.z += DELTA;
         isMoveZ = true;
+        
+    }
+    
 
+
+    if (KEY_PRESS('A'))
+    {
+        
+        isMoveX = true;
     }
 
+    if (KEY_PRESS('D'))
+    {
+        velocity.x += DELTA;
+        isMoveX = true;
+    }
+
+
+    /*
     if (KEY_PRESS('S'))
     {
         
@@ -200,6 +208,8 @@ void Player::Move()
         velocity.x += DELTA;
         isMoveX = true;
     }
+    */
+
 
     if (KEY_DOWN(VK_SPACE))
     {
@@ -225,8 +235,6 @@ void Player::Move()
 
 
     
-
-
 }
 
 void Player::Rotate()

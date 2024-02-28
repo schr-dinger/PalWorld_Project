@@ -51,6 +51,7 @@ void ElecPanda::Update()
 		collider->UpdateWorld();
 
 		SetState(ATTACK);
+		ClipOnce();
 		//Pos().z -= 100 * DELTA;
 		
 			

@@ -32,7 +32,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
     //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     SceneManager::Get()->Create("NewScene", new BaseScene1());
-    //SceneManager::Get()->Create("Cube", new CubeScene());
+    //SceneManager::Get()->Create("Render", new ModelRenderScene());
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
