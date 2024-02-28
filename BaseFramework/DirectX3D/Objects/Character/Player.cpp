@@ -308,16 +308,13 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
-<<<<<<< HEAD
     //Ray ray = CAM->ScreenPointToRay(mousePos);
-=======
->>>>>>> main
+
     Ray ray;
     ray.pos = CAM->GlobalPos();
     ray.dir = CAM->Forward();
     Vector3 hitPoint;
 
-<<<<<<< HEAD
     // 펠스피어 매니저 테스트
     Vector3 tmp = this->GlobalPos();
     tmp.y += 2;
@@ -337,7 +334,6 @@ void Player::CatchPal()
     //    testPalSpear->Pos() = hitPoint;
     //    testPalSpear->UpdateWorld();
     //}
-=======
     //Ray ray = CAM->ScreenPointToRay(mousePos);
     //Vector3 hitPoint;
 
@@ -347,7 +343,6 @@ void Player::CatchPal()
         testPalSpear->Pos() = hitPoint;
         testPalSpear->UpdateWorld();
     }
->>>>>>> main
 
 }
 

@@ -29,11 +29,8 @@ BaseScene1::BaseScene1()
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(terrainF);
 
-<<<<<<< HEAD
 	PalSpearManager::Get()->SetTerrain(terrainF);
-=======
-	//test
->>>>>>> main
+
 
 }
 
