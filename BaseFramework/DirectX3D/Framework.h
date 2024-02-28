@@ -173,6 +173,7 @@ using namespace GameMath;
 #include "Objects/Landscape/Tree.h"
 #include "Objects/Landscape/Grass.h"
 #include "Objects/Landscape/Rock.h"
+#include "Objects/Landscape/Ice.h"
 
 
 #include "Objects/Algorithm/DNode.h"

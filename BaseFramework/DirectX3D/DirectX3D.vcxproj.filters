@@ -408,6 +408,9 @@
     <ClInclude Include="Objects\Items\Weapons\PalSpear.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\Landscape\Ice.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX3D.cpp">
@@ -771,6 +774,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Landscape\Ice.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

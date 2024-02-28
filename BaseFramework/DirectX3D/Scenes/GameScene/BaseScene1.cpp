@@ -16,6 +16,10 @@ BaseScene1::BaseScene1()
 	grass = new Grass(terrainF);
 	rock = new Rock(terrainF);
 
+	//test
+	ice = new Ice("IceAttack");
+
+
 	player = new Player();
 	player->SetTerrain(terrainF);
 
@@ -60,7 +64,7 @@ void BaseScene1::Update()
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-
+	ice->Update();
 
 
 	PalsManager::Get()->Update();
@@ -94,6 +98,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
+	ice->Render();
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();

@@ -23,5 +23,6 @@ private:
 
 	Player* player;
 	
+	Ice* ice;
 };
 

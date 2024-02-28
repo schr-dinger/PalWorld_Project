@@ -43,7 +43,7 @@ void Tree::Place(ModelInstancing* tree)
             Transform* transform = tree->Add();
             transform->Rot().x += XM_PIDIV2;
             transform->Rot().y = x;
-            //transform->Pos() = { x*SIZE/WIDTH, terrain->GetHeight(transform->Pos()), z*SIZE/HEIGHT };
+
             transform->Pos() = { x*(WIDTH/SIZE) + Random(-50.0f,50.0f) ,0, z* (WIDTH / SIZE) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
             if (terrain->GetHeight(transform->Pos()) < 20.0f)

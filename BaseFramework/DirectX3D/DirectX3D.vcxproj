@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Landscape\Ice.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
     <ClInclude Include="Objects\Character\Player.h" />
     <ClInclude Include="Objects\Character\Pal.h" />
@@ -275,6 +276,7 @@
     <ClInclude Include="Objects\Landscape\Tree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
     <ClCompile Include="Objects\Character\Player.cpp" />
     <ClCompile Include="Objects\Character\Pal.cpp" />
