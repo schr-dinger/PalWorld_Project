@@ -23,17 +23,17 @@ Player::Player() :	ModelAnimator("NPC")
     ReadClip("J_End");
     ReadClip("J_DownLoop");
    
-    ReadClip("Rifle_idle");
-    ReadClip("Rifle_run");
+    ReadClip("Rifle_Idle");
+    ReadClip("Rifle_Run");
     ReadClip("Rifle_Aim");
-    ReadClip("Rifle_reload");
-    ReadClip("Rifle_draw");
+    ReadClip("Rifle_Reload");
+    ReadClip("Rifle_Draw");
 
        
-    ReadClip("Rifle_Fwd");
-    ReadClip("Rifle_Back");
-    ReadClip("Rifle_Left");
-    ReadClip("Rifle_Right");
+    //ReadClip("Rifle_Fwd");
+    //ReadClip("Rifle_Back");
+    //ReadClip("Rifle_Left");
+    //ReadClip("Rifle_Right");
     
     ReadClip("S_Aim");
     ReadClip("S_Throw");
@@ -142,6 +142,8 @@ void Player::Control()
         isAiming = false;
 
     }
+
+    
 
     if (KEY_DOWN('1'))
     {
@@ -270,6 +272,7 @@ void Player::Move()
     }
     else
     {
+
         if (KEY_PRESS('W'))
         {
             w = -CamTransform->Forward();
@@ -279,6 +282,8 @@ void Player::Move()
         {
             w = z;
         }
+        
+    
 
         if (KEY_PRESS('S'))
         {

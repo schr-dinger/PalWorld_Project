@@ -15,6 +15,8 @@ BaseScene1::BaseScene1()
 	tree = new Tree(terrainF);
 	grass = new Grass(terrainF);
 
+	
+
 
 	player = new Player();
 	player->SetTerrain(terrainF);
@@ -57,6 +59,10 @@ void BaseScene1::Update()
 
 	//PalsManager::Get()->OnGround(terrainF); 
 	PalsManager::Get()->Update();
+	
+	player->Update();
+
+	
 
 	
 }
@@ -72,6 +78,7 @@ void BaseScene1::PreRender()
 	water->SetReflection();
 	//반사 출력
 	skyBox->Render();
+	
 
 }
 
@@ -96,6 +103,7 @@ void BaseScene1::Render()
 void BaseScene1::PostRender()
 {
 	PalsManager::Get()->PostRender();
+	
 
 }
 
@@ -107,6 +115,6 @@ void BaseScene1::GUIRender()
 
 	//PalsManager::Get()->GUIRender();
 
-	 //player->GetModel()->GUIRender();
+	//player->GetModel()->GUIRender();
 
 }

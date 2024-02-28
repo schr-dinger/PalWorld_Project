@@ -18,10 +18,10 @@ private:
         R_RELOAD,
         R_DRAW,
 
-        RA_FWD,
-        RA_BACK,
-        RA_LEFT,
-        RA_RIGHT,
+        //RA_FWD,
+        //RA_BACK,
+        //RA_LEFT,
+        //RA_RIGHT,
 
         S_AIM,
         S_THROW
