@@ -17,9 +17,8 @@ private:
 
 private:
     ModelAnimator* modelAnimator;
-    Transform* transform;
+    ModelAnimator* modelAnimator2;
 
-    int node = 68;
 
-    Model* test;
+    BlendState* blendState[2];
 };

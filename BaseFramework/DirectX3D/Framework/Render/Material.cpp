@@ -47,7 +47,7 @@ void Material::Set()
 
 void Material::GUIRender()
 {
-    string title = name + "_Material";
+    string title = tag + name + "_Material";
 
     if (ImGui::TreeNode(title.c_str()))
     {
