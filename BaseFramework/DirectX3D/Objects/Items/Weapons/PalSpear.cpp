@@ -24,7 +24,6 @@ void PalSpear::Update()
     //비활성화 중에는 안 움직임
     if (!transform->Active()) return;
 
-    time += DELTA; // 시간 경과에 따라 변수에 누적
 
     //if (time > LIFE_SPAN)
     //    transform->SetActive(false);
@@ -34,26 +33,43 @@ void PalSpear::Update()
 
     Vector3 tmp = (direction * speed + down * downForce);
 
-    //transform->Pos() += direction * speed * DELTA;
+    transform->Pos() += direction * speed * DELTA;
+    //transform->Pos() += tmp * DELTA;
     transform->Pos() += tmp * DELTA;
+    Vector3 up = { 0,1,0 };
+    //transform->Pos() +=  up * 5.0f * DELTA;
+    //transform->Pos() += direction * speed * DELTA;
+    //transform->Pos() += down * downForce;
+    speed -= DELTA * 3;
+    if (speed <= 0.0f)
+    {
+        speed = 0.0f;
+        if (transform->Pos().y < terrain->GetHeight(transform->GlobalPos()))
+        {
+            transform->Pos().y = terrain->GetHeight(transform->GlobalPos());
+            downForce = 0.0f;
+            //transform->SetActive(false);
+        }
+        else
+        {
+            time += DELTA; // 시간 경과에 따라 변수에 누적
+            if (time > 1.0)
+            {
+                transform->SetActive(false);
+                speed = 10.0f;
 
+            }
+        }
+    }
     if (transform->Pos().y < terrain->GetHeight(transform->GlobalPos()))
     {
         Vector3 normal;
         transform->Pos().y = terrain->GetHeight(transform->GlobalPos(), &normal);
         downForce *= -1;
         downForce *= 0.7f;
+
     }
-    speed -= DELTA * 3;
-    if (speed <= 0.0f)
-    {
-        speed = 0.0f;
-        //if (transform->Pos().y <= terrain->GetHeight(transform->GlobalPos()))
-        //{
-        //    transform->SetActive(false);
-        //    speed = 10.0f;
-        //}
-    }
+    
 
     collider->UpdateWorld();
 }

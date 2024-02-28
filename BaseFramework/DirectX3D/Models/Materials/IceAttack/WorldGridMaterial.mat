@@ -1,0 +1,10 @@
+<Material Name="WorldGridMaterial">
+    <Shader Vertex="" Pixel="Shaders/Light/Light.hlsl"/>
+    <Texture Diffuse="Textures\Model\IceAttack\T_Ice01_2.png" Specular="Textures/Color/White.png" Normal="Textures\Model\IceAttack\T_Ice01_normal.png"/>
+    <Property Shininess="50" HasNormalMap="1">
+        <Diffuse R="1" G="1" B="1" A="1"/>
+        <Specular R="0" G="0" B="1" A="1"/>
+        <Ambient R="0" G="0" B="0" A="1"/>
+        <Emissive R="0" G="0" B="0" A="1"/>
+    </Property>
+</Material>
