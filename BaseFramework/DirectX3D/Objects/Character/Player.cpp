@@ -97,7 +97,7 @@ void Player::Render()
 void Player::GUIRender()
 {
     ModelAnimator::GUIRender();
-    PalSpearManager::Get()->GUIRender();
+    //PalSpearManager::Get()->GUIRender();
 
 }
 
@@ -147,6 +147,10 @@ void Player::Control()
     {
         isGun = true;
         select = 1;
+        SetState(R_DRAW);
+        
+
+        
     }
 
     if (KEY_DOWN('2'))
@@ -159,25 +163,27 @@ void Player::Control()
 
     if (KEY_PRESS(VK_RBUTTON))
     {
-        if (isGun)
+
+        if (isGaim)
         {
-            isGaim = true;
+            CAM->Pos() = { -0.05,3,2.5 };
+            
         }
+           
+
 
 
     }
-
-    if (KEY_DOWN('R'))
+    else if (KEY_UP(VK_RBUTTON))
     {
-        if(isGun)
-        SetState(R_RELOAD);
+        isGaim = false;
+    }
+    else
+    {
+        CAM->Pos() = { -0.05,4,2.7 };
     }
 
-
-
-
-
-
+   
 
     if (select == 1)
     {
@@ -196,6 +202,7 @@ void Player::Control()
         }
     }
 
+    
 
 
     Rotate();
@@ -205,130 +212,134 @@ void Player::Control()
 
 void Player::Move()
 {
+    bool isMoveZ = false;
+    bool isMoveX = false;
+
     
-    /*
+
+
     if (isGaim)
     {
-        bool isMoveZ2 = false;
-        bool isMoveX2 = false;
 
-      
 
-        Pos() += velocity * moveSpeed * DELTA;
+        //Rot().y = CamTransform->Rot().y;
 
         if (KEY_PRESS('W'))
         {
-            velocity += CamTransform->Forward() * DELTA;
+            velocity.z +=  DELTA;
 
-            isMoveZ2 = true;
+            isMoveZ = true;
         }
 
         if (KEY_PRESS('S'))
         {
-            velocity += CamTransform->Back() * DELTA;
-            isMoveZ2 = true;
+            velocity.z -= DELTA;
+            isMoveZ = true;
         }
 
         if (KEY_PRESS('A'))
         {
-            velocity += CamTransform->Left() * DELTA;
-            isMoveX2 = true;
+            velocity.x -=  DELTA;
+            isMoveX = true;
         }
 
         if (KEY_PRESS('D'))
         {
-            velocity += CamTransform->Right() * DELTA;
-            isMoveX2 = true;
+            velocity.x += DELTA;
+            isMoveX = true;
         }
 
 
-
+    
         if (velocity.Length() > 1) velocity.Normalize();
 
 
-        if (!isMoveZ2)
+
+        if (!isMoveZ)
             velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //보간으로 감속
 
-        if (!isMoveX2)
+        if (!isMoveX)
             velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
 
         Matrix rotY = XMMatrixRotationY(Rot().y);
         Vector3 direction = XMVector3TransformCoord(velocity, rotY);
-        Rot().y = direction.y;
+        //direction.y;
+
 
         Pos() += direction * moveSpeed * DELTA * -1;
     }
-    
-    */
-    
-    bool isMoveZ = false;
-    bool isMoveX = false;
-
-
-    if (KEY_PRESS('W'))
-    {
-        w = -CamTransform->Forward();
-        isMoveZ = true;
-    }
     else
     {
-        w = z;
+        if (KEY_PRESS('W'))
+        {
+            w = -CamTransform->Forward();
+            isMoveZ = true;
+        }
+        else
+        {
+            w = z;
+        }
+
+        if (KEY_PRESS('S'))
+        {
+            s = -CamTransform->Back();
+            isMoveZ = true;
+        }
+        else
+        {
+            s = z;
+        }
+
+
+        if (KEY_PRESS('A'))
+        {
+            a = -CamTransform->Left();
+            isMoveX = true;
+        }
+        else
+        {
+            a = z;
+        }
+
+
+        if (KEY_PRESS('D'))
+        {
+            d = -CamTransform->Right();
+            isMoveX = true;
+        }
+        else
+        {
+            d = z;
+        }
+
+        if (KEY_DOWN(VK_SPACE))
+        {
+            action = J_START;
+            jumpVelocity = jumpForce;
+            isJump = true;
+            isSpace = true;
+        }
+
+        velocity = w + a + s + d;
+        velocity.Normalize();
+
+        //여기서부터 다시보기
+        Vector3 forward = Forward();
+        Vector3 cross = Cross(forward, velocity);
+
+        if (cross.y < 0)
+        {
+            Rot().y += 5 * DELTA;
+        }
+        else if (cross.y > 0)
+        {
+            Rot().y -= 5 * DELTA;
+        }
+
+       
+
+        Pos() += velocity * moveSpeed * DELTA;
     }
-
-    if (KEY_PRESS('S'))
-    {
-        s = -CamTransform->Back();
-        isMoveZ = true;
-    }
-    else
-    {
-        s = z;
-    }
-
-
-    if (KEY_PRESS('A'))
-    {
-        a = -CamTransform->Left();
-        isMoveX = true;
-    }
-    else
-    {
-        a = z;
-    }
-
-
-    if (KEY_PRESS('D'))
-    {
-        d = -CamTransform->Right();
-        isMoveX = true;
-    }
-    else
-    {
-        d = z;
-    }
-
-    if (KEY_DOWN(VK_SPACE))
-    {
-        action = J_START;
-        jumpVelocity = jumpForce;
-        isJump = true;
-        isSpace = true;
-    }
-
-
-    if (KEY_PRESS(VK_LSHIFT))
-    {
-        moveSpeed = 20;
-        isRun = true;
-    }
-
-    velocity = w + a + s + d;
-    velocity.Normalize();
-
-    //여기서부터 다시보기
-    Vector3 forward = Forward();
-    Vector3 cross = Cross(forward, velocity);
-    
    
 
 }
@@ -338,6 +349,7 @@ void Player::Rotate()
     
     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+    if (isGaim) Rot().y += delta.x * rotSpeed * DELTA;
     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
     CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
 
@@ -452,11 +464,7 @@ void Player::SetAnimation()
       
     if (isGun)
     {
-        if (select != 1)
-        {
-            SetState(R_DRAW);
-            
-        }
+        
        
         if (isGaim)
         {
@@ -464,16 +472,19 @@ void Player::SetAnimation()
         }
         else
         {
+            
+
+
             if (velocity.Length() > 0)
             {
                 if (isRun) SetState(RUN);
                 else SetState(WALK);
 
             }
-            else
-            {
-                SetState(IDLE);
-            }
+            // 조준시 움직임 넣기
+            // 조준시 카메라의 회전을 따라서 회전하기
+
+            
         }
 
 

@@ -89,7 +89,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
-	//PalsManager::Get()->Render();
+	PalsManager::Get()->Render();
 
 }
 
@@ -105,8 +105,8 @@ void BaseScene1::GUIRender()
 	//water->GUIRender();
 	terrain->GUIRender();
 
-	PalsManager::Get()->GUIRender();
+	//PalsManager::Get()->GUIRender();
 
-	// player->GetModel()->GUIRender();
+	 //player->GetModel()->GUIRender();
 
 }
