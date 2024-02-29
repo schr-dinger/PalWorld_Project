@@ -111,7 +111,7 @@ void PalBox::Render()
 
 void PalBox::PostRender()
 {
-	shadow->PostRender();
+	//shadow->PostRender();
 }
 
 void PalBox::GUIRender()
