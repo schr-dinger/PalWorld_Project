@@ -195,6 +195,9 @@ using namespace GameMath;
 #include "Objects/Particle/Sprite.h"
 #include "Objects/Particle/Trail.h"
 
+#include "Objects/Skill/Skill.h"
+#include "Objects/Skill/Tornado.h"
+
 #include "Objects/Character/Human.h"
 #include "Objects/Character/Robot.h"
 #include "Objects/Character/Naruto.h"

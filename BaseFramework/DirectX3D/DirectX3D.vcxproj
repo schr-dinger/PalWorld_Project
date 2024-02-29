@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -267,6 +267,7 @@
     <ClInclude Include="Scenes\ShadowScene.h" />
     <ClInclude Include="Objects\Particle\Spark.h" />
     <ClInclude Include="Objects\Particle\Sprite.h" />
+    <ClInclude Include="Objects\Skill\Skill.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Objects\Particle\Trail.h" />
     <ClInclude Include="Objects\Landscape\TerrainData.h" />
@@ -275,6 +276,7 @@
     <ClInclude Include="Objects\Landscape\Water.h" />
     <ClInclude Include="Scenes\WaterScene.h" />
     <ClInclude Include="Objects\Landscape\Tree.h" />
+    <ClInclude Include="Objects\Skill\Tornado.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\Landscape\Ice.cpp" />
@@ -402,6 +404,8 @@
     <ClCompile Include="Objects\Landscape\Water.cpp" />
     <ClCompile Include="Scenes\WaterScene.cpp" />
     <ClCompile Include="Objects\Landscape\Tree.cpp" />
+    <ClCompile Include="Objects\Skill\Skill.cpp" />
+    <ClCompile Include="Objects\Skill\Tornado.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />
