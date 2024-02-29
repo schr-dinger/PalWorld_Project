@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-PalBox::PalBox(string name,Terrain* terrain) : Model("PalBox"), terrain(terrain)
+PalBox::PalBox(Terrain* terrain) : terrain(terrain)
 {
 	FOR(2)
 	{
@@ -9,7 +9,6 @@ PalBox::PalBox(string name,Terrain* terrain) : Model("PalBox"), terrain(terrain)
 
 	blendState[1]->Alpha(true);
 
-	Rot().x = XM_PIDIV2;
 	Place();
 }
 
@@ -20,7 +19,6 @@ PalBox::~PalBox()
 
 void PalBox::Update()
 {
-	Model::UpdateWorld();
 }
 
 void PalBox::Render()
@@ -32,7 +30,6 @@ void PalBox::Render()
 
 void PalBox::GUIRender()
 {
-	Model::GUIRender();
 }
 
 void PalBox::Place()

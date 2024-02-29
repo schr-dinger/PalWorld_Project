@@ -1,8 +1,8 @@
 #pragma once
-class PalBox : public Model
+class PalBox
 {
 public:
-	PalBox(string name,Terrain* terrain);
+	PalBox(Terrain* terrain);
 	~PalBox();
 
 	void Update();
@@ -14,6 +14,10 @@ public:
 	void Place();
 private:
 	Terrain* terrain;
+
+	Model* building;
+	Model* finished;
+
 	BlendState* blendState[2];
 
 };
