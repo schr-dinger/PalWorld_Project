@@ -92,6 +92,10 @@ private:
 
     Terrain* terrain;
 
+    bool test = true;
+
+
+
     // Å×½ºÆ® : Æ÷È¹
     SphereCollider* testPalSpear;
 

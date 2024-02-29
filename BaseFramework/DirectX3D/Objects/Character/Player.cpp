@@ -204,9 +204,6 @@ void Player::Control()
         }
     }
 
-    
-
-
     Rotate();
 
     Jump(terrain->GetHeight(Pos()));
@@ -421,6 +418,7 @@ void Player::CatchPal()
     // 펠스피어 매니저 테스트
     Vector3 tmp = this->GlobalPos();
     tmp.y += 2;
+    ray.dir += {0, 0.3f, 0};
     PalSpearManager::Get()->Throw(tmp, ray.dir);
 
     //if (PalsManager::Get()->IsCollision(ray, hitPoint))
