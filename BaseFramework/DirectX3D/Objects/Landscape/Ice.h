@@ -7,6 +7,8 @@ public:
 
 	void Update();
 	void Render();
+	void GUIRender();
+
 
 	void Attack();
 

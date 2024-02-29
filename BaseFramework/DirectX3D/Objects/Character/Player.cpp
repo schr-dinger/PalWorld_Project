@@ -117,7 +117,17 @@ void Player::Control()
 
     }
 
-    Rotate();
+
+    if (KEY_DOWN('R'))
+    {
+        test = !test;
+    }
+
+    if (test)
+    {
+        Rotate();
+    }
+
 
     Jump(terrain->GetHeight(Pos()));
 }

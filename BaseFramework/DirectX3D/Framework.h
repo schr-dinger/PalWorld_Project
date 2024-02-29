@@ -170,10 +170,16 @@ using namespace GameMath;
 #include "Objects/Landscape/QuadTreeTerrain.h"
 #include "Objects/Landscape/TerrainLOD.h"
 #include "Objects/Landscape/Water.h"
+
+//Pal Landscape
 #include "Objects/Landscape/Tree.h"
 #include "Objects/Landscape/Grass.h"
 #include "Objects/Landscape/Rock.h"
 #include "Objects/Landscape/Ice.h"
+
+//Pal Structure
+#include "Objects/Structure/PalBox.h"
+
 
 
 #include "Objects/Algorithm/DNode.h"

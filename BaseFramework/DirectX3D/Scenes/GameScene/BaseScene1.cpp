@@ -17,7 +17,7 @@ BaseScene1::BaseScene1()
 	rock = new Rock(terrainF);
 
 	//test
-	ice = new Ice("IceAttack");
+	ice = new PalBox("PalBox",terrainF);
 
 
 	player = new Player();
@@ -114,9 +114,11 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
+	//player->GUIRender();
 	//water->GUIRender();
 	terrain->GUIRender();
+
+	ice->GUIRender();
 
 	PalsManager::Get()->GUIRender();
 

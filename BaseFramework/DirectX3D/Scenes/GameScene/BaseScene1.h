@@ -23,6 +23,6 @@ private:
 
 	Player* player;
 	
-	Ice* ice;
+	PalBox* ice;
 };
 
