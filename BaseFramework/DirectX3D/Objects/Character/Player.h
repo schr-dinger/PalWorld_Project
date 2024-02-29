@@ -18,7 +18,7 @@ private:
         R_RELOAD,
         R_DRAW,
 
-        //RA_FWD,
+        RA_FWD,
         //RA_BACK,
         //RA_LEFT,
         //RA_RIGHT,
@@ -61,6 +61,7 @@ private:
     ACTION curState = ACTION::IDLE;
 
     Transform* CamTransform;
+    Transform* Hand;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 
@@ -92,19 +93,17 @@ private:
 
     Terrain* terrain;
 
-    bool test = true;
-
-
-
     // 테스트 : 포획
     SphereCollider* testPalSpear;
 
+
     // 무기 조준
 
+    ParticleSystem* particle;
     bool isGun = false;
     bool isGaim = false;
     int select = 0;
-    
+
 
 };
 

@@ -56,12 +56,12 @@ ModelAnimationScene::ModelAnimationScene()
     modelAnimator->ReadClip("Rifle_reload");
     modelAnimator->ReadClip("Rifle_draw");
    
-    modelAnimator->ReadClip("Rifle_Crouch_aim");
+    //modelAnimator->ReadClip("Rifle_Crouch_aim");
     //modelAnimator->ReadClip("Rifle_Crouch_Idle");
-    modelAnimator->ReadClip("Rifle_Crouch_Walk");
+    //modelAnimator->ReadClip("Rifle_Crouch_Walk");
    
-    modelAnimator->ReadClip("Rifle_Fwd");
-    modelAnimator->ReadClip("Rifle_Back");
+    //modelAnimator->ReadClip("Rifle_Fwd");
+    //modelAnimator->ReadClip("Rifle_Back");
     modelAnimator->ReadClip("Rifle_Left");
     modelAnimator->ReadClip("Rifle_Right");
     

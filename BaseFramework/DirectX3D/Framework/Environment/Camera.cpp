@@ -156,8 +156,8 @@ void Camera::FreeMode()
     Vector3 delta = mousePos - prevMousePos;
     prevMousePos = mousePos;
 
-    //if (KEY_PRESS(VK_RBUTTON))
-    if (0)
+    if (KEY_PRESS(VK_RBUTTON))
+    //if (0)
     {
         if (KEY_PRESS('W'))
             Pos() += Forward() * moveSpeed * DELTA;

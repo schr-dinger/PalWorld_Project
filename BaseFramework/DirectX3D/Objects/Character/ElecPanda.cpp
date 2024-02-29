@@ -17,7 +17,9 @@ ElecPanda::ElecPanda() : ModelAnimator("ElecP")
 
 	Scale() *= 0.01f;
 
-	GetClip(ATTACK)->SetEvent(bind(&ElecPanda::EndAttack, this), 0.7f);
+
+	// 끝난뒤 실행
+	GetClip(ATTACK)->SetEvent(bind(&ElecPanda::EndAttack, this), 0.4f);
 }
 
 ElecPanda::~ElecPanda()
@@ -52,16 +54,18 @@ void ElecPanda::Update()
 		collider->UpdateWorld();
 
 		SetState(ATTACK);
-		ClipOnce(2);
+		
 		//Pos().z -= 100 * DELTA;
 		
 			
 	}
 
+
+	// 공격한 뒤 돈다
 	if (test)
 	{
 		test2 += 10 * DELTA;
-		if (test2 > 0.5)
+		if (test2 > 0.7)
 		{
 			test = false;
 		}
@@ -181,10 +185,13 @@ void ElecPanda::SetState(State state)
 void ElecPanda::EndAttack()
 {
 	
+	ClipOnce(3);
 	test2 = 0;
 	test = true;
-	SetState(RUN);
+
 	Pos() = collider->GlobalPos();
+	SetState(RUN);
+	
 	
 	
 }

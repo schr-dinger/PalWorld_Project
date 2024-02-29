@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-Player::Player() :	ModelAnimator("NPC")
+Player::Player() : ModelAnimator("NPC")
 {
     ClientToScreen(hWnd, &clientCenterPos);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
@@ -8,36 +8,47 @@ Player::Player() :	ModelAnimator("NPC")
     //CAM->SetTarget(this);
     //CAM->TargetOptionLoad("test3");
 
-    
+
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
     CAM->Pos() = { -0.05,5,2.5 };
-        
+
+    Hand = new Transform();
+    Gun = new Model("Rifle");
+    Gun->SetParent(Hand);
+
+    Gun->Scale() *= 0.8f;
+    Gun->Pos().y -= 0.05f;
+    Gun->Rot().x += 1.5f;
+    Gun->Rot().y -= 0.10f;
+
+    particle = new ParticleSystem("TextData/Particles/test2.fx");
+
     Pos() = { 100, 0, 100 };
 
     ReadClip("B_Idle");
     ReadClip("B_Walk");
     ReadClip("B_Run");
-    
+
     ReadClip("J_Start");
     ReadClip("J_End");
     ReadClip("J_DownLoop");
-   
+
     ReadClip("Rifle_Idle");
     ReadClip("Rifle_Run");
     ReadClip("Rifle_Aim");
     ReadClip("Rifle_Reload");
     ReadClip("Rifle_Draw");
 
-       
-    //ReadClip("Rifle_Fwd");
+
+    ReadClip("Rifle_Fwd");
     //ReadClip("Rifle_Back");
     //ReadClip("Rifle_Left");
     //ReadClip("Rifle_Right");
-    
+
     ReadClip("S_Aim");
     ReadClip("S_Throw");
-    
+
 
     Scale() *= 0.01f;
 
@@ -49,10 +60,11 @@ Player::Player() :	ModelAnimator("NPC")
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
+    
 
     //
 
-    GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP),0.3f);
+    GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
     GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.3f);
@@ -70,6 +82,7 @@ Player::~Player()
     delete Gun;
     delete terrain;
     delete testPalSpear;
+    delete particle;
 }
 
 void Player::Update()
@@ -77,9 +90,15 @@ void Player::Update()
     CamTransform->Pos() = this->Pos();
 
     //ClipSync();
+
     CamTransform->UpdateWorld();
     Control();
     SetAnimation();
+
+    Hand->SetWorld(GetTransformByNode(68));
+    Gun->UpdateWorld();
+
+    particle->Update();
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
 
@@ -88,7 +107,9 @@ void Player::Update()
 void Player::Render()
 {
     testPalSpear->Render();
+    Gun->Render();
 
+    particle->Render();
     ModelAnimator::Render();
     PalSpearManager::Get()->Render();
 
@@ -112,24 +133,54 @@ void Player::ClipSync()
 void Player::Control()
 {
 
+
     Move();
 
     // 테스트 : 팔 포획, 팔을 맞췄을 때만 팔스피어 콜라이더 활성화
     testPalSpear->SetActive(false);
 
-    if (KEY_PRESS('V'))
+    if (KEY_DOWN('1'))
     {
-        isAiming = true;
+        isGun = true;
+        select = 1;
+        SetState(R_DRAW);
+    }
+
+    if (KEY_DOWN('2'))
+    {
+        isGun = false;
+        select = 2;
+    }
+
+
+    if (KEY_PRESS(VK_RBUTTON))
+    {
+        switch (select)
+        {
+        case 1:
+            isGaim = true;
+            break;
+        case 2:
+            isAiming = true;
+            break;
+        default:
+            break;
+        }
+
+
+        
+
 
         if (KEY_DOWN(VK_LBUTTON)) // 팔 공격
         {
             // isThorw = true;
+            particle->Play(Gun->GlobalPos()+Vector3(0,1,0));
 
             AttackPal();
         }
-        else if (KEY_DOWN(VK_RBUTTON)) // 팔 포획
+        else if (KEY_DOWN('V')) // 팔 포획
         {
-            
+
             CatchPal();
         }
         else if (KEY_DOWN('Z')) // 포획한 팔 소환
@@ -140,26 +191,10 @@ void Player::Control()
     else
     {
         isAiming = false;
+        isGaim = false;
 
     }
 
-    
-
-    if (KEY_DOWN('1'))
-    {
-        isGun = true;
-        select = 1;
-        SetState(R_DRAW);
-        
-
-        
-    }
-
-    if (KEY_DOWN('2'))
-    {
-        isGun = false;
-        select = 2;
-    }
 
 
 
@@ -169,9 +204,9 @@ void Player::Control()
         if (isGaim)
         {
             CAM->Pos() = { -0.05,3,2.5 };
-            
+
         }
-           
+
 
 
 
@@ -185,13 +220,13 @@ void Player::Control()
         CAM->Pos() = { -0.05,4,2.7 };
     }
 
-   
+
 
     if (select == 1)
     {
-        if(KEY_PRESS(VK_RBUTTON))
+        if (KEY_PRESS(VK_RBUTTON))
         {
-             isGaim = true;
+            isGaim = true;
         }
         else
         {
@@ -204,6 +239,9 @@ void Player::Control()
         }
     }
 
+
+
+
     Rotate();
 
     Jump(terrain->GetHeight(Pos()));
@@ -214,18 +252,18 @@ void Player::Move()
     bool isMoveZ = false;
     bool isMoveX = false;
 
-    
+
 
 
     if (isGaim)
     {
 
 
-        //Rot().y = CamTransform->Rot().y;
+        CamTransform->Rot().y = Rot().y;
 
         if (KEY_PRESS('W'))
         {
-            velocity.z +=  DELTA;
+            velocity.z += DELTA;
 
             isMoveZ = true;
         }
@@ -238,7 +276,7 @@ void Player::Move()
 
         if (KEY_PRESS('A'))
         {
-            velocity.x -=  DELTA;
+            velocity.x -= DELTA;
             isMoveX = true;
         }
 
@@ -249,7 +287,7 @@ void Player::Move()
         }
 
 
-    
+
         if (velocity.Length() > 1) velocity.Normalize();
 
 
@@ -279,8 +317,8 @@ void Player::Move()
         {
             w = z;
         }
-        
-    
+
+
 
         if (KEY_PRESS('S'))
         {
@@ -338,25 +376,25 @@ void Player::Move()
             Rot().y -= 5 * DELTA;
         }
 
-       
+
 
         Pos() += velocity * moveSpeed * DELTA;
     }
-   
+
 
 }
 
 void Player::Rotate()
 {
-    
+
     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
     SetCursorPos(clientCenterPos.x, clientCenterPos.y);
     if (isGaim) Rot().y += delta.x * rotSpeed * DELTA;
     CAM->Rot().x -= delta.y * rotSpeed * DELTA;
     CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
 
-    if(isAiming)     Rot().y = CamTransform->Rot().y;
-    
+    if (isAiming)     Rot().y = CamTransform->Rot().y;
+
 
 }
 
@@ -365,17 +403,17 @@ void Player::Jump(float _ground)
     jumpVelocity -= 9.8f * gravityMult * DELTA;
     Pos().y += jumpVelocity;
 
-    if (Pos().y > _ground+ 0.5f )
+    if (Pos().y > _ground + 0.5f)
     {
         if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
     }
-    else if (Pos().y < _ground )
+    else if (Pos().y < _ground)
     {
 
         //Pos().y = _ground;
-        Pos().y = Lerp(Pos().y, _ground, 10*DELTA);
+        Pos().y = Lerp(Pos().y, _ground, 10 * DELTA);
         jumpVelocity = 0;
         if (curState == J_LOOP) SetState(J_END);
         isJump = false;
@@ -387,23 +425,23 @@ void Player::Jump(float _ground)
 void Player::AttackPal()
 {
     // *총소리 출력 필요
-    Ray ray;
-    ray.pos = CAM->GlobalPos();
-    ray.dir = CAM->Forward();
-    Vector3 hitPoint;
-
-    //Ray ray = CAM->ScreenPointToRay(mousePos);
+    //Ray ray;
+    //ray.pos = CAM->GlobalPos();
+    //ray.dir = CAM->Forward();
     //Vector3 hitPoint;
+
+    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Vector3 hitPoint;
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
         // 태스트 : 히트
-        
+
         // 플레이어에 총 맞는 이펙트 등 추가 필요
 
         // 이펙트는 히트 포인트에서 출력
     }
-   
+
 }
 
 void Player::CatchPal()
@@ -418,17 +456,16 @@ void Player::CatchPal()
     // 펠스피어 매니저 테스트
     Vector3 tmp = this->GlobalPos();
     tmp.y += 2;
-    ray.dir += {0, 0.3f, 0};
     PalSpearManager::Get()->Throw(tmp, ray.dir);
 
     //if (PalsManager::Get()->IsCollision(ray, hitPoint))
     //{
     //    PalSpearManager::Get()->Throw(tmp, ray.dir);
     //}
-    
+
     //PalSpearManager::Get()->Throw(tmp, this->Back());
     //PalSpearManager::Get()->Throw(this->GlobalPos(), this->Back());
-    
+
     //if (PalsManager::Get()->IsCollision(ray, hitPoint))
     //{
     //    testPalSpear->SetActive(true);
@@ -457,25 +494,32 @@ void Player::SummonsPal()
 
 void Player::SetAnimation()
 {
-   
+
 
     if (curState == J_LOOP)
     {
         ClipOnce();
         return;
     }
-      
+
     if (isGun)
     {
-        
-       
+
+
         if (isGaim)
         {
-            SetState(R_Aim);
+
+            if (velocity.Length() > 0)
+            {
+                SetState(RA_FWD);
+            }
+            else SetState(R_Aim);
+
+
         }
         else
         {
-            
+
 
 
             if (velocity.Length() > 0)
@@ -487,14 +531,14 @@ void Player::SetAnimation()
             // 조준시 움직임 넣기
             // 조준시 카메라의 회전을 따라서 회전하기
 
-            
+
         }
 
 
         return;
     }
-    
-   
+
+
 
 
 
@@ -510,16 +554,16 @@ void Player::SetAnimation()
     }
     else
     {
-       if (velocity.Length() > 0)
-       {    
-           if (isRun) SetState(RUN);
-           else SetState(WALK);
-          
-       }
-       else
-       {
-           SetState(IDLE);
-       }
+        if (velocity.Length() > 0)
+        {
+            if (isRun) SetState(RUN);
+            else SetState(WALK);
+
+        }
+        else
+        {
+            SetState(IDLE);
+        }
     }
 
 }
