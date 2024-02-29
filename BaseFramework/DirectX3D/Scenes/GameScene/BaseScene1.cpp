@@ -17,7 +17,7 @@ BaseScene1::BaseScene1()
 	rock = new Rock(terrainF);
 
 	//test
-	ice = new PalBox("PalBox",terrainF);
+	ice = new PalBox(terrainF);
 
 
 	player = new Player();
@@ -84,6 +84,8 @@ void BaseScene1::PreRender()
 	//반사 출력
 	skyBox->Render();
 
+	ice->PreRender();
+
 }
 
 void BaseScene1::Render()
@@ -110,6 +112,7 @@ void BaseScene1::PostRender()
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 
+	ice->PostRender();
 }
 
 void BaseScene1::GUIRender()

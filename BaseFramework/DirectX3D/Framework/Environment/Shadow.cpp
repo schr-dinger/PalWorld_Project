@@ -32,6 +32,8 @@ Shadow::~Shadow()
 void Shadow::SetRenderTarget()
 {
     renderTarget->Set(depthStencil); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
+    //renderTarget->Set(depthStencil, {1.0f,0.5f,0.0f,1.0f}); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
+
     SetViewProjection(); //뷰포트, 행렬공간 투사 과정을 여기서 호출
 }
 
@@ -45,6 +47,7 @@ void Shadow::SetRender()
                 // -> 여기서 쓰인 매개변수의 결과는 디퓨즈맵 연산을 흑백으로 바꿔주는 것. (파일 설정에 의함)
 
     DC->PSSetShaderResources(10, 1, &renderTarget->GetSRV());
+
                 //10번 슬롯부터, 1개 층만큼을, GetSRV에서 가져와 출력 준비
 
     //여기까지 진행되면 텍스처가 준비
@@ -64,7 +67,9 @@ void Shadow::GUIRender()
 void Shadow::SetViewProjection()
 {
     // 광원 클래스를 써보기 (DX + 프레임워크 설정)
-    LightBuffer::Light* light = Environment::Get()->GetLight(0);
+    LightBuffer::Light* light = Environment::Get()->GetLight(1);
+    //LightBuffer::Light* light = Environment::Get()->AddLight();
+
     //LightBuffer : 빛 계산 기능을 버퍼로 바꾼 클래스
     //Light(프레임워크) : 빛 버퍼 내에 있는 실제 빛 데이터 (세부 데이터는 DX와 셰이더에 분산)
     //GetLight() : 출력절차에서 생성된 광원 호출하기. 0은 기본으로 생성된 결과

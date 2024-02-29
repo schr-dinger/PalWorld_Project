@@ -68,7 +68,8 @@ float4 PS(PixelInput input) : SV_TARGET
 	material.worldPos = input.worldPos;
 	
 	float4 color = 0;
-	
+	//float4 color = 1.0f;
+
 	[unroll(MAX_LIGHT)]
 	for (int i = 0; i < lightCount; i++)
 	{
@@ -91,6 +92,7 @@ float4 PS(PixelInput input) : SV_TARGET
 	float4 emissive = mEmissive;
 	
 	color = color + ambient + emissive;
+
 	
 	float2 uv = input.clipPos.xy / input.clipPos.w;
 	uv.y = -uv.y;
