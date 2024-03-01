@@ -17,7 +17,7 @@ PalBox::PalBox(Terrain* terrain) : terrain(terrain)
 	//finished->Rot().x = XM_PIDIV2;
 	finished->SetParent(building);
 
-	Place();
+	//Place();
 
 	//light = Environment::Get()->GetLight(1);
 	light = Environment::Get()->AddLight();
@@ -52,18 +52,18 @@ void PalBox::Update()
 	light->pos = building->Pos() + off;
 
 
-	if (isBuilding)
+	if (Progressing)
 	{
 		off2 += 0.5f * DELTA;
 	}
 
 	if (KEY_PRESS('P'))
 	{
-		isBuilding = true;
+		Progressing = true;
 	}
 	else
 	{
-		isBuilding = false;
+		Progressing = false;
 	}
 
 	if (off2 > 13.0f)
@@ -121,7 +121,9 @@ void PalBox::GUIRender()
 	ImGui::Text("%f", off2);
 }
 
-void PalBox::Place()
+void PalBox::Place(float x, float z)
 {
-	building->Pos() = { 100,terrain->GetHeight({100, 0, 100}),100 };
+	if(isPlaced) return;
+
+	building->Pos() = { x,terrain->GetHeight({x, 0, z}), z };
 }

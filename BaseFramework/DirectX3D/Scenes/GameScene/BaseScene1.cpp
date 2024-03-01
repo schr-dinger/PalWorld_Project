@@ -56,6 +56,18 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
+	ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+
+	if (player->isBuilding)
+	{
+		if (KEY_DOWN(VK_LBUTTON))
+		{
+			ice->isPlaced = true;
+		}
+	}
+
+
+
 	water->Update();
 	tree->Update();
 	grass->Update();
@@ -100,7 +112,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
-	ice->Render();
+	if(player->isBuilding || ice->isPlaced) ice->Render();
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
@@ -111,8 +123,6 @@ void BaseScene1::PostRender()
 {
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
-
-	ice->PostRender();
 }
 
 void BaseScene1::GUIRender()

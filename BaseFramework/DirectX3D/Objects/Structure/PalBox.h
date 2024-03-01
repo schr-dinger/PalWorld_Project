@@ -11,7 +11,10 @@ public:
 	void PostRender();
 	void GUIRender();
 
-	void Place();
+	void Place(float x,float z);
+
+	bool isPlaced = false;
+
 private:
 	Terrain* terrain;
 
@@ -29,7 +32,7 @@ private:
 	float off2 = 10.0f;
 	LightBuffer::Light* light;
 
-	bool isBuilding = false;
+	bool Progressing = false;
 	bool Done = false;
 };
 

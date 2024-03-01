@@ -13,6 +13,11 @@ Player::Player() :	ModelAnimator("Player")
     CAM->SetParent(CamTransform);
     CAM->Pos() = { -0.05,2.5,2.5 };
 
+    frontPoint = new Transform();
+    frontPoint->SetParent(this);
+    frontPoint->Pos() = { 0,0,-5};
+
+
     Pos() = { 100, 0, 100 };
     ReadClip("Idle");
 
@@ -43,6 +48,9 @@ Player::Player() :	ModelAnimator("Player")
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
+    testFrontSphere = new SphereCollider();
+
+
 }
 
 Player::~Player()
@@ -54,18 +62,29 @@ void Player::Update()
 {
     CamTransform->Pos() = this->Pos();
 
+    //
+    testFrontSphere->Pos() = frontPoint->GlobalPos();
+
+
+
+
     //ClipSync();
     CamTransform->UpdateWorld();
+    frontPoint->UpdateWorld();
     Control();
     SetAnimation();
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
+
+    testFrontSphere->UpdateWorld();
 
 }
 
 void Player::Render()
 {
     testPalSpear->Render();
+
+    testFrontSphere->Render();
 
     ModelAnimator::Render();
     PalSpearManager::Get()->Render();
@@ -130,6 +149,8 @@ void Player::Control()
 
 
     Jump(terrain->GetHeight(Pos()));
+
+    Building();
 }
 
 void Player::Move()
@@ -363,6 +384,14 @@ void Player::SummonsPal()
     PlayerPalsManager::Get()->SetSelPal(0);
     // ÆÈ ¼ÒÈ¯
     PlayerPalsManager::Get()->Summons();
+}
+
+void Player::Building()
+{
+    if (KEY_DOWN('B'))
+    {
+        isBuilding = !isBuilding;
+    }
 }
 
 void Player::SetAnimation()

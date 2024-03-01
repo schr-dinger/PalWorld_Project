@@ -42,16 +42,24 @@ private:
     void CatchPal();
     void SummonsPal();
 
+    void Building();
+
 public:
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
+
+    Transform* GetFrontPoint() { return frontPoint ; }
+
+    bool isBuilding = false;
 
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
 
     Transform* CamTransform;
+
+    Transform* frontPoint;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 
@@ -78,9 +86,9 @@ private:
 
     bool test = true;
 
-
-
     // Å×½ºÆ® : Æ÷È¹
     SphereCollider* testPalSpear;
+    SphereCollider* testFrontSphere;
+
 };
 
