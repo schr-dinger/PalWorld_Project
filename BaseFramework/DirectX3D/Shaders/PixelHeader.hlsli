@@ -133,6 +133,7 @@ float4 CalcEmissive(Material material)
 	}
 	
 	return mEmissive * emissiveIntensity;
+	//return mEmissive * emissiveIntensity * material.diffuseColor;
 }
 
 float4 CalcDirectional(Material material, Light light)

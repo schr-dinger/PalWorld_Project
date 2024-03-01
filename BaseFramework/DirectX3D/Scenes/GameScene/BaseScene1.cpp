@@ -116,12 +116,12 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//player->GUIRender();
+	player->GUIRender();
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//
 	//ice->GUIRender();
 	//
-	PalsManager::Get()->GUIRender();
+	//PalsManager::Get()->GUIRender();
 
 }

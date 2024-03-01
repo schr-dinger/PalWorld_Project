@@ -133,7 +133,7 @@ void Penguin::GUIRender()
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
-    skill[0]->GUIRender();
+    //skill[0]->GUIRender();
 }
 
 void Penguin::Atack()
