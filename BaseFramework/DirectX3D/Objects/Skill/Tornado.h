@@ -12,6 +12,7 @@ public:
 	virtual void Setpal(class Pal* pal) override;
 	virtual Collider* GetCol() override;
 	virtual void SetActive(bool active) override;
+	virtual void SetSkill() override;
 
 private:
 	float speed = 5; // 나아가는 속도
@@ -29,5 +30,8 @@ private:
 	RasterizerState* rasterizerState[2];
 
 	
+
+	
+
 };
 

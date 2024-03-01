@@ -21,10 +21,13 @@ public:
     void PostRender();
     void GUIRender();
 
-    //액션 : 얻어맞기
+    // 액션 : 공격
+    void Atack();
+
+    // 액션 : 얻어맞기
     void Damage();
 
-    //액션 : 생성되기
+    // 액션 : 생성되기
     void Spawn(Vector3 pos);
 
     // 소환하기 : 플레이어가 팔 소환용

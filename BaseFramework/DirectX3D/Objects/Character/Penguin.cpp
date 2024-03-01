@@ -8,6 +8,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     maxHP = 100;
     curHP = 100;
 
+    // 부모에서 가져온 스킬 세팅
+    skill[0] = new Tornado();
+    skill[0]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
+    skill[0]->SetSkill();   // 스킬 세팅(시작 위치), 
 
     root = new Transform(); // 콜라이더가 위치할 장소(위치)
 
@@ -120,6 +124,13 @@ void Penguin::GUIRender()
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
+}
+
+void Penguin::Atack()
+{
+    // 스킬 액티브
+    skill[0]->SetActive(true);
+
 }
 
 void Penguin::Damage()

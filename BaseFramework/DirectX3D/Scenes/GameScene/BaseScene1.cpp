@@ -35,7 +35,8 @@ BaseScene1::BaseScene1()
 
 	PalSpearManager::Get()->SetTerrain(terrainF);
 
-
+	// 스킬 테스트
+	testSkill = new Tornado();
 }
 
 BaseScene1::~BaseScene1()
@@ -70,6 +71,12 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 
+	// 스킬 테스트
+	if (KEY_DOWN('K'))
+	{
+		testSkill->SetActive(true);
+	}
+	testSkill->Update();
 }
 
 void BaseScene1::PreRender()
@@ -103,6 +110,8 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
+	testSkill->Render();
+
 }
 
 void BaseScene1::PostRender()
@@ -116,10 +125,12 @@ void BaseScene1::GUIRender()
 {
 	//player->GUIRender();
 	//water->GUIRender();
-	terrain->GUIRender();
+	//terrain->GUIRender();
+	//
+	//ice->GUIRender();
+	//
+	//PalsManager::Get()->GUIRender();
 
-	ice->GUIRender();
-
-	PalsManager::Get()->GUIRender();
+	testSkill->GUIRender();
 
 }

@@ -11,6 +11,8 @@ Material::Material()
     char path[128];
     GetCurrentDirectoryA(128, path);
     projectPath = path;
+
+    tag = "";
 }
 
 Material::Material(wstring shaderFile)
@@ -26,6 +28,8 @@ Material::Material(wstring shaderFile)
     char path[128];
     GetCurrentDirectoryA(128, path);
     projectPath = path;
+
+    tag = "";
 }
 
 Material::~Material()
@@ -47,7 +51,7 @@ void Material::Set()
 
 void Material::GUIRender()
 {
-    string title = tag + name + "_Material";
+    string title = tag + "_" + name + "_Material";
 
     if (ImGui::TreeNode(title.c_str()))
     {
