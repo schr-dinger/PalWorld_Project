@@ -27,6 +27,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     eventIters.resize(instancing->GetClipSize());
 
     //이벤트 세팅
+    SetEvent((int)ACTION::ATTACK, bind(&Penguin::EndAttack, this), 1.5f);
     SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.9f);
 
     FOR(totalEvent.size())
@@ -87,6 +88,14 @@ void Penguin::Update()
     //    tmpN = 0;;
     //
     //}
+
+    // 스킬 테스트
+    if (KEY_DOWN('K') && !skill[0]->Active())
+    {
+        Atack();
+    }
+    skill[0]->Update();
+
 }
 
 void Penguin::Render()
@@ -94,7 +103,7 @@ void Penguin::Render()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     collider->Render();
-
+    skill[0]->Render();
 }
 
 void Penguin::PostRender()
@@ -124,17 +133,27 @@ void Penguin::GUIRender()
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
+    skill[0]->GUIRender();
 }
 
 void Penguin::Atack()
 {
+    // 모션 설정
+    action = ACTION::ATTACK;
+    instancing->PlayClip(index, (int)ACTION::ATTACK);
+    eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
+
     // 스킬 액티브
     skill[0]->SetActive(true);
+    skill[0]->SetSkill();
 
 }
 
 void Penguin::Damage()
 {
+    // 무적이 되는 조건들
+    if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
+
     //체력에 -
     curHP -= 20;
     hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
@@ -205,6 +224,11 @@ void Penguin::ExecuteEvent()
 
     eventIters[index]->second(); //등록된 이벤트 수행
     eventIters[index]++;
+}
+
+void Penguin::EndAttack()
+{
+    SetAction(ACTION::IDLE);
 }
 
 void Penguin::EndDamage()

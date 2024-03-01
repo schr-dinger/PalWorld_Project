@@ -48,6 +48,7 @@ private:
 
     // 동작 끝나면 실행하는 함수(소환, 사망 모션 필요)
     //void EndStandUp();
+    void EndAttack();
     void EndDamage(); // Hit 였으나 enum과 명칭 일치시키기
                       // -> 맞은 모션 후 무엇을 할 것인가
     //void EndDying();

@@ -15,6 +15,7 @@ public:
 	virtual Collider* GetCol() = 0;
 
 	// 모든 스킬 모델 활성화 여부, 
+	virtual bool Active() = 0;
 	virtual void SetActive(bool active) = 0;
 	virtual void SetSkill() = 0; //모든 스킬 모델 원위치 시키기
 

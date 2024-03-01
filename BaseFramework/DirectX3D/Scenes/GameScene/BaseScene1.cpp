@@ -71,12 +71,6 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 
-	// 스킬 테스트
-	if (KEY_DOWN('K'))
-	{
-		testSkill->SetActive(true);
-	}
-	testSkill->Update();
 }
 
 void BaseScene1::PreRender()
@@ -110,7 +104,6 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
-	testSkill->Render();
 
 }
 
@@ -129,8 +122,6 @@ void BaseScene1::GUIRender()
 	//
 	//ice->GUIRender();
 	//
-	//PalsManager::Get()->GUIRender();
-
-	testSkill->GUIRender();
+	PalsManager::Get()->GUIRender();
 
 }

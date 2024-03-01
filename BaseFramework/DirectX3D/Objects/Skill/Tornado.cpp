@@ -5,6 +5,7 @@ Tornado::Tornado()
 
 	name = "토네이도";
 	damage = 30;
+	startPos = Vector3();
 	
 	Tornado1 = new Model("TestTornadoIn");
 	Tornado2 = new Model("TestTornadoOut");
@@ -106,11 +107,9 @@ void Tornado::Update()
 	}
 	if (pal)
 	{
-		Tornado1->Pos() = pal->GetTransform()->GlobalPos();
-		Tornado2->Pos() = pal->GetTransform()->GlobalPos();
-		Tornado1->Pos() += pal->GetTransform()->Back() * speed * DELTA;
-		Tornado2->Pos() += pal->GetTransform()->Back() * speed * DELTA;
-		if (Distance(Tornado1->Pos(), pal->GetTransform()->GlobalPos()) >= dis)
+		Tornado1->Pos() += dir * speed * DELTA;
+		Tornado2->Pos() += dir * speed * DELTA;
+		if (Distance(Tornado1->Pos(), startPos) >= dis)
 		{
 			SetActive(false);
 			SetSkill();
@@ -118,9 +117,9 @@ void Tornado::Update()
 	}
 	else
 	{
-		Tornado1->Pos() += Vector3(0, 0, -1) * speed * DELTA;
-		Tornado2->Pos() += Vector3(0, 0, -1) * speed * DELTA;
-		if (Distance(Tornado1->Pos(), Vector3()) >= dis)
+		Tornado1->Pos() += dir * speed * DELTA;
+		Tornado2->Pos() += dir * speed * DELTA;
+		if (Distance(Tornado1->Pos(), startPos) >= dis)
 		{
 			SetActive(false);
 			SetSkill();
@@ -172,6 +171,11 @@ Collider* Tornado::GetCol()
 	return col;
 }
 
+bool Tornado::Active()
+{
+	return Tornado1->Active();
+}
+
 void Tornado::SetActive(bool active)
 {
 	Tornado1->SetActive(active);
@@ -187,11 +191,16 @@ void Tornado::SetSkill()
 	{
 		Tornado1->Pos() = pal->GetTransform()->GlobalPos();
 		Tornado2->Pos() = pal->GetTransform()->GlobalPos();
+		startPos = pal->GetTransform()->GlobalPos();
+		dir = pal->GetTransform()->Back();
 		
 	}
 	else
 	{
 		Tornado1->Pos() = Vector3(0, 0, 0);
 		Tornado2->Pos() = Vector3(0, 0, 0);
+		startPos = Vector3(0, 0, 0);
+		dir = Vector3(0, 0, -1);
+
 	}
 }

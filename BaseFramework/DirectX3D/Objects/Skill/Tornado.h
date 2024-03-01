@@ -11,12 +11,16 @@ public:
 	virtual void GUIRender() override;
 	virtual void Setpal(class Pal* pal) override;
 	virtual Collider* GetCol() override;
+	virtual bool Active() override;
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;
 
 private:
-	float speed = 5; // 나아가는 속도
+	float speed = 20; // 나아가는 속도
 	float dis = 20; // 도달하면 사라지는 거리
+
+	Vector3 startPos;
+	Vector3 dir;
 
 	Model* Tornado1;
 	Model* Tornado2;
