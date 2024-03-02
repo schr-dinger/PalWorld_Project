@@ -69,7 +69,24 @@ void PalBox::Update()
 	if (off2 > 13.0f)
 	{
 		Done = true;
+		isBuilding = false;
 	}
+
+
+	if (KEY_DOWN('B'))
+	{
+		isBuilding = !isBuilding;
+	}
+
+	if (isBuilding)
+	{
+		if (KEY_DOWN(VK_LBUTTON))
+		{
+			isPlaced = true;
+		}
+	}
+
+
 
 	cube->UpdateWorld();
 	building->UpdateWorld();
@@ -91,22 +108,23 @@ void PalBox::Render()
 {
 	shadow->SetRender();
 	building->SetShader(L"Light/Shadow.hlsl");
-	//building->SetShader(L"Basic/Texture.hlsl");
 
-	//
+	if (isBuilding)
+	{
+		//shadow->SetRender();
+		//building->SetShader(L"Light/Shadow.hlsl");
+		blendState[1]->SetState();
+		building->Render();
+		blendState[0]->SetState();
 
-	blendState[1]->SetState();
+	}
 
 	if (Done)
 	{
+		blendState[1]->SetState();
 		finished->Render();
+		blendState[0]->SetState();
 	}
-	else
-	{
-		building->Render();
-	}
-
-	blendState[0]->SetState();
 }
 
 void PalBox::PostRender()

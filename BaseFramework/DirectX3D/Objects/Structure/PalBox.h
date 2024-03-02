@@ -13,8 +13,6 @@ public:
 
 	void Place(float x,float z);
 
-	bool isPlaced = false;
-
 private:
 	Terrain* terrain;
 
@@ -34,5 +32,8 @@ private:
 
 	bool Progressing = false;
 	bool Done = false;
+
+	bool isPlaced = false;
+	bool isBuilding = false;
 };
 

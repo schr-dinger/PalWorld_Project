@@ -42,16 +42,12 @@ private:
     void CatchPal();
     void SummonsPal();
 
-    void Building();
-
 public:
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
     Transform* GetFrontPoint() { return frontPoint ; }
-
-    bool isBuilding = false;
 
 private:
     ACTION action;

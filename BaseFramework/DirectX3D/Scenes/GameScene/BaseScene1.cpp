@@ -58,13 +58,6 @@ void BaseScene1::Update()
 {
 	ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
 
-	if (player->isBuilding)
-	{
-		if (KEY_DOWN(VK_LBUTTON))
-		{
-			ice->isPlaced = true;
-		}
-	}
 
 
 
@@ -112,7 +105,7 @@ void BaseScene1::Render()
 
 	player->Render();
 	
-	if(player->isBuilding || ice->isPlaced) ice->Render();
+	ice->Render();
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();

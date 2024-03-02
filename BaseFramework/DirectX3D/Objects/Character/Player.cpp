@@ -150,7 +150,6 @@ void Player::Control()
 
     Jump(terrain->GetHeight(Pos()));
 
-    Building();
 }
 
 void Player::Move()
@@ -384,14 +383,6 @@ void Player::SummonsPal()
     PlayerPalsManager::Get()->SetSelPal(0);
     // ÆÈ ¼ÒÈ¯
     PlayerPalsManager::Get()->Summons();
-}
-
-void Player::Building()
-{
-    if (KEY_DOWN('B'))
-    {
-        isBuilding = !isBuilding;
-    }
 }
 
 void Player::SetAnimation()
