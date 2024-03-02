@@ -17,7 +17,7 @@ PalBox::PalBox(Terrain* terrain) : terrain(terrain)
 	//finished->Rot().x = XM_PIDIV2;
 	finished->SetParent(building);
 
-	Place();
+	//Place();
 
 	//light = Environment::Get()->GetLight(1);
 	light = Environment::Get()->AddLight();
@@ -52,24 +52,41 @@ void PalBox::Update()
 	light->pos = building->Pos() + off;
 
 
-	if (isBuilding)
+	if (Progressing)
 	{
 		off2 += 0.5f * DELTA;
 	}
 
 	if (KEY_PRESS('P'))
 	{
-		isBuilding = true;
+		Progressing = true;
 	}
 	else
 	{
-		isBuilding = false;
+		Progressing = false;
 	}
 
 	if (off2 > 13.0f)
 	{
 		Done = true;
+		isBuilding = false;
 	}
+
+
+	if (KEY_DOWN('B'))
+	{
+		isBuilding = !isBuilding;
+	}
+
+	if (isBuilding)
+	{
+		if (KEY_DOWN(VK_LBUTTON))
+		{
+			isPlaced = true;
+		}
+	}
+
+
 
 	cube->UpdateWorld();
 	building->UpdateWorld();
@@ -91,22 +108,23 @@ void PalBox::Render()
 {
 	shadow->SetRender();
 	building->SetShader(L"Light/Shadow.hlsl");
-	//building->SetShader(L"Basic/Texture.hlsl");
 
-	//
+	if (isBuilding)
+	{
+		//shadow->SetRender();
+		//building->SetShader(L"Light/Shadow.hlsl");
+		blendState[1]->SetState();
+		building->Render();
+		blendState[0]->SetState();
 
-	blendState[1]->SetState();
+	}
 
 	if (Done)
 	{
+		blendState[1]->SetState();
 		finished->Render();
+		blendState[0]->SetState();
 	}
-	else
-	{
-		building->Render();
-	}
-
-	blendState[0]->SetState();
 }
 
 void PalBox::PostRender()
@@ -121,7 +139,9 @@ void PalBox::GUIRender()
 	ImGui::Text("%f", off2);
 }
 
-void PalBox::Place()
+void PalBox::Place(float x, float z)
 {
-	building->Pos() = { 100,terrain->GetHeight({100, 0, 100}),100 };
+	if(isPlaced) return;
+
+	building->Pos() = { x,terrain->GetHeight({x, 0, z}), z };
 }

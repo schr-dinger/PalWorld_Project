@@ -56,6 +56,11 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
+	ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+
+
+
+
 	water->Update();
 	tree->Update();
 	grass->Update();
@@ -111,8 +116,6 @@ void BaseScene1::PostRender()
 {
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
-
-	ice->PostRender();
 }
 
 void BaseScene1::GUIRender()

@@ -24,5 +24,6 @@ private:
 	Player* player;
 	
 	PalBox* ice;
+
 };
 
