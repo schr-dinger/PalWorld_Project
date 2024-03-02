@@ -106,8 +106,11 @@ void PalBox::PreRender()
 
 void PalBox::Render()
 {
-	shadow->SetRender();
-	building->SetShader(L"Light/Shadow.hlsl");
+	if (!Done)
+	{
+		shadow->SetRender();
+		building->SetShader(L"Light/Shadow.hlsl");
+	}
 
 	if (isBuilding)
 	{
