@@ -2,7 +2,7 @@
 class PalBox
 {
 public:
-	PalBox(Terrain* terrain);
+	PalBox();
 	~PalBox();
 
 	void Update();
@@ -14,8 +14,6 @@ public:
 	void Place(float x,float z);
 
 private:
-	Terrain* terrain;
-
 	Model* building;
 	Model* finished;
 	Transform* center;

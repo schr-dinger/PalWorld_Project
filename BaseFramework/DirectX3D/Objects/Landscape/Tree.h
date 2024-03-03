@@ -2,27 +2,31 @@
 class Tree
 {
 public:
-    Tree(Terrain* terrain);
+    Tree(Transform* transform);
     ~Tree();
 
     void Update();
     void Render();
     void GUIRender();
 
+    //void Place(Transform* transform);
+
+    void Hit();
+
+    //void Place(ModelInstancing* tree);
+
+
+    Transform* GetTransform() { return transform; }
+    CapsuleCollider* GetCollider() { return collider; }
+
 private:
-    void Place(ModelInstancing* tree);
-private:
-    ModelInstancing* tree1;
-    ModelInstancing* tree2;
-    //ModelInstancing* tree3;
+    Transform* transform;
+
+    //SphereCollider* collider;
+
+    CapsuleCollider* collider;
 
 
-    Terrain* terrain;
-
-
-    int SIZE = 5;
-    float WIDTH = 500;
-    float HEIGHT = 500;
-
+    float Hp = 100;
 };
 

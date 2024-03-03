@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Manager\LandScapeManager.h" />
     <ClInclude Include="Objects\Landscape\Ice.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
     <ClInclude Include="Objects\Character\Player.h" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Objects\Landscape\Tree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Manager\LandScapeManager.cpp" />
     <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
     <ClCompile Include="Objects\Character\Player.cpp" />
