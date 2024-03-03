@@ -6,6 +6,7 @@ public:
     ~LandScapeManager();
 
     void Update();
+    void PreRender();
     void Render();
     void GUIRender();
 
@@ -15,6 +16,9 @@ public:
 
 
     Terrain* GetTerrain() { return terrainF; }
+
+    QuadTreeTerrain* terrain;
+
 private:
 
 private:
@@ -30,6 +34,8 @@ private:
     vector<Tree*> trees;
     vector<Rock*> rocks;
     vector<Grass*> grasses;
+
+    Shadow* shadow;
 
     int treeN = 5;
 

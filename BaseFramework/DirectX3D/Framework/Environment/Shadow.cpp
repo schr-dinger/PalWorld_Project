@@ -67,7 +67,7 @@ void Shadow::GUIRender()
 void Shadow::SetViewProjection()
 {
     // 광원 클래스를 써보기 (DX + 프레임워크 설정)
-    LightBuffer::Light* light = Environment::Get()->GetLight(1);
+    LightBuffer::Light* light = Environment::Get()->GetLight(0);
     //LightBuffer::Light* light = Environment::Get()->AddLight();
 
     //LightBuffer : 빛 계산 기능을 버퍼로 바꾼 클래스

@@ -13,7 +13,9 @@ public:
 	virtual void GUIRender() override;
 
 private:
-	QuadTreeTerrain* terrain;
+	void SetLights();
+
+	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;
 	SkyBox* skyBox;
 	Water* water;
@@ -21,6 +23,8 @@ private:
 	Player* player;
 	
 	PalBox* palBox;
+
+	Shadow* shadow;
 
 };
 
