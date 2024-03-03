@@ -1,0 +1,10 @@
+<Material Name="MI_PalProp_PalBoxBase">
+    <Shader Vertex="" Pixel="Shaders/Light/Light.hlsl"/>
+    <Texture Diffuse="Textures/Model/PalBoxF/Glass.png" Specular="Textures/Color/White.png" Normal="Textures/Model/PalBoxF/T_PalBoxBase_N.png"/>
+    <Property Shininess="25" HasNormalMap="0">
+        <Diffuse R="0.80000001" G="0.80000001" B="0.80000001" A="1"/>
+        <Specular R="0.80000001" G="0.80000001" B="0.80000001" A="1"/>
+        <Ambient R="0" G="0" B="0" A="1"/>
+        <Emissive R="0" G="0" B="0" A="0.19607843"/>
+    </Property>
+</Material>
