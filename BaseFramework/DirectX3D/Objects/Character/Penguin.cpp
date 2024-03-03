@@ -90,10 +90,11 @@ void Penguin::Update()
     //}
 
     // 스킬 테스트
-    if (KEY_DOWN('K') && !skill[0]->Active())
-    {
-        Atack();
-    }
+    //if (KEY_DOWN('K') && !skill[0]->Active())
+    //{
+    //    Attack();
+    //    //FieldAtack();
+    //}
     skill[0]->Update();
 
 }
@@ -136,7 +137,21 @@ void Penguin::GUIRender()
     //skill[0]->GUIRender();
 }
 
-void Penguin::Atack()
+void Penguin::Attack()
+{
+    // 모션 설정
+    action = ACTION::ATTACK;
+    instancing->PlayClip(index, (int)ACTION::ATTACK);
+    eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
+
+    // 스킬 액티브
+    skill[0]->SetActive(true);
+    skill[0]->SetSkill();
+    MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
+
+}
+
+void Penguin::FieldAttack()
 {
     // 모션 설정
     action = ACTION::ATTACK;
@@ -147,7 +162,6 @@ void Penguin::Atack()
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
     FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
-
 }
 
 void Penguin::Damage()
@@ -254,7 +268,17 @@ void Penguin::Move()
     if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
     //if (action == ACTION::) return; // 추가 가능
 
-    if (velocity.Length() < 15) // 표적과 거리가 가까울 때는
+    if (velocity.Length() < 5)
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    //else if (velocity.Length() < 10)
+    //{
+    //    speed = 2;
+    //    SetAction(ACTION::WALK);
+    //}
+    else if (velocity.Length() < 20) // 표적과 거리가 가까울 때는
     {
         speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);

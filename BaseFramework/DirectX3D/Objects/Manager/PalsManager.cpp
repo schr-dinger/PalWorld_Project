@@ -68,6 +68,11 @@ void PalsManager::Update()
         pal->Update(); // pal에서 버츄얼로 구현했지만, 
                        // 적용안되면 기본 함수로 바꾸기
 
+    if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
+    {
+        pals[0]->FieldAttack();
+        //FieldAttack();
+    }
     
 }
 
@@ -204,21 +209,40 @@ void PalsManager::Collision()
     //}
 
 
-    if (testIsHit) // 포획이든 공격이든 맞았으면 활성
+    for (Pal* pal : pals) 
     {
-        for (Pal* pal : pals)
+        if (PalSpearManager::Get()->IsCollision(pal->GetCollider())) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
         {
-            if (pal->GetCollider()->IsCollision(player->GetPalSpearCol()))
-            {
-                // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
-                PlayerPalsManager::Get()->Caught(pal);
-                // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
-                pal->GetTransform()->SetActive(false);
-                return; //팔스피어(포획)에 맞았여기서 리턴
-            }
+            // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
+            PlayerPalsManager::Get()->Caught(pal);
+            // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+            pal->GetTransform()->SetActive(false);
+            return; //팔스피어(포획)에 맞았여기서 리턴
+        }
+        else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
+        {
+            pal->Damage();
+            return;
         }
 
-        // 포획이 아니라면 맞기
+    }
+
+    if (testIsHit) // 맞았으면 활성
+    {
+        // 이전 테스트용
+        //for (Pal* pal : pals)
+        //{
+        //    if (pal->GetCollider()->IsCollision(player->GetPalSpearCol()))
+        //    {
+        //        // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
+        //        PlayerPalsManager::Get()->Caught(pal);
+        //        // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+        //        pal->GetTransform()->SetActive(false);
+        //        return; //팔스피어(포획)에 맞았여기서 리턴
+        //    }
+        //}
+
+        // 맞기
         pals[hitPalIndex]->Damage();
         testIsHit = false;
     }

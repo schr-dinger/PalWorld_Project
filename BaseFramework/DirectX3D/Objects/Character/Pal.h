@@ -15,7 +15,8 @@ public:
 	virtual CapsuleCollider* GetCollider() = 0;
 
 	// 팰의 공통 모션 여기서 넣기
-	virtual void Atack() = 0;
+	virtual void FieldAttack() = 0;
+	virtual void Attack() = 0;
 	virtual void Damage() = 0;
 	//virtual void Die() = 0;
 	// -> 기타 등등...

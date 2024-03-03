@@ -22,7 +22,8 @@ public:
     void GUIRender();
 
     // 액션 : 공격
-    void Atack();
+    void Attack();      // 내 팔 공격
+    void FieldAttack(); // 필드 팔 공격
 
     // 액션 : 얻어맞기
     void Damage();
