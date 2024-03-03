@@ -49,6 +49,7 @@ BaseScene1::~BaseScene1()
 	delete grass;
 	delete rock;
 
+	BulletManager::Get()->Delete();
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
 
@@ -56,7 +57,7 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+	//ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
 
 
 
@@ -71,7 +72,7 @@ void BaseScene1::Update()
 
 	ice->Update();
 
-
+	BulletManager::Get()->Update();
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 
@@ -107,6 +108,7 @@ void BaseScene1::Render()
 	
 	ice->Render();
 
+	BulletManager::Get()->Render();
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 

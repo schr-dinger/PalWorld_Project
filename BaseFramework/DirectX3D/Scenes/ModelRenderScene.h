@@ -16,5 +16,5 @@ private:
     //Model* model;
 
     ElecPanda* test;
-    Naruto* naruto;
+    Model* naruto;
 };

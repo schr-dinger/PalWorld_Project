@@ -5,12 +5,12 @@ ModelRenderScene::ModelRenderScene()
 {
     //model = new Model("Test2");
 
-    test = new ElecPanda();
-    naruto = new Naruto();
+    //test = new ElecPanda();
+    naruto = new Model("bow");
 
-    naruto->Scale() *= 0.01f;
+    naruto->Scale() *= 2.0f;
 
-    test->SetTarget(naruto->GetTransform());
+    //test->SetTarget(naruto->GetTransform());
 }
 
 ModelRenderScene::~ModelRenderScene()
@@ -22,11 +22,11 @@ ModelRenderScene::~ModelRenderScene()
 void ModelRenderScene::Update()
 {
 
-    test->Test(naruto->GetCollider());
+    //test->Test(naruto->GetCollider());
 
     //model->UpdateWorld();
-    naruto->Update();
-    test->Update();
+    naruto->UpdateWorld();
+    //test->Update();
 }
 
 void ModelRenderScene::PreRender()
@@ -37,7 +37,7 @@ void ModelRenderScene::Render()
 {
     //model->Render();
     naruto->Render();
-    test->Render();
+    //test->Render();
 }
 
 void ModelRenderScene::PostRender()
@@ -47,5 +47,6 @@ void ModelRenderScene::PostRender()
 void ModelRenderScene::GUIRender()
 {
     //model->GUIRender();
-    test->GUIRender();
+    //test->GUIRender();
+    naruto->GUIRender();
 }

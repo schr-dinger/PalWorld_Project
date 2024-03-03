@@ -103,6 +103,9 @@ private:
     bool isGun = false;
     bool isGaim = false;
     int select = 0;
+    //Bullet* bullet;
+
+
 
 
 };

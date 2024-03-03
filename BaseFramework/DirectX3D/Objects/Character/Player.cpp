@@ -11,7 +11,7 @@ Player::Player() : ModelAnimator("NPC")
 
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
-    CAM->Pos() = { -0.05,5,2.5 };
+    
 
     Hand = new Transform();
     Gun = new Model("Rifle");
@@ -61,9 +61,9 @@ Player::Player() : ModelAnimator("NPC")
     testPalSpear->SetActive(false);
 
     
+    // 테스트 : 총
 
-    //
-
+   
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
@@ -72,7 +72,7 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-
+    
 }
 
 Player::~Player()
@@ -99,6 +99,7 @@ void Player::Update()
     Gun->UpdateWorld();
 
     particle->Update();
+    
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
 
@@ -174,8 +175,6 @@ void Player::Control()
         if (KEY_DOWN(VK_LBUTTON)) // 팔 공격
         {
             // isThorw = true;
-            particle->Play(Gun->GlobalPos()+Vector3(0,1,0));
-
             AttackPal();
         }
         else if (KEY_DOWN('V')) // 팔 포획
@@ -203,7 +202,7 @@ void Player::Control()
 
         if (isGaim)
         {
-            CAM->Pos() = { -0.05,3,2.5 };
+            CAM->Pos() = { -0.2,1.5,1.5 };
 
         }
 
@@ -217,7 +216,7 @@ void Player::Control()
     }
     else
     {
-        CAM->Pos() = { -0.05,4,2.7 };
+        CAM->Pos() = { -0.05,2,2.7 };
     }
 
 
@@ -426,21 +425,34 @@ void Player::AttackPal()
 {
     // *총소리 출력 필요
     //Ray ray;
-    //ray.pos = CAM->GlobalPos();
-    //ray.dir = CAM->Forward();
+    //ray.pos = GlobalPos();
+    //ray.dir = CamTransform->Forward();
     //Vector3 hitPoint;
+
+
+    
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
 
+    
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
         // 태스트 : 히트
+
+        particle->Play(hitPoint);
+
 
         // 플레이어에 총 맞는 이펙트 등 추가 필요
 
         // 이펙트는 히트 포인트에서 출력
     }
+
+   
+   
+    BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
+    
+    
 
 }
 
@@ -524,10 +536,10 @@ void Player::SetAnimation()
 
             if (velocity.Length() > 0)
             {
-                if (isRun) SetState(RUN);
-                else SetState(WALK);
-
+                SetState(RUN);
+                
             }
+            else SetState(IDLE);
             // 조준시 움직임 넣기
             // 조준시 카메라의 회전을 따라서 회전하기
 

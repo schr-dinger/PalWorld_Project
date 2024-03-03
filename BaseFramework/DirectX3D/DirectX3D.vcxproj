@@ -142,16 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Manager\BulletManager.h" />
+    <ClInclude Include="Objects\Items\Weapons\Bullet.h" />
     <ClInclude Include="Objects\Character\ElecPanda.h" />
     <ClInclude Include="Objects\Character\Player.h" />
     <ClInclude Include="Objects\Character\Pal.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
+    <ClInclude Include="Objects\Landscape\Ice.h" />
     <ClInclude Include="Objects\Landscape\Rock.h" />
     <ClInclude Include="Objects\Landscape\Tree.h" />
     <ClInclude Include="Objects\Manager\PalsManager.h" />
     <ClInclude Include="Objects\Manager\PlayerPalsManager.h" />
     <ClInclude Include="Objects\Manager\PalSpearManager.h" />
     <ClInclude Include="Objects\Items\Weapons\PalSpear.h" />
+    <ClInclude Include="Objects\Structure\PalBox.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -276,16 +280,20 @@
     <ClInclude Include="Scenes\WaterScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Manager\BulletManager.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
     <ClCompile Include="Objects\Character\ElecPanda.cpp" />
     <ClCompile Include="Objects\Character\Player.cpp" />
     <ClCompile Include="Objects\Character\Pal.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
+    <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Rock.cpp" />
     <ClCompile Include="Objects\Landscape\Tree.cpp" />
     <ClCompile Include="Objects\Manager\PalsManager.cpp" />
     <ClCompile Include="Objects\Manager\PlayerPalsManager.cpp" />
     <ClCompile Include="Objects\Manager\PalSpearManager.cpp" />
     <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp" />
+    <ClCompile Include="Objects\Structure\PalBox.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />
