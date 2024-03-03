@@ -14,12 +14,11 @@ public:
 
 private:
 	QuadTreeTerrain* terrain;
-	Terrain* terrainF;
+	//Terrain* terrainF;
 	SkyBox* skyBox;
 	Water* water;
-	Tree* tree;
+	//Tree* tree;
 	Grass* grass;
-	Rock* rock;
 
 	Player* player;
 	
