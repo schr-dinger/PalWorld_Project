@@ -4,11 +4,13 @@
 BaseScene1::BaseScene1()
 {
 	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
+
 	//terrainF = new Terrain();
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 	//
 	water = new Water(L"Textures/Landscape/Wave.dds", 500, 500);
-	water->Pos() = { 0.0f,10.0f,0.0f };
+	water->Pos() = { 250.0f,11.0f, 250.0f };
+	water->Scale() *= 4.0f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
@@ -18,8 +20,6 @@ BaseScene1::BaseScene1()
 
 	player = new Player();
 	player->SetTerrain(LandScapeManager::Get()->GetTerrain());
-
-	//CAM->LookAtTarget(); // 팔로우캠 + 추적 대상 있음 + 그 추적 대상을 락온으로 추적 (이 경우는 나루토)
 
 	PalsManager::Get()->SetTarget(player);
 	PalsManager::Get()->SetPlayer(player);
@@ -107,10 +107,10 @@ void BaseScene1::PostRender()
 void BaseScene1::GUIRender()
 {
 	//player->GUIRender();
-	//water->GUIRender();
-	terrain->GUIRender();
+	water->GUIRender();
+	//terrain->GUIRender();
 
-	palBox->GUIRender();
+	//palBox->GUIRender();
 
 	PalsManager::Get()->GUIRender();
 

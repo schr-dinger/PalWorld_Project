@@ -73,7 +73,7 @@ void PalBox::Update()
 	}
 
 
-	if (KEY_DOWN('B'))
+	if (KEY_DOWN('B')&&!isPlaced)
 	{
 		isBuilding = !isBuilding;
 	}
