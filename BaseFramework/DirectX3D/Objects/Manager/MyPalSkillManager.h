@@ -13,6 +13,6 @@ public:
 	
 
 private:
-	vector<Skill*> PlayerPalSkills; // "현재" 존재하는 플레이어 팔의 스킬들
+	vector<Skill*> playerPalSkills; // "현재" 존재하는 플레이어 팔의 스킬들
 };
 

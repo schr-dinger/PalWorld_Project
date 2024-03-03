@@ -37,6 +37,9 @@ BaseScene1::BaseScene1()
 
 	// 스킬 테스트
 	testSkill = new Tornado();
+
+	FieldPalSkillManager::Get(); // 생성자 만들기
+	MyPalSkillManager::Get();	 // 생성자 만들기
 }
 
 BaseScene1::~BaseScene1()
@@ -71,6 +74,9 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 
+	FieldPalSkillManager::Get()->Update(); // 다른 업데이트가 다 돈 후 마지막에 스킬 업데이트하기
+	                                       // 벡터 터짐 방지
+	MyPalSkillManager::Get()->Update();
 }
 
 void BaseScene1::PreRender()

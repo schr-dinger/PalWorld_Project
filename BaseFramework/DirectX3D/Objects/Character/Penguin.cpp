@@ -146,6 +146,7 @@ void Penguin::Atack()
     // 스킬 액티브
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
+    FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
 }
 

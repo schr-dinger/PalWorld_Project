@@ -2,6 +2,7 @@
 
 FieldPalSkillManager::FieldPalSkillManager()
 {
+    fieldSkills.reserve(100); // 대충 100개 들어갈 수 있게 예약해두기
 }
 
 FieldPalSkillManager::~FieldPalSkillManager()
