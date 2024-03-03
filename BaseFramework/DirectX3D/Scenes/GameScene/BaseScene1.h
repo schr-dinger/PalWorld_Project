@@ -17,12 +17,10 @@ private:
 	//Terrain* terrainF;
 	SkyBox* skyBox;
 	Water* water;
-	//Tree* tree;
-	Grass* grass;
 
 	Player* player;
 	
-	PalBox* ice;
+	PalBox* palBox;
 
 };
 

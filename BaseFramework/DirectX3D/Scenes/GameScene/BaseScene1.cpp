@@ -12,10 +12,8 @@ BaseScene1::BaseScene1()
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
-	grass = new Grass(LandScapeManager::Get()->GetTerrain());
-
 	//test
-	ice = new PalBox(LandScapeManager::Get()->GetTerrain());
+	palBox = new PalBox();
 
 
 	player = new Player();
@@ -42,8 +40,6 @@ BaseScene1::~BaseScene1()
 	//delete terrainF;
 
 	delete water;
-	//delete tree;
-	delete grass;
 
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
@@ -52,19 +48,18 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+	palBox->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
 
 
 
 
 	water->Update();
 	//tree->Update();
-	grass->Update();
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-	ice->Update();
+	palBox->Update();
 
 
 	PalsManager::Get()->Update();
@@ -84,7 +79,7 @@ void BaseScene1::PreRender()
 	//반사 출력
 	skyBox->Render();
 
-	ice->PreRender();
+	palBox->PreRender();
 
 }
 
@@ -93,13 +88,10 @@ void BaseScene1::Render()
 	skyBox->Render();
 	terrain->Render();
 	water->Render();
-	grass->Render();
-
-	//tree->Render();
 
 	player->Render();
 	
-	ice->Render();
+	palBox->Render();
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
@@ -118,7 +110,7 @@ void BaseScene1::GUIRender()
 	//water->GUIRender();
 	terrain->GUIRender();
 
-	ice->GUIRender();
+	palBox->GUIRender();
 
 	PalsManager::Get()->GUIRender();
 

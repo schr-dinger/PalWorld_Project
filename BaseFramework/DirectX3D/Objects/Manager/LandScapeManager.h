@@ -11,6 +11,7 @@ public:
 
     void PlaceTree(ModelInstancing* tree,int size,Terrain* terrain);
     void PlaceRock(ModelInstancing* tree, int size, Terrain* terrain);
+    void PlaceGrass(ModelInstancing* tree, int size, Terrain* terrain);
 
 
     Terrain* GetTerrain() { return terrainF; }
@@ -19,24 +20,22 @@ private:
 private:
     Terrain* terrainF;
 
-
     ModelInstancing* tree1;
     ModelInstancing* tree2;
     ModelInstancing* rock1;
+    ModelInstancing* grass1;
+    ModelInstancing* grass2;
+
 
     vector<Tree*> trees;
-    //vector<Tree*> trees2;
     vector<Rock*> rocks;
-
-    //ModelInstancing* tree3;
-
-
-
+    vector<Grass*> grasses;
 
     int treeN = 5;
 
     int rockN = 3;
 
+    int grassN = 6;
 
     float WIDTH = 500;
     float HEIGHT = 500;

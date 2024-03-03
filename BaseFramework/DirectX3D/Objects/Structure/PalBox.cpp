@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-PalBox::PalBox(Terrain* terrain) : terrain(terrain)
+PalBox::PalBox()
 {
 	FOR(2)
 	{
@@ -146,5 +146,5 @@ void PalBox::Place(float x, float z)
 {
 	if(isPlaced) return;
 
-	building->Pos() = { x,terrain->GetHeight({x, 0, z}), z };
+	building->Pos() = { x,LandScapeManager::Get()->GetTerrain()->GetHeight({x, 0, z}), z };
 }
