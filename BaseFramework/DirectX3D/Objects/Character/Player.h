@@ -56,6 +56,8 @@ public:
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
+    Transform* GetFrontPoint() { return frontPoint; }
+
 
 private:
     ACTION action;
@@ -63,6 +65,8 @@ private:
 
     Transform* CamTransform;
     Transform* Hand;
+
+    Transform* frontPoint;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 
@@ -87,16 +91,16 @@ private:
     bool isAiming = false;
     bool isRun = false;
 
+    Terrain* terrain;
 
-
+    bool test = true;
 
     Model* Gun;
 
-    Terrain* terrain;
 
     // 테스트 : 포획
     SphereCollider* testPalSpear;
-
+    SphereCollider* testFrontSphere;
 
     // 무기 조준
 
@@ -106,10 +110,7 @@ private:
     int select = 0;
     //Bullet* bullet;
 
-
-
-
     Vector3 ogCam = { -0.05,1.7,2.5 };
-    Vector3 foCam = { -0.03,1.3,1.0 };
+    Vector3 foCam = { 0.05,1.3,1.0 };
 };
 

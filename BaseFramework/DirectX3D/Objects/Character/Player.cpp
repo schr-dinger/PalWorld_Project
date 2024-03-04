@@ -8,10 +8,14 @@ Player::Player() : ModelAnimator("NPC")
     //CAM->SetTarget(this);
     //CAM->TargetOptionLoad("test3");
 
+    particle = new ParticleSystem("TextData/Particles/test3.fx");
 
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
-    
+
+    frontPoint = new Transform();
+    frontPoint->SetParent(this);
+    frontPoint->Pos() = { 0,0,-5 };
 
     Hand = new Transform();
     Gun = new Model("Rifle");
@@ -21,8 +25,6 @@ Player::Player() : ModelAnimator("NPC")
     Gun->Pos().y -= 0.05f;
     Gun->Rot().x += 1.5f;
     Gun->Rot().y -= 0.10f;
-
-    particle = new ParticleSystem("TextData/Particles/test2.fx");
 
     Pos() = { 100, 0, 100 };
 
@@ -60,10 +62,11 @@ Player::Player() : ModelAnimator("NPC")
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
-    
+    testFrontSphere = new SphereCollider();
+
     // 테스트 : 총
 
-   
+
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
@@ -72,13 +75,13 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-    
+
 }
 
 Player::~Player()
 {
     delete CamTransform;
-    delete CamTransform;
+    delete frontPoint;
     delete Gun;
     delete terrain;
     delete testPalSpear;
@@ -87,27 +90,43 @@ Player::~Player()
 
 void Player::Update()
 {
+
+    if (isAiming)
+    {
+        CAM->Pos() = foCam;
+    }
+    else
+    {
+        CAM->Pos() = ogCam;
+    }
+
     CamTransform->Pos() = this->Pos();
 
-    //ClipSync();
+    testFrontSphere->Pos() = frontPoint->GlobalPos();
 
+    //ClipSync();
     CamTransform->UpdateWorld();
+    frontPoint->UpdateWorld();
     Control();
     SetAnimation();
 
-    Hand->SetWorld(GetTransformByNode(68));
+    if(isGun) Hand->SetWorld(GetTransformByNode(68));
+    else Hand->SetWorld(GetTransformByNode(4));
+    
     Gun->UpdateWorld();
 
     particle->Update();
-    
+
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
 
+    testFrontSphere->UpdateWorld();
 }
 
 void Player::Render()
 {
     testPalSpear->Render();
+    //testFrontSphere->Render();
     Gun->Render();
 
     particle->Render();
@@ -140,46 +159,73 @@ void Player::Control()
     // 테스트 : 팔 포획, 팔을 맞췄을 때만 팔스피어 콜라이더 활성화
     testPalSpear->SetActive(false);
 
+    if (KEY_PRESS(VK_LSHIFT))
+    {
+        isRun = true;
+    }
+    else
+    {
+        isRun = false;
+    }
+
     if (KEY_DOWN('1'))
     {
-        isGun = true;
         select = 1;
         SetState(R_DRAW);
     }
 
     if (KEY_DOWN('2'))
     {
-        isGun = false;
         select = 2;
+    }
+
+    switch (select)
+    {
+    case 1:
+        isGun = true;
+        if (KEY_DOWN('R'))
+        {
+            SetState(R_RELOAD);
+        }
+        // other weapon
+        break;
+    case 2:
+        // other weapon
+        isGun = false;
+    default:
+        isGun = false;
+        //othere weapon
+        break;
+
     }
 
 
     if (KEY_PRESS(VK_RBUTTON))
     {
+        isAiming = true;
+
         switch (select)
         {
         case 1:
             isGaim = true;
             break;
         case 2:
-            isAiming = true;
+            //  isSpearAiming = true;
             break;
         default:
             break;
         }
 
 
-        
+
 
 
         if (KEY_DOWN(VK_LBUTTON)) // 팔 공격
         {
-            // isThorw = true;
             AttackPal();
         }
         else if (KEY_DOWN('V')) // 팔 포획
         {
-
             CatchPal();
         }
         else if (KEY_DOWN('Z')) // 포획한 팔 소환
@@ -194,51 +240,18 @@ void Player::Control()
 
     }
 
-
-
-
-    if (KEY_PRESS(VK_RBUTTON))
+    if (KEY_DOWN('R'))
     {
-
-        if (isGaim)
-        {
-            CAM->Pos() = { -0.2,1.5,1.5 };
-
-        }
-
-    }
-    else if (KEY_UP(VK_RBUTTON))
-    {
-        isGaim = false;
-    }
-    else
-    {
-        CAM->Pos() = { -0.05,2,2.7 };
+        test = !test;
     }
 
 
 
-    if (select == 1)
+    if (test)
     {
-        if (KEY_PRESS(VK_RBUTTON))
-        {
-            isGaim = true;
-        }
-        else
-        {
-            isGaim = false;
-        }
-
-        if (KEY_DOWN('R'))
-        {
-            SetState(R_RELOAD);
-        }
+        Rotate();
     }
 
-
-
-
-    Rotate();
 
     Jump(terrain->GetHeight(Pos()));
 }
@@ -384,10 +397,10 @@ void Player::Rotate()
 {
 
     Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
-    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
-    if (isGaim) Rot().y += delta.x * rotSpeed * DELTA;
-    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
-    CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
+    //SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+    //if (isGaim) Rot().y += delta.x * rotSpeed * DELTA;
+    CAM->Rot().x = -delta.y * rotSpeed*0.005f;
+    CamTransform->Rot().y = delta.x * rotSpeed* 0.005f;
 
     if (isAiming)     Rot().y = CamTransform->Rot().y;
 
@@ -427,28 +440,25 @@ void Player::AttackPal()
     //Vector3 hitPoint;
 
 
-    
+
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
-        
+
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
         // 태스트 : 히트
-
-        particle->Play(hitPoint);
-
 
         // 플레이어에 총 맞는 이펙트 등 추가 필요
 
         // 이펙트는 히트 포인트에서 출력
     }
 
-      
-    BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
-    
 
-    
+    BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
+
+
+
 
 }
 
@@ -464,6 +474,7 @@ void Player::CatchPal()
     // 펠스피어 매니저 테스트
     Vector3 tmp = this->GlobalPos();
     tmp.y += 2;
+    ray.dir += {0, 0.3f, 0};
     PalSpearManager::Get()->Throw(tmp, ray.dir);
 
     //if (PalsManager::Get()->IsCollision(ray, hitPoint))
@@ -533,7 +544,7 @@ void Player::SetAnimation()
             if (velocity.Length() > 0)
             {
                 SetState(RUN);
-                
+
             }
             else SetState(IDLE);
             // 조준시 움직임 넣기
@@ -554,11 +565,6 @@ void Player::SetAnimation()
     if (isJump)
     {
         SetState(J_START);
-    }
-    else if (isAiming)
-    {
-        SetState(S_AIM);
-
     }
     else
     {
