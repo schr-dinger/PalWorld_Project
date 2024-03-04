@@ -424,6 +424,8 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Objects\Manager\LandScapeManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -808,6 +810,8 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Objects\Manager\LandScapeManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
