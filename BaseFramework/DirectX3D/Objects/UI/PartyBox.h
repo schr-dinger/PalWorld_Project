@@ -6,13 +6,18 @@ public:
 	~PartyBox();
 
 	void Update();
-	void Render();
+	//void Render();
 	void PostRender();
 	void GUIRender();
 
 	void Collision();
 
 private:
-	Quad* partyBox;
+	Quad* partyBox1;
+	Quad* partyBox2;
+	Quad* partyBox3;
+	class Pal* pal;
+
+	Texture* texture;
 };
 
