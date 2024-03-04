@@ -42,16 +42,20 @@ void PlayerPalsManager::Update()
     {
         iter->second->Update();
     }
-    for (Pal* pal : pals)
-    {
-        pal->Update();
-    }
+    //for (Pal* pal : pals)
+    //{
+    //    pal->Update();
+    //}
 
     if (selPal != -1)
     {
         //palsMAI[pals[selPal]->name]->Update();
 
         pals[selPal]->Update();
+        if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
+        {
+            pals[selPal]->Attack();
+        }
     }
     
 
@@ -168,7 +172,7 @@ void PlayerPalsManager::Collision()
     if (selPal != -1)
     {
         // 조건에따라 데미지 호출
-        if (false) // 현재 맞는 조건 없음
+        if (FieldPalSkillManager::Get()->IsCollision(pals[selPal]->GetCollider())) // 필드 스킬에 맞았을 때
         {
             pals[selPal]->Damage();
         }

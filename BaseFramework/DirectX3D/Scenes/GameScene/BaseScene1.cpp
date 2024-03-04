@@ -31,12 +31,17 @@ BaseScene1::BaseScene1()
 	PalsManager::Get()->SetPlayer(player);
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	
-	//PlayerPalsManager::Get()->SetTarget(); // ÇÃ·¹ÀÌ¾î¿¡¼­ ÇÃ·¹ÀÌ¾î°¡ Å¸°ÙÇÑ Å¸°ÙÀ¸·Î ¼³Á¤ÇÏ±â
+	//PlayerPalsManager::Get()->SetTarget(); // í”Œë ˆì´ì–´ì—ì„œ í”Œë ˆì´ì–´ê°€ íƒ€ê²Ÿí•œ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •í•˜ê¸°
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
+	// ï¿½ï¿½Å³ ï¿½×½ï¿½Æ®
+	testSkill = new Tornado();
+
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
+	FieldPalSkillManager::Get(); // ìƒì„±ìžìš©
+	MyPalSkillManager::Get();	 // ìƒì„±ìžìš©
 }
 
 BaseScene1::~BaseScene1()
@@ -74,18 +79,21 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
+
+	FieldPalSkillManager::Get()->Update(); // ë²¡í„° í„°ì§ ë°©ì§€
+	MyPalSkillManager::Get()->Update();	   //  -> ë§¨ ë§ˆì§€ë§‰ì— ì—…ë°ì´íŠ¸
 }
 
 void BaseScene1::PreRender()
 {
 	water->SetRefraction();
 
-	//ÀÏ··ÀÓ ÂÊ Å¬·¡½ºÀÇ Äõµå¿¡ ÀÏ··ÀÓÀÇ °á°ú Ãâ·Â
+	// ì¼ë ì¸ ìª½ í´ëž˜ìŠ¤ì˜ ì¿¼ë“œì— ì¼ë ìž„ì˜ ê²°ê³¼ ì¶œë ¥
 	skyBox->Render();
 
-	//¹Ý»ç
+	// ë°˜ì‚¬
 	water->SetReflection();
-	//¹Ý»ç Ãâ·Â
+	// ë°˜ì‚¬ ì¶œë ¥
 	skyBox->Render();
 
 	palBox->PreRender();
@@ -106,6 +114,7 @@ void BaseScene1::Render()
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
+
 	LandScapeManager::Get()->Render();
 
 }
@@ -118,10 +127,9 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//player->GUIRender();
+	player->GUIRender();
 	//water->GUIRender();
 	//terrain->GUIRender();
-
 	//palBox->GUIRender();
 
 	PalsManager::Get()->GUIRender();

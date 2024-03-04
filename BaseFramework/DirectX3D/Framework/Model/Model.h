@@ -11,6 +11,9 @@ public:
 
     void SetShader(wstring file);
 
+    Material* GetMaterial(int num) { return materials[num]; }
+
+
 private:
     void ReadMaterial();
     void ReadMesh();
