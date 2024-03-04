@@ -3,6 +3,8 @@
 LandScapeManager::LandScapeManager()
 {
     terrainF = new Terrain();
+    terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
+
 
     trees.reserve(treeN * treeN * 2);
 
@@ -25,7 +27,7 @@ LandScapeManager::LandScapeManager()
     grass2 = new ModelInstancing("Grass2");
     PlaceGrass(grass2, grassN, terrainF);
 
-
+    shadow = new Shadow();
 }
 
 LandScapeManager::~LandScapeManager()
@@ -44,7 +46,11 @@ LandScapeManager::~LandScapeManager()
     delete grass1;
     delete grass2;
 
+    delete shadow;
+
     delete terrainF;
+    delete terrain;
+
 }
 
 void LandScapeManager::Update()
@@ -62,14 +68,42 @@ void LandScapeManager::Update()
 
 }
 
+void LandScapeManager::PreRender()
+{
+    shadow->SetRenderTarget();
+    tree1->SetShader(L"Light/DepthMap.hlsl");
+
+    //tree2->SetShader(L"Light/DepthMap.hlsl");
+
+    //rock1->SetShader(L"Light/DepthMap.hlsl");
+
+    //grass1->SetShader(L"Light/DepthMap.hlsl");
+
+    //grass2->SetShader(L"Light/DepthMap.hlsl");
+
+    tree1->Render();
+    //tree2->Render();
+    //rock1->Render();
+    //grass1->Render();
+    //grass2->Render();
+}
+
 void LandScapeManager::Render()
 {
+    //PreRender();
+
+    //shadow->SetRender();
+    //tree1->SetShader(L"Light/Shadow.hlsl");
+    //terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
+
+
     tree1->Render();
     tree2->Render();
     rock1->Render();
     grass1->Render();
     grass2->Render();
 
+    terrain->Render();
 
     for (Tree* tree : trees) tree->Render();
     for (Rock* rock : rocks) rock->Render();

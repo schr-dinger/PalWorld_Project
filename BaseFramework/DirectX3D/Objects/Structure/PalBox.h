@@ -21,7 +21,7 @@ private:
 
 	BlendState* blendState[2];
 
-	Shadow* shadow;
+	FakeShadow* shadow;
 
 	Model* cube;
 	Vector3 off = { 13,0,13 };

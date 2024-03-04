@@ -11,7 +11,7 @@ Player::Player() :	ModelAnimator("Player")
 
     CamTransform = new Transform();
     CAM->SetParent(CamTransform);
-    CAM->Pos() = { -0.05,2.5,2.5 };
+    CAM->Pos() = ogCam;
 
     frontPoint = new Transform();
     frontPoint->SetParent(this);
@@ -60,6 +60,18 @@ Player::~Player()
 
 void Player::Update()
 {
+    if (isAiming)
+    {
+        //CAM->Pos() = Lerp(ogCam,foCam,0.3f);
+        CAM->Pos() = foCam;
+
+    }
+    else
+    {
+        CAM->Pos() = ogCam;
+
+    }
+
     CamTransform->Pos() = this->Pos();
 
     //
