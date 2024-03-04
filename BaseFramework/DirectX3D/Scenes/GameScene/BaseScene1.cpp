@@ -95,6 +95,7 @@ void BaseScene1::PreRender()
 
 void BaseScene1::Render()
 {
+
 	skyBox->Render();
 	//terrain->Render();
 	water->Render();
@@ -106,6 +107,7 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 	LandScapeManager::Get()->Render();
+
 }
 
 void BaseScene1::PostRender()
@@ -133,6 +135,7 @@ void BaseScene1::SetLights()
 	light0->range = 3000.0f;
 	light0->color = { 55.0f / 255.0f,55.0f / 255.0f,55.0f / 255.0f ,0 };
 	light0->direction = { 0,-1,0 };
+	light0->pos = { 0.01f,300.0f,0.01f };
 
 	LightBuffer::Light* light1 = Environment::Get()->AddLight();
 	light1->type = 1;
