@@ -2,27 +2,17 @@
 class Grass
 {
 public:
-    Grass(Terrain* terrain);
+    Grass(Transform* transform);
     ~Grass();
 
     void Update();
     void Render();
     void GUIRender();
 
+    Transform* GetTransform() { return transform; }
 private:
-    void Place(ModelInstancing* grass);
-private:
-    ModelInstancing* grass1;
-    ModelInstancing* grass2;
-    //ModelInstancing* tree3;
 
-
-    Terrain* terrain;
-
-
-    int SIZE = 20;
-    float WIDTH = 500;
-    float HEIGHT = 500;
+    Transform* transform;
 
 };
 

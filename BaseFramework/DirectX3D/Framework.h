@@ -219,6 +219,8 @@ using namespace GameMath;
 #include "Objects/Manager/PalsManager.h"
 #include "Objects/Manager/PalSpearManager.h"
 #include "Objects/Manager/PlayerPalsManager.h"
+#include "Objects/Manager/LandScapeManager.h"
+
 
 //Scene Header
 #include "Scenes/Scene.h"

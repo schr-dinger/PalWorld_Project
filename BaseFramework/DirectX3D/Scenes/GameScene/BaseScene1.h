@@ -14,18 +14,20 @@ public:
 
 private:
 	QuadTreeTerrain* terrain;
-	Terrain* terrainF;
+	//Terrain* terrainF;
 	SkyBox* skyBox;
 	Water* water;
-	Tree* tree;
-	Grass* grass;
-	Rock* rock;
 
 	Player* player;
 	
+<<<<<<< HEAD
 	PalBox* ice;
 
 	// 스킬 테스트
 	Skill* testSkill;
+=======
+	PalBox* palBox;
+
+>>>>>>> main
 };
 

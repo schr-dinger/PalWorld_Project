@@ -47,11 +47,15 @@ public:
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
+    Transform* GetFrontPoint() { return frontPoint ; }
+
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
 
     Transform* CamTransform;
+
+    Transform* frontPoint;
 
     POINT clientCenterPos = { WIN_WIDTH / 2, WIN_HEIGHT >> 1 };
 
@@ -78,9 +82,9 @@ private:
 
     bool test = true;
 
-
-
     // Å×½ºÆ® : Æ÷È¹
     SphereCollider* testPalSpear;
+    SphereCollider* testFrontSphere;
+
 };
 

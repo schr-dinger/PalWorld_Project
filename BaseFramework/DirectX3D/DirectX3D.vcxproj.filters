@@ -414,6 +414,7 @@
     <ClInclude Include="Objects\Structure\PalBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Objects\Skill\Skill.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -424,6 +425,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h">
+=======
+    <ClInclude Include="Objects\Manager\LandScapeManager.h">
+>>>>>>> main
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -797,6 +801,7 @@
     <ClCompile Include="Objects\Structure\PalBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Objects\Skill\Skill.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -807,6 +812,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp">
+=======
+    <ClCompile Include="Objects\Manager\LandScapeManager.cpp">
+>>>>>>> main
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
