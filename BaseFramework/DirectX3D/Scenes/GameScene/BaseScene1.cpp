@@ -19,13 +19,11 @@ BaseScene1::BaseScene1()
 	player = new Player();
 	player->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	//CAM->LookAtTarget(); // �ȷο�ķ + ���� ��� ���� + �� ���� ����� �������� ���� (�� ���� ������)
-
 	PalsManager::Get()->SetTarget(player);
 	PalsManager::Get()->SetPlayer(player);
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	
-	//PlayerPalsManager::Get()->SetTarget(); // �÷��̾�� �÷��̾ Ÿ���� Ÿ������ �����ϱ�
+	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
@@ -69,23 +67,22 @@ void BaseScene1::Update()
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
-
-	FieldPalSkillManager::Get()->Update(); // �ٸ� ������Ʈ�� �� �� �� �������� ��ų ������Ʈ�ϱ�
-	                                       // ���� ���� ����
-	MyPalSkillManager::Get()->Update();
 	LandScapeManager::Get()->Update();
+
+	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
+	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 }
 
 void BaseScene1::PreRender()
 {
 	water->SetRefraction();
 
-	//�Ϸ��� �� Ŭ������ ���忡 �Ϸ����� ��� ���
+	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
 	skyBox->Render();
 
-	//�ݻ�
+	// 반사
 	water->SetReflection();
-	//�ݻ� ���
+	// 반사 출력
 	skyBox->Render();
 
 	palBox->PreRender();

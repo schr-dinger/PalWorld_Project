@@ -5,7 +5,7 @@ public:
 	BaseScene1();
 	~BaseScene1();
 
-	// Scene��(��) ���� ��ӵ�
+	// Scene에서 상속됨
 	virtual void Update() override;
 	virtual void PreRender() override;
 	virtual void Render() override;
@@ -22,7 +22,7 @@ private:
 	
 	PalBox* ice;
 
-	// ��ų �׽�Ʈ
+	// 스킬 테스트
 	Skill* testSkill;
 
 	PalBox* palBox;
