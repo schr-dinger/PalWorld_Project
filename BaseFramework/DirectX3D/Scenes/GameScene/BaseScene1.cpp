@@ -69,14 +69,11 @@ void BaseScene1::Update()
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
-<<<<<<< HEAD
 
 	FieldPalSkillManager::Get()->Update(); // �ٸ� ������Ʈ�� �� �� �� �������� ��ų ������Ʈ�ϱ�
 	                                       // ���� ���� ����
 	MyPalSkillManager::Get()->Update();
-=======
 	LandScapeManager::Get()->Update();
->>>>>>> main
 }
 
 void BaseScene1::PreRender()
@@ -107,12 +104,9 @@ void BaseScene1::Render()
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
-<<<<<<< HEAD
 
-
-=======
 	LandScapeManager::Get()->Render();
->>>>>>> main
+
 }
 
 void BaseScene1::PostRender()
@@ -125,18 +119,15 @@ void BaseScene1::GUIRender()
 {
 	player->GUIRender();
 	//water->GUIRender();
-<<<<<<< HEAD
 	//terrain->GUIRender();
 	//
 	//ice->GUIRender();
 	//
 	//PalsManager::Get()->GUIRender();
-=======
 	terrain->GUIRender();
 
 	palBox->GUIRender();
 
 	PalsManager::Get()->GUIRender();
->>>>>>> main
 
 }
