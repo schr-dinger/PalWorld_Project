@@ -56,6 +56,7 @@ public:
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
+
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;

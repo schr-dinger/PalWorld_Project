@@ -20,6 +20,8 @@ public:
 
 private:
 
+
+	ParticleSystem* particle;
 	ModelInstancing* BulletInstancing;
 	vector<Bullet*> bulletes;
 

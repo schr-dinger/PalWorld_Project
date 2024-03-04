@@ -136,6 +136,8 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
         }
         tmp++;
     }
+
+    
     if (minDistance != FLT_MAX) // 충돌 확인 됐으면 리턴
     {
         // 테스트 : 히트
@@ -146,6 +148,8 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
     }
     return false; // 거리 갱신 안되면 충돌 실패
 }
+
+
 
 void PalsManager::OnGround(Terrain* terrain)
 {
@@ -203,6 +207,18 @@ void PalsManager::Collision()
     //    }
     //}
 
+    // 테스트
+    for (Pal* pal : pals)
+    {
+                     
+        if (BulletManager::Get()->isCollision(pal->GetCollider()))
+        {
+
+            pal->Damage();
+
+            return;
+        }
+    }
 
     if (testIsHit) // 포획이든 공격이든 맞았으면 활성
     {
@@ -216,7 +232,20 @@ void PalsManager::Collision()
                 pal->GetTransform()->SetActive(false);
                 return; //팔스피어(포획)에 맞았여기서 리턴
             }
+
+            // 테스트
+            if (BulletManager::Get()->isCollision(pal->GetCollider()))
+            {
+               
+                pal->Damage();
+
+                return; 
+            }
+
+
         }
+
+       
 
         // 포획이 아니라면 맞기
         pals[hitPalIndex]->Damage();

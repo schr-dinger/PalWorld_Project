@@ -22,12 +22,16 @@ public:
     bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정
 
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
+
+    
 private:
     void OnGround(Terrain* terrain);
     void InsertMAI(string palModelName);
     void InsertAllMAI();
     void Collision(); // 세부 충돌 판정 진행
     void Spawn();     // (재)생성
+
+    
 
 private:
     Terrain* terrain;

@@ -2,13 +2,13 @@
 
 Kunai::Kunai(Transform* transform) : transform(transform)
 {
-    transform->Scale() = { 2, 2, 2 }; // 크기 기본값은 1
+    transform->Scale() = { 1, 1, 1 }; // 크기 기본값은 1
                                       // 나중에 크기가 바뀌어야 하면 와서 수정하게
 
     collider = new SphereCollider();
     collider->SetParent(transform);
 
-    collider->Scale() = { 2, 2, 2 }; //크기 기본값은 1.0
+    collider->Scale() = { 1, 1, 1 }; //크기 기본값은 1.0
     collider->Pos() = {};            //위치 기본값 : 부모 위치
 }
 

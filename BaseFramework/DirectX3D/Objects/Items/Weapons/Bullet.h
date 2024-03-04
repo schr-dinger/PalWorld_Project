@@ -31,7 +31,7 @@ private:
 	Transform* transform;
 	CapsuleCollider* collider;
 
-	float speed = 15;
+	float speed = 30;
 	float time = 0;
 
 	Vector3 direction;

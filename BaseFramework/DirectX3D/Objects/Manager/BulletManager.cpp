@@ -4,7 +4,9 @@
 BulletManager::BulletManager()
 {
 	BulletInstancing = new ModelInstancing("bow");
-	
+	particle = new ParticleSystem("TextData/Particles/test3.fx");
+
+
 	bulletes.reserve(SIZE);
 	FOR(SIZE)
 	{
@@ -31,6 +33,7 @@ void BulletManager::Update()
 {
 	BulletInstancing->Update(); 
 	for (Bullet* bullet : bulletes) bullet->Update(); 
+	particle->Update();
 
 	
 }
@@ -39,6 +42,7 @@ void BulletManager::Render()
 {
 	BulletInstancing->Render(); //모델 Render
 	for (Bullet* bullet : bulletes) bullet->Render(); 
+	particle->Render();
 
 }
 
@@ -63,8 +67,9 @@ bool BulletManager::isCollision(Collider* collider)
 		if (bullet->GetCollider()->IsCollision(collider))
 		{
 			//총알이 맞았을 때, "총알이" 수행할 코드를 추가
+			particle->Play(bullet->GetCollider()->GlobalPos());
 
-			//샘플 코드 : 충돌 후 사라지게 하기
+			
 			bullet->GetTransform()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
 			return true;
 		}

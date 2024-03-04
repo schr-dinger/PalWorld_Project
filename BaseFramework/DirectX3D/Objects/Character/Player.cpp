@@ -206,9 +206,6 @@ void Player::Control()
 
         }
 
-
-
-
     }
     else if (KEY_UP(VK_RBUTTON))
     {
@@ -434,8 +431,7 @@ void Player::AttackPal()
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
-
-    
+        
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
         // 태스트 : 히트
@@ -448,10 +444,10 @@ void Player::AttackPal()
         // 이펙트는 히트 포인트에서 출력
     }
 
-   
-   
+      
     BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
     
+
     
 
 }

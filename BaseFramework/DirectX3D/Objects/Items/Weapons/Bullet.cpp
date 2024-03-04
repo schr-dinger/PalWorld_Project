@@ -13,6 +13,7 @@ Bullet::Bullet(Transform* transform) : transform(transform)
 	collider->Pos() = {};
 
 
+
 }
 
 Bullet::~Bullet()
@@ -43,7 +44,7 @@ void Bullet::Update()
 
 void Bullet::Render()
 {
-	collider->Render();
+	//collider->Render();
 }
 
 void Bullet::Throw(Vector3 pos, Vector3 dir)
@@ -52,6 +53,7 @@ void Bullet::Throw(Vector3 pos, Vector3 dir)
 
 	transform->Pos() = pos;
 	direction = dir;
+
 
 	transform->Rot().y = atan2(dir.x, dir.z) + XM_PI;
 	                                      
@@ -65,11 +67,11 @@ void Bullet::gravity()
 
 
 	GForce += 9.8f * DELTA;
-	Vector3 V = (direction * speed) + (Vector3 (0, -1, 0) * GForce);
+	Vector3 V = ((direction + Vector3(0,0.05f,0))* speed) + (Vector3 (0, -1, 0) * GForce);
 	// transform->Rot().x += V.y * DELTA;
-		
+	transform->Rot().x = atan2(30, V.y) + XM_PIDIV2;
+
 	transform->Pos() += V * DELTA;
-
-	transform->Rot().x = atan2(V.x, V.y);
-
+	
+	
 }

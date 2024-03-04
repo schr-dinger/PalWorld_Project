@@ -115,7 +115,7 @@ void RobotManager::Collision()
 
         //샘플 시나리오 : 쿠나이에 맞으면 휘청휘청하게
         if (KunaiManager::Get()->IsCollision(robot->GetCollider()))
-        {
+        {   
             robot->Hit();
             return; // 어차피 여기서 종료해도 업데이트로 또 찾아줄 테니까
         }

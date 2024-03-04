@@ -130,4 +130,6 @@ void BaseScene1::GUIRender()
 
 	PalsManager::Get()->GUIRender();
 
+	// ImGui::SliderFloat("cam test",)
+
 }
