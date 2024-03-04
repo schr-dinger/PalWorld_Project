@@ -441,6 +441,9 @@
     <ClInclude Include="Objects\UI\PalClickQuad.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\UI\PartyBox.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX3D.cpp">
@@ -837,6 +840,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UI\PalClickQuad.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\PartyBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
