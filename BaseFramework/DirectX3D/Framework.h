@@ -159,6 +159,7 @@ using namespace GameMath;
 
 #include "Objects/Actor/ActorUI.h"
 #include "Objects/UI/ProgressBar.h"
+#include "Objects/UI/PartyBox.h"
 
 #include "Objects/Items/Weapons/Kunai.h"
 #include "Objects/Items/Weapons/Crowbar.h"

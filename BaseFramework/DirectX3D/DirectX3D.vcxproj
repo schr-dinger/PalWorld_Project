@@ -156,6 +156,7 @@
     <ClInclude Include="Objects\Manager\PalSpearManager.h" />
     <ClInclude Include="Objects\Items\Weapons\PalSpear.h" />
     <ClInclude Include="Objects\Structure\PalBox.h" />
+    <ClInclude Include="Objects\UI\PartyBox.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -297,6 +298,7 @@
     <ClCompile Include="Objects\Manager\PalSpearManager.cpp" />
     <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp" />
     <ClCompile Include="Objects\Structure\PalBox.cpp" />
+    <ClCompile Include="Objects\UI\PartyBox.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />
