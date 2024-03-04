@@ -34,8 +34,8 @@ BaseScene1::BaseScene1()
 
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	FieldPalSkillManager::Get(); // ������ �����
-	MyPalSkillManager::Get();	 // ������ �����
+	FieldPalSkillManager::Get(); // 생성자용
+	MyPalSkillManager::Get();	 // 생성자용
 }
 
 BaseScene1::~BaseScene1()
