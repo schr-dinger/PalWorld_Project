@@ -31,5 +31,6 @@ private:
 
 	Shadow* shadow;
 
+	PalBoxUi* palBoxUi;
 };
 

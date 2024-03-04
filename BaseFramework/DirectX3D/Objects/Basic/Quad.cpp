@@ -6,9 +6,6 @@ Quad::Quad(Vector2 size)
     mesh = new Mesh<VertexType>();
     MakeMesh();
     mesh->CreateMesh();
-
-    clickBox = new BoxCollider();
-    clickBox->SetParent(this);
 }
 
 Quad::Quad(wstring file)
@@ -27,7 +24,11 @@ Quad::Quad(wstring file)
 Quad::~Quad()
 {    
     delete mesh;
-    delete clickBox;
+}
+
+void Quad::Update()
+{
+    UpdateWorld();
 }
 
 void Quad::Render()
@@ -37,7 +38,6 @@ void Quad::Render()
     SetRender();
     mesh->Draw();
 
-    clickBox->Render();
 }
 
 void Quad::SetRender()
@@ -48,16 +48,6 @@ void Quad::SetRender()
     mesh->GetIndexBuffer()->Set(); // 순번 목록의 버퍼도 마찬가지
 
     GameObject::SetRender(); //나머지 데이터 렌더 준비
-}
-
-bool Quad::MouseCollision()
-{
-    Ray ray;
-    ray = CAM->ScreenPointToRay(mousePos);
-    ray.pos = CAM->GlobalPos();
-
-    Contact* contact;
-    return clickBox->IsRayCollision(ray, contact);
 }
 
 void Quad::MakeMesh()

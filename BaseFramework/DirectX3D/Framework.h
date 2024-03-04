@@ -159,6 +159,8 @@ using namespace GameMath;
 
 #include "Objects/Actor/ActorUI.h"
 #include "Objects/UI/ProgressBar.h"
+#include "Objects/UI/ClickQuad.h"
+#include "Objects/UI/PalClickQuad.h"
 #include "Objects/UI/PalBoxUi.h"
 
 

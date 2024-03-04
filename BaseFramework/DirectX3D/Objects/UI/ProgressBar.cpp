@@ -20,6 +20,10 @@ ProgressBar::~ProgressBar()
     delete valueBuffer;
 }
 
+void ProgressBar::Update()
+{
+}
+
 void ProgressBar::Render()
 {
     valueBuffer->SetPS(10); // GPU가 연산하도록 지시 + 슬롯(출력우선순위) 10

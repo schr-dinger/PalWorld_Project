@@ -35,13 +35,15 @@ BaseScene1::BaseScene1()
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	// ��ų �׽�Ʈ
+	// 스킬 테스트
 	testSkill = new Tornado();
 
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
 	FieldPalSkillManager::Get(); // 생성자용
 	MyPalSkillManager::Get();	 // 생성자용
+
+	palBoxUi = new PalBoxUi();
 }
 
 BaseScene1::~BaseScene1()
@@ -55,6 +57,8 @@ BaseScene1::~BaseScene1()
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
 	LandScapeManager::Get()->Delete();
+
+	delete palBoxUi;
 }
 
 void BaseScene1::Update()
@@ -75,6 +79,7 @@ void BaseScene1::Update()
 
 	palBox->Update();
 
+	palBoxUi->Update();
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
@@ -121,6 +126,8 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
+	palBoxUi->PostRender();
+
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 }

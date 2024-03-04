@@ -14,11 +14,12 @@ private:
 
 private:
 	Quad* boxBase;
-	Quad* boxIcon[30];
+	//PalClickQuad* boxIcon[30];
+	ClickQuad* boxIcon[5][6];
 
 	Quad* partyBase;
 
 	Quad* SlaveBase;
-	Quad* SlaveIcon[5];
+	ClickQuad* SlaveIcon[5];
 };
 

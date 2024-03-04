@@ -97,6 +97,7 @@ void Penguin::Update()
     //}
     skill[0]->Update();
 
+
 }
 
 void Penguin::Render()
@@ -105,6 +106,7 @@ void Penguin::Render()
     if (!transform->Active()) return;
     collider->Render();
     skill[0]->Render();
+
 }
 
 void Penguin::PostRender()
@@ -171,7 +173,7 @@ void Penguin::Damage()
 
     //체력에 -
     curHP -= 200 * DELTA;
-    hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
+    //hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
     if (curHP <= 0)
@@ -199,7 +201,7 @@ void Penguin::Spawn(Vector3 pos)
                              // 여기선 바로 아이들
 
     curHP = maxHP;
-    hpBar->SetAmount(curHP / maxHP);
+    //hpBar->SetAmount(curHP / maxHP);
 
     transform->Pos() = pos;
 }
@@ -210,7 +212,7 @@ void Penguin::Summons(Vector3 pos)
     collider->SetActive(true);
 
     SetAction(ACTION::IDLE); // 
-    hpBar->SetAmount(curHP / maxHP);
+    //hpBar->SetAmount(curHP / maxHP);
 
     transform->Pos() = pos;
 

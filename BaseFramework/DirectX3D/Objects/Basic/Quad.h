@@ -10,11 +10,11 @@ public:
     Quad(wstring file);
     ~Quad();
 
+    void Update();
     void Render();
     void SetRender();
 
-    bool MouseCollision();
-
+    Vector2 GetSize() { return size; }
 private:
     void MakeMesh();
 
@@ -23,5 +23,4 @@ private:
 
     Mesh<VertexType>* mesh;
 
-    BoxCollider* clickBox;
 };
