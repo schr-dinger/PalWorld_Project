@@ -142,12 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Objects\Manager\FieldPalSkillManager.h" />
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h" />
-=======
     <ClInclude Include="Objects\Manager\LandScapeManager.h" />
->>>>>>> main
     <ClInclude Include="Objects\Landscape\Ice.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
     <ClInclude Include="Objects\Character\Player.h" />
@@ -285,12 +282,10 @@
     <ClInclude Include="Objects\Skill\Tornado.h" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
-=======
+
     <ClCompile Include="Objects\Manager\LandScapeManager.cpp" />
->>>>>>> main
     <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
     <ClCompile Include="Objects\Character\Player.cpp" />

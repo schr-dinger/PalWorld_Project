@@ -5,7 +5,7 @@ public:
 	BaseScene1();
 	~BaseScene1();
 
-	// SceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// Sceneï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Óµï¿½
 	virtual void Update() override;
 	virtual void PreRender() override;
 	virtual void Render() override;
@@ -20,14 +20,12 @@ private:
 
 	Player* player;
 	
-<<<<<<< HEAD
 	PalBox* ice;
 
-	// ½ºÅ³ Å×½ºÆ®
+	// ï¿½ï¿½Å³ ï¿½×½ï¿½Æ®
 	Skill* testSkill;
-=======
+
 	PalBox* palBox;
 
->>>>>>> main
 };
 

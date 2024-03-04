@@ -19,25 +19,23 @@ BaseScene1::BaseScene1()
 	player = new Player();
 	player->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	//CAM->LookAtTarget(); // ÆÈ·Î¿ìÄ· + ÃßÀû ´ë»ó ÀÖÀ½ + ±× ÃßÀû ´ë»óÀ» ¶ô¿ÂÀ¸·Î ÃßÀû (ÀÌ °æ¿ì´Â ³ª·çÅä)
+	//CAM->LookAtTarget(); // ï¿½È·Î¿ï¿½Ä· + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
 	PalsManager::Get()->SetTarget(player);
 	PalsManager::Get()->SetPlayer(player);
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	
-	//PlayerPalsManager::Get()->SetTarget(); // ÇÃ·¹ÀÌ¾î¿¡¼­ ÇÃ·¹ÀÌ¾î°¡ Å¸°ÙÇÑ Å¸°ÙÀ¸·Î ¼³Á¤ÇÏ±â
+	//PlayerPalsManager::Get()->SetTarget(); // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ Å¸ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	PlayerPalsManager::Get()->SetPlayer(player);
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-<<<<<<< HEAD
-	// ½ºÅ³ Å×½ºÆ®
+	// ï¿½ï¿½Å³ ï¿½×½ï¿½Æ®
 	testSkill = new Tornado();
-=======
-	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
->>>>>>> main
 
-	FieldPalSkillManager::Get(); // »ı¼ºÀÚ ¸¸µé±â
-	MyPalSkillManager::Get();	 // »ı¼ºÀÚ ¸¸µé±â
+	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
+
+	FieldPalSkillManager::Get(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+	MyPalSkillManager::Get();	 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 BaseScene1::~BaseScene1()
@@ -73,8 +71,8 @@ void BaseScene1::Update()
 	PlayerPalsManager::Get()->Update();
 <<<<<<< HEAD
 
-	FieldPalSkillManager::Get()->Update(); // ´Ù¸¥ ¾÷µ¥ÀÌÆ®°¡ ´Ù µ· ÈÄ ¸¶Áö¸·¿¡ ½ºÅ³ ¾÷µ¥ÀÌÆ®ÇÏ±â
-	                                       // º¤ÅÍ ÅÍÁü ¹æÁö
+	FieldPalSkillManager::Get()->Update(); // ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï±ï¿½
+	                                       // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MyPalSkillManager::Get()->Update();
 =======
 	LandScapeManager::Get()->Update();
@@ -85,12 +83,12 @@ void BaseScene1::PreRender()
 {
 	water->SetRefraction();
 
-	//ÀÏ··ÀÓ ÂÊ Å¬·¡½ºÀÇ Äõµå¿¡ ÀÏ··ÀÓÀÇ °á°ú Ãâ·Â
+	//ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	skyBox->Render();
 
-	//¹İ»ç
+	//ï¿½İ»ï¿½
 	water->SetReflection();
-	//¹İ»ç Ãâ·Â
+	//ï¿½İ»ï¿½ ï¿½ï¿½ï¿½
 	skyBox->Render();
 
 	palBox->PreRender();
