@@ -167,10 +167,10 @@ void Penguin::FieldAttack()
 void Penguin::Damage()
 {
     // 무적이 되는 조건들
-    if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
+    //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
 
     //체력에 -
-    curHP -= 20;
+    curHP -= 200 * DELTA;
     hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
