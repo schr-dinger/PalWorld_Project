@@ -146,6 +146,7 @@ using namespace GameMath;
 #include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
 #include "Framework/Environment/Shadow.h"
+#include "Framework/Environment/FakeShadow.h"
 #include "Framework/Environment/Refraction.h"
 #include "Framework/Environment/Reflection.h"
 
@@ -196,6 +197,9 @@ using namespace GameMath;
 #include "Objects/Particle/Sprite.h"
 #include "Objects/Particle/Trail.h"
 
+#include "Objects/Skill/Skill.h"
+#include "Objects/Skill/Tornado.h"
+
 #include "Objects/Character/Human.h"
 #include "Objects/Character/Robot.h"
 #include "Objects/Character/Naruto.h"
@@ -216,9 +220,13 @@ using namespace GameMath;
 #include "Objects/Manager/KunaiManager.h"
 #include "Objects/Manager/BulletManager.h"
 #include "Objects/Manager/RobotManager.h"
+#include "Objects/Manager/MyPalSkillManager.h"
+#include "Objects/Manager/FieldPalSkillManager.h"
 #include "Objects/Manager/PalsManager.h"
 #include "Objects/Manager/PalSpearManager.h"
 #include "Objects/Manager/PlayerPalsManager.h"
+#include "Objects/Manager/LandScapeManager.h"
+
 
 //Scene Header
 #include "Scenes/Scene.h"

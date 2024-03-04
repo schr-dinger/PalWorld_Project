@@ -2,7 +2,7 @@
 class PalBox
 {
 public:
-	PalBox(Terrain* terrain);
+	PalBox();
 	~PalBox();
 
 	void Update();
@@ -14,8 +14,6 @@ public:
 	void Place(float x,float z);
 
 private:
-	Terrain* terrain;
-
 	Model* building;
 	Model* finished;
 	Transform* center;
@@ -23,7 +21,7 @@ private:
 
 	BlendState* blendState[2];
 
-	Shadow* shadow;
+	FakeShadow* shadow;
 
 	Model* cube;
 	Vector3 off = { 13,0,13 };

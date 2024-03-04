@@ -21,10 +21,14 @@ public:
     void PostRender();
     void GUIRender();
 
-    //액션 : 얻어맞기
+    // 액션 : 공격
+    void Attack();      // 내 팔 공격
+    void FieldAttack(); // 필드 팔 공격
+
+    // 액션 : 얻어맞기
     void Damage();
 
-    //액션 : 생성되기
+    // 액션 : 생성되기
     void Spawn(Vector3 pos);
 
     // 소환하기 : 플레이어가 팔 소환용
@@ -45,6 +49,7 @@ private:
 
     // 동작 끝나면 실행하는 함수(소환, 사망 모션 필요)
     //void EndStandUp();
+    void EndAttack();
     void EndDamage(); // Hit 였으나 enum과 명칭 일치시키기
                       // -> 맞은 모션 후 무엇을 할 것인가
     //void EndDying();

@@ -8,6 +8,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     maxHP = 100;
     curHP = 100;
 
+    // 부모에서 가져온 스킬 세팅
+    skill[0] = new Tornado();
+    skill[0]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
+    skill[0]->SetSkill();   // 스킬 세팅(시작 위치), 
 
     root = new Transform(); // 콜라이더가 위치할 장소(위치)
 
@@ -23,6 +27,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     eventIters.resize(instancing->GetClipSize());
 
     //이벤트 세팅
+    SetEvent((int)ACTION::ATTACK, bind(&Penguin::EndAttack, this), 1.5f);
     SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.9f);
 
     FOR(totalEvent.size())
@@ -83,6 +88,15 @@ void Penguin::Update()
     //    tmpN = 0;;
     //
     //}
+
+    // 스킬 테스트
+    //if (KEY_DOWN('K') && !skill[0]->Active())
+    //{
+    //    Attack();
+    //    //FieldAtack();
+    //}
+    skill[0]->Update();
+
 }
 
 void Penguin::Render()
@@ -90,7 +104,7 @@ void Penguin::Render()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     collider->Render();
-
+    skill[0]->Render();
 }
 
 void Penguin::PostRender()
@@ -120,12 +134,43 @@ void Penguin::GUIRender()
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
+    //skill[0]->GUIRender();
+}
+
+void Penguin::Attack()
+{
+    // 모션 설정
+    action = ACTION::ATTACK;
+    instancing->PlayClip(index, (int)ACTION::ATTACK);
+    eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
+
+    // 스킬 액티브
+    skill[0]->SetActive(true);
+    skill[0]->SetSkill();
+    MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
+
+}
+
+void Penguin::FieldAttack()
+{
+    // 모션 설정
+    action = ACTION::ATTACK;
+    instancing->PlayClip(index, (int)ACTION::ATTACK);
+    eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
+
+    // 스킬 액티브
+    skill[0]->SetActive(true);
+    skill[0]->SetSkill();
+    FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 }
 
 void Penguin::Damage()
 {
+    // 무적이 되는 조건들
+    //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
+
     //체력에 -
-    curHP -= 20;
+    curHP -= 200 * DELTA;
     hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
@@ -196,6 +241,11 @@ void Penguin::ExecuteEvent()
     eventIters[index]++;
 }
 
+void Penguin::EndAttack()
+{
+    SetAction(ACTION::IDLE);
+}
+
 void Penguin::EndDamage()
 {
     SetAction(ACTION::IDLE); //맞았고, 안 죽었고, 움찔했으니 원래대로
@@ -218,7 +268,17 @@ void Penguin::Move()
     if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
     //if (action == ACTION::) return; // 추가 가능
 
-    if (velocity.Length() < 15) // 표적과 거리가 가까울 때는
+    if (velocity.Length() < 5)
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    //else if (velocity.Length() < 10)
+    //{
+    //    speed = 2;
+    //    SetAction(ACTION::WALK);
+    //}
+    else if (velocity.Length() < 20) // 표적과 거리가 가까울 때는
     {
         speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);

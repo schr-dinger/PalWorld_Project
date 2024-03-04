@@ -3,114 +3,119 @@
 
 BaseScene1::BaseScene1()
 {
-	terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
-	terrainF = new Terrain();
+	//terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
+
+	//
+	SetLights();
+
+	shadow = new Shadow();
+
+
+	//terrainF = new Terrain();
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 	//
 	water = new Water(L"Textures/Landscape/Wave.dds", 500, 500);
-	water->Pos() = { 0.0f,10.0f,0.0f };
+	water->Pos() = { 250.0f,11.0f, 250.0f };
+	water->Scale() *= 4.0f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
-	tree = new Tree(terrainF);
-	grass = new Grass(terrainF);
-	rock = new Rock(terrainF);
-
 	//test
-	ice = new PalBox(terrainF);
+	palBox = new PalBox();
 
 
 	player = new Player();
-	player->SetTerrain(terrainF);
-
-	//CAM->LookAtTarget(); // ÆÈ·Î¿ìÄ· + ÃßÀû ´ë»ó ÀÖÀ½ + ±× ÃßÀû ´ë»óÀ» ¶ô¿ÂÀ¸·Î ÃßÀû (ÀÌ °æ¿ì´Â ³ª·çÅä)
+	player->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
 	PalsManager::Get()->SetTarget(player);
 	PalsManager::Get()->SetPlayer(player);
-	PalsManager::Get()->SetTerrain(terrainF);
+	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	
-	//PlayerPalsManager::Get()->SetTarget(); // ÇÃ·¹ÀÌ¾î¿¡¼­ ÇÃ·¹ÀÌ¾î°¡ Å¸°ÙÇÑ Å¸°ÙÀ¸·Î ¼³Á¤ÇÏ±â
+	//PlayerPalsManager::Get()->SetTarget(); // í”Œë ˆì´ì–´ì—ì„œ í”Œë ˆì´ì–´ê°€ íƒ€ê²Ÿí•œ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •í•˜ê¸°
 	PlayerPalsManager::Get()->SetPlayer(player);
-	PlayerPalsManager::Get()->SetTerrain(terrainF);
+	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	PalSpearManager::Get()->SetTerrain(terrainF);
+	// ï¿½ï¿½Å³ ï¿½×½ï¿½Æ®
+	testSkill = new Tornado();
 
+	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
+	FieldPalSkillManager::Get(); // ìƒì„±ìžìš©
+	MyPalSkillManager::Get();	 // ìƒì„±ìžìš©
 }
 
 BaseScene1::~BaseScene1()
 {
 	delete player;
-	delete terrain;
-	delete terrainF;
-
+	//delete terrain;
+	//delete terrainF;
+	delete shadow;
 	delete water;
-	delete tree;
-	delete grass;
-	delete rock;
 
-	BulletManager::Get()->Delete();
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
-
+	LandScapeManager::Get()->Delete();
 }
 
 void BaseScene1::Update()
 {
-	//ice->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
+	light1->pos = CAM->GlobalPos();
+
+	palBox->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
 
 
 
 
 	water->Update();
-	tree->Update();
-	grass->Update();
-	rock->Update();
+	//tree->Update();
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	player->Update();
 
-	ice->Update();
+	palBox->Update();
 
-	BulletManager::Get()->Update();
+
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
+	LandScapeManager::Get()->Update();
 
+	FieldPalSkillManager::Get()->Update(); // ë²¡í„° í„°ì§ ë°©ì§€
+	MyPalSkillManager::Get()->Update();	   //  -> ë§¨ ë§ˆì§€ë§‰ì— ì—…ë°ì´íŠ¸
 }
 
 void BaseScene1::PreRender()
 {
 	water->SetRefraction();
 
-	//ÀÏ··ÀÓ ÂÊ Å¬·¡½ºÀÇ Äõµå¿¡ ÀÏ··ÀÓÀÇ °á°ú Ãâ·Â
+	// ì¼ë ì¸ ìª½ í´ëž˜ìŠ¤ì˜ ì¿¼ë“œì— ì¼ë ìž„ì˜ ê²°ê³¼ ì¶œë ¥
 	skyBox->Render();
 
-	//¹Ý»ç
+	// ë°˜ì‚¬
 	water->SetReflection();
-	//¹Ý»ç Ãâ·Â
+	// ë°˜ì‚¬ ì¶œë ¥
 	skyBox->Render();
 
-	ice->PreRender();
+	palBox->PreRender();
 
+	//LandScapeManager::Get()->PreRender();
 }
 
 void BaseScene1::Render()
 {
-	skyBox->Render();
-	terrain->Render();
-	water->Render();
-	grass->Render();
-	rock->Render();
 
-	tree->Render();
+	skyBox->Render();
+	//terrain->Render();
+	water->Render();
 
 	player->Render();
 	
-	ice->Render();
+	palBox->Render();
 
-	BulletManager::Get()->Render();
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
+
+	LandScapeManager::Get()->Render();
 
 }
 
@@ -122,14 +127,38 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//player->GUIRender();
+	player->GUIRender();
 	//water->GUIRender();
-	terrain->GUIRender();
-
-	ice->GUIRender();
+	//terrain->GUIRender();
+	//palBox->GUIRender();
 
 	PalsManager::Get()->GUIRender();
 
-	// ImGui::SliderFloat("cam test",)
+}
 
+void BaseScene1::SetLights()
+{
+	LightBuffer::Light* light0 = Environment::Get()->GetLight(0);
+	light0->type = 0;
+	light0->range = 3000.0f;
+	light0->color = { 55.0f / 255.0f,55.0f / 255.0f,55.0f / 255.0f ,0 };
+	light0->direction = { 0,-1,0 };
+	light0->pos = { 0.01f,300.0f,0.01f };
+
+	LightBuffer::Light* light1 = Environment::Get()->AddLight();
+	light1->type = 1;
+	light1->range = 3000.0f;
+	light1->color = { 150.0f / 255.0f,150.0f / 255.0f,150.0f / 255.0f ,0 };
+	light1->direction = { 0,-1,0 };
+
+
+	LightBuffer::Light* light2 = Environment::Get()->AddLight();
+	light2->type = 1;
+	light2->range = 0.01f;
+	light2->active = 0;
+
+	LightBuffer::Light* light3 = Environment::Get()->AddLight();
+	light3->type = 1;
+	light3->range = 0.01f;
+	light3->active = 0;
 }

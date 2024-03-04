@@ -36,6 +36,13 @@ void Reflection::Update()
     camera->Pos() = CAM->Pos();
     camera->Rot() = CAM->Rot();
 
+    //camera->Pos() = {0.0f,1000.0f,-1000.0f};
+    //camera->Rot().x = XM_PIDIV2 * 0.99f;
+    //camera->Rot().x = XM_PIDIV2;
+
+    //camera->Rot().x = XM_PIDIV2;
+
+
     //내 시야를 따라온 클래스 내 카메라를 반사 상황에 맞추어서 보는 방향, 위치를 재조정
     //->반사 계산의 중요 과정
 

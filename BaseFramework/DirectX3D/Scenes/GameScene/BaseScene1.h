@@ -5,7 +5,7 @@ public:
 	BaseScene1();
 	~BaseScene1();
 
-	// SceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// Sceneì—ì„œ ìƒì†ë¨
 	virtual void Update() override;
 	virtual void PreRender() override;
 	virtual void Render() override;
@@ -13,17 +13,23 @@ public:
 	virtual void GUIRender() override;
 
 private:
-	QuadTreeTerrain* terrain;
-	Terrain* terrainF;
+	void SetLights();
+
+	//QuadTreeTerrain* terrain;
+	//Terrain* terrainF;
 	SkyBox* skyBox;
 	Water* water;
-	Tree* tree;
-	Grass* grass;
-	Rock* rock;
 
 	Player* player;
 	
 	PalBox* ice;
+
+	// ìŠ¤í‚¬ í…ŒìŠ¤íŠ¸
+	Skill* testSkill;
+
+	PalBox* palBox;
+
+	Shadow* shadow;
 
 };
 

@@ -2,27 +2,23 @@
 class Rock
 {
 public:
-    Rock(Terrain* terrain);
+    Rock(Transform* transform);
     ~Rock();
 
     void Update();
     void Render();
     void GUIRender();
 
+    void Hit();
+
+    Transform* GetTransform() { return transform; }
+    SphereCollider* GetCollider() { return collider; }
+
 private:
-    void Place(ModelInstancing* rock);
-private:
-    ModelInstancing* rock1;
-    //ModelInstancing* tree2;
-    //ModelInstancing* tree3;
+    Transform* transform;
 
+    SphereCollider* collider;
 
-    Terrain* terrain;
-
-
-    int SIZE = 4;
-    float WIDTH = 500;
-    float HEIGHT = 500;
-
+    float Hp = 200;
 };
 

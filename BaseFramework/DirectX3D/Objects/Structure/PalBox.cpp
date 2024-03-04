@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-PalBox::PalBox(Terrain* terrain) : terrain(terrain)
+PalBox::PalBox()
 {
 	FOR(2)
 	{
@@ -20,12 +20,12 @@ PalBox::PalBox(Terrain* terrain) : terrain(terrain)
 	//Place();
 
 	//light = Environment::Get()->GetLight(1);
-	light = Environment::Get()->AddLight();
+	light = Environment::Get()->GetLight(2);
 	light->type = 1;
 	light->range = 0.01f;
 
 
-	shadow = new Shadow();
+	shadow = new FakeShadow();
 
 	cube->Scale() *= 10;
 	cube->Rot().y = XM_PIDIV4;
@@ -48,6 +48,10 @@ void PalBox::Update()
 	cube->Pos().x = building->Pos().x;
 	cube->Pos().z = building->Pos().z;
 	cube->Pos().y = building->Pos().y + off2;
+
+	//Vector3 tmp = building->GlobalPos() - CAM->GlobalPos();
+	//building->Rot().z = atanf(tmp.z / tmp.x);
+
 
 	light->pos = building->Pos() + off;
 
@@ -73,7 +77,7 @@ void PalBox::Update()
 	}
 
 
-	if (KEY_DOWN('B'))
+	if (KEY_DOWN('B')&&!isPlaced)
 	{
 		isBuilding = !isBuilding;
 	}
@@ -95,7 +99,7 @@ void PalBox::Update()
 
 void PalBox::PreRender()
 {
-	shadow->SetRenderTarget();
+	shadow->SetRenderTarget(2);
 
 	cube->SetShader(L"Light/DepthMap.hlsl");
 	//cube->SetShader(L"Basic/Texture.hlsl");
@@ -146,5 +150,5 @@ void PalBox::Place(float x, float z)
 {
 	if(isPlaced) return;
 
-	building->Pos() = { x,terrain->GetHeight({x, 0, z}), z };
+	building->Pos() = { x,LandScapeManager::Get()->GetTerrain()->GetHeight({x, 0, z}), z };
 }
