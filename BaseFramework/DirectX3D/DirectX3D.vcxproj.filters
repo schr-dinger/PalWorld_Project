@@ -420,6 +420,9 @@
     <ClInclude Include="Framework\Environment\FakeShadow.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\UI\PalBoxUi.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX3D.cpp">
@@ -795,6 +798,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Environment\FakeShadow.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\UI\PalBoxUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
