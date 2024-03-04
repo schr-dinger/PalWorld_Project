@@ -10,16 +10,17 @@ public:
     Quad(wstring file);
     ~Quad();
 
+    void Update();
     void Render();
     void SetRender();
 
     Vector2 GetSize() { return size; }
-
 private:
     void MakeMesh();
 
 private:
     Vector2 size;
 
-    Mesh<VertexType>* mesh;    
+    Mesh<VertexType>* mesh;
+
 };

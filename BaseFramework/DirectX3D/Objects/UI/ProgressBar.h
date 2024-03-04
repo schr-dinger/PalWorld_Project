@@ -7,7 +7,7 @@ class ProgressBar : public Quad
 public:
     ProgressBar(wstring frontImageFile, wstring backImageFile);
     ~ProgressBar();
-
+    void Update();
     void Render();
 
     void SetAmount(float value); //amount : (전체 양에 대한) 현재 비중치
@@ -24,5 +24,6 @@ private:
     FloatValueBuffer* valueBuffer; // 소수 연산용 버퍼 : 무엇이든지 버퍼로 만들 수 있다!
                                    // 버퍼가 많을수록 해당 데이터는 연산이 빨라지고,
                                    // 전체 앱은 느려지고, 메모리 부담은 커진다.
+
 };
 

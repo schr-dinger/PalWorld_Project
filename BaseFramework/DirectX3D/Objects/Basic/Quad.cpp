@@ -26,12 +26,18 @@ Quad::~Quad()
     delete mesh;
 }
 
+void Quad::Update()
+{
+    UpdateWorld();
+}
+
 void Quad::Render()
 {
     if (!Active()) return;
 
     SetRender();
     mesh->Draw();
+
 }
 
 void Quad::SetRender()

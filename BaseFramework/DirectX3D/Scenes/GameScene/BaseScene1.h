@@ -31,7 +31,6 @@ private:
 
 	Shadow* shadow;
 
-	// UI테스트
-	PartyBox* test;
+	PalBoxUi* palBoxUi;
 };
 

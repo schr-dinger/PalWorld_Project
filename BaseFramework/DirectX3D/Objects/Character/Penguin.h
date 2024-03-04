@@ -84,6 +84,7 @@ private:
 
     // 팔 UI들(정보, 체력 등)
     ProgressBar* hpBar;
+
     Vector3 barPos; //체력바가 위치할 곳
 
     //여기까지 공통, 부모에서 물려 받을 것들
