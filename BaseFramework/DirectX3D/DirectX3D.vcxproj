@@ -284,7 +284,6 @@
   <ItemGroup>
     <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
-
     <ClCompile Include="Objects\Manager\LandScapeManager.cpp" />
     <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />
