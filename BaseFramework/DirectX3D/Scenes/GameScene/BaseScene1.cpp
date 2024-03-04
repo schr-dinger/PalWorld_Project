@@ -52,6 +52,7 @@ BaseScene1::~BaseScene1()
 	delete shadow;
 	delete water;
 
+	BulletManager::Get()->Delete();
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
 	LandScapeManager::Get()->Delete();
@@ -62,7 +63,7 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
-	palBox->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+	// palBox->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
 
 
 
@@ -76,6 +77,7 @@ void BaseScene1::Update()
 	palBox->Update();
 
 
+	BulletManager::Get()->Update();
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
@@ -112,6 +114,7 @@ void BaseScene1::Render()
 	
 	palBox->Render();
 
+	BulletManager::Get()->Render();
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 

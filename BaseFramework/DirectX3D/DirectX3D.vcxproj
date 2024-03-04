@@ -142,6 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Character\ElecPanda.h" />
+    <ClInclude Include="Objects\Items\Weapons\Bullet.h" />
+    <ClInclude Include="Objects\Manager\BulletManager.h" />
     <ClInclude Include="Objects\Manager\FieldPalSkillManager.h" />
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h" />
     <ClInclude Include="Framework\Environment\FakeShadow.h" />
@@ -283,6 +286,9 @@
     <ClInclude Include="Objects\Skill\Tornado.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Character\ElecPanda.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
+    <ClCompile Include="Objects\Manager\BulletManager.cpp" />
     <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
     <ClCompile Include="Framework\Environment\FakeShadow.cpp" />
