@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Objects\Manager\FieldPalSkillManager.h" />
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h" />
+    <ClInclude Include="Framework\Environment\FakeShadow.h" />
     <ClInclude Include="Objects\Manager\LandScapeManager.h" />
     <ClInclude Include="Objects\Landscape\Ice.h" />
     <ClInclude Include="Objects\Landscape\Grass.h" />
@@ -284,6 +285,7 @@
   <ItemGroup>
     <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
+    <ClCompile Include="Framework\Environment\FakeShadow.cpp" />
     <ClCompile Include="Objects\Manager\LandScapeManager.cpp" />
     <ClCompile Include="Objects\Landscape\Ice.cpp" />
     <ClCompile Include="Objects\Landscape\Grass.cpp" />

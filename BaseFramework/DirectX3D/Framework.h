@@ -146,6 +146,7 @@ using namespace GameMath;
 #include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
 #include "Framework/Environment/Shadow.h"
+#include "Framework/Environment/FakeShadow.h"
 #include "Framework/Environment/Refraction.h"
 #include "Framework/Environment/Reflection.h"
 

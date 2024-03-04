@@ -86,5 +86,7 @@ private:
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
 
+    Vector3 ogCam = { -0.05,1.7,2.5 };
+    Vector3 foCam = { -0.03,1.3,1.0 };
 };
 
