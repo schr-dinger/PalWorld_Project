@@ -10,6 +10,8 @@ public:
 	void PostRender();
 	void GUIRender();
 
+	void Collision();
+
 private:
 	Quad* partyBox;
 };
