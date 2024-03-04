@@ -13,11 +13,15 @@ public:
     void Render();
     void SetRender();
 
+    bool MouseCollision();
+
 private:
     void MakeMesh();
 
 private:
     Vector2 size;
 
-    Mesh<VertexType>* mesh;    
+    Mesh<VertexType>* mesh;
+
+    BoxCollider* clickBox;
 };
