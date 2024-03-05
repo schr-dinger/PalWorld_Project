@@ -8,7 +8,7 @@ PartyBox::PartyBox()
 	//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
 	//partyBox1 = new Quad(L"Textures/UI/T_prt_menu_state_base.png");
 
-
+	// 나중에 1,3 만 쓸 것, 2와 4는 클릭 테스트용
 	partyBox1 = new Quad(Vector2(1, 1));
 	partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 	//partyBox1 = new Quad(L"Textures/UI/T_prt_pal_base.png");
@@ -37,8 +37,8 @@ PartyBox::PartyBox()
 
 	partyBox4 = new Quad(Vector2(1, 1));
 	partyBox4->GetMaterial()->SetDiffuseMap(pal->GetTexture());
-	partyBox4->Scale().x *= 65;
-	partyBox4->Scale().y *= 65;
+	partyBox4->Scale().x *= 64.9f;
+	partyBox4->Scale().y *= 64.9f;
 	partyBox4->SetActive(false);
 
 	hpBar = new ProgressBar(
@@ -134,8 +134,9 @@ void PartyBox::GUIRender()
 {
 	//partyBox4->GUIRender();
 	partyBox1->GUIRender();
-	hpBar->GUIRender();
-	hgyBar->GUIRender();
+	partyBox3->GUIRender();
+	//hpBar->GUIRender();
+	//hgyBar->GUIRender();
 
 	//ImGui::Text("Mouse.x : %f", mousePos.x);
 	//ImGui::Text("Mouse.y : %f", mousePos.y);

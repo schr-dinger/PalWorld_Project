@@ -126,11 +126,11 @@ void Penguin::PostRender()
         //tmp = CAM->WorldToScreen(tmp);
         tmp = hpBar->GlobalPos();
         //tmp.x += 30.0f;
-        tmp.y += 30.0f;
+        tmp.y += 35.0f;
 
         string tmpString = name + " 砺什闘けいしかいしかしいぉいしけぉいけしいしか";
-        //Font::Get()->SetStyle("Default2");
-        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y });
+        Font::Get()->SetStyle("Default2");
+        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y }, 1);
         Font::Get()->SetStyle("Default");
         Font::Get()->GetDC()->EndDraw();
         Font::Get()->GetDC()->BeginDraw();

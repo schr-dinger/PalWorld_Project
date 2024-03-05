@@ -20,7 +20,7 @@ public:
     void SetStyle(string key);
 
     void RenderText(wstring text, Float2 pos, Float2 size = Float2());
-    void RenderText(string text, Float2 pos, Float2 size = Float2());
+    void RenderText(string text, Float2 pos, int alignnment = 0, Float2 size = Float2()); // alignnment : 0 좌측 정렬, 1 가운데, 2, 우측
 
     ID2D1DeviceContext* GetDC() { return context; }
 
