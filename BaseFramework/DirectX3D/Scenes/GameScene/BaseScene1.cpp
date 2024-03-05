@@ -44,6 +44,9 @@ BaseScene1::BaseScene1()
 	MyPalSkillManager::Get();	 // 생성자용
 
 	palBoxUi = new PalBoxUi();
+
+	// UI테스트
+	testUI = new PartyBox();
 }
 
 BaseScene1::~BaseScene1()
@@ -87,6 +90,9 @@ void BaseScene1::Update()
 
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
+
+	// UI테스트
+	testUI->Update();
 }
 
 void BaseScene1::PreRender()
@@ -126,21 +132,26 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
-	palBoxUi->PostRender();
+	//palBoxUi->PostRender();
 
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
+
+	// UI테스트
+	testUI->PostRender();
 }
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
+	//player->GUIRender();
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();
 
-	PalsManager::Get()->GUIRender();
+	//PalsManager::Get()->GUIRender();
 
+	// UI테스트
+	testUI->GUIRender();
 }
 
 void BaseScene1::SetLights()

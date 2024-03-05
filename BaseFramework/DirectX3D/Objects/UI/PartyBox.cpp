@@ -2,10 +2,20 @@
 
 PartyBox::PartyBox()
 {
-	partyBox1 = new Quad(Vector2(100, 40));
-	//partyBox = new Quad(L"Textures/UI/IconFrame.png");
+	// ¹æ½Ä 4°³
+	//partyBox1 = new Quad(Vector2(100, 40));
 	//partyBox = nullptr;
-	partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
+	//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
+	//partyBox1 = new Quad(L"Textures/UI/T_prt_menu_state_base.png");
+
+
+	partyBox1 = new Quad(L"Textures/UI/T_prt_pal_base.png");
+	partyBox2 = new Quad(L"Textures/UI/T_prt_pal_base_frame.png");
+	partyBox2->SetActive(false);
+	//partyBox1->Scale() *= 5;
+	//partyBox1->GetMaterial()->GetData().diffuse.w = 0.5;
+
+	pickState = PickState::RELEASE;
 }
 
 PartyBox::~PartyBox()
@@ -14,13 +24,18 @@ PartyBox::~PartyBox()
 
 void PartyBox::Update()
 {
-	partyBox1->UpdateWorld();
+	partyBox2->Pos() = partyBox1->Pos();
 	Collision();
+
+	
+	partyBox1->UpdateWorld();
+	partyBox2->UpdateWorld();
 }
 
 void PartyBox::PostRender()
 {
 	partyBox1->Render();
+	partyBox2->Render();
 
 }
 
@@ -39,19 +54,41 @@ void PartyBox::Collision()
 	float top = partyBox1->Pos().y + partyBox1->GetSize().y * 0.5 * partyBox1->Scale().y;
 	float bottom = partyBox1->Pos().y - partyBox1->GetSize().y * 0.5 * partyBox1->Scale().y;
 
-
-	if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
+	switch (pickState)
 	{
-		partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
-		if (KEY_PRESS(VK_LBUTTON))
+	case PartyBox::PickState::RELEASE:
+		if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
 		{
-			partyBox1->Pos() = mousePos;
-			partyBox1->UpdateWorld();
+			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+			if (KEY_DOWN(VK_LBUTTON))
+			{
+				pickState = PickState::PICKING;
+				partyBox2->SetActive(true);
+
+			}
 		}
+		else
+		{
+			//partyBox->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
+			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_pal_base.png");
+		}
+
+		break;
+	case PartyBox::PickState::PICKING:
+		partyBox2->Pos() = mousePos;
+		if (KEY_DOWN(VK_LBUTTON))
+		{
+			pickState = PickState::RELEASE;
+			partyBox1->Pos() = partyBox2->Pos();
+			partyBox2->SetActive(false);
+
+
+		}
+		break;
+	default:
+		break;
 	}
-	else
-	{
-		//partyBox->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
-		partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/IconFrame.png");
-	}
+
+
+	
 }

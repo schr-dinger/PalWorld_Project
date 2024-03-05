@@ -1,6 +1,13 @@
 #pragma once
 class PartyBox
 {
+private:
+	enum class PickState
+	{
+		RELEASE,
+		PICKING
+	};
+
 public:
 	PartyBox();
 	~PartyBox();
@@ -19,5 +26,7 @@ private:
 	class Pal* pal;
 
 	Texture* texture;
+
+	PickState pickState;
 };
 
