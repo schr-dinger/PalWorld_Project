@@ -25,6 +25,7 @@ void UiMouseManager::SetRender()
 
 void UiMouseManager::Update()
 {
+
 	quad->Pos() = mousePos;
 	quad->UpdateWorld();
 }

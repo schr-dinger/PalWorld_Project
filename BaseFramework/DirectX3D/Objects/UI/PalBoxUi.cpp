@@ -39,12 +39,6 @@ void PalBoxUi::Update()
 	{
 		boxIcon[i]->SetTexture();
 
-		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr )
-		{
-			UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
-			UiMouseManager::Get()->SetIndex(i);
-		}
-
 		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
 		{
 			int tmp = UiMouseManager::Get()->GetIndex();
@@ -56,6 +50,13 @@ void PalBoxUi::Update()
 			UiMouseManager::Get()->SetPal(nullptr);
 
 		}
+		else if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr )
+		{
+			UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
+			UiMouseManager::Get()->SetIndex(i);
+		}
+
+		
 
 
 
