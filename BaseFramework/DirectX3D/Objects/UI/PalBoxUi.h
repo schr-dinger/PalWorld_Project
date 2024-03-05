@@ -16,8 +16,10 @@ private:
 	Vector2 Screen = { 1280.0f,720.0f };
 	Quad* boxBase;
 
-	Vector3 boxIconP = { 0.0f, 720.0f,0.0f };
-	ClickQuad* boxIcon[30];
+	Vector3 boxIconP = { 490.0f, 500.0f,0.0f };
+	PalClickQuad* boxIcon[30];
+	PalClickQuad* boxIconBase[30];
+
 
 	Quad* partyBase;
 
