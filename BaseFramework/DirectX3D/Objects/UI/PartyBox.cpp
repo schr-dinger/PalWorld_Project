@@ -9,10 +9,18 @@ PartyBox::PartyBox()
 	//partyBox1 = new Quad(L"Textures/UI/T_prt_menu_state_base.png");
 
 
-	partyBox1 = new Quad(L"Textures/UI/T_prt_pal_base.png");
-	partyBox2 = new Quad(L"Textures/UI/T_prt_pal_base_frame.png");
+	partyBox1 = new Quad(Vector2(1, 1));
+	partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_pal_base-1.png");
+	//partyBox1 = new Quad(L"Textures/UI/T_prt_pal_base.png");
+	//partyBox2 = new Quad(L"Textures/UI/T_prt_pal_base_frame.png");
+	partyBox2 = new Quad(Vector2(1, 1));
+	partyBox2->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_pal_base_frame.png");
 	partyBox2->SetActive(false);
-	//partyBox1->Scale() *= 5;
+	partyBox1->Scale().x *= 100;
+	partyBox1->Scale().y *= 40;
+	partyBox2->Scale().x *= 100;
+	partyBox2->Scale().y *= 40;
+
 	//partyBox1->GetMaterial()->GetData().diffuse.w = 0.5;
 
 	pickState = PickState::RELEASE;
@@ -70,7 +78,7 @@ void PartyBox::Collision()
 		else
 		{
 			//partyBox->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
-			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_pal_base.png");
+			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_pal_base-1.png");
 		}
 
 		break;
