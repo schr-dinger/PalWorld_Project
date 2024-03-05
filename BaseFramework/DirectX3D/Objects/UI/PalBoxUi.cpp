@@ -17,7 +17,9 @@ PalBoxUi::PalBoxUi()
 		boxIconBase[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0) * 60.0f;
 	}
 
-	boxIcon[0]->SetPal(PlayerPalsManager::Get()->GetPal(0));
+	//boxIcon[0]->SetPal(PlayerPalsManager::Get()->GetPal(0));
+
+	SetPal();
 }
 
 PalBoxUi::~PalBoxUi()
@@ -32,23 +34,30 @@ PalBoxUi::~PalBoxUi()
 
 void PalBoxUi::Update()
 {
+
 	FOR(30)
 	{
 		boxIcon[i]->SetTexture();
 
-		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr )
 		{
 			UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
+			UiMouseManager::Get()->SetIndex(i);
 		}
 
-		if (boxIcon[i]->MouseCollision() && KEY_UP(VK_LBUTTON))
+		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
 		{
-			//UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
-			boxIcon[i]->SetPal(UiMouseManager::Get()->GetPal());
+			int tmp = UiMouseManager::Get()->GetIndex();
+			Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i];
+			PlayerPalsManager::Get()->GetPalvector()[i] = PlayerPalsManager::Get()->GetPalvector()[tmp];
+			PlayerPalsManager::Get()->GetPalvector()[tmp] = palTmp;
+			SetPal();
+
+			UiMouseManager::Get()->SetPal(nullptr);
+
 		}
 
 
-		boxIcon[i]->Update();
 
 		if (boxIconBase[i]->MouseCollision())
 		{
@@ -59,11 +68,12 @@ void PalBoxUi::Update()
 			boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 		}
 
+
+
+		boxIcon[i]->Update();
 		boxIconBase[i]->Update();
 
 	}
-
-	UiMouseManager::
 
 	UiMouseManager::Get()->Update();
 
@@ -88,4 +98,12 @@ void PalBoxUi::PostRender()
 
 void PalBoxUi::GuiRender()
 {
+}
+
+void PalBoxUi::SetPal()
+{
+	FOR(30)
+	{
+		boxIcon[i]->SetPal(PlayerPalsManager::Get()->GetPalvector()[(i)]);
+	}
 }

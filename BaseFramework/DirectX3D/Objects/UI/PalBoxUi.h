@@ -11,8 +11,9 @@ public:
 	void GuiRender();
 
 private:
-
+	void SetPal();
 private:
+
 	Vector2 Screen = { 1280.0f,720.0f };
 	Quad* boxBase;
 

@@ -29,6 +29,8 @@ public:
 
     Pal* GetPal(int num) { return pals[num]; }
 
+    vector<Pal*>& GetPalvector() { return pals; }
+
 private:
     void OnGround(Terrain* terrain);
     void InsertAllMAI();

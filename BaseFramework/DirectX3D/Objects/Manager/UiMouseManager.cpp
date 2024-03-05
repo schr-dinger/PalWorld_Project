@@ -4,6 +4,7 @@
 UiMouseManager::UiMouseManager()
 {
 	quad = new Quad(size);
+	tempPal = nullptr;
 }
 
 UiMouseManager::~UiMouseManager()
