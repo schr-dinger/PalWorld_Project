@@ -30,6 +30,7 @@ public:
 public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 	// 자식들 공통분모 여기서
 	string name;
+	int level;
 
 	// 펠 보유 스킬들, 게임처럼 3개
 	Skill* skill[3];
