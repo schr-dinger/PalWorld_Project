@@ -25,9 +25,9 @@ public:
     void SetSelPal(int selPal) { this->selPal = selPal; }
 
     void Summons();     // ¼ÒÈ¯
-
-
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
+
+    Pal* GetPal(int num) { return pals[num]; }
 
 private:
     void OnGround(Terrain* terrain);

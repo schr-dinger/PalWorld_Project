@@ -20,6 +20,7 @@ public:
     void Render();
     void PostRender();
     void GUIRender();
+    Texture* GetTexture() { return icon; }
 
     // 액션 : 공격
     void Attack();      // 내 팔 공격
