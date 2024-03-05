@@ -2,21 +2,30 @@
 class Player : public ModelAnimator
 {
 private:
-    enum class ACTION
+    enum ACTION
     {
         IDLE,
-        WALKF,
-        WALKR,
-        WALKL,
-        RUNF,
-        RUNR,
-        RUNL,
-        JUMP,
-        ATTACK,
-        DAMAGE,
-        DRAW,
-        AIM,
-        SHOOT
+        WALK,
+        RUN,
+
+        J_START,
+        J_END,
+        J_LOOP,
+
+        R_IDLE,
+        R_RUN,
+        R_Aim,
+        R_RELOAD,
+        R_DRAW,
+
+        RA_FWD,
+        //RA_BACK,
+        //RA_LEFT,
+        //RA_RIGHT,
+
+        S_AIM,
+        S_THROW
+
     };
 
 public:
@@ -47,13 +56,15 @@ public:
 
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
-    Transform* GetFrontPoint() { return frontPoint ; }
+    Transform* GetFrontPoint() { return frontPoint; }
+
 
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
 
     Transform* CamTransform;
+    Transform* Hand;
 
     Transform* frontPoint;
 
@@ -78,15 +89,31 @@ private:
     bool isJump = false;
     bool isSpace = false;
     bool isAiming = false;
+    bool isRun = false;
+
     Terrain* terrain;
 
     bool test = true;
+
+    Model* Gun;
+
 
     // 테스트 : 포획
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
 
     Vector3 ogCam = { -0.05,1.7,2.5 };
-    Vector3 foCam = { -0.03,1.3,1.0 };
+    Vector3 foCam = { -0.3,1.35,1.0 };
+
+
+    // 무기 조준
+
+    ParticleSystem* particle;
+    bool isGun = false;
+    bool isGaim = false;
+    int select = 0;
+    //Bullet* bullet;
+
+
 };
 
