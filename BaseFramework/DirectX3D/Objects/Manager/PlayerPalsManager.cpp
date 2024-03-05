@@ -7,8 +7,10 @@ PlayerPalsManager::PlayerPalsManager()
 
     selPal = -1;
 
+    pals.resize(100);
+
     InsertAllMAI(); // 모든 팔 모델 인스턴싱 생성(현재 "펭키" 하나,)
-    FOR(5)
+    FOR(6)
     {
         Transform* transform = palsMAI["펭키"]->Add();
         transform->SetActive(false);
@@ -17,7 +19,8 @@ PlayerPalsManager::PlayerPalsManager()
         // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
         //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
         palsMAIIndex["펭키"]++;// 해당 모델 인스턴싱 인덱스 증가
-        pals.push_back(pal);
+        //pals.push_back(pal);
+        pals[i] = pal;
     }
     
 
@@ -86,10 +89,10 @@ void PlayerPalsManager::Render()
         blendState[0]->SetState();
 
     }
-    for (Pal* pal : pals)
-    {
-        pal->Render();
-    }
+    //for (Pal* pal : pals)
+    //{
+    //    pal->Render();
+    //}
 
 
     // 소환한 팔만 활성화, 모션 랜더(현재는 한 마리만 소환)
