@@ -14,10 +14,10 @@ void PalClickQuad::SetTexture()
 {
 	if (pal == nullptr)
 	{
-		click->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+		click->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
 	}
 	else
 	{
-		click->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
+		click->GetMaterial()->SetDiffuseMap(L"Textures/UI/PalIcon/T_Penguin_icon_normal.png");
 	}
 }

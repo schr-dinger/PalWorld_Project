@@ -8,6 +8,20 @@ PlayerPalsManager::PlayerPalsManager()
     selPal = -1;
 
     InsertAllMAI(); // 모든 팔 모델 인스턴싱 생성(현재 "펭키" 하나,)
+    FOR(5)
+    {
+        Transform* transform = palsMAI["펭키"]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* pal = new Penguin(transform, palsMAI["펭키"], palsMAIIndex["펭키"]);
+        // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
+        //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
+        palsMAIIndex["펭키"]++;// 해당 모델 인스턴싱 인덱스 증가
+        pals.push_back(pal);
+    }
+    
+
+
 
     FOR(2)
         blendState[i] = new BlendState();
@@ -100,6 +114,8 @@ void PlayerPalsManager::PostRender()
 
 void PlayerPalsManager::GUIRender()
 {
+    ImGui::Text("MyPalsSIze : %d", pals.size());
+
 }
 
 void PlayerPalsManager::SetTarget(Transform* target)

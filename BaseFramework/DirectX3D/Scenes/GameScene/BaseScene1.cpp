@@ -132,7 +132,7 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
-	//palBoxUi->PostRender();
+	palBoxUi->PostRender();
 
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
@@ -149,6 +149,7 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
+	//PlayerPalsManager::Get()->GUIRender();
 
 	// UI테스트
 	testUI->GUIRender();

@@ -13,6 +13,9 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     skill[0]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
     skill[0]->SetSkill();   // 스킬 세팅(시작 위치), 
 
+    // 펭귄 아이콘 추가
+    icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
+
     root = new Transform(); // 콜라이더가 위치할 장소(위치)
 
     //충돌체

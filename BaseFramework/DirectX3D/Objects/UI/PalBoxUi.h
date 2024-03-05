@@ -13,16 +13,19 @@ public:
 private:
 
 private:
+	Vector2 Screen = { 1280.0f,720.0f };
 	Quad* boxBase;
-	Quad* boxBaseFrame;
-	//PalClickQuad* boxIcon[30];
-	ClickQuad* boxIcon[5][6];
+
+	Vector3 boxIconP = { 490.0f, 500.0f,0.0f };
+	PalClickQuad* boxIcon[30];
+	PalClickQuad* boxIconBase[30];
+
 
 	Quad* partyBase;
 
 	Quad* SlaveBase;
 	ClickQuad* SlaveIcon[5];
 
-	Vector2 baseSize = { 1000.0f,500.0f };
+	Vector2 baseSize = { 500.0f,360.0f };
 };
 

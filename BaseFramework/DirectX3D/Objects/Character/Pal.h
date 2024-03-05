@@ -13,6 +13,7 @@ public:
 	virtual void SetTarget(Transform* target) = 0;
 	virtual Transform* GetTransform() = 0;
 	virtual CapsuleCollider* GetCollider() = 0;
+	virtual Texture* GetTexture() = 0;
 
 	// 팰의 공통 모션 여기서 넣기
 	virtual void FieldAttack() = 0;
@@ -32,5 +33,8 @@ public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 
 	// 펠 보유 스킬들, 게임처럼 3개
 	Skill* skill[3];
+
+	// 팰 아이콘
+	Texture* icon;
 };
 
