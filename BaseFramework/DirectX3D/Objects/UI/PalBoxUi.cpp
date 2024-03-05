@@ -3,11 +3,14 @@
 
 PalBoxUi::PalBoxUi()
 {
-	boxBase = new Quad(L"Textures/UI/T_gauge_HP_base.png");
-	boxBase->Pos() = { 640,360,0 };
-	boxBase->Scale() *= 5.0f;
-	boxBase->Scale().y *= 4.0f;
+	//boxBase = new Quad(L"Textures/UI/T_gauge_HP_base.png");
+	boxBase = new Quad(baseSize);
+	boxBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass.png");
+	boxBaseFrame = new Quad(baseSize+Vector2(5,5));
+	boxBaseFrame->SetParent(boxBase);
+	boxBaseFrame->GetMaterial()->SetDiffuseMap(L"Textures/Color/Glass.png");
 
+	boxBase->Pos() = { 640,360,0 };
 
 
 	for (int x = 0; x < 6; x++)
@@ -25,6 +28,7 @@ PalBoxUi::PalBoxUi()
 PalBoxUi::~PalBoxUi()
 {
 	delete boxBase;
+	delete boxBaseFrame;
 }
 
 void PalBoxUi::Update()
@@ -38,6 +42,8 @@ void PalBoxUi::Update()
 	}
 
 	boxBase->Update();
+	boxBaseFrame->Update();
+
 }
 
 void PalBoxUi::Render()
@@ -54,7 +60,9 @@ void PalBoxUi::PostRender()
 		}
 	}
 
+	//boxBaseFrame->Render();
 	boxBase->Render();
+
 }
 
 void PalBoxUi::GuiRender()

@@ -14,6 +14,7 @@ private:
 
 private:
 	Quad* boxBase;
+	Quad* boxBaseFrame;
 	//PalClickQuad* boxIcon[30];
 	ClickQuad* boxIcon[5][6];
 
@@ -21,5 +22,7 @@ private:
 
 	Quad* SlaveBase;
 	ClickQuad* SlaveIcon[5];
+
+	Vector2 baseSize = { 1000.0f,500.0f };
 };
 
