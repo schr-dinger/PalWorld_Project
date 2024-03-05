@@ -28,5 +28,7 @@ private:
 	ClickQuad* SlaveIcon[5];
 
 	Vector2 baseSize = { 500.0f,360.0f };
+
+	bool UiOn = false;
 };
 

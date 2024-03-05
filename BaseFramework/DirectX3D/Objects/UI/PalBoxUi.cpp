@@ -34,6 +34,10 @@ PalBoxUi::~PalBoxUi()
 
 void PalBoxUi::Update()
 {
+	if (KEY_DOWN('U'))
+	{
+		UiOn = !UiOn;
+	}
 
 	FOR(30)
 	{
@@ -87,6 +91,8 @@ void PalBoxUi::Render()
 
 void PalBoxUi::PostRender()
 {
+	if (!UiOn) return;
+
 	boxBase->Render();
 	FOR(30)
 	{

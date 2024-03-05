@@ -13,30 +13,24 @@ UiMouseManager::~UiMouseManager()
 
 void UiMouseManager::SetRender()
 {
-	if (tempPal == nullptr)
-	{
-		return;
-	}
-	else
-	{
-		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTexture());
-	}
+	quad->GetMaterial()->SetDiffuseMap(tempPal->GetTexture());
 }
 
 void UiMouseManager::Update()
 {
-
 	quad->Pos() = mousePos;
 	quad->UpdateWorld();
 }
 
 void UiMouseManager::Render()
 {
-	SetRender();
 	if (tempPal == nullptr)
 	{
 		return;
 	}
-
-	quad->Render();
+	else
+	{
+		SetRender();
+		quad->Render();
+	}
 }
