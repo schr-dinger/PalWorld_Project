@@ -5,22 +5,16 @@ PalBoxUi::PalBoxUi()
 {
 	//boxBase = new Quad(L"Textures/UI/T_gauge_HP_base.png");
 	boxBase = new Quad(baseSize);
-	boxBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass.png");
-	boxBaseFrame = new Quad(baseSize+Vector2(5,5));
-	boxBaseFrame->SetParent(boxBase);
-	boxBaseFrame->GetMaterial()->SetDiffuseMap(L"Textures/Color/Glass.png");
-
-	boxBase->Pos() = { 640,360,0 };
+	boxBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	boxBase->Pos() = { 640,400,0 };
 
 
-	for (int x = 0; x < 6; x++)
+	FOR(30)
 	{
-		for (int y = 0; y < 5; y++)
-		{
-			boxIcon[x][y] = new PalClickQuad();
-			boxIcon[x][y]->GetQuad()->Pos() = { 55.0f * x,55.0f * y,0 };
-
-		}
+		boxIcon[i] = new PalClickQuad();
+		boxIcon[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0)*60.0f;
+		boxIconBase[i] = new PalClickQuad();
+		boxIconBase[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0) * 60.0f;
 	}
 
 }
@@ -28,22 +22,34 @@ PalBoxUi::PalBoxUi()
 PalBoxUi::~PalBoxUi()
 {
 	delete boxBase;
-	delete boxBaseFrame;
+	FOR(30)
+	{
+		delete boxIcon[i];
+		delete boxIconBase[i];
+	}
 }
 
 void PalBoxUi::Update()
 {
-	for (int x = 0; x < 6; x++)
+	FOR(30)
 	{
-		for (int y = 0; y < 5; y++)
+		boxIcon[i]->SetTexture();
+		boxIcon[i]->Update();
+
+		if (boxIconBase[i]->MouseCollision())
 		{
-			boxIcon[x][y]->Update();
+			boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
 		}
+		else
+		{
+			boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+		}
+
+		boxIconBase[i]->Update();
+
 	}
 
 	boxBase->Update();
-	boxBaseFrame->Update();
-
 }
 
 void PalBoxUi::Render()
@@ -52,16 +58,12 @@ void PalBoxUi::Render()
 
 void PalBoxUi::PostRender()
 {
-	for (int x = 0; x < 6; x++)
-	{
-		for (int y = 0; y < 5; y++)
-		{
-			boxIcon[x][y]->Render();
-		}
-	}
-
-	//boxBaseFrame->Render();
 	boxBase->Render();
+	FOR(30)
+	{
+		boxIconBase[i]->Render();
+		boxIcon[i]->Render();
+	}
 
 }
 
