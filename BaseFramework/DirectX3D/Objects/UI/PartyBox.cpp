@@ -29,6 +29,33 @@ PartyBox::PartyBox()
 	//pal->GetTexture();
 	//partyBox2->GetMaterial()->SetDiffuseMap(pal->GetTexture());
 
+	partyBox3 = new Quad(Vector2(1, 1));
+	partyBox3->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	partyBox3->Scale().x *= 65;
+	partyBox3->Scale().y *= 65;
+	partyBox3->SetTag("Icon");
+
+	partyBox4 = new Quad(Vector2(1, 1));
+	partyBox4->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	partyBox4->Scale().x *= 65;
+	partyBox4->Scale().y *= 65;
+	partyBox4->SetActive(false);
+
+	hpBar = new ProgressBar(
+		L"Textures/Color/Red.png",
+		L"Textures/Color/BlackGlass50.png"
+	);
+	hpBar->SetTag("hp");
+	hpBar->Scale().x = 0.6f;
+	hpBar->Scale().y = 0.05f;
+
+	hgyBar = new ProgressBar(
+		L"Textures/Color/Green.png",
+		L"Textures/Color/BlackGlass50.png"
+	);
+	hgyBar->SetTag("hgy");
+	hgyBar->Scale().x = 0.6f;
+	hgyBar->Scale().y = 0.02f;
 }
 
 PartyBox::~PartyBox()
@@ -38,23 +65,40 @@ PartyBox::~PartyBox()
 void PartyBox::Update()
 {
 	partyBox2->Pos() = partyBox1->Pos();
+	partyBox3->Pos() = partyBox1->Pos() + Vector3(93.0f, 0.0f, 0.0f);
+	hpBar->Pos() = partyBox1->Pos() + Vector3(-29.0f, -6.3f, 0);
+	hgyBar->Pos() = partyBox1->Pos() + Vector3(-29.0f, -20.3f, 0);
+
 	Collision();
 
 	
 	partyBox1->UpdateWorld();
 	partyBox2->UpdateWorld();
+	partyBox3->UpdateWorld();
+	partyBox4->UpdateWorld();
+	hpBar->Update();
+	hgyBar->Update();
 }
 
 void PartyBox::PostRender()
 {
 	partyBox1->Render();
+	partyBox3->Render();
+	hpBar->Render();
+	hgyBar->Render();
+
 	partyBox2->Render();
+	partyBox4->Render();
 
 }
 
 void PartyBox::GUIRender()
 {
+	//partyBox4->GUIRender();
 	partyBox1->GUIRender();
+	hpBar->GUIRender();
+	hgyBar->GUIRender();
+
 	ImGui::Text("Mouse.x : %f", mousePos.x);
 	ImGui::Text("Mouse.y : %f", mousePos.y);
 
@@ -77,6 +121,7 @@ void PartyBox::Collision()
 			{
 				pickState = PickState::PICKING;
 				partyBox2->SetActive(true);
+				partyBox4->SetActive(true);
 
 			}
 		}
@@ -88,12 +133,15 @@ void PartyBox::Collision()
 
 		break;
 	case PartyBox::PickState::PICKING:
-		partyBox2->Pos() = mousePos;
+		partyBox2->Pos() = mousePos + Vector3(130.0f, -40.0f, 0.0f);
+		partyBox4->Pos() = partyBox2->Pos() + Vector3(93.0f, 0.0f, 0.0f);
+
 		if (KEY_DOWN(VK_LBUTTON))
 		{
 			pickState = PickState::RELEASE;
 			partyBox1->Pos() = partyBox2->Pos();
 			partyBox2->SetActive(false);
+			partyBox4->SetActive(false);
 
 
 		}

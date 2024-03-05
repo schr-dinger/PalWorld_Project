@@ -23,10 +23,15 @@ private:
 	Quad* partyBox1;
 	Quad* partyBox2;
 	Quad* partyBox3;
+	Quad* partyBox4;
 	class Pal* pal;
 
 	Texture* texture;
 
 	PickState pickState;
+
+	ProgressBar* hpBar;
+	ProgressBar* hgyBar;
+
 };
 
