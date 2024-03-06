@@ -27,8 +27,8 @@ private:
 	Quad* SlaveBase;
 	ClickQuad* SlaveIcon[5];
 
-	Vector2 baseSize = { 500.0f,360.0f };
-
+	Vector2 baseBoxSize = { 500.0f,360.0f };
+	//Vector2 basePartySize = {}
 	bool UiOn = false;
 };
 

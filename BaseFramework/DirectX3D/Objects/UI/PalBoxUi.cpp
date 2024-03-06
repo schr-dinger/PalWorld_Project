@@ -4,7 +4,7 @@
 PalBoxUi::PalBoxUi()
 {
 	//boxBase = new Quad(L"Textures/UI/T_gauge_HP_base.png");
-	boxBase = new Quad(baseSize);
+	boxBase = new Quad(baseBoxSize);
 	boxBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 	boxBase->Pos() = { 640,400,0 };
 

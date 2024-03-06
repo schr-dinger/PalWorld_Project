@@ -41,7 +41,10 @@ private:
 
     int rockN = 3;
 
-    int grassN = 6;
+    //int grassN = 6;
+
+    int grassN = 25;
+
 
     float WIDTH = 500;
     float HEIGHT = 500;
