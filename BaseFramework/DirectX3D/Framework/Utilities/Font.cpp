@@ -107,23 +107,59 @@ void Font::RenderText(wstring text, Float2 pos, Float2 size)
 		curFormat, &rectF, curBrush);
 }
 
-void Font::RenderText(string text, Float2 pos, Float2 size)
+void Font::RenderText(string text, Float2 pos, int alignnment, Float2 size)
 {
+	// 이건 가운데 기준으로 사이즈가 정해져서 글이 길어지거나 짧아질때마다 위치를 달리해줘야 함
+	//if (size.x == 0.0f && size.y == 0.0f)
+	//{
+	//	size.x = text.size() * curFormat->GetFontSize();
+	//	size.y = curFormat->GetFontSize();
+	//}
+	//
+	//Float2 halfSize = { size.x * 0.5f, size.y * 0.5f };
+	//
+	//pos.y = WIN_HEIGHT - pos.y;
+	//
+	//D2D1_RECT_F rectF;
+	//rectF.left = pos.x - halfSize.x;
+	//rectF.right = pos.x + halfSize.x;
+	//rectF.top = pos.y - halfSize.y;
+	//rectF.bottom = pos.y + halfSize.y;
+
+	// 시작이 무조건 받아온 포스로하기, 글이 길어지면 오른쪽으로 확장, 글이 커지면 위로 확장
+	
 	if (size.x == 0.0f && size.y == 0.0f)
 	{
 		size.x = text.size() * curFormat->GetFontSize();
 		size.y = curFormat->GetFontSize();
 	}
-
-	Float2 halfSize = { size.x * 0.5f, size.y * 0.5f };
-
 	pos.y = WIN_HEIGHT - pos.y;
 
 	D2D1_RECT_F rectF;
-	rectF.left = pos.x - halfSize.x;
-	rectF.right = pos.x + halfSize.x;
-	rectF.top = pos.y - halfSize.y;
-	rectF.bottom = pos.y + halfSize.y;
+
+	if (alignnment == 0) // 좌측 정렬
+	{
+		rectF.left = pos.x;
+		rectF.right = pos.x + size.x;
+		rectF.top = pos.y + size.y;
+		rectF.bottom = pos.y;
+	}
+	else if (alignnment == 1) // 가운데 정렬
+	{
+		Float2 halfSize = { size.x * 0.5f, size.y * 0.5f };
+		rectF.left = pos.x - halfSize.x;
+		rectF.right = pos.x + halfSize.x;
+		// 위아래는 가운데에 위치하지 않고 아래가 기준으로
+		rectF.top = pos.y + size.y;
+		rectF.bottom = pos.y;
+	}
+	else // 우측 정렬
+	{
+		rectF.left = pos.x + size.x;
+		rectF.right = pos.x;
+		rectF.top = pos.y + size.y;
+		rectF.bottom = pos.y;
+	}
 
 	wstring temp = ChangeWString(text);
 

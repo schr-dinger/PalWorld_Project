@@ -228,6 +228,8 @@ using namespace GameMath;
 #include "Objects/Manager/PalSpearManager.h"
 #include "Objects/Manager/PlayerPalsManager.h"
 #include "Objects/Manager/LandScapeManager.h"
+#include "Objects/Manager/UiMouseManager.h"
+
 
 
 //Scene Header

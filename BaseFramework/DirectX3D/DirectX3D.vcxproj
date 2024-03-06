@@ -287,6 +287,7 @@
     <ClInclude Include="Scenes\WaterScene.h" />
     <ClInclude Include="Objects\Landscape\Tree.h" />
     <ClInclude Include="Objects\Skill\Tornado.h" />
+    <ClInclude Include="Objects\Manager\UiMouseManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
@@ -426,6 +427,7 @@
     <ClCompile Include="Objects\Landscape\Tree.cpp" />
     <ClCompile Include="Objects\Skill\Skill.cpp" />
     <ClCompile Include="Objects\Skill\Tornado.cpp" />
+    <ClCompile Include="Objects\Manager\UiMouseManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

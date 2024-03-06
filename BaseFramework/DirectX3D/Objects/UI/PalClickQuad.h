@@ -6,7 +6,8 @@ public:
 	~PalClickQuad();
 
 	void SetTexture();
-
+	void SetPal(class Pal* pal) { this->pal =pal; }
+	Pal* GetPal() { return pal; }
 
 private:
 	class Pal* pal;
