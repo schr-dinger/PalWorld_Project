@@ -143,7 +143,7 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//player->GUIRender();
+	player->GUIRender();
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();

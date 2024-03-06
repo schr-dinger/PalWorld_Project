@@ -47,6 +47,8 @@ public:
     void ReadClip(string clipName, UINT clipNum = 0, string lockBone = "");
     void PlayClip(int clip, float scale = 1.0f, float takeTime = 0.2f);
 
+    void ClipOnce(int set = 4);
+
     Matrix GetTransformByNode(int nodeIndex);
 
     ModelClip* GetClip(UINT index) { return clips[index]; }
