@@ -13,37 +13,39 @@ PartyBox::PartyBox()
 	partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 	//partyBox1 = new Quad(L"Textures/UI/T_prt_pal_base.png");
 	//partyBox2 = new Quad(L"Textures/UI/T_prt_pal_base_frame.png");
-	partyBox2 = new Quad(Vector2(1, 1));
-	partyBox2->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
-	partyBox2->SetActive(false);
+	//partyBox2 = new Quad(Vector2(1, 1));
+	//partyBox2->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+	//partyBox2->SetActive(false);
 	partyBox1->Scale().x *= 250;
 	partyBox1->Scale().y *= 65;
-	partyBox2->Scale().x *= 250;
-	partyBox2->Scale().y *= 65;
 
-	//partyBox1->GetMaterial()->GetData().diffuse.w = 0.5;
+	// 위치 테스트용
+	//partyBox1->Pos() = { 640, 360, 0 };
 
-	pickState = PickState::RELEASE;
+	//partyBox2->Scale().x *= 250;
+	//partyBox2->Scale().y *= 65;
 
-	pal = PlayerPalsManager::Get()->GetPal(0);
-	//pal->GetTexture();
-	//partyBox2->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	//pickState = PickState::RELEASE;
+
+	//pal = PlayerPalsManager::Get()->GetPal(0);
+	pal = nullptr;
 
 	partyBox3 = new Quad(Vector2(1, 1));
-	partyBox3->GetMaterial()->SetDiffuseMap(pal->GetTexture());
-	partyBox3->Scale().x *= 65;
-	partyBox3->Scale().y *= 65;
+	//partyBox3->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	partyBox3->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	partyBox3->Scale().x *= 64.9f;
+	partyBox3->Scale().y *= 64.9f;
 	partyBox3->SetTag("Icon");
 
-	partyBox4 = new Quad(Vector2(1, 1));
-	partyBox4->GetMaterial()->SetDiffuseMap(pal->GetTexture());
-	partyBox4->Scale().x *= 64.9f;
-	partyBox4->Scale().y *= 64.9f;
-	partyBox4->SetActive(false);
+	//partyBox4 = new Quad(Vector2(1, 1));
+	//partyBox4->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	//partyBox4->Scale().x *= 64.9f;
+	//partyBox4->Scale().y *= 64.9f;
+	//partyBox4->SetActive(false);
 
 	hpBar = new ProgressBar(
 		L"Textures/Color/Red.png",
-		L"Textures/Color/BlackGlass50.png"
+		L"Textures/Color/WhiteGlass30.png"
 	);
 	hpBar->SetTag("hp");
 	hpBar->Scale().x = 0.65f;
@@ -51,7 +53,7 @@ PartyBox::PartyBox()
 
 	hgyBar = new ProgressBar(
 		L"Textures/Color/Green.png",
-		L"Textures/Color/BlackGlass50.png"
+		L"Textures/Color/WhiteGlass30.png"
 	);
 	hgyBar->SetTag("hgy");
 	hgyBar->Scale().x = 0.65f;
@@ -72,41 +74,58 @@ PartyBox::~PartyBox()
 
 void PartyBox::Update()
 {
-	partyBox2->Pos() = partyBox1->Pos();
+	//partyBox2->Pos() = partyBox1->Pos();
 	partyBox3->Pos() = partyBox1->Pos() + Vector3(93.0f, 0.0f, 0.0f);
 	hpBar->Pos() = partyBox1->Pos() + Vector3(-31.0f, -6.3f, 0);
 	hgyBar->Pos() = partyBox1->Pos() + Vector3(-31.0f, -20.3f, 0);
 
-	Collision();
+	MouseCollision();
 
 	
 	partyBox1->UpdateWorld();
-	partyBox2->UpdateWorld();
+	//partyBox2->UpdateWorld();
 	partyBox3->UpdateWorld();
-	partyBox4->UpdateWorld();
-	hpBar->Update();
-	hgyBar->Update();
+	//partyBox4->UpdateWorld();
+	
+	if (pal != nullptr)
+	{
+		// 체력바 갱신
+		hpBar->SetAmount(PlayerPalsManager::Get()->GetPal(0)->GetCurHp());
+		hgyBar->SetAmount(PlayerPalsManager::Get()->GetPal(0)->GetCurHp());
+		hpBar->Update();
+		hgyBar->Update();
 
-	// 폰트 위치
-	fontLvPos.x = partyBox1->Pos().x - 115.0f;
-	fontLvPos.y = partyBox1->Pos().y + 20.0f;
-	fontLvNumPos.x = partyBox1->Pos().x - 98.0f;
-	fontLvNumPos.y = partyBox1->Pos().y + 28.0f;
-	fontNamePos.x = partyBox1->Pos().x - 65.0f;
-	fontNamePos.y = partyBox1->Pos().y + 25.0f;
+		// 폰트 위치
+		fontLvPos.x = partyBox1->Pos().x - 115.0f;
+		fontLvPos.y = partyBox1->Pos().y + 20.0f;
+		fontLvNumPos.x = partyBox1->Pos().x - 98.0f;
+		fontLvNumPos.y = partyBox1->Pos().y + 28.0f;
+		fontNamePos.x = partyBox1->Pos().x - 65.0f;
+		fontNamePos.y = partyBox1->Pos().y + 25.0f;
+	}
+
+	
+
+	
+	
 }
 
 void PartyBox::PostRender()
 {
 	partyBox1->Render();
 	partyBox3->Render();
-	hpBar->Render();
-	hgyBar->Render();
+	
 
-	// 폰트
+	
+	if(pal != nullptr)
 	{
+		// 체력바
+		hpBar->Render();
+		hgyBar->Render();
+
+		// 폰트
 		string tmpString = to_string(pal->level);
-		tmpString = "99";
+		//tmpString = "99";
 		Font::Get()->SetStyle("PartyBoxNum");
 		Font::Get()->RenderText(tmpString, { fontLvNumPos.x, fontLvNumPos.y });
 		tmpString = "LV";
@@ -125,72 +144,80 @@ void PartyBox::PostRender()
 
 
 	// 피킹 테스트용
-	partyBox2->Render();
-	partyBox4->Render();
+	//partyBox2->Render();
+	//partyBox4->Render();
 
 }
 
 void PartyBox::GUIRender()
 {
 	//partyBox4->GUIRender();
-	partyBox1->GUIRender();
-	partyBox3->GUIRender();
+	//partyBox1->GUIRender();
+	//partyBox3->GUIRender();
 	//hpBar->GUIRender();
 	//hgyBar->GUIRender();
 
 	//ImGui::Text("Mouse.x : %f", mousePos.x);
 	//ImGui::Text("Mouse.y : %f", mousePos.y);
 
-	ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
-	ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
+	//ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
+	//ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
 
 }
 
-void PartyBox::Collision()
+bool PartyBox::MouseCollision()
 {
 	float left = partyBox1->Pos().x - partyBox1->GetSize().x * 0.5 * partyBox1->Scale().x;
 	float right = partyBox1->Pos().x + partyBox1->GetSize().x * 0.5 * partyBox1->Scale().x;
 	float top = partyBox1->Pos().y + partyBox1->GetSize().y * 0.5 * partyBox1->Scale().y;
 	float bottom = partyBox1->Pos().y - partyBox1->GetSize().y * 0.5 * partyBox1->Scale().y;
 
-	switch (pickState)
+	if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
 	{
-	case PartyBox::PickState::RELEASE:
-		if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
-		{
-			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
-			if (KEY_DOWN(VK_LBUTTON))
-			{
-				pickState = PickState::PICKING;
-				partyBox2->SetActive(true);
-				partyBox4->SetActive(true);
-
-			}
-		}
-		else
-		{
-			//partyBox->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
-			partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
-		}
-
-		break;
-	case PartyBox::PickState::PICKING:
-		partyBox2->Pos() = mousePos + Vector3(130.0f, -40.0f, 0.0f);
-		partyBox4->Pos() = partyBox2->Pos() + Vector3(93.0f, 0.0f, 0.0f);
-
-		if (KEY_DOWN(VK_LBUTTON))
-		{
-			pickState = PickState::RELEASE;
-			partyBox1->Pos() = partyBox2->Pos();
-			partyBox2->SetActive(false);
-			partyBox4->SetActive(false);
-
-
-		}
-		break;
-	default:
-		break;
+		// 밖에서 쓰기
+		//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+		return true;
 	}
+	//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+	return false;
+	//switch (pickState)
+	//{
+	//case PartyBox::PickState::RELEASE:
+	//	if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
+	//	{
+	//		partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+	//		if (KEY_DOWN(VK_LBUTTON))
+	//		{
+	//			pickState = PickState::PICKING;
+	//			partyBox2->SetActive(true);
+	//			partyBox4->SetActive(true);
+	//
+	//		}
+	//	}
+	//	else
+	//	{
+	//		//partyBox->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_get_reticle_per_base-1.png");
+	//		partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+	//	}
+	//
+	//	break;
+	//case PartyBox::PickState::PICKING:
+	//	partyBox2->Pos() = mousePos + Vector3(130.0f, -40.0f, 0.0f);
+	//	partyBox4->Pos() = partyBox2->Pos() + Vector3(93.0f, 0.0f, 0.0f);
+	//
+	//	if (KEY_DOWN(VK_LBUTTON))
+	//	{
+	//		pickState = PickState::RELEASE;
+	//		partyBox1->Pos() = partyBox2->Pos();
+	//		partyBox2->SetActive(false);
+	//		partyBox4->SetActive(false);
+	//
+	//
+	//	}
+	//	break;
+	//default:
+	//	break;
+	//}
 
 
 	

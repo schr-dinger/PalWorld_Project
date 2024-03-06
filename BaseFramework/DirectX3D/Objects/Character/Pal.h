@@ -14,6 +14,7 @@ public:
 	virtual Transform* GetTransform() = 0;
 	virtual CapsuleCollider* GetCollider() = 0;
 	virtual Texture* GetTexture() = 0;
+	virtual float GetCurHp() = 0;
 
 	// 팰의 공통 모션 여기서 넣기
 	virtual void FieldAttack() = 0;

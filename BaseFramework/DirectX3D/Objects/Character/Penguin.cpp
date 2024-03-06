@@ -182,7 +182,7 @@ void Penguin::Damage()
 
     //체력에 -
     curHP -= 200 * DELTA;
-    //hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
+    hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
     if (curHP <= 0)
