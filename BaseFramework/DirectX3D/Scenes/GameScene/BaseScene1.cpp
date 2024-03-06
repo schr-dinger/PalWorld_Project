@@ -46,7 +46,7 @@ BaseScene1::BaseScene1()
 	palBoxUi = new PalBoxUi();
 
 	// UI테스트
-	testUI = new PartyBox();
+	testUI = new FieldUI();
 }
 
 BaseScene1::~BaseScene1()
@@ -139,11 +139,13 @@ void BaseScene1::PostRender()
 
 	// UI테스트
 	testUI->PostRender();
+	//PalsManager::Get()->Render();
+
 }
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
+	//player->GUIRender();
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();

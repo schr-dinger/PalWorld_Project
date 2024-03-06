@@ -163,6 +163,7 @@ using namespace GameMath;
 #include "Objects/UI/PalClickQuad.h"
 #include "Objects/UI/PartyBox.h"
 #include "Objects/UI/PalBoxUi.h"
+#include "Objects/UI/FieldUI.h"
 
 
 #include "Objects/Items/Weapons/Kunai.h"

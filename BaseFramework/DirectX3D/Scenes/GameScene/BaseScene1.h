@@ -34,6 +34,6 @@ private:
 	PalBoxUi* palBoxUi;
 
 	// UI테스트
-	PartyBox* testUI;
+	FieldUI* testUI;
 };
 

@@ -138,6 +138,11 @@ void GameManager::Create()
     Observer::Get();
     
     Font::Get()->AddColor("White", 1, 1, 1);
+    Font::Get()->AddColor("Gray", 
+        149.0f/ 255.0f, 
+        214.0f / 255.0f, 
+        181.0f / 255.0f);
+
     Font::Get()->AddStyle("Default", L"배달의민족 주아");
     Font::Get()->AddStyle("Default2", L"배달의민족 주아", 20.0f,
         DWRITE_FONT_WEIGHT_NORMAL,
@@ -160,6 +165,14 @@ void GameManager::Create()
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_LEADING);
     
+    // Field UI
+    Font::Get()->AddStyle("HpUI", L"Oxanium", 13.0f,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+
+
     Font::Get()->SetColor("White");
     Font::Get()->SetStyle("Default");
 
