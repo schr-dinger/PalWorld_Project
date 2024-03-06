@@ -153,6 +153,9 @@ void BaseScene1::GUIRender()
 
 	// UI테스트
 	testUI->GUIRender();
+	palBoxUi->GuiRender();
+
+
 }
 
 void BaseScene1::SetLights()

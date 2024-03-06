@@ -90,8 +90,8 @@ void PartyBox::Update()
 	if (pal != nullptr)
 	{
 		// 체력바 갱신
-		hpBar->SetAmount(PlayerPalsManager::Get()->GetPal(0)->GetCurHp());
-		hgyBar->SetAmount(PlayerPalsManager::Get()->GetPal(0)->GetCurHp());
+		hpBar->SetAmount(pal->GetCurHp());
+		hgyBar->SetAmount(pal->GetCurHp());
 		hpBar->Update();
 		hgyBar->Update();
 
@@ -175,10 +175,10 @@ bool PartyBox::MouseCollision()
 	if (mousePos.x <= right && mousePos.x >= left && mousePos.y <= top && mousePos.y >= bottom)
 	{
 		// 밖에서 쓰기
-		//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+		partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
 		return true;
 	}
-	//partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
+	partyBox1->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	return false;
 	//switch (pickState)
 	//{
@@ -221,4 +221,16 @@ bool PartyBox::MouseCollision()
 
 
 	
+}
+
+void PartyBox::SetTexture3()
+{
+	if (pal == nullptr)
+	{
+		partyBox3->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	}
+	else
+	{
+		partyBox3->GetMaterial()->SetDiffuseMap(pal->GetTexture());
+	}
 }

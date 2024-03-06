@@ -23,6 +23,7 @@ public:
 	Pal* GetPal() { return pal; }
 
 	Quad* GetQuad() { return partyBox1; }
+	void SetTexture3();
 
 private:
 	Quad* partyBox1;

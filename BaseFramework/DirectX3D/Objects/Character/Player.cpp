@@ -14,7 +14,7 @@ Player::Player() : ModelAnimator("NPC")
 
     frontPoint = new Transform();
     frontPoint->SetParent(this);
-    frontPoint->Pos() = { 0,0,-5 };
+    frontPoint->Pos() = { 0,0,-200 };
 
     Hand = new Transform();
     Gun = new Model("Rifle");
@@ -124,7 +124,7 @@ void Player::Update()
 void Player::Render()
 {
     testPalSpear->Render();
-    //testFrontSphere->Render();
+    testFrontSphere->Render();
     Gun->Render();
 
     ModelAnimator::Render();

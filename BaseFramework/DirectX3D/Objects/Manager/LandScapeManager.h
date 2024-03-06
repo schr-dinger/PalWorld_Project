@@ -43,7 +43,7 @@ private:
 
     //int grassN = 6;
 
-    int grassN = 25;
+    int grassN = 10;
 
 
     float WIDTH = 500;
