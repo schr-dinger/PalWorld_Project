@@ -4,6 +4,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     :transform(transform), instancing(instancing), index(index)
 {
     name = "펭키";
+    level = 1;
     speed = 5; //속력 : 기본 스탯
     maxHP = 100;
     curHP = 100;
@@ -124,11 +125,16 @@ void Penguin::PostRender()
         Vector3 tmp = transform->Pos() + Vector3(0, 2.0f, 0);
         //tmp = CAM->WorldToScreen(tmp);
         tmp = hpBar->GlobalPos();
-        tmp.y += 30.0f;
+        //tmp.x += 30.0f;
+        tmp.y += 35.0f;
+
         string tmpString = name + " 테스트ㅁㄴㅇㄻㄴㅇㄻㅇㄴㄹㄴㅇㅁㄹㄴㅁㅇㄴㅇㄻ";
         Font::Get()->SetStyle("Default2");
-        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y });
+        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y }, 1);
         Font::Get()->SetStyle("Default");
+        Font::Get()->GetDC()->EndDraw();
+        Font::Get()->GetDC()->BeginDraw();
+
     }
     
 }
@@ -176,7 +182,7 @@ void Penguin::Damage()
 
     //체력에 -
     curHP -= 200 * DELTA;
-    //hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
+    hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
     if (curHP <= 0)

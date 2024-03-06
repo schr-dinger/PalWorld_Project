@@ -22,6 +22,7 @@ ProgressBar::~ProgressBar()
 
 void ProgressBar::Update()
 {
+    UpdateWorld();
 }
 
 void ProgressBar::Render()

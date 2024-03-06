@@ -21,6 +21,7 @@ public:
     void PostRender();
     void GUIRender();
     Texture* GetTexture() { return icon; }
+    float GetCurHp() { return curHP / maxHP; }
 
     // 액션 : 공격
     void Attack();      // 내 팔 공격

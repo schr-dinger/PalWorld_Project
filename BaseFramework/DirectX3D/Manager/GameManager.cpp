@@ -109,7 +109,7 @@ void GameManager::Render()
     ImGui::NewFrame();
     
     string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
-    Font::Get()->RenderText(fps, { 100, WIN_HEIGHT - 10 });
+    Font::Get()->RenderText(fps, { 10, WIN_HEIGHT - 3 });
     
     static bool isActive = true;
 
@@ -144,6 +144,21 @@ void GameManager::Create()
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_CENTER);
+    Font::Get()->AddStyle("PartyBoxNum", L"Oxanium", 20.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+    Font::Get()->AddStyle("PartyBoxLV", L"Noto Sans", 12.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+    Font::Get()->AddStyle("PartyBoxName", L"Noto Sans KR", 15.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
     
     Font::Get()->SetColor("White");
     Font::Get()->SetStyle("Default");

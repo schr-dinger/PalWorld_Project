@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Items\Weapons\Bullet.h" />
+    <ClInclude Include="Objects\Manager\BulletManager.h" />
     <ClInclude Include="Objects\UI\ClickQuad.h" />
     <ClInclude Include="Objects\Manager\FieldPalSkillManager.h" />
     <ClInclude Include="Objects\Manager\MyPalSkillManager.h" />
@@ -288,6 +290,8 @@
     <ClInclude Include="Objects\Manager\UiMouseManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
+    <ClCompile Include="Objects\Manager\BulletManager.cpp" />
     <ClCompile Include="Objects\UI\ClickQuad.cpp" />
     <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
     <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
