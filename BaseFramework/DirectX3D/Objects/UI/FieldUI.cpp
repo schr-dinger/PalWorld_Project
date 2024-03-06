@@ -283,20 +283,59 @@ void FieldUI::SetPalUI()
 	int test[3] = {-1, -1, -1};
 	int tmp = 0;
 
-	FOR(5)
+	if (KEY_DOWN('1')) // ¿ÞÂÊ ÆÈ ¼±ÅÃ
 	{
-		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
+		int tmpSel = selPal;
+		FOR(5)
 		{
-			test[tmp] = selPal;
-			tmp++;
-			if (tmp >= 3)
+			if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
 			{
-				tmp = 2;
+				test[tmp] = selPal;
+				if (tmp == 0)
+				{
+					selPal = tmpSel;
+				}
+				tmp++;
+				if (tmp >= 3)
+				{
+					tmp = 2;
+				}
 			}
+			if (tmp == 0)
+			{
+				selPal--;
+				if (selPal < 0)
+				{
+					selPal = 4;
+				}
+			}
+			else
+			{
+				selPal++;
+				selPal %= 5;
+			}
+			
 		}
-		selPal++;
-		selPal %= 5;
 	}
+	else
+	{
+		FOR(5)
+		{
+			if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
+			{
+				test[tmp] = selPal;
+				tmp++;
+				if (tmp >= 3)
+				{
+					tmp = 2;
+				}
+			}
+			selPal++;
+			selPal %= 5;
+		}
+	}
+
+	
 	if (test[0] != -1)
 	{
 		Pal1->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(test[0])->GetTextureC());

@@ -174,9 +174,16 @@ bool PlayerPalsManager::IsCollision(Ray ray, Vector3& hitPoint)
 void PlayerPalsManager::OnGround(Terrain* terrain)
 {
     
-    if (selPal != -1)
+    //if (selPal != -1)
+    //{
+    //    pals[selPal]->GetTransform()->Pos().y = terrain->GetHeight(pals[selPal]->GetTransform()->GlobalPos());
+    //}
+    for (Pal* pal : pals)
     {
-        pals[selPal]->GetTransform()->Pos().y = terrain->GetHeight(pals[selPal]->GetTransform()->GlobalPos());
+        if (pal != nullptr)
+        {
+            pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+        }
     }
 }
 

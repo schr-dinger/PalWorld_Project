@@ -8,8 +8,11 @@ public:
 	void Update();
 	void PostRender();
 	void GUIRender();
+
+	void SetPalUI(); // 팰박스에서 바뀔시 세팅
+
 private:
-	void SetPalUI();
+	//void SetPalUI();
 
 private:
 	// 플레이어 체력 배고픔 바
