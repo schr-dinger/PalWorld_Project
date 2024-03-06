@@ -59,16 +59,19 @@ void PlayerPalsManager::Update()
     {
         iter->second->Update();
     }
-    //for (Pal* pal : pals)
-    //{
-    //    pal->Update();
-    //}
+    for (Pal* pal : pals)
+    {
+        if (pal == nullptr)
+        {
+            continue;
+        }
+        pal->Update();
+    }
 
     if (selPal != -1)
     {
         //palsMAI[pals[selPal]->name]->Update();
-
-        pals[selPal]->Update();
+        //pals[selPal]->Update();
         if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
         {
             pals[selPal]->Attack();
@@ -89,29 +92,40 @@ void PlayerPalsManager::Render()
         blendState[0]->SetState();
 
     }
-    //for (Pal* pal : pals)
-    //{
-    //    pal->Render();
-    //}
+    for (Pal* pal : pals)
+    {
+        if (pal == nullptr)
+        {
+            continue;
+        }
+        pal->Render();
+    }
 
 
     // 소환한 팔만 활성화, 모션 랜더(현재는 한 마리만 소환)
 
-    if (selPal != -1)
-    {
-        blendState[1]->SetState(); // 투명도 적용
-        palsMAI[pals[selPal]->name]->Render();
-        blendState[0]->SetState();
-
-        pals[selPal]->Render();
-    }
+    //if (selPal != -1)
+    //{
+    //    blendState[1]->SetState(); // 투명도 적용
+    //    palsMAI[pals[selPal]->name]->Render();
+    //    blendState[0]->SetState();
+    //
+    //    pals[selPal]->Render();
+    //}
 }
 
 void PlayerPalsManager::PostRender()
 {
-    if (selPal != -1)
+    //if (selPal != -1)
+    //{
+    //    pals[selPal]->PostRender();
+    //}
+    for (Pal* pal : pals)
     {
-        pals[selPal]->PostRender();
+        if (pal != nullptr)
+        {
+            pal->PostRender();
+        }
     }
 }
 
@@ -188,14 +202,28 @@ void PlayerPalsManager::InsertAllMAI()
 
 void PlayerPalsManager::Collision()
 {
-    if (selPal != -1)
+    //if (selPal != -1)
+    //{
+    //    // 조건에따라 데미지 호출
+    //    if (FieldPalSkillManager::Get()->IsCollision(pals[selPal]->GetCollider())) // 필드 스킬에 맞았을 때
+    //    {
+    //        pals[selPal]->Damage();
+    //    }
+    //}
+
+
+    for (Pal* pal : pals)
     {
-        // 조건에따라 데미지 호출
-        if (FieldPalSkillManager::Get()->IsCollision(pals[selPal]->GetCollider())) // 필드 스킬에 맞았을 때
+        if (pal != nullptr)
         {
-            pals[selPal]->Damage();
+            // 조건에따라 데미지 호출
+            if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
+            {
+                pal->Damage();
+            }
         }
     }
+
 }
 
 void PlayerPalsManager::Summons()

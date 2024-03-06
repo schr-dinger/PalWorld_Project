@@ -43,6 +43,7 @@ FieldUI::FieldUI()
 	icon_1->SetTag("i1");
 	icon_1->Scale().x = 20.0f;
 	icon_1->Scale().y = 20.0f;
+	icon_1->Pos() = { 38.0f, 160.0f, 0.0f };
 
 	icon_2 = new Quad(Vector2(1, 1));
 	icon_2->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_2.png");
@@ -55,6 +56,7 @@ FieldUI::FieldUI()
 	icon_3->SetTag("i3");
 	icon_3->Scale().x = 20.0f;
 	icon_3->Scale().y = 20.0f;
+	icon_3->Pos() = { 238.0f, 160.0f, 0.0f };
 
 	icon_Q = new Quad(Vector2(1, 1));
 	icon_Q->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_Q.png");
@@ -67,6 +69,7 @@ FieldUI::FieldUI()
 	icon_E->SetTag("iE");
 	icon_E->Scale().x = 20.0f;
 	icon_E->Scale().y = 20.0f;
+	icon_E->Pos() = { 138.0f, 220.0f, 0.0f };
 
 	icon_B = new Quad(Vector2(1, 1));
 	icon_B->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_B.png");
@@ -78,40 +81,48 @@ FieldUI::FieldUI()
 	Pal1= new Quad(Vector2(1, 1));
 	Pal2= new Quad(Vector2(1, 1));
 	Pal3= new Quad(Vector2(1, 1));
-	Pal1->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTexture());
-	Pal2->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTexture());
-	Pal3->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTexture());
+	//Pal1->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTextureC());  // 테스트용
+	//Pal2->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTextureC());
+	//Pal3->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(0)->GetTextureC());
+	Pal1->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	Pal2->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	Pal3->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
 	Pal1->Scale() = {80.0f, 80.0f, 0.0f};
-	Pal2->Scale() = {50.0f, 50.0f, 0.0f};
-	Pal3->Scale() = { 50.0f, 50.0f, 0.0f};
+	Pal2->Scale() = {30.0f, 30.0f, 0.0f};
+	Pal3->Scale() = { 30.0f, 30.0f, 0.0f};
 	Pal1->SetTag("P1");
 	Pal2->SetTag("P2");
 	Pal3->SetTag("P3");
-	Pal1->Pos() = { 136.6f, 170.0f, 0.0f };
-	Pal2->Pos() = { 56.0f, 155.0f, 0.0f };
-	Pal3->Pos() = { 217.0f, 155.0f, 0.0f };
+	Pal1->Pos() = { 138.0f, 160.0f, 0.0f };
+	Pal2->Pos() = { 73.0f, 160.0f, 0.0f };
+	Pal3->Pos() = { 203.0f, 160.0f, 0.0f };
 
 	// 팔 쿼드 아이콘
 	PalQuad1 = new Quad(Vector2(1, 1));
 	PalQuad2 = new Quad(Vector2(1, 1));
 	PalQuad3 = new Quad(Vector2(1, 1));
-	PalQuad1->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
-	PalQuad2->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
-	PalQuad3->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	PalQuad1->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
+	PalQuad2->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
+	PalQuad3->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
 	PalQuad1->Scale() = { 80.0f, 80.0f, 0.0f };
-	PalQuad2->Scale() = { 50.0f, 50.0f, 0.0f };
-	PalQuad3->Scale() = { 50.0f, 50.0f, 0.0f };
+	PalQuad2->Scale() = { 30.0f, 30.0f, 0.0f };
+	PalQuad3->Scale() = { 30.0f, 30.0f, 0.0f };
 	PalQuad1->SetTag("PQ1");
 	PalQuad2->SetTag("PQ2");
 	PalQuad3->SetTag("PQ3");
-	PalQuad1->Pos() = { 136.6f, 170.0f, 0.0f };
-	PalQuad2->Pos() = { 56.0f, 155.0f, 0.0f };
-	PalQuad3->Pos() = { 217.0f, 155.0f, 0.0f };
+	PalQuad1->Pos() = { 138.0f, 160.0f, 0.0f };
+	PalQuad2->Pos() = { 73.0f, 160.0f, 0.0f };
+	PalQuad3->Pos() = { 203.0f, 160.0f, 0.0f };
 
+	// 팔 선택
+	selPal = 0;
 
 	// 폰트 포스
 	HpFontPos = {61.0f, 69.0f};
 	BuildFontPos = { 61.0f, 69.0f };
+
+	// 플레이어 팔 매니저에 따라 세팅
+	SetPalUI();
 
 	// 폰트 테스트용
 	fontPos = {};
@@ -136,6 +147,25 @@ FieldUI::~FieldUI()
 
 void FieldUI::Update()
 {
+	// 팔 선택
+	if (KEY_DOWN('E')) // 선택 팰 소환
+	{
+		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
+		{
+			PlayerPalsManager::Get()->SetSelPal(selPal);
+			PlayerPalsManager::Get()->Summons();
+		}
+	}
+	else if (KEY_DOWN('3')) // 오른쪽 팰 선택
+	{
+		selPal++;
+		SetPalUI();
+	}
+	else if (KEY_DOWN('1')) // 왼쪽 팔 선택
+	{
+		selPal--;
+		SetPalUI();
+	}
 	hpBar  ->Update();
 	hgyBar ->Update();
 	hpQuad ->Update();
@@ -146,7 +176,6 @@ void FieldUI::Update()
 	icon_Q ->Update();
 	icon_E ->Update();
 	icon_B ->Update();
-
 	Pal1->Update();
 	Pal2->Update();
 	Pal3->Update();
@@ -205,6 +234,99 @@ void FieldUI::GUIRender()
 	icon_Q->GUIRender();
 	icon_E->GUIRender();
 	icon_B->GUIRender();
-	
+	PalQuad1->GUIRender();
+	PalQuad2->GUIRender();
+	PalQuad3->GUIRender();
+
+}
+
+void FieldUI::SetPalUI()
+{
+	if (selPal < 0)
+	{
+		selPal = 4;
+	}
+	else if (selPal > 4)
+	{
+		selPal = 0;
+	}
+	// 없는 건 없는데로 출력하기
+	//if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
+	//{
+	//	Pal1->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(selPal)->GetTextureC());
+	//}
+	//else
+	//{
+	//	Pal1->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	//}
+	//int tmp1 = (selPal + 1) % 5; // 오른쪽은 다음에 있는 팔
+	//if (PlayerPalsManager::Get()->GetPal(tmp1) != nullptr)
+	//{
+	//	Pal3->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(tmp1)->GetTextureC());
+	//}
+	//else
+	//{
+	//	Pal3->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	//}
+	//int tmp2 = (selPal + 4) % 5; // 왼쪽은 전에 있는 팔
+	//if (PlayerPalsManager::Get()->GetPal(tmp2) != nullptr)
+	//{
+	//	Pal2->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(tmp2)->GetTextureC());
+	//}
+	//else
+	//{
+	//	Pal2->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	//}
+
+
+	// 게임처럼 세팅 테스트
+	int test[3] = {-1, -1, -1};
+	int tmp = 0;
+
+	FOR(5)
+	{
+		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
+		{
+			test[tmp] = selPal;
+			tmp++;
+			if (tmp >= 3)
+			{
+				tmp = 2;
+			}
+		}
+		selPal++;
+		selPal %= 5;
+	}
+	if (test[0] != -1)
+	{
+		Pal1->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(test[0])->GetTextureC());
+		selPal = test[0];
+	}
+	else
+	{
+		Pal1->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+
+	}
+	if (test[1] != -1)
+	{
+		Pal3->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(test[1])->GetTextureC());
+
+	}
+	else
+	{
+		Pal3->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+
+	}
+	if (test[2] != -1)
+	{
+		Pal2->GetMaterial()->SetDiffuseMap(PlayerPalsManager::Get()->GetPal(test[2])->GetTextureC());
+
+	}
+	else
+	{
+		Pal2->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+
+	}
+
 
 }

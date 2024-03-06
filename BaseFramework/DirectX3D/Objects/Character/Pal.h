@@ -14,6 +14,7 @@ public:
 	virtual Transform* GetTransform() = 0;
 	virtual CapsuleCollider* GetCollider() = 0;
 	virtual Texture* GetTexture() = 0;
+	virtual Texture* GetTextureC() = 0;
 	virtual float GetCurHp() = 0;
 
 	// 팰의 공통 모션 여기서 넣기
@@ -38,5 +39,6 @@ public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 
 	// 팰 아이콘
 	Texture* icon;
+	Texture* iconC;
 };
 

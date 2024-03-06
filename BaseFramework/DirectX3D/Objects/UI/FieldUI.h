@@ -8,6 +8,8 @@ public:
 	void Update();
 	void PostRender();
 	void GUIRender();
+private:
+	void SetPalUI();
 
 private:
 	// 플레이어 체력 배고픔 바
@@ -32,6 +34,9 @@ private:
 	Quad* PalQuad1;
 	Quad* PalQuad2;
 	Quad* PalQuad3;
+
+	// 팔UI 선택용
+	int selPal;
 
 	// 폰트
 	Vector2 HpFontPos;
