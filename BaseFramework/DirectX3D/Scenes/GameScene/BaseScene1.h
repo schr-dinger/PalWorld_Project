@@ -20,7 +20,7 @@ private:
 	SkyBox* skyBox;
 	Water* water;
 
-	Player* player;
+	//Player* player;
 	
 	PalBox* ice;
 
@@ -31,7 +31,7 @@ private:
 
 	Shadow* shadow;
 
-	PalBoxUi* palBoxUi;
+	//PalBoxUi* palBoxUi;
 
 	// UI테스트
 	PartyBox* testUI;

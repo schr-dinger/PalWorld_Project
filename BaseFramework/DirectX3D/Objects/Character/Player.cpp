@@ -82,7 +82,6 @@ Player::~Player()
     delete CamTransform;
     delete frontPoint;
     delete Gun;
-    delete terrain;
     delete testPalSpear;
     delete particle;
 }
@@ -106,7 +105,12 @@ void Player::Update()
     //ClipSync();
     CamTransform->UpdateWorld();
     frontPoint->UpdateWorld();
-    Control();
+
+    if (!UiOn)
+    {
+        Control();
+    }
+
     SetAnimation();
 
     Hand->SetWorld(GetTransformByNode(68));
@@ -252,7 +256,7 @@ void Player::Control()
     }
 
 
-    Jump(terrain->GetHeight(Pos()));
+    Jump(LandScapeManager::Get()->GetTerrain()->GetHeight(Pos()));
 }
 
 void Player::Move()
@@ -506,6 +510,11 @@ void Player::SummonsPal()
     PlayerPalsManager::Get()->SetSelPal(0);
     // ÆÈ ¼ÒÈ¯
     PlayerPalsManager::Get()->Summons();
+}
+
+void Player::UiMode()
+{
+    UiOn = !UiOn;
 }
 
 void Player::SetAnimation()

@@ -1,9 +1,9 @@
 #include "Framework.h"
 #include "ClickQuad.h"
 
-ClickQuad::ClickQuad()
+ClickQuad::ClickQuad(Vector2 size)
 {
-    click = nullptr;
+    click = new Quad(size);
 }
 
 ClickQuad::~ClickQuad()

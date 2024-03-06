@@ -24,15 +24,12 @@ BaseScene1::BaseScene1()
 	palBox = new PalBox();
 
 
-	player = new Player();
-	player->SetTerrain(LandScapeManager::Get()->GetTerrain());
-
-	PalsManager::Get()->SetTarget(player);
-	PalsManager::Get()->SetPlayer(player);
+	PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
+	PalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	
 	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
-	PlayerPalsManager::Get()->SetPlayer(player);
+	PlayerPalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
 	// 스킬 테스트
@@ -43,7 +40,7 @@ BaseScene1::BaseScene1()
 	FieldPalSkillManager::Get(); // 생성자용
 	MyPalSkillManager::Get();	 // 생성자용
 
-	palBoxUi = new PalBoxUi();
+	//palBoxUi = new PalBoxUi();
 
 	// UI테스트
 	testUI = new PartyBox();
@@ -51,7 +48,7 @@ BaseScene1::BaseScene1()
 
 BaseScene1::~BaseScene1()
 {
-	delete player;
+	//delete player;
 	//delete terrain;
 	//delete terrainF;
 	delete shadow;
@@ -60,8 +57,9 @@ BaseScene1::~BaseScene1()
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
 	LandScapeManager::Get()->Delete();
-
-	delete palBoxUi;
+	PlayerManager::Get()->Delete();
+	UiManager::Get()->Delete();
+	//delete palBoxUi;
 }
 
 void BaseScene1::Update()
@@ -69,7 +67,7 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
-	palBox->Place(player->GetFrontPoint()->GlobalPos().x, player->GetFrontPoint()->GlobalPos().z);
+	palBox->Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().z);
 
 
 
@@ -78,16 +76,16 @@ void BaseScene1::Update()
 	//tree->Update();
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
-	player->Update();
+	//player->Update();
 
 	palBox->Update();
 
-	palBoxUi->Update();
+	UiManager::Get()->Update();
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
-
+	PlayerManager::Get()->Update();
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
@@ -119,9 +117,10 @@ void BaseScene1::Render()
 	//terrain->Render();
 	water->Render();
 
-	player->Render();
+	//player->Render();
 	
 	palBox->Render();
+	PlayerManager::Get()->Render();
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
@@ -132,8 +131,7 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
-	palBoxUi->PostRender();
-
+	UiManager::Get()->PostRender();
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 
@@ -143,7 +141,8 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	player->GUIRender();
+	PlayerManager::Get()->GUIRender();
+
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();
@@ -153,8 +152,7 @@ void BaseScene1::GUIRender()
 
 	// UI테스트
 	testUI->GUIRender();
-	palBoxUi->GuiRender();
-
+	UiManager::Get()->GuiRender();
 
 }
 
