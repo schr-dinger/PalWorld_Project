@@ -74,7 +74,7 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-
+    playerCollider = new CapsuleCollider(0.25f,0.7f);
 }
 
 Player::~Player()
@@ -84,6 +84,7 @@ Player::~Player()
     delete Gun;
     delete testPalSpear;
     delete particle;
+    delete playerCollider;
 }
 
 void Player::Update()
@@ -106,12 +107,16 @@ void Player::Update()
     CamTransform->UpdateWorld();
     frontPoint->UpdateWorld();
 
-    if (!UiOn)
+    if (!UiManager::Get()->GetUiOn())
     {
         Control();
     }
 
     SetAnimation();
+
+
+    //
+    playerCollider->Pos() = this->Pos() + Vector3(0,1.0f,0);
 
     Hand->SetWorld(GetTransformByNode(68));
     Gun->UpdateWorld();
@@ -123,6 +128,7 @@ void Player::Update()
 
     //
     particle->Update();
+    playerCollider->UpdateWorld();
 }
 
 void Player::Render()
@@ -136,6 +142,7 @@ void Player::Render()
 
     //
     particle->Render();
+    playerCollider->Render();
 }
 
 void Player::GUIRender()

@@ -54,6 +54,8 @@ private:
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
+    CapsuleCollider* GetPlayerCol() { return playerCollider; }
+
     Transform* GetFrontPoint() { return frontPoint; }
 
     void UiMode();
@@ -113,5 +115,8 @@ private:
     //Bullet* bullet;
 
 
+    //player collider
+
+    CapsuleCollider* playerCollider;
 };
 
