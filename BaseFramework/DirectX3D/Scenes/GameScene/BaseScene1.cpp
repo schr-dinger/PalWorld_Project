@@ -20,10 +20,6 @@ BaseScene1::BaseScene1()
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
-	//test
-	palBox = new PalBox();
-	workBench = new WorkBench();
-
 
 	PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
@@ -60,6 +56,7 @@ BaseScene1::~BaseScene1()
 	LandScapeManager::Get()->Delete();
 	PlayerManager::Get()->Delete();
 	UiManager::Get()->Delete();
+	StructureManager::Get()->Delete();
 	//delete palBoxUi;
 }
 
@@ -68,27 +65,23 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
-	palBox->Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().z);
-	workBench->Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().z);
 
 
 
 	water->Update();
-	//tree->Update();
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
+	PlayerManager::Get()->Update();
 
-	palBox->Update();
-	workBench->Update();
-
+	StructureManager::Get()->Update();
 
 	UiManager::Get()->Update();
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
-	PlayerManager::Get()->Update();
+	//PlayerManager::Get()->Update();
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
@@ -108,9 +101,7 @@ void BaseScene1::PreRender()
 	// 반사 출력
 	skyBox->Render();
 
-	palBox->PreRender();
-	workBench->PreRender();
-
+	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 }
 
@@ -123,9 +114,7 @@ void BaseScene1::Render()
 
 	//player->Render();
 	
-	palBox->Render();
-	workBench->Render();
-
+	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
 
 	PalsManager::Get()->Render();
@@ -140,7 +129,7 @@ void BaseScene1::PostRender()
 	UiManager::Get()->PostRender();
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
-
+	StructureManager::Get()->PostRender();
 	// UI테스트
 	testUI->PostRender();
 }

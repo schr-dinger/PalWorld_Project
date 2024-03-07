@@ -49,6 +49,8 @@ WorkBench::~WorkBench()
 
 void WorkBench::Update()
 {
+	//Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->Pos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->Pos().y);
+
 	cube->Pos().x = building->Pos().x;
 	cube->Pos().z = building->Pos().z;
 	cube->Pos().y = building->Pos().y + off2;
@@ -74,7 +76,7 @@ void WorkBench::Update()
 		Progressing = false;
 	}
 
-	if (off2 > 12.0f)
+	if (off2 > 12.25f)
 	{
 		Done = true;
 		UiManager::Get()->buildWorkBench = false;
