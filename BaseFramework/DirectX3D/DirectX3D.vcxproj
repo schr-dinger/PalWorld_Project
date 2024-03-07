@@ -160,6 +160,7 @@
     <ClInclude Include="Objects\Manager\PalSpearManager.h" />
     <ClInclude Include="Objects\Items\Weapons\PalSpear.h" />
     <ClInclude Include="Objects\Structure\PalBox.h" />
+    <ClInclude Include="Objects\UI\FieldUI.h" />
     <ClInclude Include="Objects\UI\PalBoxUi.h" />
     <ClInclude Include="Objects\UI\PalClickQuad.h" />
     <ClInclude Include="Objects\UI\PartyBox.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="Objects\Manager\PalSpearManager.cpp" />
     <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp" />
     <ClCompile Include="Objects\Structure\PalBox.cpp" />
+    <ClCompile Include="Objects\UI\FieldUI.cpp" />
     <ClCompile Include="Objects\UI\PalBoxUi.cpp" />
     <ClCompile Include="Objects\UI\PalClickQuad.cpp" />
     <ClCompile Include="Objects\UI\PartyBox.cpp" />
