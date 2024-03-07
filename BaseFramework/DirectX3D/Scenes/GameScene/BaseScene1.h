@@ -28,6 +28,7 @@ private:
 	Skill* testSkill;
 
 	PalBox* palBox;
+	WorkBench* workBench;
 
 	Shadow* shadow;
 

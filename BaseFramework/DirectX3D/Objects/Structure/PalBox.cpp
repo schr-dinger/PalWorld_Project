@@ -59,7 +59,7 @@ void PalBox::Update()
 	light->pos = building->Pos() + off;
 
 
-	if (Progressing)
+	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
 	}

@@ -39,6 +39,14 @@ void BuildUi::Update()
 		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 	}
 
+	if (selectWorkBench->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+	{
+		UiManager::Get()->buildWorkBench = true;
+		UiManager::Get()->buildUiOn = false;
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+	}
+
+
 	baseDonut->Update();
 	selectPalBox->Update();
 	selectWorkBench->Update();

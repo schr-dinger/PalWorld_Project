@@ -292,6 +292,7 @@
     <ClInclude Include="Objects\Skill\Tornado.h" />
     <ClInclude Include="Objects\Manager\UiMouseManager.h" />
     <ClInclude Include="Objects\Manager\UiManager.h" />
+    <ClInclude Include="Objects\Structure\WorkBench.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\UI\BuildUi.cpp" />
@@ -436,6 +437,7 @@
     <ClCompile Include="Objects\Skill\Tornado.cpp" />
     <ClCompile Include="Objects\Manager\UiMouseManager.cpp" />
     <ClCompile Include="Objects\Manager\UiManager.cpp" />
+    <ClCompile Include="Objects\Structure\WorkBench.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

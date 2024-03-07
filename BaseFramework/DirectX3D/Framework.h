@@ -188,6 +188,8 @@ using namespace GameMath;
 
 //Pal Structure
 #include "Objects/Structure/PalBox.h"
+#include "Objects/Structure/WorkBench.h"
+
 
 
 
