@@ -22,13 +22,13 @@ void UiManager::Update()
 void UiManager::Render()
 {
 	palBoxUi->Render();
-	buildUi->Render();
+	//buildUi->Render();
 }
 
 void UiManager::PostRender()
 {
 	palBoxUi->PostRender();
-	buildUi->PostRender();
+	//buildUi->PostRender();
 }
 
 void UiManager::GuiRender()

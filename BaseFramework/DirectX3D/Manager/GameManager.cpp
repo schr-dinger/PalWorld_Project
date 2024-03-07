@@ -149,6 +149,7 @@ void GameManager::Create()
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_CENTER);
+    // partyBox
     Font::Get()->AddStyle("PartyBoxNum", L"Oxanium", 20.0f,
         DWRITE_FONT_WEIGHT_MEDIUM,
         DWRITE_FONT_STYLE_NORMAL,
@@ -165,12 +166,29 @@ void GameManager::Create()
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_LEADING);
     
+
     // Field UI
     Font::Get()->AddStyle("HpUI", L"Oxanium", 13.0f,
         DWRITE_FONT_WEIGHT_BOLD,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_LEADING);
+    Font::Get()->AddStyle("FieldLvNum", L"Oxanium", 14.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+    Font::Get()->AddStyle("FieldLv", L"Noto Sans", 8.4f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+    Font::Get()->AddStyle("FieldName", L"Noto Sans KR", 10.5f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_LEADING);
+
 
 
     Font::Get()->SetColor("White");

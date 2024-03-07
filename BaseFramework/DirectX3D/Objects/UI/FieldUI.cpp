@@ -116,10 +116,28 @@ FieldUI::FieldUI()
 
 	// 팔 선택
 	selPal = 0;
+	selPalQuad = new Quad(Vector2(1, 1));
+	selPalQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	selPalQuad->Scale() = { 110.0f, 30.0f, 0.0f };
+	selPalQuad->SetTag("SQ1");
+	selPalQuad->Pos() = { 138.0f, 95.0f, 0.0f };
+
+	selPalHpBar = new ProgressBar(
+		L"Textures/Color/Red.png",
+		L"Textures/Color/BlackGlass.png"
+	);
+	selPalHpBar->SetTag("Shp");
+	selPalHpBar->Scale().x = 0.4f;
+	selPalHpBar->Scale().y = 0.015f;
+	selPalHpBar->Pos() = { 138.0f, 85.5f, 0.0f };
+
 
 	// 폰트 포스
 	HpFontPos = {61.0f, 69.0f};
 	BuildFontPos = { 61.0f, 69.0f };
+	selPalLvFontPos = { 88.0f, 102.0f };
+	selPalLvNumFontPos = { 100.0f, 108.0f };
+	selPalNameFontPos = { 127.0f, 106.0f };
 
 	// 플레이어 팔 매니저에 따라 세팅
 	SetPalUI();
@@ -143,6 +161,14 @@ FieldUI::~FieldUI()
 	delete icon_E;
 	delete icon_B;
 
+	delete Pal1;
+	delete Pal2;
+	delete Pal3;
+	delete PalQuad1;
+	delete PalQuad2;
+	delete PalQuad3;
+	delete selPalQuad;
+	delete selPalHpBar;
 }	
 
 void FieldUI::Update()
@@ -167,7 +193,9 @@ void FieldUI::Update()
 		SetPalUI();
 	}
 	hpBar  ->Update();
+	hpBar  ->SetAmount(curHp / (float)maxHp);
 	hgyBar ->Update();
+	hgyBar ->SetAmount(curHp / (float)maxHp);
 	hpQuad ->Update();
 	hgyQuad->Update();
 	icon_1 ->Update();
@@ -182,6 +210,8 @@ void FieldUI::Update()
 	PalQuad1->Update();
 	PalQuad2->Update();
 	PalQuad3->Update();
+	selPalQuad->Update();
+	selPalHpBar->Update();
 }
 
 void FieldUI::PostRender()
@@ -202,7 +232,9 @@ void FieldUI::PostRender()
 	Pal1->Render();
 	Pal2->Render();
 	Pal3->Render();
-	//폰트
+
+	
+	//체력 폰트
 	{
 		// 체력
 		string tmpString = to_string(curHp) + " / " + to_string(maxHp);
@@ -210,11 +242,26 @@ void FieldUI::PostRender()
 		Font::Get()->SetStyle("HpUI");
 		Font::Get()->RenderText(tmpString, { HpFontPos.x, HpFontPos.y });
 
-		//Font::Get()->SetColor("Gray");
-		//tmpString = "/" + to_string(500);
-		//Font::Get()->RenderText(tmpString, { fontPos.x + 10, fontPos.y });
+		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr) // 선택 있을 시 쿼드, 레벨, 이름 랜더
+		{
+			selPalQuad->Render();
+			selPalHpBar->Render();
+			selPalHpBar->SetAmount(PlayerPalsManager::Get()->GetPal(selPal)->GetCurHp());
 
-		//Font::Get()->SetColor("White");
+			tmpString = to_string(PlayerPalsManager::Get()->GetPal(selPal)->level);
+			//tmpString = "99";
+			Font::Get()->SetStyle("FieldLvNum");
+			Font::Get()->RenderText(tmpString, { selPalLvNumFontPos.x, selPalLvNumFontPos.y });
+
+			tmpString = "LV";
+			Font::Get()->SetStyle("FieldLv");
+			Font::Get()->RenderText(tmpString, { selPalLvFontPos.x, selPalLvFontPos.y });
+			tmpString = PlayerPalsManager::Get()->GetPal(selPal)->name;
+			Font::Get()->SetStyle("FieldName");
+			Font::Get()->RenderText(tmpString, { selPalNameFontPos.x, selPalNameFontPos.y });
+
+		}
+		
 		Font::Get()->SetStyle("Default");
 		Font::Get()->GetDC()->EndDraw();
 		Font::Get()->GetDC()->BeginDraw();
@@ -225,18 +272,15 @@ void FieldUI::PostRender()
 
 void FieldUI::GUIRender()
 {
-	//ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
-	//ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
+	ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
+	ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
+
+	
 	//ImGui::SliderInt("CurHp: %d", &curHp, 0, maxHp);
-	icon_1->GUIRender();
-	icon_2->GUIRender();
-	icon_3->GUIRender();
-	icon_Q->GUIRender();
-	icon_E->GUIRender();
-	icon_B->GUIRender();
-	PalQuad1->GUIRender();
-	PalQuad2->GUIRender();
-	PalQuad3->GUIRender();
+	//icon_2->GUIRender();
+	//icon_Q->GUIRender();
+	//icon_B->GUIRender();
+
 
 }
 

@@ -40,10 +40,15 @@ private:
 
 	// 팔UI 선택용
 	int selPal;
+	Quad* selPalQuad;
 
 	// 폰트
 	Vector2 HpFontPos;
 	Vector2 BuildFontPos;
+	Vector2 selPalLvFontPos;
+	Vector2 selPalLvNumFontPos;
+	Vector2 selPalNameFontPos;
+	ProgressBar* selPalHpBar;
 
 
 	// 폰트 테스트용
