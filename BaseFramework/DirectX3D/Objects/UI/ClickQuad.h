@@ -2,7 +2,7 @@
 class ClickQuad
 {
 public:
-    ClickQuad();
+    ClickQuad(Vector2 size);
     ~ClickQuad();
 
     void Update();

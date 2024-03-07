@@ -19,7 +19,9 @@ public:
 private:
 	Quad* quad;
 	Pal* tempPal;
+
 	Vector2 size = { 100.0f,100.0f };
 	int index;
+
 };
 

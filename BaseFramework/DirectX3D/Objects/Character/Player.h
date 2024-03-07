@@ -52,12 +52,11 @@ private:
     void SummonsPal();
 
 public:
-    void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
-
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
 
     Transform* GetFrontPoint() { return frontPoint; }
 
+    void UiMode();
 
 private:
     ACTION action;
@@ -91,9 +90,8 @@ private:
     bool isAiming = false;
     bool isRun = false;
 
-    Terrain* terrain;
-
     bool test = true;
+    bool UiOn = false;
 
     Model* Gun;
 

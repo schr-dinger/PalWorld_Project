@@ -163,7 +163,7 @@ using namespace GameMath;
 #include "Objects/UI/PalClickQuad.h"
 #include "Objects/UI/PartyBox.h"
 #include "Objects/UI/PalBoxUi.h"
-#include "Objects/UI/FieldUI.h"
+#include "Objects/UI/BuildUi.h"
 
 
 #include "Objects/Items/Weapons/Kunai.h"
@@ -230,7 +230,8 @@ using namespace GameMath;
 #include "Objects/Manager/PlayerPalsManager.h"
 #include "Objects/Manager/LandScapeManager.h"
 #include "Objects/Manager/UiMouseManager.h"
-
+#include "Objects/Manager/UiManager.h"
+#include "Objects/Manager/PlayerManager.h"
 
 
 //Scene Header
