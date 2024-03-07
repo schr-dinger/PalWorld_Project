@@ -61,6 +61,7 @@ void UiManager::ControlOn()
 	{
 		palBoxUiOn = false;
 		buildUiOn = false;
+		WorkBenchUiOn = false;
 		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 	}
 }

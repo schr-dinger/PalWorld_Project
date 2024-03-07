@@ -14,12 +14,14 @@ public:
 
 	bool palBoxUiOn = false;
 	bool buildUiOn = false;
+	bool WorkBenchUiOn = false;
 
 
 	bool buildPalBox = false;
 	bool PlacedPalBox = false;
 
 	bool buildWorkBench = false;
+	bool PlacedWorkBench = false;
 private:
 	void ControlOn();
 

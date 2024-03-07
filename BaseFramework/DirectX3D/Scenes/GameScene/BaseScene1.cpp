@@ -22,6 +22,7 @@ BaseScene1::BaseScene1()
 
 	//test
 	palBox = new PalBox();
+	workBench = new WorkBench();
 
 
 	PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
@@ -68,7 +69,7 @@ void BaseScene1::Update()
 	light1->pos = CAM->GlobalPos();
 
 	palBox->Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().z);
-
+	workBench->Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->GlobalPos().z);
 
 
 
@@ -79,6 +80,8 @@ void BaseScene1::Update()
 	//player->Update();
 
 	palBox->Update();
+	workBench->Update();
+
 
 	UiManager::Get()->Update();
 
@@ -106,6 +109,7 @@ void BaseScene1::PreRender()
 	skyBox->Render();
 
 	palBox->PreRender();
+	workBench->PreRender();
 
 	//LandScapeManager::Get()->PreRender();
 }
@@ -120,6 +124,8 @@ void BaseScene1::Render()
 	//player->Render();
 	
 	palBox->Render();
+	workBench->Render();
+
 	PlayerManager::Get()->Render();
 
 	PalsManager::Get()->Render();
