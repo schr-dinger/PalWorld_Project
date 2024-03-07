@@ -348,10 +348,7 @@ void FieldUI::PostRender()
 	icon_1->Render();
 	icon_2->Render();
 	icon_3->Render();
-	icon_Q->Render();
 	icon_E->Render();
-	icon_E2->Render();
-	icon_B->Render();
 	icon_MW->Render();
 	icon_Swap1->Render();
 	icon_Swap2->Render();
@@ -371,6 +368,9 @@ void FieldUI::PostRender()
 	pressBQuad->Render();
 	pressEQuad->Render();
 	pressQQuad->Render();
+	icon_E2->Render();
+	icon_B->Render();
+	icon_Q->Render();
 
 	// ÆùÆ®
 	{
