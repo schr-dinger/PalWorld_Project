@@ -153,9 +153,9 @@ void Font::RenderText(string text, Float2 pos, int alignnment, Float2 size)
 		rectF.top = pos.y + size.y;
 		rectF.bottom = pos.y;
 	}
-	else // 우측 정렬
+	else if (alignnment == 2)// 우측 정렬
 	{
-		rectF.left = pos.x + size.x;
+		rectF.left = pos.x - size.x;
 		rectF.right = pos.x;
 		rectF.top = pos.y + size.y;
 		rectF.bottom = pos.y;

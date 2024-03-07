@@ -183,12 +183,36 @@ void GameManager::Create()
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_LEADING);
-    Font::Get()->AddStyle("FieldName", L"Noto Sans KR", 10.5f,
+    Font::Get()->AddStyle("FieldName", L"Noto Sans KR", 11.0f,
         DWRITE_FONT_WEIGHT_MEDIUM,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         DWRITE_TEXT_ALIGNMENT_LEADING);
-
+    Font::Get()->AddStyle("FieldEquibName", L"Noto Sans KR", 11.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_CENTER);
+    Font::Get()->AddStyle("FieldPlay", L"Noto Sans KR", 11.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_TRAILING);
+    Font::Get()->AddStyle("FieldNum1", L"Oxanium", 28.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_CENTER);
+    Font::Get()->AddStyle("FieldNum2", L"Oxanium", 31.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_CENTER);
+    Font::Get()->AddStyle("FieldNum3", L"Oxanium", 15.0f,
+        DWRITE_FONT_WEIGHT_MEDIUM,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        DWRITE_TEXT_ALIGNMENT_CENTER);
 
 
     Font::Get()->SetColor("White");

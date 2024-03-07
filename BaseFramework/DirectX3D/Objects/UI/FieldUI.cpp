@@ -50,6 +50,7 @@ FieldUI::FieldUI()
 	icon_2->SetTag("i2");
 	icon_2->Scale().x = 20.0f;
 	icon_2->Scale().y = 20.0f;
+	icon_2->Pos() = { 1023.0f, 26.0f, 0.0f };
 
 	icon_3 = new Quad(Vector2(1, 1));
 	icon_3->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_3.png");
@@ -63,6 +64,7 @@ FieldUI::FieldUI()
 	icon_Q->SetTag("iQ");
 	icon_Q->Scale().x = 20.0f;
 	icon_Q->Scale().y = 20.0f;
+	icon_Q->Pos() = { 1235.0f, 146.0f, 0.0f };
 
 	icon_E = new Quad(Vector2(1, 1));
 	icon_E->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_E.png");
@@ -71,11 +73,39 @@ FieldUI::FieldUI()
 	icon_E->Scale().y = 20.0f;
 	icon_E->Pos() = { 138.0f, 220.0f, 0.0f };
 
+	icon_E2 = new Quad(Vector2(1, 1));
+	icon_E2->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_E.png");
+	icon_E2->SetTag("iE");
+	icon_E2->Scale().x = 20.0f;
+	icon_E2->Scale().y = 20.0f;
+	icon_E2->Pos() = { 1235.0f, 172.0f, 0.0f };
+
 	icon_B = new Quad(Vector2(1, 1));
 	icon_B->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_KeyGuide_Keyboard_B.png");
 	icon_B->SetTag("iB");
 	icon_B->Scale().x = 20.0f;
 	icon_B->Scale().y = 20.0f;
+	icon_B->Pos() = { 1235.0f, 198.0f, 0.0f };
+
+	icon_MW = new Quad(Vector2(1, 1));
+	icon_MW->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_MenuKeyGuide_MouseWheelAxis.png");
+	icon_MW->SetTag("iCB");
+	icon_MW->Scale().x = 25.0f;
+	icon_MW->Scale().y = 25.0f;
+	icon_MW->Pos() = { 1161.0f, 26.0f, 0.0f };
+
+	icon_Swap1 = new Quad(Vector2(1, 1));
+	icon_Swap1->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_KeyGuide_change.png");
+	icon_Swap1->SetTag("iSwap");
+	icon_Swap1->Scale().x = 25.0f;
+	icon_Swap1->Scale().y = 25.0f;
+	icon_Swap1->Pos() = { 1045.0f, 26.0f, 0.0f };
+	icon_Swap2 = new Quad(Vector2(1, 1));
+	icon_Swap2->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_KeyGuide_change.png");
+	icon_Swap2->SetTag("iSwap");
+	icon_Swap2->Scale().x = 25.0f;
+	icon_Swap2->Scale().y = 25.0f;
+	icon_Swap2->Pos() = { 1183.0f, 26.0f, 0.0f };
 
 	// 팔 아이콘
 	Pal1= new Quad(Vector2(1, 1));
@@ -101,9 +131,9 @@ FieldUI::FieldUI()
 	PalQuad1 = new Quad(Vector2(1, 1));
 	PalQuad2 = new Quad(Vector2(1, 1));
 	PalQuad3 = new Quad(Vector2(1, 1));
-	PalQuad1->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
-	PalQuad2->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
-	PalQuad3->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
+	PalQuad1->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20_C.png");
+	PalQuad2->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20_C.png");
+	PalQuad3->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20_C.png");
 	PalQuad1->Scale() = { 80.0f, 80.0f, 0.0f };
 	PalQuad2->Scale() = { 30.0f, 30.0f, 0.0f };
 	PalQuad3->Scale() = { 30.0f, 30.0f, 0.0f };
@@ -117,7 +147,7 @@ FieldUI::FieldUI()
 	// 팔 선택
 	selPal = 0;
 	selPalQuad = new Quad(Vector2(1, 1));
-	selPalQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	selPalQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
 	selPalQuad->Scale() = { 110.0f, 30.0f, 0.0f };
 	selPalQuad->SetTag("SQ1");
 	selPalQuad->Pos() = { 138.0f, 95.0f, 0.0f };
@@ -133,52 +163,59 @@ FieldUI::FieldUI()
 
 	// 플레이어 장비
 	// 팰스피어
-	palSpearBaseQuad = new Quad(Vector2(1, 1));
 	palSpearTextQuad = new Quad(Vector2(1, 1));
 	palSpearRenderQuad = new Quad(Vector2(1, 1));
 	palSpearIcon = new Quad(Vector2(1, 1));
-	palSpearBaseQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
-	palSpearTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-	palSpearRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_palsphere_0.png");
-	palSpearIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
-	palSpearBaseQuad->  SetTag("PB");
+	palSpearTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	palSpearRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	palSpearIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_palsphere_0.png");
 	palSpearTextQuad->  SetTag("PT");
 	palSpearRenderQuad->SetTag("PR");
 	palSpearIcon->      SetTag("PI");
-	palSpearBaseQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	palSpearTextQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	palSpearRenderQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	palSpearIcon->Pos() = { 138.0f, 85.5f, 0.0f };
-	palSpearBaseQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
-	palSpearTextQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
-	palSpearRenderQuad->Scale() = { 138.0f, 85.5f, 0.0f };
-	palSpearIcon->      Scale() = { 138.0f, 85.5f, 0.0f };
+	palSpearTextQuad->Pos() = { 1034.0f, 108.0f, 0.0f };
+	palSpearRenderQuad->Pos() = { 1034.0f, 68.0f, 0.0f };
+	palSpearIcon->Pos() = { 1006.0f, 68.0f, 0.0f };
+	palSpearTextQuad->  Scale() = { 110.0f, 23.0f, 0.0f };
+	palSpearRenderQuad->Scale() = { 110.0f, 50.8f, 0.0f };
+	palSpearIcon->      Scale() = { 40.0f, 40.0f, 0.0f };
 	// 장비(활, 총, 도끼...)
-	equipBaseQuad = new Quad(Vector2(1, 1));
 	equipTextQuad = new Quad(Vector2(1, 1));
 	equipRenderQuad = new Quad(Vector2(1, 1));
 	equipIcon = new Quad(Vector2(1, 1));
 	equipSlash = new Quad(Vector2(1, 1));
-	equipBaseQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
-	equipTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-	equipRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	equipTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	equipRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
 	equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_Bow_UI.png");
 	equipSlash->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
-	equipBaseQuad->SetTag("EB");
 	equipTextQuad->SetTag("ET");
 	equipRenderQuad->SetTag("ER");
 	equipIcon->SetTag("EI");
 	equipSlash->SetTag("ES");
-	equipBaseQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	equipTextQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	equipRenderQuad->Pos() = { 138.0f, 85.5f, 0.0f };
-	equipIcon->Pos() = { 138.0f, 85.5f, 0.0f };
-	equipSlash->Pos() = { 138.0f, 85.5f, 0.0f };
-	equipBaseQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
-	equipTextQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
-	equipRenderQuad->Scale() = { 138.0f, 85.5f, 0.0f };
-	equipIcon->      Scale() = { 138.0f, 85.5f, 0.0f };
-	equipSlash->     Scale() = { 138.0f, 85.5f, 0.0f };
+	equipTextQuad->Pos() = { 1172.0f, 108.0f, 0.0f };
+	equipRenderQuad->Pos() = { 1172.0f, 68.0f, 0.0f };
+	equipIcon->Pos() = { 1144.0f, 68.0f, 0.0f };
+	equipSlash->Pos() = { 1196.0f, 68.0f, 0.0f };
+	equipTextQuad->  Scale() = { 160.0f, 23.0f, 0.0f };
+	equipRenderQuad->Scale() = { 160.0f, 50.8f, 0.0f };
+	equipIcon->      Scale() = { 100.0f, 50.0f, 0.0f };
+	equipSlash->     Scale() = { 1.0f, 38.0f, 0.0f };
+
+	// 플레이 수행
+	pressBQuad = new Quad(Vector2(1, 1));
+	pressEQuad = new Quad(Vector2(1, 1));
+	pressQQuad = new Quad(Vector2(1, 1));
+	pressBQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	pressEQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	pressQQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	pressBQuad->SetTag("BQ");
+	pressEQuad->SetTag("EQ");
+	pressQQuad->SetTag("QQ");
+	pressBQuad->Pos() = { 1190.0f, 146.0f, 0.0f };
+	pressEQuad->Pos() = { 1212.0f, 172.0f, 0.0f };
+	pressQQuad->Pos() = { 1220.0f, 198.0f, 0.0f };
+	pressBQuad->Scale() = { 125.0f, 23.0f, 0.0f };
+	pressEQuad->Scale() = { 80.0f, 23.0f, 0.0f };
+	pressQQuad->Scale() = { 65.0f, 23.0f, 0.0f };
 
 
 	// 폰트 포스
@@ -187,14 +224,27 @@ FieldUI::FieldUI()
 	selPalLvFontPos = { 88.0f, 102.0f };
 	selPalLvNumFontPos = { 100.0f, 108.0f };
 	selPalNameFontPos = { 127.0f, 106.0f };
+	palSpearTextFontPos = { 1034.0f, 117.0f, 0.0f };
+	equipTextFontPos = { 1172.0f, 117.0f, 0.0f };
+	pressBFontPos = { 1217.0f, 207.0f};
+	pressEFontPos = { 1217.0f, 181.0f};
+	pressQFontPos = { 1217.0f, 155.0f};
+
+	parSpear100FontPos = { 1037.0f, 87.0f };
+	parSpear010FontPos = { 1053.0f, 87.0f };
+	parSpear001FontPos = { 1069.0f, 87.0f };
+	ProjLoadNumFontPos = { 1225.0f, 96.0f };
+	ProjTotalNumFontPos = { 1225.0f, 65.0f};
+
 
 	// 플레이어 팔 매니저에 따라 세팅
 	SetPalUI();
 
-	// 폰트 테스트용
+	// 테스트용
 	fontPos = {};
 	maxHp = 500;
 	curHp = 500;
+	tmpPalSpear = 123;
 }
 
 FieldUI::~FieldUI()
@@ -208,7 +258,11 @@ FieldUI::~FieldUI()
 	delete icon_3;
 	delete icon_Q;
 	delete icon_E;
+	delete icon_E2;
 	delete icon_B;
+	delete icon_MW;
+	delete icon_Swap1;
+	delete icon_Swap2;
 
 	delete Pal1;
 	delete Pal2;
@@ -219,11 +273,9 @@ FieldUI::~FieldUI()
 	delete selPalQuad;
 	delete selPalHpBar;
 
-	delete palSpearBaseQuad;
 	delete palSpearTextQuad;
 	delete palSpearRenderQuad;
 	delete palSpearIcon;
-	delete equipBaseQuad;
 	delete equipTextQuad;
 	delete equipRenderQuad;
 	delete equipIcon;
@@ -262,7 +314,11 @@ void FieldUI::Update()
 	icon_3 ->Update();
 	icon_Q ->Update();
 	icon_E ->Update();
+	icon_E2->Update();
 	icon_B ->Update();
+	icon_MW->Update();
+	icon_Swap1->Update();
+	icon_Swap2->Update();
 	Pal1->Update();
 	Pal2->Update();
 	Pal3->Update();
@@ -270,16 +326,17 @@ void FieldUI::Update()
 	PalQuad2->Update();
 	PalQuad3->Update();
 	selPalQuad->Update();
-	selPalHpBar->Update();
-	palSpearBaseQuad->Update();
+	selPalHpBar->Update();	
 	palSpearTextQuad->Update();
 	palSpearRenderQuad->Update();
 	palSpearIcon->Update();
-	equipBaseQuad->Update();
 	equipTextQuad->Update();
 	equipRenderQuad->Update();
 	equipIcon->Update();
 	equipSlash->Update();
+	pressBQuad->Update();
+	pressEQuad->Update();
+	pressQQuad->Update();
 }
 
 void FieldUI::PostRender()
@@ -293,23 +350,28 @@ void FieldUI::PostRender()
 	icon_3->Render();
 	icon_Q->Render();
 	icon_E->Render();
+	icon_E2->Render();
 	icon_B->Render();
+	icon_MW->Render();
+	icon_Swap1->Render();
+	icon_Swap2->Render();
 	PalQuad1->Render();
 	PalQuad2->Render();
 	PalQuad3->Render();
 	Pal1->Render();
 	Pal2->Render();
 	Pal3->Render();
-	palSpearBaseQuad->Render();
 	palSpearTextQuad->Render();
 	palSpearRenderQuad->Render();
 	palSpearIcon->Render();
-	equipBaseQuad->Render();
 	equipTextQuad->Render();
 	equipRenderQuad->Render();
 	equipIcon->Render();       // 얘는 나중에 플레이어 장비 받아와야함, 있으면 장비 랜더, 없으면 투명
 	equipSlash->Render();
-	
+	pressBQuad->Render();
+	pressEQuad->Render();
+	pressQQuad->Render();
+
 	// 폰트
 	{
 		// 체력
@@ -331,32 +393,56 @@ void FieldUI::PostRender()
 
 		// 장비
 		tmpString = "팰 스피어";
-		Font::Get()->SetStyle("FieldLv");
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
-		tmpString = "장비"; // 플레이어에서 가져와야 함
-		Font::Get()->SetStyle("FieldLv");
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		Font::Get()->SetStyle("FieldEquibName");
+		Font::Get()->RenderText(tmpString, { palSpearTextFontPos.x, palSpearTextFontPos.y }, 1);
+		tmpString = "장비 뭐시기"; // 플레이어에서 가져와야 함
+		Font::Get()->SetStyle("FieldEquibName");
+		Font::Get()->RenderText(tmpString, { equipTextFontPos.x, equipTextFontPos.y }, 1);
 
 		// 팰 스피어 개수
-		Font::Get()->SetStyle("FieldLv");
-		int tmpPalSpear = 100; // *팰 스피어 개수 가져와야 함
-		tmpString = to_string(tmpPalSpear /100); // 백의 자리
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
-		tmpPalSpear %= 100;
-		tmpString = to_string(tmpPalSpear /10); // 십의 자리
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
-		tmpPalSpear %= 10;
-		tmpString = to_string(tmpPalSpear); // 일의 자리
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		Font::Get()->SetStyle("FieldNum1");
+		int tmpT = tmpPalSpear; // *팰 스피어 개수 가져와야 함
+		if(tmpPalSpear >= 100) Font::Get()->SetColor("White");
+		else Font::Get()->SetColor("Gray");
+		tmpString = to_string(tmpT /100); // 백의 자리
+		Font::Get()->RenderText(tmpString, { parSpear100FontPos.x, parSpear100FontPos.y },1);
+		tmpT %= 100;
 
-		// 장비가 투사체가 있다면 출력
-		Font::Get()->SetStyle("FieldLv");
-		int tmpBow = 100; // *투사체 개수 가져와야 함
+		if (tmpPalSpear >= 10) Font::Get()->SetColor("White");
+		else Font::Get()->SetColor("Gray");
+		tmpString = to_string(tmpT /10); // 십의 자리
+		Font::Get()->RenderText(tmpString, { parSpear010FontPos.x, parSpear010FontPos.y },1);
+
+		Font::Get()->SetColor("White");
+		tmpT %= 10;
+		tmpString = to_string(tmpT); // 일의 자리
+		Font::Get()->RenderText(tmpString, { parSpear001FontPos.x, parSpear001FontPos.y },1);
+
+		// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
+		Font::Get()->SetStyle("FieldNum3");
+		Font::Get()->SetColor("Gray");
+
+		int tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
 		tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
-		//tmpPalSpear %= 100; 장전되어 있는 개수
+		Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
+
+		Font::Get()->SetStyle("FieldNum2");
+		Font::Get()->SetColor("White");
+		tmpBow = 8; //장전되어 있는 개수
 		tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
-		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+
+		// 플레이 수행 안내
+		tmpString = "건축"; 
+		Font::Get()->SetStyle("FieldPlay");
+		Font::Get()->RenderText(tmpString, { pressBFontPos.x, pressBFontPos.y }, 2);
+		tmpString = "팰 소환"; 
+		Font::Get()->SetStyle("FieldPlay");
+		Font::Get()->RenderText(tmpString, { pressEFontPos.x, pressEFontPos.y }, 2);
+		tmpString = "포획 스피어 투척"; 
+		Font::Get()->SetStyle("FieldPlay");
+		Font::Get()->RenderText(tmpString, { pressQFontPos.x, pressQFontPos.y }, 2);
+
 
 		// 팰 선택
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr) // 선택 있을 시 쿼드, 레벨, 이름 랜더
@@ -389,23 +475,10 @@ void FieldUI::PostRender()
 
 void FieldUI::GUIRender()
 {
-	//ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
-	//ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
+	//ImGui::SliderFloat("FontPosX 100", &parSpear100FontPos.x, 0, 1280);
+	//ImGui::SliderFloat("FontPosY 100", &parSpear100FontPos.y, 0, 720);
 	
-	//ImGui::SliderInt("CurHp: %d", &curHp, 0, maxHp);
-	//icon_2->GUIRender();
-	//icon_Q->GUIRender();
-	//icon_B->GUIRender();
-
-	palSpearBaseQuad->GUIRender();
-	palSpearTextQuad->GUIRender();
-	palSpearRenderQuad->GUIRender();
-	palSpearIcon->GUIRender();
-	equipBaseQuad->GUIRender();
-	equipTextQuad->GUIRender();
-	equipRenderQuad->GUIRender();
-	equipIcon->GUIRender();    
-	equipSlash->GUIRender();
+	ImGui::SliderInt("PalSpearNum", &tmpPalSpear, 0, 999);
 
 }
 
