@@ -13,11 +13,15 @@ public:
 
 	void Place(float x,float z);
 
+	void Interaction();
+
 private:
 	Model* building;
 	Model* finished;
 	Transform* center;
 
+	SphereCollider* range;
+	SphereCollider* mouseHit;
 
 	BlendState* blendState[2];
 
@@ -32,6 +36,5 @@ private:
 	bool Done = false;
 
 	bool isPlaced = false;
-	bool isBuilding = false;
 };
 

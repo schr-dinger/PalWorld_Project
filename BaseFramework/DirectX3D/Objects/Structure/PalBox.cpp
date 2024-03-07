@@ -29,6 +29,9 @@ PalBox::PalBox()
 
 	cube->Scale() *= 10;
 	cube->Rot().y = XM_PIDIV4;
+
+	range = new SphereCollider(5.0f);
+	mouseHit = new SphereCollider(2.5f);
 }
 
 PalBox::~PalBox()
@@ -49,8 +52,8 @@ void PalBox::Update()
 	cube->Pos().z = building->Pos().z;
 	cube->Pos().y = building->Pos().y + off2;
 
-	//Vector3 tmp = building->GlobalPos() - CAM->GlobalPos();
-	//building->Rot().z = atanf(tmp.z / tmp.x);
+	range->Pos() = building->Pos();
+	mouseHit->Pos() = building->Pos();
 
 
 	light->pos = building->Pos() + off;
@@ -73,28 +76,25 @@ void PalBox::Update()
 	if (off2 > 13.0f)
 	{
 		Done = true;
-		isBuilding = false;
+		UiManager::Get()->buildPalBox = false;
 	}
 
 
-	if (KEY_DOWN('B')&&!isPlaced)
-	{
-		isBuilding = !isBuilding;
-	}
-
-	if (isBuilding)
+	if (UiManager::Get()->buildPalBox)
 	{
 		if (KEY_DOWN(VK_LBUTTON))
 		{
 			isPlaced = true;
 		}
 	}
-
-
+	//상호작용 함수
+	Interaction();
 
 	cube->UpdateWorld();
 	building->UpdateWorld();
 	finished->UpdateWorld();
+	range->UpdateWorld();
+	mouseHit->UpdateWorld();
 }
 
 void PalBox::PreRender()
@@ -116,7 +116,7 @@ void PalBox::Render()
 		building->SetShader(L"Light/Shadow.hlsl");
 	}
 
-	if (isBuilding)
+	if (UiManager::Get()->buildPalBox)
 	{
 		//shadow->SetRender();
 		//building->SetShader(L"Light/Shadow.hlsl");
@@ -132,6 +132,10 @@ void PalBox::Render()
 		finished->Render();
 		blendState[0]->SetState();
 	}
+
+	range->Render();
+	mouseHit->Render();
+
 }
 
 void PalBox::PostRender()
@@ -142,8 +146,6 @@ void PalBox::PostRender()
 void PalBox::GUIRender()
 {
 	cube->GUIRender();
-
-	ImGui::Text("%f", off2);
 }
 
 void PalBox::Place(float x, float z)
@@ -151,4 +153,20 @@ void PalBox::Place(float x, float z)
 	if(isPlaced) return;
 
 	building->Pos() = { x,LandScapeManager::Get()->GetTerrain()->GetHeight({x, 0, z}), z };
+}
+
+void PalBox::Interaction()
+{
+	if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(range) && Done)
+	{
+		Ray ray = CAM->ScreenPointToRay(mousePos);
+		Contact contact;
+
+		if (mouseHit->IsRayCollision(ray, &contact) && KEY_DOWN('F') && !UiManager::Get()->buildUiOn)
+		{
+			UiManager::Get()->palBoxUiOn = true;
+		}
+
+	}
+
 }

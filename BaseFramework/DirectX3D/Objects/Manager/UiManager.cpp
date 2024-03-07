@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "UiManager.h"
 
 UiManager::UiManager()
 {
@@ -15,24 +14,53 @@ UiManager::~UiManager()
 
 void UiManager::Update()
 {
+	ControlOn();
+
+	if (KEY_DOWN('B') && !palBoxUiOn)
+	{
+		buildUiOn = !buildUiOn;
+	}
+
+
+
+
 	palBoxUi->Update();
 	buildUi->Update();
 }
 
 void UiManager::Render()
 {
-	palBoxUi->Render();
-	buildUi->Render();
+	if (palBoxUiOn)	palBoxUi->Render();
+	if (buildUiOn) buildUi->Render();
 }
 
 void UiManager::PostRender()
 {
-	palBoxUi->PostRender();
-	buildUi->PostRender();
+	if (palBoxUiOn)	palBoxUi->PostRender();
+	if (buildUiOn)	buildUi->PostRender();
 }
 
 void UiManager::GuiRender()
 {
 	palBoxUi->GuiRender();
 	buildUi->GuiRender();
+}
+
+void UiManager::ControlOn()
+{
+	if (palBoxUiOn || buildUiOn)
+	{
+		UiOn = true;
+	}
+	else
+	{
+		UiOn = false;
+	}
+
+	if (KEY_DOWN(VK_ESCAPE))
+	{
+		palBoxUiOn = false;
+		buildUiOn = false;
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+	}
 }

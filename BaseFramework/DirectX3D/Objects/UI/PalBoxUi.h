@@ -42,6 +42,5 @@ private:
 	ClickQuad* SlaveIcon[5];
 
 
-	bool UiOn = false;
 };
 

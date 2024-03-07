@@ -32,6 +32,12 @@ void BuildUi::Update()
 {
 	SetTexture();
 
+	if (selectPalBox->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+	{
+		UiManager::Get()->buildPalBox = true;
+		UiManager::Get()->buildUiOn = false;
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+	}
 
 	baseDonut->Update();
 	selectPalBox->Update();
