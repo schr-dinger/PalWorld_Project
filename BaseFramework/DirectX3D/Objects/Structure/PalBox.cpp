@@ -48,6 +48,8 @@ PalBox::~PalBox()
 
 void PalBox::Update()
 {
+	//Place(PlayerManager::Get()->GetPlayer()->GetFrontPoint()->Pos().x, PlayerManager::Get()->GetPlayer()->GetFrontPoint()->Pos().y);
+
 	cube->Pos().x = building->Pos().x;
 	cube->Pos().z = building->Pos().z;
 	cube->Pos().y = building->Pos().y + off2;
@@ -59,7 +61,7 @@ void PalBox::Update()
 	light->pos = building->Pos() + off;
 
 
-	if (Progressing)
+	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
 	}

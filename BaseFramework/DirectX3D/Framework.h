@@ -188,6 +188,8 @@ using namespace GameMath;
 
 //Pal Structure
 #include "Objects/Structure/PalBox.h"
+#include "Objects/Structure/WorkBench.h"
+
 
 
 
@@ -232,6 +234,7 @@ using namespace GameMath;
 #include "Objects/Manager/LandScapeManager.h"
 #include "Objects/Manager/UiMouseManager.h"
 #include "Objects/Manager/UiManager.h"
+#include "Objects/Manager/StructureManager.h"
 #include "Objects/Manager/PlayerManager.h"
 
 

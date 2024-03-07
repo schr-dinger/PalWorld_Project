@@ -18,6 +18,10 @@ BuildUi::BuildUi()
 	selectMiddle->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_buildObject_PalBoxV2.png");
 	selectMiddle->Pos() = center + Vector3(0.0f * cosf(XM_2PI * (2.0f / 6.0f)), 0.0f * sinf(XM_2PI * (2.0f / 6.0f)), 0.0f);
 
+	donutPiece = new Quad(donutSize);
+	donutPiece->GetMaterial()->SetDiffuseMap(L"Textures/UI/DonutPiece.png");
+	donutPiece->Pos() = center;
+
 }
 
 BuildUi::~BuildUi()
@@ -26,11 +30,13 @@ BuildUi::~BuildUi()
 	delete selectPalBox;
 	delete selectWorkBench;
 	delete selectMiddle;
+	delete donutPiece;
 }
 
 void BuildUi::Update()
 {
 	SetTexture();
+	donutPiece->Rot().z = pieceRot;
 
 	if (selectPalBox->MouseCollision() && KEY_DOWN(VK_LBUTTON))
 	{
@@ -39,10 +45,29 @@ void BuildUi::Update()
 		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 	}
 
+	if (selectPalBox->MouseCollision())
+	{
+		pieceRot = XM_2PI * (0.0f / 6.0f);
+	}
+
+	if (selectWorkBench->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+	{
+		UiManager::Get()->buildWorkBench = true;
+		UiManager::Get()->buildUiOn = false;
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+	}
+
+	if (selectWorkBench->MouseCollision())
+	{
+		pieceRot = XM_2PI * (1.0f / 6.0f);
+	}
+
+
 	baseDonut->Update();
 	selectPalBox->Update();
 	selectWorkBench->Update();
 	selectMiddle->Update();
+	donutPiece->Update();
 }
 
 void BuildUi::Render()
@@ -52,6 +77,7 @@ void BuildUi::Render()
 void BuildUi::PostRender()
 {
 	baseDonut->Render();
+	donutPiece->Render();
 	selectPalBox->Render();
 	selectWorkBench->Render();
 	selectMiddle->Render();

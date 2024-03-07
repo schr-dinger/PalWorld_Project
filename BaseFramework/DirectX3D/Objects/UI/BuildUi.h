@@ -13,6 +13,8 @@ public:
 	void SetTexture();
 private:
 	Quad* baseDonut;
+	Quad* donutPiece;
+	float pieceRot;
 
 	ClickQuad* selectPalBox;
 
