@@ -27,9 +27,6 @@ private:
 	// 스킬 테스트
 	Skill* testSkill;
 
-	PalBox* palBox;
-	WorkBench* workBench;
-
 	Shadow* shadow;
 
 	//PalBoxUi* palBoxUi;
