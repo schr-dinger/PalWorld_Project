@@ -41,14 +41,27 @@ private:
 	// 팔UI 선택용
 	int selPal;
 	Quad* selPalQuad;
+	ProgressBar* selPalHpBar;
 
-	// 폰트
+	// 플레이어 장비
+	Quad* palSpearBaseQuad;
+	Quad* palSpearTextQuad;
+	Quad* palSpearRenderQuad;
+	Quad* palSpearIcon;
+
+	Quad* equipBaseQuad;
+	Quad* equipTextQuad;
+	Quad* equipRenderQuad;
+	Quad* equipIcon;
+	Quad* equipSlash; // 공간 나누는 쿼드, 왼쪽 장비 그림, 오른쪽 투사체 개수
+
+
+	// 폰트 위치
 	Vector2 HpFontPos;
 	Vector2 BuildFontPos;
 	Vector2 selPalLvFontPos;
 	Vector2 selPalLvNumFontPos;
 	Vector2 selPalNameFontPos;
-	ProgressBar* selPalHpBar;
 
 
 	// 폰트 테스트용

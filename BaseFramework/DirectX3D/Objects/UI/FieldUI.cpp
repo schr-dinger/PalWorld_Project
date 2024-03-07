@@ -131,6 +131,55 @@ FieldUI::FieldUI()
 	selPalHpBar->Scale().y = 0.015f;
 	selPalHpBar->Pos() = { 138.0f, 85.5f, 0.0f };
 
+	// 플레이어 장비
+	// 팰스피어
+	palSpearBaseQuad = new Quad(Vector2(1, 1));
+	palSpearTextQuad = new Quad(Vector2(1, 1));
+	palSpearRenderQuad = new Quad(Vector2(1, 1));
+	palSpearIcon = new Quad(Vector2(1, 1));
+	palSpearBaseQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
+	palSpearTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	palSpearRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_palsphere_0.png");
+	palSpearIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
+	palSpearBaseQuad->  SetTag("PB");
+	palSpearTextQuad->  SetTag("PT");
+	palSpearRenderQuad->SetTag("PR");
+	palSpearIcon->      SetTag("PI");
+	palSpearBaseQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	palSpearTextQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	palSpearRenderQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	palSpearIcon->Pos() = { 138.0f, 85.5f, 0.0f };
+	palSpearBaseQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
+	palSpearTextQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
+	palSpearRenderQuad->Scale() = { 138.0f, 85.5f, 0.0f };
+	palSpearIcon->      Scale() = { 138.0f, 85.5f, 0.0f };
+	// 장비(활, 총, 도끼...)
+	equipBaseQuad = new Quad(Vector2(1, 1));
+	equipTextQuad = new Quad(Vector2(1, 1));
+	equipRenderQuad = new Quad(Vector2(1, 1));
+	equipIcon = new Quad(Vector2(1, 1));
+	equipSlash = new Quad(Vector2(1, 1));
+	equipBaseQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
+	equipTextQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	equipRenderQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_Bow_UI.png");
+	equipSlash->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
+	equipBaseQuad->SetTag("EB");
+	equipTextQuad->SetTag("ET");
+	equipRenderQuad->SetTag("ER");
+	equipIcon->SetTag("EI");
+	equipSlash->SetTag("ES");
+	equipBaseQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	equipTextQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	equipRenderQuad->Pos() = { 138.0f, 85.5f, 0.0f };
+	equipIcon->Pos() = { 138.0f, 85.5f, 0.0f };
+	equipSlash->Pos() = { 138.0f, 85.5f, 0.0f };
+	equipBaseQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
+	equipTextQuad->  Scale() = { 138.0f, 85.5f, 0.0f };
+	equipRenderQuad->Scale() = { 138.0f, 85.5f, 0.0f };
+	equipIcon->      Scale() = { 138.0f, 85.5f, 0.0f };
+	equipSlash->     Scale() = { 138.0f, 85.5f, 0.0f };
+
 
 	// 폰트 포스
 	HpFontPos = {61.0f, 69.0f};
@@ -169,6 +218,16 @@ FieldUI::~FieldUI()
 	delete PalQuad3;
 	delete selPalQuad;
 	delete selPalHpBar;
+
+	delete palSpearBaseQuad;
+	delete palSpearTextQuad;
+	delete palSpearRenderQuad;
+	delete palSpearIcon;
+	delete equipBaseQuad;
+	delete equipTextQuad;
+	delete equipRenderQuad;
+	delete equipIcon;
+	delete equipSlash;
 }	
 
 void FieldUI::Update()
@@ -212,6 +271,15 @@ void FieldUI::Update()
 	PalQuad3->Update();
 	selPalQuad->Update();
 	selPalHpBar->Update();
+	palSpearBaseQuad->Update();
+	palSpearTextQuad->Update();
+	palSpearRenderQuad->Update();
+	palSpearIcon->Update();
+	equipBaseQuad->Update();
+	equipTextQuad->Update();
+	equipRenderQuad->Update();
+	equipIcon->Update();
+	equipSlash->Update();
 }
 
 void FieldUI::PostRender()
@@ -232,9 +300,17 @@ void FieldUI::PostRender()
 	Pal1->Render();
 	Pal2->Render();
 	Pal3->Render();
-
+	palSpearBaseQuad->Render();
+	palSpearTextQuad->Render();
+	palSpearRenderQuad->Render();
+	palSpearIcon->Render();
+	equipBaseQuad->Render();
+	equipTextQuad->Render();
+	equipRenderQuad->Render();
+	equipIcon->Render();       // 얘는 나중에 플레이어 장비 받아와야함, 있으면 장비 랜더, 없으면 투명
+	equipSlash->Render();
 	
-	//체력 폰트
+	// 폰트
 	{
 		// 체력
 		string tmpString = to_string(curHp) + " / " + to_string(maxHp);
@@ -242,6 +318,47 @@ void FieldUI::PostRender()
 		Font::Get()->SetStyle("HpUI");
 		Font::Get()->RenderText(tmpString, { HpFontPos.x, HpFontPos.y });
 
+		// 상호작용 안내
+		tmpString = "건축";
+		Font::Get()->SetStyle("FieldLv");
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		tmpString = "팰 소환";
+		Font::Get()->SetStyle("FieldLv");
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		tmpString = "포획 스피어 투척";
+		Font::Get()->SetStyle("FieldLv");
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+
+		// 장비
+		tmpString = "팰 스피어";
+		Font::Get()->SetStyle("FieldLv");
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		tmpString = "장비"; // 플레이어에서 가져와야 함
+		Font::Get()->SetStyle("FieldLv");
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+
+		// 팰 스피어 개수
+		Font::Get()->SetStyle("FieldLv");
+		int tmpPalSpear = 100; // *팰 스피어 개수 가져와야 함
+		tmpString = to_string(tmpPalSpear /100); // 백의 자리
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		tmpPalSpear %= 100;
+		tmpString = to_string(tmpPalSpear /10); // 십의 자리
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		tmpPalSpear %= 10;
+		tmpString = to_string(tmpPalSpear); // 일의 자리
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+
+		// 장비가 투사체가 있다면 출력
+		Font::Get()->SetStyle("FieldLv");
+		int tmpBow = 100; // *투사체 개수 가져와야 함
+		tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+		//tmpPalSpear %= 100; 장전되어 있는 개수
+		tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
+		//Font::Get()->RenderText(tmpString, { fontPos.x, fontPos.y });
+
+		// 팰 선택
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr) // 선택 있을 시 쿼드, 레벨, 이름 랜더
 		{
 			selPalQuad->Render();
@@ -272,15 +389,23 @@ void FieldUI::PostRender()
 
 void FieldUI::GUIRender()
 {
-	ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
-	ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
-
+	//ImGui::SliderFloat("FontPosX", &fontPos.x, 0, 1280);
+	//ImGui::SliderFloat("FontPosY", &fontPos.y, 0, 720);
 	
 	//ImGui::SliderInt("CurHp: %d", &curHp, 0, maxHp);
 	//icon_2->GUIRender();
 	//icon_Q->GUIRender();
 	//icon_B->GUIRender();
 
+	palSpearBaseQuad->GUIRender();
+	palSpearTextQuad->GUIRender();
+	palSpearRenderQuad->GUIRender();
+	palSpearIcon->GUIRender();
+	equipBaseQuad->GUIRender();
+	equipTextQuad->GUIRender();
+	equipRenderQuad->GUIRender();
+	equipIcon->GUIRender();    
+	equipSlash->GUIRender();
 
 }
 
