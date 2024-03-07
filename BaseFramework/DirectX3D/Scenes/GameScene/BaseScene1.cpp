@@ -43,7 +43,7 @@ BaseScene1::BaseScene1()
 	//palBoxUi = new PalBoxUi();
 
 	// UI테스트
-	testUI = new PartyBox();
+	testUI = new FieldUI();
 }
 
 BaseScene1::~BaseScene1()
