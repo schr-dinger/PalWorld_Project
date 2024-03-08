@@ -18,6 +18,7 @@ PalsManager::PalsManager()
         transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new Penguin(transform, palsInstancing[0], i);
         pals.push_back(pal);
+        
     }
     // 여기까지가 팔 하나
 
@@ -29,6 +30,9 @@ PalsManager::PalsManager()
     // 테스트 : 히트
     testHit = {};
     testIsHit = false;
+
+    // 테스트 : 팔 충돌
+    lastPos.resize(SIZE);
 }
 
 PalsManager::~PalsManager()
@@ -48,8 +52,11 @@ void PalsManager::Update()
 {
     OnGround(terrain);
 
-    // 충돌 판정 진행
-    Collision();
+    // 팔 충돌 테스트
+    FOR(SIZE)
+    {
+        lastPos[i] = pals[i]->GetTransform()->GlobalPos();
+    }
 
     // 리스폰
     time += DELTA; //경과시간 누적
@@ -64,9 +71,13 @@ void PalsManager::Update()
     for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->Update();
 
+    
     for (Pal* pal : pals)
+    {
         pal->Update(); // pal에서 버츄얼로 구현했지만, 
                        // 적용안되면 기본 함수로 바꾸기
+    }
+    
 
     if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
     {
@@ -74,6 +85,10 @@ void PalsManager::Update()
         //FieldAttack();
     }
     
+    
+
+    // 충돌 판정 진행
+    Collision();
 }
 
 void PalsManager::Render()
@@ -207,6 +222,30 @@ void PalsManager::Collision()
     //        return;
     //    }
     //}
+
+    for (int i = 0; i < pals.size(); i++)
+    {
+        for (int j = 0; j < pals.size(); j++)
+        {
+            if (i == j) continue;
+            if (pals[i]->GetCollider()->IsCollision(pals[j]->GetCollider()))
+            {
+                Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
+                if (dir == Vector3(0.0f, 0.0f, 0.0f)) continue;
+                Vector3 tmpV1 = pals[i]->GetTransform()->Back();
+                Vector3 tmpV2 = pals[j]->GetTransform()->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
+                if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 mDir = dir * -1;
+                Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                Vector3 fDir = dir + tmp;
+                pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                pals[i]->GetTransform()->UpdateWorld();
+            }
+        }
+        
+
+    }
 
 
     for (Pal* pal : pals) 
