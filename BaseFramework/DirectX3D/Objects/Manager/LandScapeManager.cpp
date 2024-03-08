@@ -30,6 +30,7 @@ LandScapeManager::LandScapeManager()
     shadow = new Shadow();
 
     MakeObstacle();
+
 }
 
 LandScapeManager::~LandScapeManager()
@@ -63,11 +64,11 @@ void LandScapeManager::Update()
     grass1->Update();
     grass2->Update();
 
-
     for (Tree* tree : trees) tree->Update();
     for (Rock* rock : rocks) rock->Update();
     for (Grass* grass : grasses) grass->Update();
 
+    for (Collider* collider : boxes) collider->UpdateWorld();
 }
 
 void LandScapeManager::PreRender()
@@ -110,6 +111,7 @@ void LandScapeManager::Render()
     for (Tree* tree : trees) tree->Render();
     for (Rock* rock : rocks) rock->Render();
     for (Grass* grass : grasses) grass->Render();
+    for (Collider* collider : boxes) collider->Render();
 
 }
 
@@ -211,12 +213,13 @@ void LandScapeManager::PlaceGrass(ModelInstancing* tree, int size, Terrain* terr
 
 }
 
-bool LandScapeManager::CheckPalCollision(Collider* collider)
+bool LandScapeManager::CheckPalCollision(Collider* collider,Vector3& pos)
 {
     for (Collider* obstacle : obstacles)
     {
         if (obstacle->IsCollision(collider))
         {
+            pos = obstacle->GlobalPos();
             return true;
         }
     }
@@ -244,5 +247,23 @@ void LandScapeManager::MakeObstacle()
 
     }
 
+    //for (int x = 0; x < 100; x++)
+    //{
+    //    for (int z = 0; z < 100; z++)
+    //    {
+    //        Vector3 tmpNormal;
+    //        float h = terrainF->GetHeight({ (float)x,0,(float)z }, &tmpNormal);
+    //        Vector3 normalG = -tmpNormal.GetNormalized();
+    //        Vector3 up = { 0,1,0 };
+    //        float k = Dot(up, normalG);
 
+    //        if (k < 0.3f)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)x,h,(float)z };
+    //            boxes.push_back(cube);
+    //            obstacles.push_back(cube);
+    //        }
+    //    }
+    //}
 }

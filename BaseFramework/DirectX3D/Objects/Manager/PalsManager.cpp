@@ -60,6 +60,8 @@ void PalsManager::Update()
         Spawn(); //생성(스폰)
     }
 
+    PathCollider();
+
     // 모델 업데이트
     for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->Update();
@@ -73,7 +75,7 @@ void PalsManager::Update()
         pals[0]->FieldAttack();
         //FieldAttack();
     }
-    
+
 }
 
 void PalsManager::Render()
@@ -284,9 +286,12 @@ void PalsManager::PathCollider()
 {
     for (Pal* pal : pals)
     {
-        if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider()))
+        Vector3 cPos;
+        if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider(),cPos))
         {
-            pal->GetTransform()->Pos();
+            Vector3 normal = -(cPos - pal->GetTransform()->Pos()).GetNormalized();
+
+            pal->GetTransform()->Pos() = Lerp(pal->GetTransform()->Pos(), pal->GetTransform()->Pos() + normal * 0.1f,0.5f);
         }
     }
 }

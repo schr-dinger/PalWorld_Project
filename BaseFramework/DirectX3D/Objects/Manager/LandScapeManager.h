@@ -21,7 +21,7 @@ public:
 
     vector<Collider*> GetObstacles() { return obstacles; }
 
-    bool CheckPalCollision(Collider* collider);
+    bool CheckPalCollision(Collider* collider,Vector3& pos);
 
 private:
     void MakeObstacle();
@@ -40,6 +40,8 @@ private:
     vector<Grass*> grasses;
 
     vector<Collider*> obstacles;
+
+    vector<Collider*> boxes;
 
     Shadow* shadow;
 
