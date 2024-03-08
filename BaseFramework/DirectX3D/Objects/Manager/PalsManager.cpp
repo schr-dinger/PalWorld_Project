@@ -10,7 +10,7 @@ PalsManager::PalsManager()
     InsertMAI("PenGuin");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
     palsInstancing[0]->ReadClip("Work");    // 추가 모션
     palsInstancing[0]->SetTag("Penguin");
-
+    //palsInstancing[0]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
     FOR(SIZE)
     {
         Transform* transform = palsInstancing[0]->Add();

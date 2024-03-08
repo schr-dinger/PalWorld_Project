@@ -22,8 +22,6 @@ private:
 
 	//Player* player;
 	
-	PalBox* ice;
-
 	// 스킬 테스트
 	Skill* testSkill;
 
