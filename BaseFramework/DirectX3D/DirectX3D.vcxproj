@@ -166,6 +166,7 @@
     <ClInclude Include="Objects\UI\PalClickQuad.h" />
     <ClInclude Include="Objects\UI\PartyBox.h" />
     <ClInclude Include="Objects\Manager\PlayerManager.h" />
+    <ClInclude Include="Framework\Utilities\Random.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -320,6 +321,7 @@
     <ClCompile Include="Objects\UI\PalClickQuad.cpp" />
     <ClCompile Include="Objects\UI\PartyBox.cpp" />
     <ClCompile Include="Objects\Manager\PlayerManager.cpp" />
+    <ClCompile Include="Framework\Utilities\Random.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />
