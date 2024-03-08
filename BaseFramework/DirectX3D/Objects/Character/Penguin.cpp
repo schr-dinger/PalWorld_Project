@@ -233,6 +233,31 @@ void Penguin::SetTarget(Transform* target)
     this->target = target;
 }
 
+//void Penguin::Path(Vector3 start, Vector3 dest)
+//{
+//    //Ray ray;
+//    //ray.pos = start;
+//    //ray.dir = dest - start;
+//    //Contact contact;
+//    //for (Collider* collider : LandScapeManager::Get()->GetObstacles())
+//    //{
+//    //    //if (collider->IsRayCollision(ray) && Distance(collider->GlobalPos(),transform->GlobalPos()) < collider->GlobalScale().x + 20.0f )
+//    //    //{
+//    //    //    Path()
+//    //    //}
+//    //    //else
+//    //    //{
+//    //    //    break;
+//    //    //}
+//
+//    //    if (collider->IsRayCollision(ray,&contact))
+//    //    {
+//    //        Vector3 temp = contact.hitPoint - ray.dir * (collider->GlobalScale().x);
+//    //    }
+//    //}
+//
+//}
+
 void Penguin::SetEvent(int clip, Event event, float timeRatio)
 {
     if (totalEvent[clip].count(timeRatio) > 0) return; // 선행 예약된 이벤트가 있으면 종료

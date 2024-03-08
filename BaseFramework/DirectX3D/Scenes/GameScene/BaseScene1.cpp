@@ -3,9 +3,7 @@
 
 BaseScene1::BaseScene1()
 {
-	//terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
-
-	//
+	//Let there be light
 	SetLights();
 
 	shadow = new Shadow();

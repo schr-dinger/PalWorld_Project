@@ -44,6 +44,8 @@ public:
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
 
+    //void Path(Vector3 start, Vector3 dest);
+
 private:
     //void ClipSync(); // 삭제해도 무방할듯
     

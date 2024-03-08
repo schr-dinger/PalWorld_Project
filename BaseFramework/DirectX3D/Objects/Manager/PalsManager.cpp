@@ -279,3 +279,14 @@ void PalsManager::Spawn()
         }
     }
 }
+
+void PalsManager::PathCollider()
+{
+    for (Pal* pal : pals)
+    {
+        if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider()))
+        {
+            pal->GetTransform()->Pos();
+        }
+    }
+}

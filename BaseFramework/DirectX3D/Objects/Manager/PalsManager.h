@@ -29,6 +29,7 @@ private:
     void Collision(); // 技何 面倒 魄沥 柳青
     void Spawn();     // (犁)积己
 
+    void PathCollider();
 private:
     Terrain* terrain;
     vector<ModelAnimatorInstancing*> palsInstancing;

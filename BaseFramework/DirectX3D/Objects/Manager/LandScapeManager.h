@@ -19,8 +19,12 @@ public:
 
     QuadTreeTerrain* terrain;
 
-private:
+    vector<Collider*> GetObstacles() { return obstacles; }
 
+    bool CheckPalCollision(Collider* collider);
+
+private:
+    void MakeObstacle();
 private:
     Terrain* terrainF;
 
@@ -35,15 +39,17 @@ private:
     vector<Rock*> rocks;
     vector<Grass*> grasses;
 
+    vector<Collider*> obstacles;
+
     Shadow* shadow;
 
     int treeN = 5;
 
     int rockN = 3;
 
-    //int grassN = 6;
+    int grassN1 = 6;
 
-    int grassN = 10;
+    int grassN2 = 10;
 
 
     float WIDTH = 500;

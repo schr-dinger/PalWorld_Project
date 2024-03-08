@@ -19,15 +19,17 @@ LandScapeManager::LandScapeManager()
     rock1 = new ModelInstancing("Rock1");
     PlaceRock(rock1, rockN, terrainF);
 
-    grasses.reserve(grassN * grassN * 2);
+    grasses.reserve(grassN1 * grassN1 + grassN2 * grassN2);
 
     grass1 = new ModelInstancing("Grass1");
-    PlaceGrass(grass1, grassN, terrainF);
+    PlaceGrass(grass1, grassN1, terrainF);
 
     grass2 = new ModelInstancing("Grass2");
-    PlaceGrass(grass2, grassN, terrainF);
+    PlaceGrass(grass2, grassN2, terrainF);
 
     shadow = new Shadow();
+
+    MakeObstacle();
 }
 
 LandScapeManager::~LandScapeManager()
@@ -206,5 +208,41 @@ void LandScapeManager::PlaceGrass(ModelInstancing* tree, int size, Terrain* terr
             grasses.push_back(grass);
         }
     }
+
+}
+
+bool LandScapeManager::CheckPalCollision(Collider* collider)
+{
+    for (Collider* obstacle : obstacles)
+    {
+        if (obstacle->IsCollision(collider))
+        {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+void LandScapeManager::MakeObstacle()
+{
+    for (Tree* tree : trees)
+    {
+        if (tree->GetTransform()->Active())
+        {
+            obstacles.push_back(tree->GetCollider());
+        }
+    }
+
+    for (Rock* rock : rocks)
+    {
+        if (rock->GetTransform()->Active())
+        {
+            obstacles.push_back(rock->GetCollider());
+        }
+
+    }
+
 
 }
