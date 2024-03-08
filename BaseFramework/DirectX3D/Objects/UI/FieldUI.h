@@ -28,7 +28,11 @@ private:
 	Quad* icon_3;
 	Quad* icon_Q;
 	Quad* icon_E;
+	Quad* icon_E2;
 	Quad* icon_B;
+	Quad* icon_MW;
+	Quad* icon_Swap1;
+	Quad* icon_Swap2;
 
 	// 팔 아이콘
 	Quad* Pal1;
@@ -40,17 +44,48 @@ private:
 
 	// 팔UI 선택용
 	int selPal;
+	Quad* selPalQuad;
+	ProgressBar* selPalHpBar;
 
-	// 폰트
+	// 플레이어 장비
+	Quad* palSpearTextQuad;
+	Quad* palSpearRenderQuad;
+	Quad* palSpearIcon;
+
+	Quad* equipTextQuad;
+	Quad* equipRenderQuad;
+	Quad* equipIcon;
+	Quad* equipSlash; // 공간 나누는 쿼드, 왼쪽 장비 그림, 오른쪽 투사체 개수
+
+	// 플레이 수행 안내
+	Quad* pressBQuad;
+	Quad* pressEQuad;
+	Quad* pressQQuad;
+
+	// 폰트 위치
 	Vector2 HpFontPos;
 	Vector2 BuildFontPos;
+	Vector2 selPalLvFontPos;
+	Vector2 selPalLvNumFontPos;
+	Vector2 selPalNameFontPos;
+	Vector3 palSpearTextFontPos;
+	Vector3 equipTextFontPos;
+	Vector2 pressBFontPos;
+	Vector2 pressEFontPos;
+	Vector2 pressQFontPos;
+	Vector2 parSpear100FontPos;
+	Vector2 parSpear010FontPos;
+	Vector2 parSpear001FontPos;
+	Vector2 ProjLoadNumFontPos;
+	Vector2 ProjTotalNumFontPos;
 
 
-	// 폰트 테스트용
+
+	// 테스트용
 	Vector2 fontPos;
 	int maxHp;
 	int curHp;
-
+	int tmpPalSpear;
 
 };
 
