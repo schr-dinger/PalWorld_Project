@@ -76,7 +76,7 @@ void WorkBench::Update()
 		Progressing = false;
 	}
 
-	if (off2 > 12.25f)
+	if (off2 > 12.0f)
 	{
 		Done = true;
 		UiManager::Get()->buildWorkBench = false;
