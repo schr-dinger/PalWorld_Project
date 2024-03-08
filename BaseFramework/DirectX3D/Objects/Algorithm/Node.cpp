@@ -32,10 +32,11 @@ void Node::Render()
         break;
     case Node::OBSTACLE:
         SetColor({ 1, 0, 0, 1 }); // »¡°£»ö
+        BoxCollider::Render();
         break;
     }
 
-    BoxCollider::Render();
+    //BoxCollider::Render();
 }
 
 void Node::AddEdge(Node* node)

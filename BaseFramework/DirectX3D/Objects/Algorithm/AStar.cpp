@@ -71,12 +71,12 @@ void AStar::SetNode(Terrain* terrain)
             float k = Dot(up, normalG);
             //노드 추가
             nodes.push_back(new Node(pos, nodes.size())); //위치와, 벡터의 현재 마지막 순번을 차례로 부여
-            nodes.back()->Scale() = { interval.x, 50, interval.y }; //간격을 적용하고, 위아래로 길게
+            nodes.back()->Scale() = { interval.x*1.5f, 50, interval.y * 1.5f }; //간격을 적용하고, 위아래로 길게
             nodes.back()->UpdateWorld();
 
             // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
             // 샘플 시나리오 : 높은 곳은 곧 장애물이다
-            if (k<0.85f)
+            if (k<0.9f)
             {
                 nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
                 AddObstacle(nodes.back()); //장애물 추가 함수 호출
@@ -306,14 +306,14 @@ void AStar::SetEdge()
 
         if (i < nodes.size() - width && i % width != width - 1) //맨 아래도 아닌데 오른쪽 끝도 아니라면
         {
-            nodes[i]->AddEdge(nodes[i + width + 1]); //자기 대각선 오른쪽 아래와 인접지 교환
-            nodes[i + width + 1]->AddEdge(nodes[i]);
+            //nodes[i]->AddEdge(nodes[i + width + 1]); //자기 대각선 오른쪽 아래와 인접지 교환
+            //nodes[i + width + 1]->AddEdge(nodes[i]);
         }
 
         if (i < nodes.size() - width && i % width != 0) //맨 아래가 아니고, 왼쪽 끝이 아니다
         {
-            nodes[i]->AddEdge(nodes[i + width - 1]); //자기 대각선 왼쪽 아래와 인접지 교환
-            nodes[i + width - 1]->AddEdge(nodes[i]);
+            //nodes[i]->AddEdge(nodes[i + width - 1]); //자기 대각선 왼쪽 아래와 인접지 교환
+            //nodes[i + width - 1]->AddEdge(nodes[i]);
         }
     }
 }

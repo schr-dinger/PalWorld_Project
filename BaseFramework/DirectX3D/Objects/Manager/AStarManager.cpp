@@ -3,7 +3,7 @@
 
 AStarManager::AStarManager()
 {
-	aStar = new AStar(40, 40);
+	aStar = new AStar(30, 30);
 	aStar->SetNode(LandScapeManager::Get()->GetTerrain());
 }
 

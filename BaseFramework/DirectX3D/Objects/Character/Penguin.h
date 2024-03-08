@@ -110,5 +110,6 @@ private:
 
     vector<Vector3> path;
 
+    float time;
 };
 

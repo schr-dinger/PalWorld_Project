@@ -71,14 +71,18 @@ void Penguin::Update()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     //ClipSync();
-    if (target && KEY_PRESS('M'))
+    time += DELTA;
+    if (target )
     {
         //velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
 
-
         if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(transform->GlobalPos(), target->GlobalPos())) // 중간에 장애물이 있으면
         {
-            SetPath(); // 구체적인 경로 내어서 가기
+            if (time > 1.0f)
+            {
+                SetPath(); // 구체적인 경로 내어서 가기
+                time = 0.0f;
+            }
         }
         else //장애물이 없는 경우
         {
