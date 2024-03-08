@@ -23,9 +23,15 @@ void UiManager::Update()
 
 
 
+	if (palBoxUiOn)
+	{
+		palBoxUi->Update();
+	}
+	//palBoxUi->Update();
 
-	palBoxUi->Update();
-	buildUi->Update();
+	if (buildUiOn) buildUi->Update();
+
+	//buildUi->Update();
 }
 
 void UiManager::Render()
@@ -44,6 +50,12 @@ void UiManager::GuiRender()
 {
 	palBoxUi->GuiRender();
 	buildUi->GuiRender();
+}
+
+void UiManager::SetUI()
+{
+	palBoxUi->SetPal();
+
 }
 
 void UiManager::ControlOn()
