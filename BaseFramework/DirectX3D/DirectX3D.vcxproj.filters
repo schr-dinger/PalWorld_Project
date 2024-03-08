@@ -177,43 +177,43 @@
     <ClInclude Include="Framework\Utilities\Audio.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\CollisionScene.h">
+    <ClInclude Include="Scenes\StudyScene\CollisionScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\CubeScene.h">
+    <ClInclude Include="Scenes\StudyScene\CubeScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\GridScene.h">
+    <ClInclude Include="Scenes\StudyScene\GridScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\IntancingScene.h">
+    <ClInclude Include="Scenes\StudyScene\IntancingScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\LightScene.h">
+    <ClInclude Include="Scenes\StudyScene\LightScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ModelAnimationScene.h">
+    <ClInclude Include="Scenes\StudyScene\ModelAnimationScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ModelExportScene.h">
+    <ClInclude Include="Scenes\StudyScene\ModelExportScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ModelRenderScene.h">
+    <ClInclude Include="Scenes\StudyScene\ModelRenderScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Scene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SphereScene.h">
+    <ClInclude Include="Scenes\StudyScene\SphereScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TerrainEditorScene.h">
+    <ClInclude Include="Scenes\StudyScene\TerrainEditorScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TerrainScene.h">
+    <ClInclude Include="Scenes\StudyScene\TerrainScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Manager\BlockManager.h">
+    <ClInclude Include="Objects\Manager\StudyManager\BlockManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Landscape\TerrainEditor.h">
@@ -240,25 +240,25 @@
     <ClInclude Include="Objects\Actor\ActorUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Character\Robot.h">
+    <ClInclude Include="Objects\Character\StudyCharacter\Robot.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Character\Human.h">
+    <ClInclude Include="Objects\Character\StudyCharacter\Human.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Character\Naruto.h">
+    <ClInclude Include="Objects\Character\StudyCharacter\Naruto.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\GameScene.h">
+    <ClInclude Include="Scenes\StudyScene\GameScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Items\Weapons\Kunai.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Manager\KunaiManager.h">
+    <ClInclude Include="Objects\Manager\StudyManager\KunaiManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Manager\RobotManager.h">
+    <ClInclude Include="Objects\Manager\StudyManager\RobotManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\UI\ProgressBar.h">
@@ -267,7 +267,7 @@
     <ClInclude Include="Objects\Landscape\SkyBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\BillboardScene.h">
+    <ClInclude Include="Scenes\StudyScene\BillboardScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Render\DepthStencil.h">
@@ -276,13 +276,13 @@
     <ClInclude Include="Framework\Render\RenderTarget.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\RenderTargetScene.h">
+    <ClInclude Include="Scenes\StudyScene\RenderTargetScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Environment\Shadow.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ShadowScene.h">
+    <ClInclude Include="Scenes\StudyScene\ShadowScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Algorithm\DNode.h">
@@ -291,10 +291,10 @@
     <ClInclude Include="Objects\Algorithm\Dijkstra.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Character\FoxD.h">
+    <ClInclude Include="Objects\Character\StudyCharacter\FoxD.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\DijkstraScene.h">
+    <ClInclude Include="Scenes\StudyScene\DijkstraScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Algorithm\Node.h">
@@ -306,10 +306,10 @@
     <ClInclude Include="Objects\Algorithm\AStar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Character\Fox.h">
+    <ClInclude Include="Objects\Character\StudyCharacter\Fox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\AStarScene.h">
+    <ClInclude Include="Scenes\StudyScene\AStarScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Particle\Particle.h">
@@ -318,7 +318,7 @@
     <ClInclude Include="Objects\Particle\Spark.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ParticleScene.h">
+    <ClInclude Include="Scenes\StudyScene\ParticleScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Particle\Rain.h">
@@ -333,13 +333,13 @@
     <ClInclude Include="Objects\Particle\Trail.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\HumanScene.h">
+    <ClInclude Include="Scenes\StudyScene\HumanScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Particle\ParticleSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\ParticleConfigScene.h">
+    <ClInclude Include="Scenes\StudyScene\ParticleConfigScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Landscape\TerrainData.h">
@@ -348,7 +348,7 @@
     <ClInclude Include="Objects\Landscape\QuadTreeTerrain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\QuadTreeScene.h">
+    <ClInclude Include="Scenes\StudyScene\QuadTreeScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Shader\HullShader.h">
@@ -360,7 +360,7 @@
     <ClInclude Include="Objects\Landscape\TerrainLOD.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TerrainLODScene.h">
+    <ClInclude Include="Scenes\StudyScene\TerrainLODScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Environment\Refraction.h">
@@ -372,7 +372,7 @@
     <ClInclude Include="Objects\Landscape\Water.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\WaterScene.h">
+    <ClInclude Include="Scenes\StudyScene\WaterScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Character\Penguin.h">
@@ -444,7 +444,7 @@
     <ClInclude Include="Objects\UI\PartyBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Manager\BulletManager.h">
+    <ClInclude Include="Objects\Manager\StudyManager\BulletManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Items\Weapons\Bullet.h">
@@ -608,40 +608,40 @@
     <ClCompile Include="Framework\Utilities\Audio.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\CollisionScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\CollisionScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\CubeScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\CubeScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\GridScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\GridScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\IntancingScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\IntancingScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\LightScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\LightScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ModelAnimationScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ModelAnimationScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ModelExportScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ModelExportScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ModelRenderScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ModelRenderScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SphereScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\SphereScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TerrainEditorScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\TerrainEditorScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TerrainScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\TerrainScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Manager\BlockManager.cpp">
+    <ClCompile Include="Objects\Manager\StudyManager\BlockManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Landscape\Terrain.cpp">
@@ -668,25 +668,25 @@
     <ClCompile Include="Objects\Actor\ActorUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Character\Robot.cpp">
+    <ClCompile Include="Objects\Character\StudyCharacter\Robot.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Character\Human.cpp">
+    <ClCompile Include="Objects\Character\StudyCharacter\Human.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Character\Naruto.cpp">
+    <ClCompile Include="Objects\Character\StudyCharacter\Naruto.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\GameScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\GameScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Items\Weapons\Kunai.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Manager\KunaiManager.cpp">
+    <ClCompile Include="Objects\Manager\StudyManager\KunaiManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Manager\RobotManager.cpp">
+    <ClCompile Include="Objects\Manager\StudyManager\RobotManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UI\ProgressBar.cpp">
@@ -695,7 +695,7 @@
     <ClCompile Include="Objects\Landscape\SkyBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\BillboardScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\BillboardScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Render\DepthStencil.cpp">
@@ -704,13 +704,13 @@
     <ClCompile Include="Framework\Render\RenderTarget.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\RenderTargetScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\RenderTargetScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Environment\Shadow.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ShadowScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ShadowScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Algorithm\DNode.cpp">
@@ -719,10 +719,10 @@
     <ClCompile Include="Objects\Algorithm\Dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Character\FoxD.cpp">
+    <ClCompile Include="Objects\Character\StudyCharacter\FoxD.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\DijkstraScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\DijkstraScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Algorithm\Node.cpp">
@@ -734,10 +734,10 @@
     <ClCompile Include="Objects\Algorithm\AStar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Character\Fox.cpp">
+    <ClCompile Include="Objects\Character\StudyCharacter\Fox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\AStarScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\AStarScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Particle\Particle.cpp">
@@ -746,7 +746,7 @@
     <ClCompile Include="Objects\Particle\Spark.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ParticleScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ParticleScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Particle\Rain.cpp">
@@ -761,13 +761,13 @@
     <ClCompile Include="Objects\Particle\Trail.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\HumanScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\HumanScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Particle\ParticleSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\ParticleConfigScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\ParticleConfigScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Landscape\TerrainData.cpp">
@@ -776,7 +776,7 @@
     <ClCompile Include="Objects\Landscape\QuadTreeTerrain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\QuadTreeScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\QuadTreeScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Shader\HullShader.cpp">
@@ -788,7 +788,7 @@
     <ClCompile Include="Objects\Landscape\TerrainLOD.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TerrainLODScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\TerrainLODScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Environment\Refraction.cpp">
@@ -800,7 +800,7 @@
     <ClCompile Include="Objects\Landscape\Water.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\WaterScene.cpp">
+    <ClCompile Include="Scenes\StudyScene\WaterScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Character\Penguin.cpp">
@@ -872,7 +872,7 @@
     <ClCompile Include="Objects\UI\PartyBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Manager\BulletManager.cpp">
+    <ClCompile Include="Objects\Manager\StudyManager\BulletManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Items\Weapons\Bullet.cpp">

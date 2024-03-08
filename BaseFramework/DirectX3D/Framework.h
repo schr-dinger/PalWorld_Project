@@ -209,11 +209,11 @@ using namespace GameMath;
 #include "Objects/Skill/Skill.h"
 #include "Objects/Skill/Tornado.h"
 
-#include "Objects/Character/Human.h"
-#include "Objects/Character/Robot.h"
-#include "Objects/Character/Naruto.h"
-#include "Objects/Character/FoxD.h"
-#include "Objects/Character/Fox.h"
+#include "Objects/Character/StudyCharacter/Human.h"
+#include "Objects/Character/StudyCharacter/Robot.h"
+#include "Objects/Character/StudyCharacter/Naruto.h"
+#include "Objects/Character/StudyCharacter/FoxD.h"
+#include "Objects/Character/StudyCharacter/Fox.h"
 
 //Pal
 #include "Objects/Character/Pal.h"
@@ -222,10 +222,10 @@ using namespace GameMath;
 //Player
 #include "Objects/Character/Player.h"
 
-#include "Objects/Manager/BlockManager.h"
-#include "Objects/Manager/KunaiManager.h"
-#include "Objects/Manager/RobotManager.h"
-#include "Objects/Manager/BulletManager.h"
+#include "Objects/Manager/StudyManager/BlockManager.h"
+#include "Objects/Manager/StudyManager/KunaiManager.h"
+#include "Objects/Manager/StudyManager/RobotManager.h"
+#include "Objects/Manager/StudyManager/BulletManager.h"
 #include "Objects/Manager/MyPalSkillManager.h"
 #include "Objects/Manager/FieldPalSkillManager.h"
 #include "Objects/Manager/PalsManager.h"
