@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Manager\AStarManager.h" />
     <ClInclude Include="Objects\Manager\StructureManager.h" />
     <ClInclude Include="Objects\UI\BuildUi.h" />
     <ClInclude Include="Objects\Items\Weapons\Bullet.h" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Objects\Structure\WorkBench.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Manager\AStarManager.cpp" />
     <ClCompile Include="Objects\Manager\StructureManager.cpp" />
     <ClCompile Include="Objects\UI\BuildUi.cpp" />
     <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
