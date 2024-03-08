@@ -71,9 +71,27 @@ void Penguin::Update()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     //ClipSync();
-    if (target)
+    if (target && KEY_PRESS('M'))
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+        //velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+
+
+        if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(transform->GlobalPos(), target->GlobalPos())) // 중간에 장애물이 있으면
+        {
+            SetPath(); // 구체적인 경로 내어서 가기
+        }
+        else //장애물이 없는 경우
+        {
+            path.clear(); //3D에서 장애물도 없는데 굳이 길찾기를 쓸 필요 없음
+            path.push_back(target->GlobalPos()); // 가야 할 곳만 경로 벡터에 집어넣기
+                                     // -> 그러면 여우는 Move()로 목적지를 찾아갈 것
+        }
+
+        Vector3 dest = path.back();
+
+        //Vector3 direction = dest - transform->GlobalPos();
+        velocity = dest - transform->GlobalPos();
+
         Move(); //움직이기
     }
 
@@ -282,7 +300,9 @@ void Penguin::Move()
 
     if (velocity.Length() < 5)
     {
-        speed = 0;
+        //speed = 0;
+        speed = 8;
+
         SetAction(ACTION::IDLE);
     }
     //else if (velocity.Length() < 10)
@@ -292,17 +312,21 @@ void Penguin::Move()
     //}
     else if (velocity.Length() < 20) // 표적과 거리가 가까울 때는
     {
-        speed = 4; //두 배로 빨라진다
+        //speed = 4; //두 배로 빨라진다
+        speed = 8;
         SetAction(ACTION::RUN);
     }
     else if (velocity.Length() < 30)
     {
-        speed = 2;
+        //speed = 2;
+        speed = 8;
         SetAction(ACTION::WALK);
     }
     else
     {
-        speed = 0;
+        //speed = 0;
+        speed = 8;
+
         SetAction(ACTION::IDLE);
     }
     velocity.y = 0.0f;
@@ -342,6 +366,48 @@ void Penguin::UpdateUI()
     hpBar->Scale() = { 0.3f, 0.3f, 0.3f };
 
     hpBar->UpdateWorld(); // 조정된 정점 업데이트
+}
+
+void Penguin::SetPath()
+{
+    int startIndex = AStarManager::Get()->GetAStar()->FindCloseNode(transform->GlobalPos());
+    int endIndex = AStarManager::Get()->GetAStar()->FindCloseNode(target->GlobalPos()); // 헤더에서(+업데이트에서) 정해진 목적지
+
+    AStarManager::Get()->GetAStar()->GetPath(startIndex, endIndex, path); // 길을 낸 다음 path 벡터에 저장
+
+    AStarManager::Get()->GetAStar()->MakeDirectionPath(transform->GlobalPos(), target->GlobalPos(), path); // 장애물을 지우고 path에 덮어씌우기
+
+    UINT pathSize = path.size(); // 처음 나온 경로 벡터 크기를 저장
+
+    while (path.size() > 2) // "남겨진" 경로 노드가 1군데 이하가 될 때까지
+    {
+        vector<Vector3> tempPath = path; // 계산용 임시 경로 받아오기
+        tempPath.erase(tempPath.begin()); // 최종 목적지 지우기 (장애물이 있었기 때문에 지금은 중간을 가는 중)
+        tempPath.pop_back(); // 시작 위치도 생각에서 제외하기 (이미 지나가고 있으니까)
+
+        // 최종과 시작이 빠진 경로의 새로운 시작과 끝을 내기
+        Vector3 start = path.back();
+        Vector3 end = path.front();
+
+        //다시 나온 경로에서 장애물 계산을 또 계산
+        AStarManager::Get()->GetAStar()->MakeDirectionPath(start, end, tempPath);
+
+        //계산 결과 피드백
+        path.clear();
+        path = tempPath;
+
+        //경로 벡터에 새로운 시작과 끝을 포함
+        path.insert(path.begin(), end);
+        path.push_back(start);
+
+        // 계산을 다시 했는데 벡터 크기가 그대로라면 = 길이 바뀌지 않았다
+        if (pathSize == path.size()) break; // 이 이상 계산을 계속할 이유가 없다
+        else pathSize = path.size(); // 줄어든 경로 계산을 반영을 해주고 반복문을 다시 진행
+    }
+
+    // 다시 조정된, 내가 갈 수 있는 경로에, 최종 목적지를 다시 한번 추가한다
+    path.insert(path.begin(), target->GlobalPos());
+
 }
 
 //void Penguin::ClipSync()

@@ -62,6 +62,15 @@ private:
     void Move();
     void UpdateUI(); //캐릭터 UI가 있으면 이후 업데이트
 
+
+
+    //AStarTest
+    void SetPath();
+
+
+
+
+
 private:
     //여기부터
     Transform* transform;
@@ -97,5 +106,9 @@ private:
     //    라이딩, 작업같은 특수 동작은 enum 뒤로 빼기
 
     int tmpN;
+
+
+    vector<Vector3> path;
+
 };
 
