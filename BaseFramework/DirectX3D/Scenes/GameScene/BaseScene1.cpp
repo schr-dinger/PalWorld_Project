@@ -73,6 +73,7 @@ void BaseScene1::Update()
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
 	PlayerManager::Get()->Update();
+
 	StructureManager::Get()->Update();
 
 	UiManager::Get()->Update();
@@ -118,7 +119,6 @@ void BaseScene1::Render()
 
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
-	AStarManager::Get()->Render();
 
 	LandScapeManager::Get()->Render();
 
