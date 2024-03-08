@@ -237,7 +237,8 @@ void PalsManager::Collision()
                 Vector3 tmpV2 = pals[j]->GetTransform()->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
                 if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
                 Vector3 mDir = dir * -1;
-                Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                //Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                Vector3 tmp = nol * Dot(mDir, nol);
                 Vector3 fDir = dir + tmp;
                 pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
                 pals[i]->GetTransform()->UpdateWorld();
