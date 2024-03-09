@@ -140,7 +140,7 @@ void LandScapeManager::Render()
 
     FOR(3)
     {
-        walls[i]->Render();
+        //walls[i]->Render();
     }
 
 }
@@ -308,23 +308,59 @@ void LandScapeManager::MakeObstacle()
     //    }
     //}
 
-    for (int x = 5; x < 495; x++)
-    {
-        for (int z = 5; z < 495; z++)
-        {
-            float i = terrainF->GetHeight({ (float)x,0,(float)z });
-            float j = terrainF->GetHeight({ (float)(x+0),0,(float)(z+1) });
-            float k = terrainF->GetHeight({ (float)(x + 1),0,(float)(z + 0) });
+    //for (int x = 5; x < 495; x++)
+    //{
+    //    for (int z = 5; z < 495; z++)
+    //    {
+    //        float i = terrainF->GetHeight({ (float)x,0,(float)z });
+    //        float j = terrainF->GetHeight({ (float)(x+0),0,(float)(z+1) });
+    //        float k = terrainF->GetHeight({ (float)(x + 1),0,(float)(z + 0) });
+    //        float l = terrainF->GetHeight({ (float)(x - 1),0,(float)(z + 0) });
+    //        float m = terrainF->GetHeight({ (float)(x + 0),0,(float)(z - 1) });
 
-            if (abs(i - j) > 0.75f && abs(i - k) > 0.75f)
-            {
-                SphereCollider* cube = new SphereCollider();
-                cube->Pos() = { (float)x,i,(float)z };
-                boxes.push_back(cube);
-                obstacles.push_back(cube);
+    //        float d = 0.9f;
 
-            }
-        }
-    }
+    //        if (i - j > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x+0),i,(float)(z+1) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - k > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x + 1),i,(float)(z + 0) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - l > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x - 1),i,(float)(z + 0) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - m > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x + 0),i,(float)(z - 1) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        //if (abs(i - j) > 0.75f && abs(i - k) > 0.75f)
+    //        //{
+    //        //    BoxCollider* cube = new BoxCollider();
+    //        //    cube->Pos() = { (float)x,i,(float)z };
+    //        //    boxes.push_back(cube);
+    //        //    //obstacles.push_back(cube);
+
+    //        //}
+    //    }
+    //}
 
 }
