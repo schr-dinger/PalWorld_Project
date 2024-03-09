@@ -78,7 +78,7 @@ void Penguin::Update()
 
         if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(transform->GlobalPos(), target->GlobalPos())) // 중간에 장애물이 있으면
         {
-            if (time > 1.0f)
+            if (time > 3.0f)
             {
                 SetPath(); // 구체적인 경로 내어서 가기
                 time = 0.0f;

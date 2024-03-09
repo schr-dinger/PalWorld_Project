@@ -33,7 +33,7 @@ public:
 
     float GetCost() { return f; } //이 노드의 (최종) 이동 비용 (A*에서는 이 겟터가 필수)
     void SetState(State state) { this->state = state; }
-
+    State GetState() { return state; }
 private:
     int index = 0; //이 노드의 인덱스
     int via = -1;  //이 노드의 경유지

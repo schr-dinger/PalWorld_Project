@@ -61,26 +61,71 @@ void AStar::SetNode(Terrain* terrain)
     {
         for (UINT x = 0; x <= width; ++x)
         {
+            //if (x == 0 || x == width) continue;
+            //if (z == 0 || z == height) continue;
+
             Vector3 pos = Vector3(x * interval.x, 0, z * interval.y);
             //pos.y = 0; // 기본값
-            Vector3 normal;
-            pos.y = terrain->GetHeight(pos,&normal); // A*는 직선이동이 아니라 노드들을 경유하기 때문에
+            pos.y = terrain->GetHeight(pos); // A*는 직선이동이 아니라 노드들을 경유하기 때문에
                                              // 지형이 가지는 높이 변화에도 대응 가능
-            Vector3 normalG = -normal.GetNormalized();
-            Vector3 up = { 0,1,0 };
-            float k = Dot(up, normalG);
             //노드 추가
             nodes.push_back(new Node(pos, nodes.size())); //위치와, 벡터의 현재 마지막 순번을 차례로 부여
-            nodes.back()->Scale() = { interval.x*1.5f, 50, interval.y * 1.5f }; //간격을 적용하고, 위아래로 길게
+            nodes.back()->Scale() = { interval.x, 50, interval.y }; //간격을 적용하고, 위아래로 길게
             nodes.back()->UpdateWorld();
 
             // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
             // 샘플 시나리오 : 높은 곳은 곧 장애물이다
-            if (k<0.9f)
+
+            float c = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z + 0)* interval.y });
+            float r = terrain->GetHeight({ (float)(x + 1)* interval.x, 0, (float)(z + 0)* interval.y });
+            float l = terrain->GetHeight({ (float)(x - 1)* interval.x, 0, (float)(z + 0)* interval.y });
+            float u = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z + 1)* interval.y });
+            float d = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z - 1)* interval.y });
+
+            float h = 4.0f;
+
+            if (r - c > h && r - c < 5.0f)
             {
-                nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
-                AddObstacle(nodes.back()); //장애물 추가 함수 호출
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
             }
+
+            if (l - c > h && l - c < 5.0f)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+            if (u - c > h && u - c < 5.0f)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+            if (d - c > h && d - c < 5.0f)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+
+            //if (k<0.9f)
+            //{
+            //    nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
+            //    AddObstacle(nodes.back()); //장애물 추가 함수 호출
+            //}
         }
     }
     // 여기까지 오면 가로세로 번갈아 가면서 노드 설치가 끝난다
