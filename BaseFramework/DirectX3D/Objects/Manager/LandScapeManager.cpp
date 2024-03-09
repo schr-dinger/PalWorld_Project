@@ -28,8 +28,28 @@ LandScapeManager::LandScapeManager()
     PlaceGrass(grass2, grassN2, terrainF);
 
     shadow = new Shadow();
+    
+    walls[0] = new CapsuleCollider(5.0f,26.0f);
+    walls[0]->Pos() = { 42.3,32.6,332.1 };
+    walls[0]->Rot() = { 0,1.0f * (XM_2PI / 360.0f),90.0f * (XM_2PI / 360.0f) };
+
+    walls[1] = new CapsuleCollider(15.0f, 50.0f);
+    walls[1]->Pos() = { 126.1f,31.6f,311.0f };
+    walls[1]->Rot() = { 0,22.0f * (XM_2PI / 360.0f),99.9f * (XM_2PI / 360.0f) };
+
+
+    walls[2] = new CapsuleCollider(15.0f, 70.0f);
+    walls[2]->Pos() = { 192.9f,28.8f,272.4f };
+    walls[2]->Rot() = { 0,39.0f * (XM_2PI / 360.0f),81.0f * (XM_2PI / 360.0f) };
+
+    walls[0]->SetTag("wall0");
+    walls[1]->SetTag("wall1");
+    walls[2]->SetTag("wall2");
+
 
     MakeObstacle();
+
+    for (Collider* collider : boxes) collider->UpdateWorld();
 
 }
 
@@ -64,11 +84,16 @@ void LandScapeManager::Update()
     grass1->Update();
     grass2->Update();
 
+    FOR(3)
+    {
+        walls[i]->UpdateWorld();
+    }
+
+
     for (Tree* tree : trees) tree->Update();
     for (Rock* rock : rocks) rock->Update();
     for (Grass* grass : grasses) grass->Update();
 
-    for (Collider* collider : boxes) collider->UpdateWorld();
 }
 
 void LandScapeManager::PreRender()
@@ -113,10 +138,20 @@ void LandScapeManager::Render()
     for (Grass* grass : grasses) grass->Render();
     for (Collider* collider : boxes) collider->Render();
 
+    FOR(3)
+    {
+        walls[i]->Render();
+    }
+
 }
 
 void LandScapeManager::GUIRender()
 {
+    FOR(3)
+    {
+        walls[i]->GUIRender();
+    }
+
 }
 
 void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain)
@@ -247,9 +282,15 @@ void LandScapeManager::MakeObstacle()
 
     }
 
-    //for (int x = 0; x < 100; x++)
+    //FOR(3)
     //{
-    //    for (int z = 0; z < 100; z++)
+    //    obstacles.push_back(walls[i]);
+    //}
+
+
+    //for (int x = 0; x < 250; x++)
+    //{
+    //    for (int z = 0; z < 250; z++)
     //    {
     //        Vector3 tmpNormal;
     //        float h = terrainF->GetHeight({ (float)x,0,(float)z }, &tmpNormal);
@@ -257,7 +298,7 @@ void LandScapeManager::MakeObstacle()
     //        Vector3 up = { 0,1,0 };
     //        float k = Dot(up, normalG);
 
-    //        if (k < 0.3f)
+    //        if (k < 0.9f)
     //        {
     //            BoxCollider* cube = new BoxCollider();
     //            cube->Pos() = { (float)x,h,(float)z };
@@ -266,4 +307,24 @@ void LandScapeManager::MakeObstacle()
     //        }
     //    }
     //}
+
+    for (int x = 5; x < 495; x++)
+    {
+        for (int z = 5; z < 495; z++)
+        {
+            float i = terrainF->GetHeight({ (float)x,0,(float)z });
+            float j = terrainF->GetHeight({ (float)(x+0),0,(float)(z+1) });
+            float k = terrainF->GetHeight({ (float)(x + 1),0,(float)(z + 0) });
+
+            if (abs(i - j) > 0.75f && abs(i - k) > 0.75f)
+            {
+                SphereCollider* cube = new SphereCollider();
+                cube->Pos() = { (float)x,i,(float)z };
+                boxes.push_back(cube);
+                obstacles.push_back(cube);
+
+            }
+        }
+    }
+
 }

@@ -43,6 +43,8 @@ private:
 
     vector<Collider*> boxes;
 
+    CapsuleCollider* walls[3];
+
     Shadow* shadow;
 
     int treeN = 5;

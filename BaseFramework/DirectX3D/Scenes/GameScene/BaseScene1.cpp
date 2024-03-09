@@ -134,7 +134,7 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	//PlayerManager::Get()->GUIRender();
+	PlayerManager::Get()->GUIRender();
 
 	//water->GUIRender();
 	//terrain->GUIRender();
@@ -146,7 +146,7 @@ void BaseScene1::GUIRender()
 	// UI테스트
 	testUI->GUIRender();
 	//UiManager::Get()->GuiRender();
-
+	LandScapeManager::Get()->GUIRender();
 }
 
 void BaseScene1::SetLights()

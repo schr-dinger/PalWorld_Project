@@ -286,12 +286,15 @@ void PalsManager::PathCollider()
 {
     for (Pal* pal : pals)
     {
-        Vector3 cPos;
-        if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider(),cPos))
+        if (Distance(pal->GetTransform()->GlobalPos(), target->GlobalPos()) < 30.0f)
         {
-            Vector3 normal = -(cPos - pal->GetTransform()->Pos()).GetNormalized();
+            Vector3 cPos;
+            if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider(), cPos))
+            {
+                Vector3 normal = -(cPos - pal->GetTransform()->Pos()).GetNormalized();
 
-            pal->GetTransform()->Pos() = Lerp(pal->GetTransform()->Pos(), pal->GetTransform()->Pos() + normal * 0.1f,0.5f);
+                    pal->GetTransform()->Pos() = Lerp(pal->GetTransform()->Pos(), pal->GetTransform()->Pos() + normal * 0.1f, 0.5f);
+            }
         }
     }
 }
