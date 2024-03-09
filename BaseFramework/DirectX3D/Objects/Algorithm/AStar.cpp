@@ -70,7 +70,7 @@ void AStar::SetNode(Terrain* terrain)
                                              // 지형이 가지는 높이 변화에도 대응 가능
             //노드 추가
             nodes.push_back(new Node(pos, nodes.size())); //위치와, 벡터의 현재 마지막 순번을 차례로 부여
-            nodes.back()->Scale() = { interval.x, 50, interval.y }; //간격을 적용하고, 위아래로 길게
+            nodes.back()->Scale() = { interval.x, 20, interval.y }; //간격을 적용하고, 위아래로 길게
             nodes.back()->UpdateWorld();
 
             // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
@@ -82,9 +82,10 @@ void AStar::SetNode(Terrain* terrain)
             float u = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z + 1)* interval.y });
             float d = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z - 1)* interval.y });
 
-            float h = 4.0f;
+            float hd = 5.0f;
+            float over = 6.5f;
 
-            if (r - c > h && r - c < 5.0f)
+            if (r - c > hd && r - c < over)
             {
                 if (!(nodes.back()->GetState() == Node::OBSTACLE))
                 {
@@ -93,7 +94,7 @@ void AStar::SetNode(Terrain* terrain)
                 }
             }
 
-            if (l - c > h && l - c < 5.0f)
+            if (l - c > hd && l - c < over)
             {
                 if (!(nodes.back()->GetState() == Node::OBSTACLE))
                 {
@@ -102,7 +103,7 @@ void AStar::SetNode(Terrain* terrain)
                 }
             }
 
-            if (u - c > h && u - c < 5.0f)
+            if (u - c > hd && u - c < over)
             {
                 if (!(nodes.back()->GetState() == Node::OBSTACLE))
                 {
@@ -111,7 +112,7 @@ void AStar::SetNode(Terrain* terrain)
                 }
             }
 
-            if (d - c > h && d - c < 5.0f)
+            if (d - c > hd && d - c < over)
             {
                 if (!(nodes.back()->GetState() == Node::OBSTACLE))
                 {
