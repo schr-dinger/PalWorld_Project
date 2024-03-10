@@ -95,6 +95,8 @@ private:
     bool test = true;
     bool UiOn = false;
 
+    Model* Gun;
+
 
     // Å×½ºÆ® : Æ÷È¹
     SphereCollider* testPalSpear;
@@ -110,7 +112,8 @@ private:
     bool isGun = false;
     bool isGaim = false;
     int select = 0;
-   
+    //Bullet* bullet;
+
 
     //player collider
 

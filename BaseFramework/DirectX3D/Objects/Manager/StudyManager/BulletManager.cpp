@@ -4,7 +4,7 @@
 BulletManager::BulletManager()
 {
 	BulletInstancing = new ModelInstancing("bow");
-	particle = new ParticleSystem("TextData/Particles/Star.fx");
+	particle = new ParticleSystem("TextData/Particles/test3.fx");
 
 
 	bulletes.reserve(SIZE);

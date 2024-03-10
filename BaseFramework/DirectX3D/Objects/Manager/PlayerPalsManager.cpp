@@ -336,20 +336,12 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
         Transform* transform = palsMAI[CaughtPal->name]->Add();
         transform->SetActive(false);
         transform->Scale() *= 0.01;// 사이즈 조절은 여기서
-        Pal* Cpal = new Penguin(transform, palsMAI[CaughtPal->name], palsMAIIndex[CaughtPal->name]);
+        Pal* pal = new Penguin(transform, palsMAI[CaughtPal->name], palsMAIIndex[CaughtPal->name]);
         // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
         //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
 
         palsMAIIndex[CaughtPal->name]++;// 해당 모델 인스턴싱 인덱스 증가
-        for (int i = 5; i < pals.size(); i++)
-        {
-            if (pals[i] == nullptr)
-            {
-                pals[i] = Cpal;
-                return;
-            }
-        }
-        //pals.push_back(Cpal);
+        pals.push_back(pal);
     }
     //else if (CaughtPal->name == "") // 잡을 다른 팔이 있다면 여기서
     //{
