@@ -51,7 +51,7 @@ void PartyUi::Update()
 {
 	FOR(5)
 	{
-		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn)
+		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn && partyIcon[i]->GetPal() != nullptr)
 		{
 			model = nullptr;
 			model = new ModelAnimator(partyIcon[i]->GetPal()->GetModelName());
