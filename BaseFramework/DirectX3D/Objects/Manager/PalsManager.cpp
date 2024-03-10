@@ -85,7 +85,7 @@ void PalsManager::Update()
     }
 
     // 충돌 판정 진행
-    Collision();
+    //Collision();
 
 
 }
@@ -98,7 +98,14 @@ void PalsManager::Render()
     blendState[0]->SetState();
 
     for (Pal* pal : pals)
-        pal->Render();
+    {
+        if (CAM->ContainPoint(pal->GetTransform()->Pos()))
+        {
+            pal->Render();
+        }
+        //pal->Render();
+
+    }
 
 }
 
