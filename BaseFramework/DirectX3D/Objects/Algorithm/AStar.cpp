@@ -41,7 +41,13 @@ void AStar::Update()
 void AStar::Render()
 {
     for (Node* node : nodes)
-        node->Render(); //노드에 충돌체 설정이 켜져 있으면 렌더
+    {
+        if (node->GetState() == Node::OBSTACLE)
+        {
+            node->Render(); //노드에 충돌체 설정이 켜져 있으면 렌더
+        }
+    }
+
 }
 
 void AStar::SetNode(Terrain* terrain)
@@ -68,16 +74,61 @@ void AStar::SetNode(Terrain* terrain)
 
             //노드 추가
             nodes.push_back(new Node(pos, nodes.size())); //위치와, 벡터의 현재 마지막 순번을 차례로 부여
-            nodes.back()->Scale() = { interval.x, 50, interval.y }; //간격을 적용하고, 위아래로 길게
+            nodes.back()->Scale() = { interval.x, 20, interval.y }; //간격을 적용하고, 위아래로 길게
             nodes.back()->UpdateWorld();
+
+            float c = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z + 0) * interval.y });
+            float r = terrain->GetHeight({ (float)(x + 1) * interval.x, 0, (float)(z + 0) * interval.y });
+            float l = terrain->GetHeight({ (float)(x - 1) * interval.x, 0, (float)(z + 0) * interval.y });
+            float u = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z + 1) * interval.y });
+            float d = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z - 1) * interval.y });
+
+            float hd = 3.0f;
+            float over = 6.5f;
+
+            if (r - c > hd && r - c < over)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+            if (l - c > hd && l - c < over)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+            if (u - c > hd && u - c < over)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
+
+            if (d - c > hd && d - c < over)
+            {
+                if (!(nodes.back()->GetState() == Node::OBSTACLE))
+                {
+                    nodes.back()->SetState(Node::OBSTACLE);
+                    AddObstacle(nodes.back());
+                }
+            }
 
             // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
             // 샘플 시나리오 : 높은 곳은 곧 장애물이다
-            if (pos.y > 0)
-            {
-                nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
-                AddObstacle(nodes.back()); //장애물 추가 함수 호출
-            }
+            //if (pos.y > 0)
+            //{
+            //    nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
+            //    AddObstacle(nodes.back()); //장애물 추가 함수 호출
+            //}
         }
     }
     // 여기까지 오면 가로세로 번갈아 가면서 노드 설치가 끝난다

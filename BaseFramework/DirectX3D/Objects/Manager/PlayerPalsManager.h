@@ -36,6 +36,11 @@ private:
     void InsertAllMAI();
     void Collision(); // 세부 충돌 판정 진행
 
+    void PathFinding();
+
+    void SetPath();
+    void Move();
+
 private:
     Terrain* terrain;
     map<string, ModelAnimatorInstancing*> palsMAI;
@@ -51,8 +56,11 @@ private:
     // 알파값 빼기
     BlendState* blendState[2];
 
+    float pathTime = 0;
 
+    Vector3 destPos;
+    vector<Vector3> path;
 
-
+    Vector3 velocity;
 };
 

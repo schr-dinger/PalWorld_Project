@@ -2,7 +2,8 @@
 
 AStarManager::AStarManager()
 {
-	aStar = new AStar(20, 20);
+	aStar = new AStar(100, 100);
+	aStar->SetNode(LandScapeManager::Get()->GetTerrain());
 }
 
 AStarManager::~AStarManager()

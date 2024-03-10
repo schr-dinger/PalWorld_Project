@@ -54,6 +54,10 @@ void PlayerPalsManager::Update()
     // 충돌 판정 진행
     Collision();
 
+
+    //void PathFinding();
+    //void Move();
+
     // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
     for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
     {
@@ -65,11 +69,15 @@ void PlayerPalsManager::Update()
         {
             continue;
         }
+
+
         pal->Update();
     }
 
     if (selPal != -1)
     {
+        PathFinding();
+        Move();
         //palsMAI[pals[selPal]->name]->Update();
         //pals[selPal]->Update();
         if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
@@ -94,6 +102,7 @@ void PlayerPalsManager::Render()
     }
     for (Pal* pal : pals)
     {
+
         if (pal == nullptr)
         {
             continue;
@@ -132,6 +141,25 @@ void PlayerPalsManager::PostRender()
 void PlayerPalsManager::GUIRender()
 {
     ImGui::Text("MyPalsSIze : %d", pals.size());
+    ImGui::Text("pathsize : %d", path.size());
+
+    if (selPal != -1)
+    {
+        //ImGui::Text("X: %f", pals[selPal]->GetTransform()->GlobalPos().x);
+        //ImGui::Text("y: %f", pals[selPal]->GetTransform()->GlobalPos().y);
+        //ImGui::Text("z: %f", pals[selPal]->GetTransform()->GlobalPos().z);
+    }
+
+    if (path.size() > 0)
+    {
+        ImGui::Text("X: %f", path.back().x);
+        ImGui::Text("y: %f", path.back().y);
+        ImGui::Text("z: %f", path.back().z);
+        ImGui::Text("X: %f", destPos.x);
+        ImGui::Text("y: %f", destPos.y);
+        ImGui::Text("z: %f", destPos.z);
+    }
+
 
 }
 
@@ -230,6 +258,66 @@ void PlayerPalsManager::Collision()
             }
         }
     }
+
+}
+
+void PlayerPalsManager::PathFinding()
+{
+    pathTime += DELTA;
+
+    if (pathTime > 3.0f)
+    {
+        //destPos = player->GlobalPos() + Vector3(Random(-0.5f, 0.5f), Random(-0.5f, 0.5f), Random(-0.5f, 0.5f));
+        destPos = player->GlobalPos();
+
+        if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(pals[selPal]->GetTransform()->GlobalPos(), destPos))
+        {
+            SetPath();
+        }
+        else
+        {
+            path.clear();
+            path.push_back(destPos);
+        }
+
+        pathTime = 0.0f;
+    }
+}
+
+void PlayerPalsManager::SetPath()
+{
+    int startIndex = AStarManager::Get()->GetAStar()->FindCloseNode(pals[selPal]->GetTransform()->GlobalPos());
+    int endIndex = AStarManager::Get()->GetAStar()->FindCloseNode(destPos);
+
+    AStarManager::Get()->GetAStar()->GetPath(startIndex, endIndex, path); // 길을 낸 다음 path 벡터에 저장
+}
+
+void PlayerPalsManager::Move()
+{
+    if (path.empty())
+    {
+        //SetState(IDLE);
+        return;
+    }
+
+    //SetState(RUN);
+
+    Vector3 dest = path.back();
+
+    Vector3 direction = dest - pals[selPal]->GetTransform()->GlobalPos();
+
+    direction.y = 0;
+                    
+
+    if (direction.Length() < 0.1f)
+    {
+        path.pop_back();
+    }
+
+    velocity = direction.GetNormalized();
+    //pals[selPal]->GetTransform()->Pos() += velocity * moveSpeed * DELTA;
+    pals[selPal]->GetTransform()->Pos() += velocity * 10.0f * DELTA;
+
 
 }
 
