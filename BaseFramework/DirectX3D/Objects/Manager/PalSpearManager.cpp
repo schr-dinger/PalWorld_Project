@@ -56,7 +56,7 @@ void PalSpearManager::Throw(Vector3 pos, Vector3 dir)
     }
 }
 
-bool PalSpearManager::IsCollision(Collider* collider)
+bool PalSpearManager::IsCollision(Collider* collider, class Pal* pal)
 {
     for (PalSpear* palSpear : palSpears)
     {
@@ -65,7 +65,12 @@ bool PalSpearManager::IsCollision(Collider* collider)
             //총알이 맞았을 때, "총알이" 수행할 코드를 추가
 
             //샘플 코드 : 충돌 후 사라지게 하기
-            palSpear->GetTransform()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            //palSpear->GetTransform()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            //return true;
+
+            // 240308 테스트: 게임처럼 만들기
+            palSpear->SetState(PalSpear::State::HITPAL);
+            palSpear->SetPal(pal);
             return true;
         }
     }
