@@ -29,8 +29,8 @@ PartyUi::PartyUi()
 		blendState[i] = new BlendState;
 		depthState[i] = new DepthStencilState;
 	}
+	blendState[1]->Alpha(true);
 	blendState[1]->AlphaToCoverage(true);
-	//blendState[1]->Alpha(false);
 	depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);  // 다 가리기
 
 }
