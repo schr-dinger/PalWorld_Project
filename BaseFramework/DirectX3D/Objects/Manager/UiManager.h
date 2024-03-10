@@ -22,6 +22,8 @@ public:
 
 	bool buildWorkBench = false;
 	bool PlacedWorkBench = false;
+
+	bool partyUiOn = false;
 private:
 	void ControlOn();
 
@@ -29,7 +31,7 @@ private:
 private:
 	PalBoxUi* palBoxUi;
 	BuildUi* buildUi;
-
+	PartyUi* partyUi;
 	bool UiOn = false;
 
 };

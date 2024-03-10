@@ -316,8 +316,8 @@ void PlayerPalsManager::Move()
 
     velocity = direction.GetNormalized();
     //pals[selPal]->GetTransform()->Pos() += velocity * moveSpeed * DELTA;
-    pals[selPal]->GetTransform()->Pos() += velocity * 10.0f * DELTA;
 
+    pals[selPal]->GetTransform()->Pos() += velocity * 10.0f * DELTA;
 
 }
 

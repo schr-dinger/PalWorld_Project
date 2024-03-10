@@ -147,7 +147,7 @@ void Player::Render()
 
 void Player::GUIRender()
 {
-    ModelAnimator::GUIRender();
+    //ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
 
 }

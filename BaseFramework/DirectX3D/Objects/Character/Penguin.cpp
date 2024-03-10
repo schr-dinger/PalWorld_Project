@@ -4,6 +4,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     :transform(transform), instancing(instancing), index(index)
 {
     name = "ÆëÅ°";
+    modelName = "PenGuin";
     level = 1;
     speed = 5; //¼Ó·Â : ±âº» ½ºÅÈ
     maxHP = 100;

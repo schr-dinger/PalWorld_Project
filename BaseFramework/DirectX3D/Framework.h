@@ -165,6 +165,8 @@ using namespace GameMath;
 #include "Objects/UI/FieldUI.h"
 #include "Objects/UI/PalBoxUi.h"
 #include "Objects/UI/BuildUi.h"
+#include "Objects/UI/PartyUi.h"
+
 
 
 #include "Objects/Items/Weapons/Kunai.h"

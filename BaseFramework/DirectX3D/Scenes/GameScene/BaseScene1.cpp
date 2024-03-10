@@ -124,12 +124,13 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
-	UiManager::Get()->PostRender();
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 	StructureManager::Get()->PostRender();
 	// UI테스트
 	testUI->PostRender();
+	UiManager::Get()->PostRender();
+
 }
 
 void BaseScene1::GUIRender()
@@ -145,7 +146,7 @@ void BaseScene1::GUIRender()
 
 	// UI테스트
 	testUI->GUIRender();
-	//UiManager::Get()->GuiRender();
+	UiManager::Get()->GuiRender();
 	LandScapeManager::Get()->GUIRender();
 }
 

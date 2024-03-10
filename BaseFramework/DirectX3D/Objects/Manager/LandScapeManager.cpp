@@ -147,10 +147,10 @@ void LandScapeManager::Render()
 
 void LandScapeManager::GUIRender()
 {
-    FOR(3)
-    {
-        walls[i]->GUIRender();
-    }
+    //FOR(3)
+    //{
+    //    walls[i]->GUIRender();
+    //}
 
 }
 
