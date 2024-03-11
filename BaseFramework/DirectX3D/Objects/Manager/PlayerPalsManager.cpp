@@ -216,22 +216,38 @@ void PlayerPalsManager::OnGround(Terrain* terrain)
 
 void PlayerPalsManager::InsertAllMAI()
 {
-    // 펭키 모델 인스턴싱 넣기
-    ModelAnimatorInstancing* pal = new ModelAnimatorInstancing("PenGuin");
-    pal->ReadClip("Idle");
-    pal->ReadClip("Walk");
-    pal->ReadClip("Run");
-    pal->ReadClip("Attack");
-    pal->ReadClip("Damage");
-    pal->ReadClip("Work");
-    pal->SetTag("Penguin");
-    palsMAI.insert({ "펭키", pal });                                     // 넣는 법 1.
-    //palsMAI.insert(pair<string, ModelAnimatorInstancing*>("펭키", pal)); // 넣는 법 2.
-    palsMAIIndex.insert({ "펭키", 0 }); // 모델 인스턴스 인덱스용 map에도 추가
-                                        // "펭키"라는 key(모델 인스턴싱)를 가진 인덱스 값(0번부터),
-                                        // 같은 팔을 잡을 때마다 인덱스 값 증가(같은 팔이라도 인덱스가 달라 다른 개체)
-
+    {
+        // 펭키 모델 인스턴싱 넣기
+        ModelAnimatorInstancing* pal = new ModelAnimatorInstancing("PenGuin");
+        pal->ReadClip("Idle");
+        pal->ReadClip("Walk");
+        pal->ReadClip("Run");
+        pal->ReadClip("Attack");
+        pal->ReadClip("Damage");
+        pal->ReadClip("Work");
+        pal->SetTag("Penguin");
+        palsMAI.insert({ "펭키", pal });                                     // 넣는 법 1.
+        //palsMAI.insert(pair<string, ModelAnimatorInstancing*>("펭키", pal)); // 넣는 법 2.
+        palsMAIIndex.insert({ "펭키", 0 }); // 모델 인스턴스 인덱스용 map에도 추가
+                                            // "펭키"라는 key(모델 인스턴싱)를 가진 인덱스 값(0번부터),
+                                            // 같은 팔을 잡을 때마다 인덱스 값 증가(같은 팔이라도 인덱스가 달라 다른 개체)
+    }
     // 팔 추가시 추가 작업 할 곳 ----------------------
+
+    {
+        ModelAnimatorInstancing* pal = new ModelAnimatorInstancing("Mammoth");
+        pal->ReadClip("Idle");
+        pal->ReadClip("Walk");
+        pal->ReadClip("Run");
+        pal->ReadClip("Attack");
+        pal->ReadClip("Damage");
+        pal->SetTag("mammoth");
+        palsMAI.insert({ "그린모스", pal });                                     // 넣는 법 1.
+        //palsMAI.insert(pair<string, ModelAnimatorInstancing*>("펭키", pal)); // 넣는 법 2.
+        palsMAIIndex.insert({ "그린모스", 0 }); // 모델 인스턴스 인덱스용 map에도 추가
+                                            // "펭키"라는 key(모델 인스턴싱)를 가진 인덱스 값(0번부터),
+                                            // 같은 팔을 잡을 때마다 인덱스 값 증가(같은 팔이라도 인덱스가 달라 다른 개체)
+    }
 }
 
 void PlayerPalsManager::Collision()
@@ -340,7 +356,7 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
         //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
 
         palsMAIIndex[CaughtPal->name]++;// 해당 모델 인스턴싱 인덱스 증가
-        for (int i = 5; i < pals.size(); i++)
+        for (int i = 0; i < pals.size(); i++)
         {
             if (pals[i] == nullptr)
             {
@@ -350,9 +366,22 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
         }
         //pals.push_back(Cpal);
     }
-    //else if (CaughtPal->name == "") // 잡을 다른 팔이 있다면 여기서
-    //{
-    //
-    //}
+    else if (CaughtPal->name == "그린모스") // 잡을 다른 팔이 있다면 여기서
+    {
+        Transform* transform = palsMAI[CaughtPal->name]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* Cpal = new Mammoth(transform, palsMAI[CaughtPal->name], palsMAIIndex[CaughtPal->name]);
+
+        palsMAIIndex[CaughtPal->name]++;// 해당 모델 인스턴싱 인덱스 증가
+        for (int i = 0; i < pals.size(); i++)
+        {
+            if (pals[i] == nullptr)
+            {
+                pals[i] = Cpal;
+                return;
+            }
+        }
+    }
 
 }
