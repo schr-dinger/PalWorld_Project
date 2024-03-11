@@ -213,7 +213,7 @@ void PalsManager::Collision()
 
     for (Pal* pal : pals) 
     {
-        if (PalSpearManager::Get()->IsCollision(pal->GetCollider())) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
+        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(),pal)) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
         {
             // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
             PlayerPalsManager::Get()->Caught(pal);
