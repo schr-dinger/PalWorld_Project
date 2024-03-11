@@ -26,6 +26,8 @@ PalsManager::PalsManager()
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
 
+    lastPos.resize(SIZE);
+
     // 테스트 : 히트
     testHit = {};
     testIsHit = false;
@@ -48,8 +50,11 @@ void PalsManager::Update()
 {
     OnGround(terrain);
 
-    // 충돌 판정 진행
-    Collision();
+    for (int i = 0; i < pals.size(); i++)
+    {
+        lastPos[i] = pals[i]->GetTransform()->GlobalPos();
+
+    }
 
     // 리스폰
     time += DELTA; //경과시간 누적
@@ -75,6 +80,9 @@ void PalsManager::Update()
         pals[0]->FieldAttack();
         //FieldAttack();
     }
+
+    // 충돌 판정 진행
+    Collision();
 
 }
 
@@ -209,6 +217,32 @@ void PalsManager::Collision()
     //        return;
     //    }
     //}
+
+    for (int i = 0; i < pals.size(); i++)
+    {
+        for (int j = 0; j < pals.size(); j++)
+        {
+            if (i == j) continue;
+            if (pals[i]->GetCollider()->IsCollision(pals[j]->GetCollider()))
+            {
+                Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
+                if (dir == Vector3(0.0f, 0.0f, 0.0f)) continue;
+                Vector3 tmpV1 = pals[i]->GetTransform()->Back();
+                Vector3 tmpV2 = pals[j]->GetTransform()->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
+                if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 mDir = dir * -1;
+                Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                Vector3 fDir = dir + tmp;
+                pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                pals[i]->GetTransform()->UpdateWorld();
+            }
+        }
+
+
+    }
+
+
 
 
     for (Pal* pal : pals) 
