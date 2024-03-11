@@ -236,18 +236,43 @@ void PalsManager::Collision()
             if (i == j) continue;
             if (pals[i]->GetCollider()->IsCollision(pals[j]->GetCollider()))
             {
-                Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
                 Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
                 if (dir == Vector3(0.0f, 0.0f, 0.0f)) continue;
                 Vector3 tmpV1 = pals[i]->GetTransform()->Back();
                 Vector3 tmpV2 = pals[j]->GetTransform()->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
                 if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
                 Vector3 mDir = dir * -1;
                 //Vector3 tmp = 2 * nol * Dot(mDir, nol);
                 Vector3 tmp = nol * Dot(mDir, nol);
                 Vector3 fDir = dir + tmp;
                 pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
                 pals[i]->GetTransform()->UpdateWorld();
+                //if (Dot(tmpV1, tmpV2) < 0.0f)
+                //{
+                //    Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                //    Vector3 fDir = dir.Length() * nol;
+                //    pals[i]->GetTransform()->Pos() = pals[i]->GetTransform()->GlobalPos() + fDir;
+                //    pals[i]->GetTransform()->UpdateWorld();
+                //}
+                //else if (Dot(tmpV1, tmpV2) > 0.0f)
+                //{
+                //    Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                //    Vector3 mDir = dir * -1;
+                //    //Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                //    Vector3 tmp = nol * Dot(mDir, nol);
+                //    Vector3 fDir = dir + tmp;
+                //    pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                //    pals[i]->GetTransform()->UpdateWorld();
+                //}
+                //else
+                //{
+                //    Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                //    Vector3 fDir = (lastPos[i] - pals[j]->GetTransform()->GlobalPos()).Length() * nol;
+                //    pals[i]->GetTransform()->Pos() = pals[j]->GetTransform()->GlobalPos() + fDir;
+                //    pals[i]->GetTransform()->UpdateWorld();
+                //}
+                
             }
         }
 
