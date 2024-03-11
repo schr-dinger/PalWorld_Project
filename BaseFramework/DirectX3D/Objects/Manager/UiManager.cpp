@@ -59,11 +59,6 @@ void UiManager::GuiRender()
 
 }
 
-void UiManager::SetUI()
-{
-
-}
-
 void UiManager::ControlOn()
 {
 	if (palBoxUiOn || buildUiOn || partyUiOn )

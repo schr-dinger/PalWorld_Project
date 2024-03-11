@@ -29,6 +29,9 @@
 
 #define FOR(n) for(int i = 0; i < n ; i++)
 
+#define RANDOM		RandomNum::Get()
+
+
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -37,6 +40,8 @@
 #include <functional>
 #include <algorithm>
 #include <assert.h>
+#include <chrono>
+#include <random>
 
 #include <d3d11.h>
 #include <DirectXMath.h>
@@ -90,6 +95,7 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Font.h"
 #include "Framework/Utilities/Audio.h"
+#include "Framework/Utilities/Random.h"
 
 using namespace Utility;
 
