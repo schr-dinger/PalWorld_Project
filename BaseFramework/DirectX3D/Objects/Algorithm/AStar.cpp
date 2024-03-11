@@ -15,6 +15,11 @@ AStar::~AStar()
     for (Node* node : nodes)
         delete node;
     delete heap;
+
+    for (Collider* col : obstacles)
+    {
+        delete col;
+    }
 }
 
 void AStar::Update()

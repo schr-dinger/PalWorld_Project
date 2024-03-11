@@ -226,6 +226,7 @@ using namespace GameMath;
 //Pal
 #include "Objects/Character/Pal.h"
 #include "Objects/Character/Penguin.h"
+#include "Objects/Character/Mammoth.h"
 
 //Player
 #include "Objects/Character/Player.h"
