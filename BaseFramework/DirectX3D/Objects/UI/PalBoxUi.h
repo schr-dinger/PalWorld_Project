@@ -9,9 +9,10 @@ public:
 	void Render();
 	void PostRender();
 	void GuiRender();
+	void SetPal();
 
 private:
-	void SetPal();
+	
 private:
 
 	Vector2 Screen = { 1280.0f,720.0f };

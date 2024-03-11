@@ -2,8 +2,8 @@
 class PalsManager : public Singleton<PalsManager>
 {
 private:
-    UINT SIZE = 3; // ¸Å´ÏÀú ¾È¿¡¼­ ±¼¸± ·Îº¿ ´ë¼ö
-    float SPAWN_TIME = 0.1f; // ·Îº¿ÀÇ »ý¼º, È¤Àº Àç»ý¼º¿¡ ÇÊ¿äÇÑ ½Ã°£
+    UINT SIZE = 3; // ï¿½Å´ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½
+    float SPAWN_TIME = 0.1f; // ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
 public:
 
@@ -15,19 +15,19 @@ public:
     void PostRender();
     void GUIRender();
 
-    void SetTarget(Transform* target); //Ç¥Àû ¼³Á¤
-    void SetPlayer(Player* player); // ÇÃ·¹ÀÌ¾î ¼³Á¤
+    void SetTarget(Transform* target); //Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void SetPlayer(Player* player); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
-    bool IsCollision(Ray ray, Vector3& hitPoint); //Ãæµ¹ÀÌ ÀÏ¾î³­ °æ¿ì ÆÇÁ¤
+    bool IsCollision(Ray ray, Vector3& hitPoint); //ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 private:
     void OnGround(Terrain* terrain);
     void InsertMAI(string palModelName);
     void InsertAllMAI();
-    void Collision(); // ¼¼ºÎ Ãæµ¹ ÆÇÁ¤ ÁøÇà
-    void Spawn();     // (Àç)»ý¼º
+    void Collision(); // ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void Spawn();     // (ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½
 
     void PathCollider();
 private:
@@ -39,17 +39,17 @@ private:
     Transform* target;
     Player* player;
 
-    float time = 0; //°æ°úµÈ ½Ã°£
+    float time = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    // ¾ËÆÄ°ª »©±â
+    // ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½
     BlendState* blendState[2];
 
-    // Å×½ºÆ® : È÷Æ® ÆÇÁ¤
+    // ï¿½×½ï¿½Æ® : ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     Vector3 testHit;
     bool testIsHit;
     int hitPalIndex;
 
-    // Å×½ºÆ® : ÆÈ³¢¸® Ãæµ¹
+    // ï¿½×½ï¿½Æ® : ï¿½È³ï¿½ï¿½ï¿½ ï¿½æµ¹
     vector<Vector3> lastPos;
 };
 

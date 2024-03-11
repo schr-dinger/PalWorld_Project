@@ -144,6 +144,8 @@ void BaseScene1::GUIRender()
 	//PalsManager::Get()->GUIRender();
 	PlayerPalsManager::Get()->GUIRender();
 
+	// PlayerManager::Get()->GUIRender();
+
 	// UI테스트
 	testUI->GUIRender();
 	UiManager::Get()->GuiRender();
