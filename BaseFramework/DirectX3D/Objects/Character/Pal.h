@@ -42,5 +42,8 @@ public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 	// 팰 아이콘
 	Texture* icon;
 	Texture* iconC;
+
+	// 팰 무적유무 : 팰 스피어에 맞았거나, 기타 등등
+	bool isInvincible;
 };
 

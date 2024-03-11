@@ -70,7 +70,8 @@ void PalSpear::Render()
 void PalSpear::GUIRender()
 {
     if (!transform->Active()) return;
-    ImGui::Text("Down : %f", downForce);
+    ImGui::Text("Shake : %d", shakeNum);
+    ImGui::Text("catchingTime : %f", catchingTime);
 }
 
 void PalSpear::Throw(Vector3 pos, Vector3 dir)
@@ -82,12 +83,15 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
     direction = dir;
 
     //방향에 맞게 모델(=트랜스폼) 회전 적용
-    transform->Rot().y = atan2(dir.x, dir.z) - XM_PIDIV2; //방향 적용 + 모델 정면에 따른 보정
+    transform->Rot().z = atan2(dir.x, dir.z); //방향 적용 + 모델 정면에 따른 보정
+    //transform->Rot().y = CAM->Rot().y; //방향 적용 + 모델 정면에 따른 보정
                                                           //쿠나이 모델은 90도 돌아가 있었음
     //transform->Rot().y = atan2(dir.x, dir.z) - XMConvertToRadians(90);
     //                                           ↑ 각도를 호도로 바꿔주는 함수
 
     time = 0; //경과시간 리셋
+    shakeNum = 0;
+
 }
 
 void PalSpear::StateThrow()
@@ -139,6 +143,8 @@ void PalSpear::StateHitPal()
     {
         state = State::CATCHING;
         hitPalTime = 0.0f;
+        pal->GetTransform()->SetActive(false);
+
     }
 }
 
@@ -155,10 +161,9 @@ void PalSpear::StateCatching()
             catchingTime = 0.0f;
             shakeNum++;
 
-            if (shakeNum == 4)
+            if (shakeNum >= 4)
             {
-                shakeNum == 0;
-                transform->SetActive(false);
+                shakeNum = 0;
                 if (RANDOM->Int(0,1) == 0)
                 {
                     state = State::SUCCESS;
@@ -189,8 +194,19 @@ void PalSpear::StateCatching()
 
 void PalSpear::StateSuccess()
 {
+    PlayerPalsManager::Get()->Caught(pal);
+    // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+
+    transform->SetActive(false);
+    collider->SetActive(false);
+    state = State::THROW;
 }
 
 void PalSpear::StateFail()
 {
+    pal->GetTransform()->SetActive(true);
+
+    transform->SetActive(false);
+    collider->SetActive(false);
+    state = State::THROW;
 }

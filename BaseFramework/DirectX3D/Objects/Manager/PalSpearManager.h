@@ -3,7 +3,7 @@ class PalSpearManager : public Singleton<PalSpearManager>
 {
 private:
     friend class Singleton;
-    UINT SIZE = 30; // 동시에 투척 가능한 팔스피어 최대 개수
+    UINT SIZE = 3; // 동시에 투척 가능한 팔스피어 최대 개수
 
 public:
     PalSpearManager();

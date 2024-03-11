@@ -133,21 +133,22 @@ void BaseScene1::PostRender()
 
 void BaseScene1::GUIRender()
 {
-	PlayerManager::Get()->GUIRender();
+	//PlayerManager::Get()->GUIRender();
 
 	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	PlayerPalsManager::Get()->GUIRender();
+	//PlayerPalsManager::Get()->GUIRender();
 
 	// PlayerManager::Get()->GUIRender();
+	PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
-	testUI->GUIRender();
-	UiManager::Get()->GuiRender();
-	LandScapeManager::Get()->GUIRender();
+	//testUI->GUIRender();
+	//UiManager::Get()->GuiRender();
+	//LandScapeManager::Get()->GUIRender();
 }
 
 void BaseScene1::SetLights()

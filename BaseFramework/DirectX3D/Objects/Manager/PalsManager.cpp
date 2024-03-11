@@ -28,6 +28,18 @@ PalsManager::PalsManager()
 
     lastPos.resize(SIZE);
 
+    // 전부 필드에 소환
+    FOR(SIZE)
+    {
+        Spawn();
+    }
+    // 모델 업데이트
+    for (ModelAnimatorInstancing* pal : palsInstancing)
+        pal->Update();
+
+    for (Pal* pal : pals)
+        pal->Update();
+
     // 테스트 : 히트
     testHit = {};
     testIsHit = false;
@@ -56,13 +68,13 @@ void PalsManager::Update()
     }
 
     // 리스폰
-    time += DELTA; //경과시간 누적
-
-    if (time >= SPAWN_TIME) //경과 시간이 생성간격에 도달하면
-    {
-        time -= SPAWN_TIME;
-        Spawn(); //생성(스폰)
-    }
+    //time += DELTA; //경과시간 누적
+    //
+    //if (time >= SPAWN_TIME) //경과 시간이 생성간격에 도달하면
+    //{
+    //    time -= SPAWN_TIME;
+    //    Spawn(); //생성(스폰)
+    //}
 
     PathCollider();
 
@@ -246,15 +258,21 @@ void PalsManager::Collision()
 
     for (Pal* pal : pals) 
     {
-        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(), pal)) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
+        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(), pal) && pal->isInvincible == false) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
         {
             // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
-            PlayerPalsManager::Get()->Caught(pal);
-            // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
-            pal->GetTransform()->SetActive(false);
+            //PlayerPalsManager::Get()->Caught(pal);
+            //// 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+            //pal->GetTransform()->SetActive(false);
+
+            // 위과정은 240311부로 팰스피어 매니저에서
+            //pal->GetCollider()->SetActive(false); 
+            // 팰스피어에 맞는 순간 공격 안당하게 하기
+            pal->isInvincible = true;
+
             return; //팔스피어(포획)에 맞았여기서 리턴
         }
-        else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
+        else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
         {
             pal->Damage();
             return;
@@ -288,14 +306,14 @@ void PalsManager::Collision()
 void PalsManager::Spawn()
 {
     Vector3 dir;
-    dir.x = Random(-1.0f, 1.0f);
-    dir.z = Random(-1.0f, 1.0f);
+    dir.x = RANDOM->Float(-1.0f, 1.0f);
+    dir.z = RANDOM->Float(-1.0f, 1.0f);
 
     //생성거리 계수와 함께 표적의 주위에서 생성을 한다
     Vector3 randomPos;
     if (target == nullptr) // 타겟 없는 경우 테스트
     {
-        randomPos = (dir.GetNormalized() * 20);
+        randomPos = Vector3(100.0f,0.0f,100.0f) + (dir.GetNormalized() * 20);
     }
     else
     {

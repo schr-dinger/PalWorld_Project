@@ -9,6 +9,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     speed = 5; //속력 : 기본 스탯
     maxHP = 100;
     curHP = 100;
+    isInvincible = false;
 
     // 부모에서 가져온 스킬 세팅
     skill[0] = new Tornado();
