@@ -65,6 +65,14 @@ private:
     State state;
 
     class Pal* pal;
+
+    // StateHitPal¿ë
+    float hitPalTime;
+
+    // StateCatching¿ë
+    float catchingTime;
+    int shakeNum;  // ÇÑ ¹ø Èçµé¶§ Èçµé¸®´Â È½¼ö
+    int shakeTime; // 3¹ø Èçµé±â
     
 };
 

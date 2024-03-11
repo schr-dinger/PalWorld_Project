@@ -12,6 +12,9 @@ PalSpearManager::PalSpearManager()
         PalSpear* palSpear = new PalSpear(transform);
         palSpears.push_back(palSpear);
     }
+
+    palWhiteTexture = Texture::Add(L"Textures/Color/White.png");
+    catchingPal == nullptr;
 }
 
 PalSpearManager::~PalSpearManager()
@@ -22,6 +25,7 @@ PalSpearManager::~PalSpearManager()
 
     //모델도 지우기
     delete palSpearInstancing;
+    delete catchingPal;
 }
 
 void PalSpearManager::Update()
@@ -71,6 +75,8 @@ bool PalSpearManager::IsCollision(Collider* collider, class Pal* pal)
             // 240308 테스트: 게임처럼 만들기
             palSpear->SetState(PalSpear::State::HITPAL);
             palSpear->SetPal(pal);
+            palSpear->GetCollider()->SetActive(false);
+
             return true;
         }
     }

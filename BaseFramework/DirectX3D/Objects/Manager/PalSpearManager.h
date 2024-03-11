@@ -26,5 +26,10 @@ private:
     vector<PalSpear*> palSpears; // Äí³ªÀÌµé (º¤ÅÍ)
 
     class Terrain* terrain; 
+
+    // ÀâÀº ÆÓ Èò»öÀ¸·Î Ãâ·ÂÇØÁÙ »õ ¸ğµ¨ µ¨
+    Texture* palWhiteTexture;
+    Pal* catchingPal;
+
 };
 

@@ -2,7 +2,7 @@
 class PalsManager : public Singleton<PalsManager>
 {
 private:
-    UINT SIZE = 3; // �Ŵ��� �ȿ��� ���� �κ� ���
+    UINT SIZE = 10; // �Ŵ��� �ȿ��� ���� �κ� ���
     float SPAWN_TIME = 0.1f; // �κ��� ����, Ȥ�� ������� �ʿ��� �ð�
 
 public:

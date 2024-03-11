@@ -70,7 +70,6 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
-	PlayerManager::Get()->Update();
 
 	StructureManager::Get()->Update();
 
@@ -79,7 +78,7 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
-	//PlayerManager::Get()->Update();
+	PlayerManager::Get()->Update();
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
@@ -110,7 +109,6 @@ void BaseScene1::Render()
 	//terrain->Render();
 	water->Render();
 
-	//player->Render();
 	
 	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
@@ -119,7 +117,7 @@ void BaseScene1::Render()
 	PlayerPalsManager::Get()->Render();
 
 	LandScapeManager::Get()->Render();
-	AStarManager::Get()->Render();
+	//AStarManager::Get()->Render();
 }
 
 void BaseScene1::PostRender()

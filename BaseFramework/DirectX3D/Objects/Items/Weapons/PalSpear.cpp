@@ -4,7 +4,7 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
 {
     transform->Scale() = { 0.01f, 0.01f, 0.01f }; // 크기 기본값은 1
                                       // 나중에 크기가 바뀌어야 하면 와서 수정하게
-    transform->Rot().x += XM_PIDIV2;
+    transform->Rot().x = XM_PIDIV2;
 
     terrain = nullptr;
     pal = nullptr;
@@ -16,6 +16,14 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
     collider->Pos() = {};            //위치 기본값 : 부모 위치
 
     state = State::THROW;
+
+    // StateHitPal용
+    hitPalTime = 0.0f;
+
+    // StateCatching용
+    catchingTime = 0.0f;
+    shakeNum = 0;
+    shakeTime = 0;
 }
 
 PalSpear::~PalSpear()
@@ -55,11 +63,13 @@ void PalSpear::Update()
 
 void PalSpear::Render()
 {
+    if (!transform->Active()) return;
     collider->Render();
 }
 
 void PalSpear::GUIRender()
 {
+    if (!transform->Active()) return;
     ImGui::Text("Down : %f", downForce);
 }
 
@@ -67,7 +77,7 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
 {
     //활성화
     transform->SetActive(true);
-
+    collider->SetActive(true);
     transform->Pos() = pos;
     direction = dir;
 
@@ -121,14 +131,60 @@ void PalSpear::StateThrow()
 
 void PalSpear::StateHitPal()
 {
-    transform->Pos() += Vector3(0.0f, 1.0f, 0.0f) * 2 * DELTA;
-    transform->Pos() += transform->Right() * 2 * DELTA;
-    transform->Pos() += transform->Back() * 2 * DELTA;
-
+    hitPalTime += DELTA;
+    transform->Pos() += Vector3(0.0f, 1.0f, 0.0f) * 2 * DELTA;  // 위로
+    transform->Pos() += transform->Left() * DELTA; // 던지는 방향 반대
+    transform->Pos() += transform->Down() * 2 * DELTA; // 오른쪽
+    if (hitPalTime > 0.4f)
+    {
+        state = State::CATCHING;
+        hitPalTime = 0.0f;
+    }
 }
 
 void PalSpear::StateCatching()
 {
+    catchingTime += DELTA;
+    if (catchingTime > 0.5f)
+    {
+        transform->Rot().x = XM_PIDIV2;
+        transform->Rot().y = 0;
+        transform->Rot().z = 0;
+        if (catchingTime > 1.0f)
+        {
+            catchingTime = 0.0f;
+            shakeNum++;
+
+            if (shakeNum == 4)
+            {
+                shakeNum == 0;
+                transform->SetActive(false);
+                if (RANDOM->Int(0,1) == 0)
+                {
+                    state = State::SUCCESS;
+                }
+                else
+                {
+                    state = State::FAIL;
+                }
+            }
+        }
+        
+    }
+    else
+    {
+        float tmpRX = RANDOM->Float(-45.0f, 45.0f);
+        float tmpRY = RANDOM->Float(-45.0f, 45.0f);
+        float tmpRZ = RANDOM->Float(-45.0f, 45.0f);
+        tmpRX = XM_PIDIV2 + XMConvertToRadians(tmpRX);
+        tmpRY = XMConvertToRadians(tmpRY);
+        tmpRZ = XMConvertToRadians(tmpRZ);
+        transform->Rot().x = Lerp(transform->Rot().x, tmpRX, 0.5f);
+        transform->Rot().y = Lerp(transform->Rot().x, tmpRY, 0.5f);
+        transform->Rot().z = Lerp(transform->Rot().x, tmpRZ, 0.5f);
+    }
+    
+    
 }
 
 void PalSpear::StateSuccess()
