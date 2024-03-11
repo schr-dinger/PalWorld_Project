@@ -26,6 +26,8 @@ PalsManager::PalsManager()
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
 
+    lastPos.resize(SIZE);
+
     // 테스트 : 히트
     testHit = {};
     testIsHit = false;
@@ -48,8 +50,10 @@ void PalsManager::Update()
 {
     OnGround(terrain);
 
-    // 충돌 판정 진행
-    Collision();
+    FOR(30)
+    {
+        lastPos[i] = pals[i]->GetTransform()->GlobalPos();
+    }
 
     // 리스폰
     time += DELTA; //경과시간 누적
@@ -69,6 +73,9 @@ void PalsManager::Update()
     for (Pal* pal : pals)
         pal->Update(); // pal에서 버츄얼로 구현했지만, 
                        // 적용안되면 기본 함수로 바꾸기
+
+    // 충돌 판정 진행
+    Collision();
 
     if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
     {
@@ -211,9 +218,35 @@ void PalsManager::Collision()
     //}
 
 
+    for (int i = 0; i < pals.size(); i++)
+    {
+        for (int j = 0; j < pals.size(); j++)
+        {
+            if (i == j) continue;
+            if (pals[i]->GetCollider()->IsCollision(pals[j]->GetCollider()))
+            {
+                Vector3 nol = (pals[i]->GetTransform()->GlobalPos() - pals[j]->GetTransform()->GlobalPos()).GetNormalized();
+                Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
+                if (dir == Vector3(0.0f, 0.0f, 0.0f)) continue;
+                Vector3 tmpV1 = pals[i]->GetTransform()->Back();
+                Vector3 tmpV2 = pals[j]->GetTransform()->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
+                if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 mDir = dir * -1;
+                //Vector3 tmp = 2 * nol * Dot(mDir, nol);
+                Vector3 tmp = nol * Dot(mDir, nol);
+                Vector3 fDir = dir + tmp;
+                pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                pals[i]->GetTransform()->UpdateWorld();
+            }
+        }
+
+
+    }
+
+
     for (Pal* pal : pals) 
     {
-        if (PalSpearManager::Get()->IsCollision(pal->GetCollider())) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
+        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(), pal)) // 팰스피어의 콜리전을 불러와서, 모든 팰스피어와 모든 필드 팰을 충돌검사
         {
             // 여기 들어오면 팔스피어 맞은 개체, 플레이어 팔매니저에 해당 팔 깊은 복사
             PlayerPalsManager::Get()->Caught(pal);

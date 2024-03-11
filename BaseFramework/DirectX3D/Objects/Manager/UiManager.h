@@ -12,8 +12,6 @@ public:
 
 	bool GetUiOn() { return UiOn; }
 
-	void SetUI();
-
 	bool palBoxUiOn = false;
 	bool buildUiOn = false;
 	bool WorkBenchUiOn = false;

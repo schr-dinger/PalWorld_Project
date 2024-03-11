@@ -167,7 +167,6 @@ void PalBox::Interaction()
 		if (mouseHit->IsRayCollision(ray, &contact) && KEY_DOWN('F') && !UiManager::Get()->buildUiOn)
 		{
 			UiManager::Get()->palBoxUiOn = true;
-			UiManager::Get()->SetUI();
 
 		}
 
