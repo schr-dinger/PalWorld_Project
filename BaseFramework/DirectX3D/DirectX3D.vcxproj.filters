@@ -912,6 +912,8 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UI\PartyUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Framework\Utilities\Random.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
