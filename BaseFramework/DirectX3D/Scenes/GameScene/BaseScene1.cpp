@@ -39,6 +39,16 @@ BaseScene1::BaseScene1()
 
 	// UI테스트
 	testUI = new FieldUI();
+
+
+	mam = new ModelAnimator("Mammoth");
+	mam->ReadClip("Idle");
+	mam->ReadClip("Walk");
+	mam->ReadClip("Run");
+	mam->ReadClip("Attack");
+
+	mam->Scale() *= 0.01f;
+
 }
 
 BaseScene1::~BaseScene1()
@@ -85,6 +95,7 @@ void BaseScene1::Update()
 
 	// UI테스트
 	testUI->Update();
+	mam->Update();
 }
 
 void BaseScene1::PreRender()
@@ -109,9 +120,9 @@ void BaseScene1::Render()
 	skyBox->Render();
 	//terrain->Render();
 	water->Render();
-
-	//player->Render();
 	
+	mam->Render();
+
 	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
 
@@ -119,7 +130,7 @@ void BaseScene1::Render()
 	PlayerPalsManager::Get()->Render();
 
 	LandScapeManager::Get()->Render();
-	AStarManager::Get()->Render();
+	//AStarManager::Get()->Render();
 }
 
 void BaseScene1::PostRender()
@@ -150,6 +161,8 @@ void BaseScene1::GUIRender()
 	testUI->GUIRender();
 	UiManager::Get()->GuiRender();
 	LandScapeManager::Get()->GUIRender();
+
+	mam->GUIRender();
 }
 
 void BaseScene1::SetLights()

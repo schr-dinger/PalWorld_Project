@@ -75,7 +75,7 @@ void PalsManager::Update()
                        // 적용안되면 기본 함수로 바꾸기
 
     // 충돌 판정 진행
-    Collision();
+    //Collision();
 
     if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
     {

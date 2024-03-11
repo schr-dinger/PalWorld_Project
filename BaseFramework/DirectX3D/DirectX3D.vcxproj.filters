@@ -1,968 +1,352 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectX3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\GameManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\SceneManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Singleton.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\System\Device.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\ConstBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\GlobalBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\IndexBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\VertexBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\VertexLayouts.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\PixelShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\Shader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\VertexShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\Environment.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Vector3.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Vector2.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Transform.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\GameMath.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\BinaryReader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\BinaryWriter.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Keyboard.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Timer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\tinyxml2.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Utility.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Observer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Font.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Render\Texture.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Render\Material.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Render\Mesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\State\RasterizerState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\State\SamplerState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\ComputeShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\RawBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Buffer\StructuredBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Collision\Collider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Collision\BoxCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Collision\SphereCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Collision\CapsuleCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\State\BlendState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\State\DepthStencilState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelExporter.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelData.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\Model.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelMesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelClip.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelAnimator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelInstancing.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Model\ModelAnimatorInstancing.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\GeometryShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Audio.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\CollisionScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\CubeScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\GridScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\IntancingScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\LightScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ModelAnimationScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ModelExportScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ModelRenderScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\SphereScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\TerrainEditorScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\TerrainScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\StudyManager\BlockManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\TerrainEditor.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Terrain.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Basic\Sphere.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Basic\Cube.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Basic\Cylinder.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Basic\GameObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Basic\Quad.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Actor\ActorUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\StudyCharacter\Robot.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\StudyCharacter\Human.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\StudyCharacter\Naruto.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\GameScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Items\Weapons\Kunai.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\StudyManager\KunaiManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\StudyManager\RobotManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\ProgressBar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\SkyBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\BillboardScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Render\DepthStencil.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Render\RenderTarget.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\RenderTargetScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\Shadow.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ShadowScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\DNode.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\Dijkstra.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\StudyCharacter\FoxD.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\DijkstraScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\Node.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\Heap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Algorithm\AStar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\StudyCharacter\Fox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\AStarScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\Particle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\Spark.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ParticleScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\Rain.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\Sprite.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Items\Weapons\Crowbar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\Trail.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\HumanScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Particle\ParticleSystem.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\ParticleConfigScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\TerrainData.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\QuadTreeTerrain.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\QuadTreeScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\HullShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Shader\DomainShader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\TerrainLOD.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\TerrainLODScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\Refraction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\Reflection.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Water.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\StudyScene\WaterScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Penguin.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\GameScene\BaseScene1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Player.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Character\Pal.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\PalsManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Tree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Grass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Rock.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\PlayerPalsManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\PalSpearManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Items\Weapons\PalSpear.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Landscape\Ice.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Structure\PalBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Skill\Skill.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Skill\Tornado.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\FieldPalSkillManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\MyPalSkillManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\LandScapeManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Environment\FakeShadow.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\PalBoxUi.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\ClickQuad.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\PalClickQuad.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\PartyBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\StudyManager\BulletManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Items\Weapons\Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\UiMouseManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\PlayerManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\UiManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\BuildUi.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\FieldUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Structure\WorkBench.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\StructureManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Manager\AStarManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\UI\PartyUi.h">
-    <ClInclude Include="Framework\Utilities\Random.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DirectX3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\GameManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\SceneManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\System\Device.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Buffer\ConstBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Buffer\IndexBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Buffer\VertexBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\PixelShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\Shader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\VertexShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\Environment.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Math\Transform.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Math\GameMath.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\BinaryReader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\BinaryWriter.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Keyboard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Timer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\tinyxml2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Utility.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Observer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Font.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\Camera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Render\Texture.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Render\Material.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\State\RasterizerState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\State\SamplerState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\ComputeShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Buffer\RawBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Buffer\StructuredBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Collision\Collider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Collision\CapsuleCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Collision\BoxCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Collision\SphereCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\State\BlendState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\State\DepthStencilState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelExporter.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelMesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\Model.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelClip.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelAnimator.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelInstancing.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Model\ModelAnimatorInstancing.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\GeometryShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Audio.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\CollisionScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\CubeScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\GridScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\IntancingScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\LightScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ModelAnimationScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ModelExportScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ModelRenderScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\SphereScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\TerrainEditorScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\TerrainScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\StudyManager\BlockManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Terrain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\TerrainEditor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Basic\Cube.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Basic\Cylinder.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Basic\GameObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Basic\Quad.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Basic\Sphere.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Actor\ActorUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\StudyCharacter\Robot.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\StudyCharacter\Human.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\StudyCharacter\Naruto.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\GameScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Items\Weapons\Kunai.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\StudyManager\KunaiManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\StudyManager\RobotManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\ProgressBar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\SkyBox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\BillboardScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Render\DepthStencil.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Render\RenderTarget.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\RenderTargetScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\Shadow.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ShadowScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\DNode.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\StudyCharacter\FoxD.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\DijkstraScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\Node.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\Heap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Algorithm\AStar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\StudyCharacter\Fox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\AStarScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\Particle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\Spark.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ParticleScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\Rain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\Sprite.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Items\Weapons\Crowbar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\Trail.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\HumanScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Particle\ParticleSystem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\ParticleConfigScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\TerrainData.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\QuadTreeTerrain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\QuadTreeScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\HullShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Shader\DomainShader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\TerrainLOD.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\TerrainLODScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\Refraction.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\Reflection.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Water.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\StudyScene\WaterScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Penguin.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\GameScene\BaseScene1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Character\Pal.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\PalsManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Tree.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Grass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Rock.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\PlayerPalsManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\PalSpearManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Landscape\Ice.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Structure\PalBox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Skill\Skill.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Skill\Tornado.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\LandScapeManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Environment\FakeShadow.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\PalBoxUi.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\ClickQuad.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\PalClickQuad.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\PartyBox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\StudyManager\BulletManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Items\Weapons\Bullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\UiMouseManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\PlayerManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\UiManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\BuildUi.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\FieldUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Structure\WorkBench.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\StructureManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Manager\AStarManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\UI\PartyUi.cpp">
-    <ClCompile Include="Framework\Utilities\Random.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="DirectX3D.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="DirectX3D.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="..\..\DirectX2D\DirectX2D\Textures\UI\Cancel.png">
-      <Filter>리소스 파일</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Shaders\Basic\Grid.hlsl" />
+    <FxCompile Include="Shaders\Basic\Collider.hlsl" />
     <FxCompile Include="Shaders\Basic\Texture.hlsl" />
-    <FxCompile Include="Shaders\Light\DiffuseLight.hlsl" />
-    <FxCompile Include="Shaders\Light\SpecularLight.hlsl" />
-    <FxCompile Include="Shaders\Light\NormalMapping.hlsl" />
-    <FxCompile Include="Shaders\Landscape\TerrainEditor.hlsl" />
+    <FxCompile Include="Shaders\Basic\Grid.hlsl" />
     <FxCompile Include="Shaders\Compute\ByteAddress.hlsl" />
     <FxCompile Include="Shaders\Compute\ComputePicking.hlsl" />
-    <FxCompile Include="Shaders\Landscape\Terrain.hlsl" />
-    <FxCompile Include="Shaders\Light\Light.hlsl" />
-    <FxCompile Include="Shaders\Basic\Collider.hlsl" />
-    <FxCompile Include="Shaders\Model\ModelAnimation.hlsl" />
-    <FxCompile Include="Shaders\Model\ModelInstancing.hlsl" />
-    <FxCompile Include="Shaders\Model\ModelAnimationInstancing.hlsl" />
-    <FxCompile Include="Shaders\UI\ProgressBar.hlsl" />
+    <FxCompile Include="Shaders\Effect\Particle.hlsl" />
+    <FxCompile Include="Shaders\Geometry\Billboard.hlsl" />
+    <FxCompile Include="Shaders\Geometry\Rain.hlsl" />
+    <FxCompile Include="Shaders\Geometry\Snow.hlsl" />
+    <FxCompile Include="Shaders\Geometry\Spark.hlsl" />
+    <FxCompile Include="Shaders\Geometry\Sprite.hlsl" />
     <FxCompile Include="Shaders\Landscape\Skybox.hlsl" />
-    <FxCompile Include="Shaders\Effect\Bloom.hlsl" />
-    <FxCompile Include="Shaders\Light\GBuffer.hlsl" />
+    <FxCompile Include="Shaders\Landscape\Terrain.hlsl" />
+    <FxCompile Include="Shaders\Landscape\TerrainEditor.hlsl" />
     <FxCompile Include="Shaders\Light\AnimGBuffer.hlsl" />
     <FxCompile Include="Shaders\Light\Deferred.hlsl" />
     <FxCompile Include="Shaders\Light\DepthMap.hlsl" />
+    <FxCompile Include="Shaders\Light\DiffuseLight.hlsl" />
+    <FxCompile Include="Shaders\Light\GBuffer.hlsl" />
+    <FxCompile Include="Shaders\Light\Light.hlsl" />
+    <FxCompile Include="Shaders\Light\NormalMapping.hlsl" />
     <FxCompile Include="Shaders\Light\Shadow.hlsl" />
-    <FxCompile Include="Shaders\Geometry\Billboard.hlsl" />
-    <FxCompile Include="Shaders\Geometry\Sprite.hlsl" />
-    <FxCompile Include="Shaders\Geometry\Spark.hlsl" />
-    <FxCompile Include="Shaders\Geometry\Rain.hlsl" />
-    <FxCompile Include="Shaders\Geometry\Snow.hlsl" />
+    <FxCompile Include="Shaders\Light\SpecularLight.hlsl" />
+    <FxCompile Include="Shaders\Model\ModelAnimation.hlsl" />
+    <FxCompile Include="Shaders\Model\ModelAnimationInstancing.hlsl" />
+    <FxCompile Include="Shaders\Model\ModelInstancing.hlsl" />
+    <FxCompile Include="Shaders\Effect\Bloom.hlsl" />
     <FxCompile Include="Shaders\Effect\Fog.hlsl" />
-    <FxCompile Include="Shaders\Effect\Particle.hlsl" />
+    <FxCompile Include="Shaders\UI\ProgressBar.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\VertexHeader.hlsli" />
+    <ClCompile Include="Objects\Manager\AStarManager.cpp" />
+    <ClCompile Include="Objects\Manager\StructureManager.cpp" />
+    <ClCompile Include="Objects\UI\BuildUi.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\Bullet.cpp" />
+    <ClCompile Include="Objects\Manager\StudyManager\BulletManager.cpp" />
+    <ClCompile Include="Objects\UI\ClickQuad.cpp" />
+    <ClCompile Include="Objects\Manager\FieldPalSkillManager.cpp" />
+    <ClCompile Include="Objects\Manager\MyPalSkillManager.cpp" />
+    <ClCompile Include="Framework\Environment\FakeShadow.cpp" />
+    <ClCompile Include="Objects\Manager\LandScapeManager.cpp" />
+    <ClCompile Include="Objects\Landscape\Ice.cpp" />
+    <ClCompile Include="Objects\Landscape\Grass.cpp" />
+    <ClCompile Include="Objects\Character\Player.cpp" />
+    <ClCompile Include="Objects\Character\Pal.cpp" />
+    <ClCompile Include="Objects\Manager\PalsManager.cpp" />
+    <ClCompile Include="Objects\Landscape\Rock.cpp" />
+    <ClCompile Include="Objects\Manager\PlayerPalsManager.cpp" />
+    <ClCompile Include="Objects\Manager\PalSpearManager.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\PalSpear.cpp" />
+    <ClCompile Include="Objects\Structure\PalBox.cpp" />
+    <ClCompile Include="Objects\UI\FieldUI.cpp" />
+    <ClCompile Include="Objects\UI\PalBoxUi.cpp" />
+    <ClCompile Include="Objects\UI\PalClickQuad.cpp" />
+    <ClCompile Include="Objects\UI\PartyBox.cpp" />
+    <ClCompile Include="Objects\Manager\PlayerManager.cpp" />
+    <ClCompile Include="Objects\UI\PartyUi.cpp" />
+    <ClCompile Include="Framework\Utilities\Random.cpp" />
+    <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
+    <ClCompile Include="Framework\Shader\DomainShader.cpp" />
+    <ClCompile Include="Framework\Shader\HullShader.cpp" />
+    <ClCompile Include="Objects\Particle\ParticleSystem.cpp" />
+    <ClCompile Include="Objects\Landscape\QuadTreeTerrain.cpp" />
+    <ClCompile Include="Framework\Environment\Reflection.cpp" />
+    <ClCompile Include="Framework\Environment\Refraction.cpp" />
+    <ClCompile Include="Objects\Character\Penguin.cpp" />
+    <ClCompile Include="Scenes\StudyScene\QuadTreeScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ParticleConfigScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\HumanScene.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\Crowbar.cpp" />
+    <ClCompile Include="Objects\Particle\Particle.cpp" />
+    <ClCompile Include="Objects\Particle\Rain.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ParticleScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\AStarScene.cpp" />
+    <ClCompile Include="Objects\Character\StudyCharacter\Fox.cpp" />
+    <ClCompile Include="Objects\Algorithm\AStar.cpp" />
+    <ClCompile Include="Objects\Algorithm\Heap.cpp" />
+    <ClCompile Include="Objects\Algorithm\Node.cpp" />
+    <ClCompile Include="Scenes\StudyScene\DijkstraScene.cpp" />
+    <ClCompile Include="Objects\Character\StudyCharacter\FoxD.cpp" />
+    <ClCompile Include="Objects\Algorithm\Dijkstra.cpp" />
+    <ClCompile Include="Objects\Algorithm\DNode.cpp" />
+    <ClCompile Include="Framework\Render\DepthStencil.cpp" />
+    <ClCompile Include="Framework\Render\RenderTarget.cpp" />
+    <ClCompile Include="Scenes\StudyScene\RenderTargetScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\BillboardScene.cpp" />
+    <ClCompile Include="DirectX3D.cpp" />
+    <ClCompile Include="Framework.cpp" />
+    <ClCompile Include="Framework\Buffer\ConstBuffer.cpp" />
+    <ClCompile Include="Framework\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="Framework\Buffer\RawBuffer.cpp" />
+    <ClCompile Include="Framework\Buffer\StructuredBuffer.cpp" />
+    <ClCompile Include="Framework\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="Framework\Collision\BoxCollider.cpp" />
+    <ClCompile Include="Framework\Collision\CapsuleCollider.cpp" />
+    <ClCompile Include="Framework\Collision\Collider.cpp" />
+    <ClCompile Include="Framework\Collision\SphereCollider.cpp" />
+    <ClCompile Include="Framework\Environment\Camera.cpp" />
+    <ClCompile Include="Framework\Environment\Environment.cpp" />
+    <ClCompile Include="Framework\Math\GameMath.cpp" />
+    <ClCompile Include="Framework\Math\Transform.cpp" />
+    <ClCompile Include="Framework\Model\ModelAnimator.cpp" />
+    <ClCompile Include="Framework\Model\ModelAnimatorInstancing.cpp" />
+    <ClCompile Include="Framework\Model\ModelClip.cpp" />
+    <ClCompile Include="Framework\Model\ModelExporter.cpp" />
+    <ClCompile Include="Framework\Model\ModelInstancing.cpp" />
+    <ClCompile Include="Framework\Model\ModelMesh.cpp" />
+    <ClCompile Include="Framework\Model\Model.cpp" />
+    <ClCompile Include="Framework\Render\Material.cpp" />
+    <ClCompile Include="Framework\Render\Texture.cpp" />
+    <ClCompile Include="Framework\Shader\ComputeShader.cpp" />
+    <ClCompile Include="Framework\Shader\GeometryShader.cpp" />
+    <ClCompile Include="Framework\Shader\PixelShader.cpp" />
+    <ClCompile Include="Framework\Shader\Shader.cpp" />
+    <ClCompile Include="Framework\Shader\VertexShader.cpp" />
+    <ClCompile Include="Framework\State\BlendState.cpp" />
+    <ClCompile Include="Framework\State\DepthStencilState.cpp" />
+    <ClCompile Include="Framework\State\RasterizerState.cpp" />
+    <ClCompile Include="Framework\State\SamplerState.cpp" />
+    <ClCompile Include="Framework\System\Device.cpp" />
+    <ClCompile Include="Framework\Utilities\Audio.cpp" />
+    <ClCompile Include="Framework\Utilities\BinaryReader.cpp" />
+    <ClCompile Include="Framework\Utilities\BinaryWriter.cpp" />
+    <ClCompile Include="Framework\Utilities\Font.cpp" />
+    <ClCompile Include="Framework\Utilities\Keyboard.cpp" />
+    <ClCompile Include="Framework\Utilities\Observer.cpp" />
+    <ClCompile Include="Framework\Utilities\Timer.cpp" />
+    <ClCompile Include="Framework\Utilities\tinyxml2.cpp" />
+    <ClCompile Include="Framework\Utilities\Utility.cpp" />
+    <ClCompile Include="Objects\Manager\StudyManager\KunaiManager.cpp" />
+    <ClCompile Include="Objects\Items\Weapons\Kunai.cpp" />
+    <ClCompile Include="Objects\Manager\StudyManager\RobotManager.cpp" />
+    <ClCompile Include="Objects\UI\ProgressBar.cpp" />
+    <ClCompile Include="Scenes\StudyScene\GameScene.cpp" />
+    <ClCompile Include="Objects\Character\StudyCharacter\Human.cpp" />
+    <ClCompile Include="Manager\GameManager.cpp" />
+    <ClCompile Include="Manager\SceneManager.cpp" />
+    <ClCompile Include="Objects\Character\StudyCharacter\Naruto.cpp" />
+    <ClCompile Include="Objects\Actor\ActorUI.cpp" />
+    <ClCompile Include="Objects\Basic\Cube.cpp" />
+    <ClCompile Include="Objects\Basic\Cylinder.cpp" />
+    <ClCompile Include="Objects\Basic\GameObject.cpp" />
+    <ClCompile Include="Objects\Basic\Quad.cpp" />
+    <ClCompile Include="Objects\Basic\Sphere.cpp" />
+    <ClCompile Include="Objects\Landscape\Terrain.cpp" />
+    <ClCompile Include="Objects\Landscape\TerrainEditor.cpp" />
+    <ClCompile Include="Objects\Manager\StudyManager\BlockManager.cpp" />
+    <ClCompile Include="Objects\Character\StudyCharacter\Robot.cpp" />
+    <ClCompile Include="Scenes\StudyScene\CollisionScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\CubeScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\GridScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\IntancingScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\LightScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ModelAnimationScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ModelExportScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ModelRenderScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\SphereScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\TerrainEditorScene.cpp" />
+    <ClCompile Include="Scenes\StudyScene\TerrainScene.cpp" />
+    <ClCompile Include="Objects\Landscape\SkyBox.cpp" />
+    <ClCompile Include="Framework\Environment\Shadow.cpp" />
+    <ClCompile Include="Scenes\StudyScene\ShadowScene.cpp" />
+    <ClCompile Include="Objects\Particle\Spark.cpp" />
+    <ClCompile Include="Objects\Particle\Sprite.cpp" />
+    <ClCompile Include="Objects\Particle\Trail.cpp" />
+    <ClCompile Include="Objects\Landscape\TerrainData.cpp" />
+    <ClCompile Include="Objects\Landscape\TerrainLOD.cpp" />
+    <ClCompile Include="Scenes\StudyScene\TerrainLODScene.cpp" />
+    <ClCompile Include="Objects\Landscape\Water.cpp" />
+    <ClCompile Include="Scenes\StudyScene\WaterScene.cpp" />
+    <ClCompile Include="Objects\Landscape\Tree.cpp" />
+    <ClCompile Include="Objects\Skill\Skill.cpp" />
+    <ClCompile Include="Objects\Skill\Tornado.cpp" />
+    <ClCompile Include="Objects\Manager\UiMouseManager.cpp" />
+    <ClCompile Include="Objects\Manager\UiManager.cpp" />
+    <ClCompile Include="Objects\Structure\WorkBench.cpp" />
+    <ClCompile Include="Objects\Character\Mammoth.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Objects\Manager\AStarManager.h" />
+    <ClInclude Include="Objects\Manager\StructureManager.h" />
+    <ClInclude Include="Objects\UI\BuildUi.h" />
+    <ClInclude Include="Objects\Items\Weapons\Bullet.h" />
+    <ClInclude Include="Objects\Manager\StudyManager\BulletManager.h" />
+    <ClInclude Include="Objects\UI\ClickQuad.h" />
+    <ClInclude Include="Objects\Manager\FieldPalSkillManager.h" />
+    <ClInclude Include="Objects\Manager\MyPalSkillManager.h" />
+    <ClInclude Include="Framework\Environment\FakeShadow.h" />
+    <ClInclude Include="Objects\Manager\LandScapeManager.h" />
+    <ClInclude Include="Objects\Landscape\Ice.h" />
+    <ClInclude Include="Objects\Landscape\Grass.h" />
+    <ClInclude Include="Objects\Character\Player.h" />
+    <ClInclude Include="Objects\Character\Pal.h" />
+    <ClInclude Include="Objects\Manager\PalsManager.h" />
+    <ClInclude Include="Objects\Landscape\Rock.h" />
+    <ClInclude Include="Objects\Manager\PlayerPalsManager.h" />
+    <ClInclude Include="Objects\Manager\PalSpearManager.h" />
+    <ClInclude Include="Objects\Items\Weapons\PalSpear.h" />
+    <ClInclude Include="Objects\Structure\PalBox.h" />
+    <ClInclude Include="Objects\UI\FieldUI.h" />
+    <ClInclude Include="Objects\UI\PalBoxUi.h" />
+    <ClInclude Include="Objects\UI\PalClickQuad.h" />
+    <ClInclude Include="Objects\UI\PartyBox.h" />
+    <ClInclude Include="Objects\Manager\PlayerManager.h" />
+    <ClInclude Include="Objects\UI\PartyUi.h" />
+    <ClInclude Include="Framework\Utilities\Random.h" />
+    <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
+    <ClInclude Include="Framework\Shader\DomainShader.h" />
+    <ClInclude Include="Framework\Shader\HullShader.h" />
+    <ClInclude Include="Objects\Particle\ParticleSystem.h" />
+    <ClInclude Include="Objects\Landscape\QuadTreeTerrain.h" />
+    <ClInclude Include="Framework\Environment\Reflection.h" />
+    <ClInclude Include="Framework\Environment\Refraction.h" />
+    <ClInclude Include="Objects\Character\Penguin.h" />
+    <ClInclude Include="Scenes\StudyScene\QuadTreeScene.h" />
+    <ClInclude Include="Scenes\StudyScene\ParticleConfigScene.h" />
+    <ClInclude Include="Scenes\StudyScene\HumanScene.h" />
+    <ClInclude Include="Objects\Items\Weapons\Crowbar.h" />
+    <ClInclude Include="Objects\Particle\Particle.h" />
+    <ClInclude Include="Objects\Particle\Rain.h" />
+    <ClInclude Include="Scenes\StudyScene\ParticleScene.h" />
+    <ClInclude Include="Scenes\StudyScene\AStarScene.h" />
+    <ClInclude Include="Objects\Character\StudyCharacter\Fox.h" />
+    <ClInclude Include="Objects\Algorithm\AStar.h" />
+    <ClInclude Include="Objects\Algorithm\Heap.h" />
+    <ClInclude Include="Objects\Algorithm\Node.h" />
+    <ClInclude Include="Scenes\StudyScene\DijkstraScene.h" />
+    <ClInclude Include="Objects\Character\StudyCharacter\FoxD.h" />
+    <ClInclude Include="Objects\Algorithm\Dijkstra.h" />
+    <ClInclude Include="Objects\Algorithm\DNode.h" />
+    <ClInclude Include="Framework\Render\DepthStencil.h" />
+    <ClInclude Include="Framework\Render\RenderTarget.h" />
+    <ClInclude Include="Scenes\StudyScene\RenderTargetScene.h" />
+    <ClInclude Include="Scenes\StudyScene\BillboardScene.h" />
+    <ClInclude Include="DirectX3D.h" />
+    <ClInclude Include="Framework.h" />
+    <ClInclude Include="Framework\Buffer\ConstBuffer.h" />
+    <ClInclude Include="Framework\Buffer\GlobalBuffer.h" />
+    <ClInclude Include="Framework\Buffer\IndexBuffer.h" />
+    <ClInclude Include="Framework\Buffer\RawBuffer.h" />
+    <ClInclude Include="Framework\Buffer\StructuredBuffer.h" />
+    <ClInclude Include="Framework\Buffer\VertexBuffer.h" />
+    <ClInclude Include="Framework\Buffer\VertexLayouts.h" />
+    <ClInclude Include="Framework\Collision\BoxCollider.h" />
+    <ClInclude Include="Framework\Collision\CapsuleCollider.h" />
+    <ClInclude Include="Framework\Collision\Collider.h" />
+    <ClInclude Include="Framework\Collision\SphereCollider.h" />
+    <ClInclude Include="Framework\Environment\Camera.h" />
+    <ClInclude Include="Framework\Environment\Environment.h" />
+    <ClInclude Include="Framework\Math\GameMath.h" />
+    <ClInclude Include="Framework\Math\Transform.h" />
+    <ClInclude Include="Framework\Math\Vector2.h" />
+    <ClInclude Include="Framework\Math\Vector3.h" />
+    <ClInclude Include="Framework\Model\ModelAnimator.h" />
+    <ClInclude Include="Framework\Model\ModelAnimatorInstancing.h" />
+    <ClInclude Include="Framework\Model\ModelClip.h" />
+    <ClInclude Include="Framework\Model\ModelData.h" />
+    <ClInclude Include="Framework\Model\ModelExporter.h" />
+    <ClInclude Include="Framework\Model\ModelInstancing.h" />
+    <ClInclude Include="Framework\Model\ModelMesh.h" />
+    <ClInclude Include="Framework\Model\Model.h" />
+    <ClInclude Include="Framework\Render\Material.h" />
+    <ClInclude Include="Framework\Render\Mesh.h" />
+    <ClInclude Include="Framework\Render\Texture.h" />
+    <ClInclude Include="Framework\Shader\ComputeShader.h" />
+    <ClInclude Include="Framework\Shader\GeometryShader.h" />
+    <ClInclude Include="Framework\Shader\PixelShader.h" />
+    <ClInclude Include="Framework\Shader\Shader.h" />
+    <ClInclude Include="Framework\Shader\VertexShader.h" />
+    <ClInclude Include="Framework\State\BlendState.h" />
+    <ClInclude Include="Framework\State\DepthStencilState.h" />
+    <ClInclude Include="Framework\State\RasterizerState.h" />
+    <ClInclude Include="Framework\State\SamplerState.h" />
+    <ClInclude Include="Framework\System\Device.h" />
+    <ClInclude Include="Framework\Utilities\Audio.h" />
+    <ClInclude Include="Framework\Utilities\BinaryReader.h" />
+    <ClInclude Include="Framework\Utilities\BinaryWriter.h" />
+    <ClInclude Include="Framework\Utilities\Font.h" />
+    <ClInclude Include="Framework\Utilities\Keyboard.h" />
+    <ClInclude Include="Framework\Utilities\Observer.h" />
+    <ClInclude Include="Framework\Utilities\Singleton.h" />
+    <ClInclude Include="Framework\Utilities\Timer.h" />
+    <ClInclude Include="Framework\Utilities\tinyxml2.h" />
+    <ClInclude Include="Framework\Utilities\Utility.h" />
+    <ClInclude Include="Objects\Manager\StudyManager\KunaiManager.h" />
+    <ClInclude Include="Objects\Items\Weapons\Kunai.h" />
+    <ClInclude Include="Objects\Manager\StudyManager\RobotManager.h" />
+    <ClInclude Include="Objects\UI\ProgressBar.h" />
+    <ClInclude Include="Scenes\StudyScene\GameScene.h" />
+    <ClInclude Include="Objects\Character\StudyCharacter\Human.h" />
+    <ClInclude Include="Manager\GameManager.h" />
+    <ClInclude Include="Manager\SceneManager.h" />
+    <ClInclude Include="Objects\Character\StudyCharacter\Naruto.h" />
+    <ClInclude Include="Objects\Actor\ActorUI.h" />
+    <ClInclude Include="Objects\Basic\Cube.h" />
+    <ClInclude Include="Objects\Basic\Cylinder.h" />
+    <ClInclude Include="Objects\Basic\GameObject.h" />
+    <ClInclude Include="Objects\Basic\Quad.h" />
+    <ClInclude Include="Objects\Basic\Sphere.h" />
+    <ClInclude Include="Objects\Landscape\Terrain.h" />
+    <ClInclude Include="Objects\Landscape\TerrainEditor.h" />
+    <ClInclude Include="Objects\Manager\StudyManager\BlockManager.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Objects\Character\StudyCharacter\Robot.h" />
+    <ClInclude Include="Scenes\StudyScene\CollisionScene.h" />
+    <ClInclude Include="Scenes\StudyScene\CubeScene.h" />
+    <ClInclude Include="Scenes\StudyScene\GridScene.h" />
+    <ClInclude Include="Scenes\StudyScene\IntancingScene.h" />
+    <ClInclude Include="Scenes\StudyScene\LightScene.h" />
+    <ClInclude Include="Scenes\StudyScene\ModelAnimationScene.h" />
+    <ClInclude Include="Scenes\StudyScene\ModelExportScene.h" />
+    <ClInclude Include="Scenes\StudyScene\ModelRenderScene.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\StudyScene\SphereScene.h" />
+    <ClInclude Include="Scenes\StudyScene\TerrainEditorScene.h" />
+    <ClInclude Include="Scenes\StudyScene\TerrainScene.h" />
+    <ClInclude Include="Objects\Landscape\SkyBox.h" />
+    <ClInclude Include="Framework\Environment\Shadow.h" />
+    <ClInclude Include="Scenes\StudyScene\ShadowScene.h" />
+    <ClInclude Include="Objects\Particle\Spark.h" />
+    <ClInclude Include="Objects\Particle\Sprite.h" />
+    <ClInclude Include="Objects\Skill\Skill.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Objects\Particle\Trail.h" />
+    <ClInclude Include="Objects\Landscape\TerrainData.h" />
+    <ClInclude Include="Objects\Landscape\TerrainLOD.h" />
+    <ClInclude Include="Scenes\StudyScene\TerrainLODScene.h" />
+    <ClInclude Include="Objects\Landscape\Water.h" />
+    <ClInclude Include="Scenes\StudyScene\WaterScene.h" />
+    <ClInclude Include="Objects\Landscape\Tree.h" />
+    <ClInclude Include="Objects\Skill\Tornado.h" />
+    <ClInclude Include="Objects\Manager\UiMouseManager.h" />
+    <ClInclude Include="Objects\Manager\UiManager.h" />
+    <ClInclude Include="Objects\Structure\WorkBench.h" />
+    <ClInclude Include="Objects\Character\Mammoth.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX3D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\DirectX2D\DirectX2D\Textures\UI\Cancel.png" />
+    <Image Include="DirectX3D.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Shaders\PixelHeader.hlsli" />
+    <None Include="Shaders\VertexHeader.hlsli" />
   </ItemGroup>
 </Project>

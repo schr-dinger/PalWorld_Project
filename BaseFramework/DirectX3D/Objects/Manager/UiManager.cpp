@@ -72,10 +72,10 @@ void UiManager::ControlOn()
 
 	if (KEY_DOWN(VK_ESCAPE))
 	{
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 		palBoxUiOn = false;
 		buildUiOn = false;
 		WorkBenchUiOn = false;
 		partyUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 	}
 }
