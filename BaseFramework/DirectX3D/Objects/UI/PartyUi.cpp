@@ -56,6 +56,7 @@ void PartyUi::Update()
 			model = nullptr;
 			model = new ModelAnimator(partyIcon[i]->GetPal()->GetModelName());
 			model->ReadClip("Idle");
+			//model->ReadClip("Run");
 			model->PlayClip(0);
 			model->Pos() = { 770.0f,150.0f, -150.0f };
 			model->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };

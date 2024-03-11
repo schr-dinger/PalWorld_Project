@@ -31,5 +31,7 @@ private:
 
 	// UI테스트
 	FieldUI* testUI;
+
+	ModelAnimator* mam;
 };
 

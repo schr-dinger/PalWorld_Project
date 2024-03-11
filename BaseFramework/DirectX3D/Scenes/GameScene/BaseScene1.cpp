@@ -39,6 +39,16 @@ BaseScene1::BaseScene1()
 
 	// UI테스트
 	testUI = new FieldUI();
+
+
+	mam = new ModelAnimator("Mammoth");
+	mam->ReadClip("Idle");
+	mam->ReadClip("Walk");
+	mam->ReadClip("Run");
+	mam->ReadClip("Attack");
+
+	mam->Scale() *= 0.01f;
+
 }
 
 BaseScene1::~BaseScene1()
@@ -70,6 +80,7 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
+	PlayerManager::Get()->Update();
 
 	StructureManager::Get()->Update();
 
@@ -78,12 +89,13 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
-	PlayerManager::Get()->Update();
+	//PlayerManager::Get()->Update();
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
 	// UI테스트
 	testUI->Update();
+	mam->Update();
 }
 
 void BaseScene1::PreRender()
@@ -108,8 +120,9 @@ void BaseScene1::Render()
 	skyBox->Render();
 	//terrain->Render();
 	water->Render();
-
 	
+	mam->Render();
+
 	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
 
@@ -148,6 +161,8 @@ void BaseScene1::GUIRender()
 	testUI->GUIRender();
 	UiManager::Get()->GuiRender();
 	LandScapeManager::Get()->GUIRender();
+
+	mam->GUIRender();
 }
 
 void BaseScene1::SetLights()

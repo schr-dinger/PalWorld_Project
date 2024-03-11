@@ -21,12 +21,26 @@ PalsManager::PalsManager()
     }
     // 여기까지가 팔 하나
 
+    InsertMAI("Mammoth");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
+                                            // 추가 모션
+    palsInstancing[1]->SetTag("mammoth");
+    FOR(SIZE)
+    {
+        Transform* transform = palsInstancing[1]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;
+        Pal* pal = new Mammoth(transform, palsInstancing[1], i);
+        pals.push_back(pal);
+    }
+
+
+
     FOR(2)
         blendState[i] = new BlendState();
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
 
-    lastPos.resize(SIZE);
+    lastPos.resize(pals.size());
 
     // 테스트 : 히트
     testHit = {};
@@ -50,7 +64,7 @@ void PalsManager::Update()
 {
     OnGround(terrain);
 
-    FOR(SIZE)
+    FOR(pals.size())
     {
         lastPos[i] = pals[i]->GetTransform()->GlobalPos();
     }
@@ -317,6 +331,8 @@ void PalsManager::Spawn()
 
 void PalsManager::PathCollider()
 {
+    if (target == nullptr) return;
+
     for (Pal* pal : pals)
     {
         if (Distance(pal->GetTransform()->GlobalPos(), target->GlobalPos()) < 30.0f)
