@@ -43,7 +43,7 @@ PalsManager::PalsManager()
     lastPos.resize(pals.size());
 
     // 전부 필드에 소환
-    FOR(SIZE)
+    FOR(pals.size())
     {
         Spawn();
     }
