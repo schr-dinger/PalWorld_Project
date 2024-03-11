@@ -43,8 +43,7 @@ PlayerPalsManager::~PlayerPalsManager()
     for (Pal* pal : pals)
         delete pal;
 
-    FOR(2)
-        delete blendState[i];
+    FOR(2)  delete blendState[i];
 }
 
 void PlayerPalsManager::Update()
