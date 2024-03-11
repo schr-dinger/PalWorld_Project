@@ -50,7 +50,7 @@ void PalsManager::Update()
 {
     OnGround(terrain);
 
-    FOR(30)
+    FOR(SIZE)
     {
         lastPos[i] = pals[i]->GetTransform()->GlobalPos();
     }
