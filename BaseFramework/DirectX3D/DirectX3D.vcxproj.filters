@@ -475,6 +475,8 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\UI\PartyUi.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Framework\Utilities\Random.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
