@@ -2,7 +2,7 @@
 
 PalSpear::PalSpear(Transform* transform) : transform(transform)
 {
-    transform->Scale() = { 0.01f, 0.01f, 0.01f }; // 크기 기본값은 1
+    transform->Scale() = { 0.02f, 0.02f, 0.02f }; // 크기 기본값은 1
                                       // 나중에 크기가 바뀌어야 하면 와서 수정하게
     transform->Rot().x = XM_PIDIV2;
 
