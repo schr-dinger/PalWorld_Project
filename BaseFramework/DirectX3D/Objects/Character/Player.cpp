@@ -473,25 +473,30 @@ void Player::CatchPal()
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
 
-    Ray ray;
-    ray.pos = CAM->GlobalPos();
-    ray.dir = CAM->Forward();
-    Vector3 hitPoint;
+    //Ray ray;
+    //ray.pos = CAM->GlobalPos();
+    //ray.dir = CAM->Forward();
+    //Vector3 hitPoint;
 
     // �罺�Ǿ� �Ŵ��� �׽�Ʈ
-    Vector3 tmp = this->GlobalPos();
-    tmp.y += 2;
-    ray.dir += {0, 0.3f, 0};
-    PalSpearManager::Get()->Throw(tmp, ray.dir);
+    Vector3 tmpF = CAM->Forward();
+    tmpF.y = 0.0f;
+    tmpF = tmpF.GetNormalized(); // 앞에서
+    Vector3 tmp = CAM->GlobalPos() + CAM->Left() * 0.4f + tmpF * 1.5f + Vector3(0.0f, 1.0f, 0.0f) * 0.2f;
+    //tmp.x -= 0.3f;
+    //tmp.y += 1.7f;
+    //ray.dir += {0, 0.3f, 0};
+   // PalSpearManager::Get()->Throw(tmp, ray.dir);
+    PalSpearManager::Get()->Throw(tmp, CAM->Forward());
 
 }
 
 void Player::SummonsPal()
 {
     // ù��° �� ����
-    PlayerPalsManager::Get()->SetSelPal(0);
-    // �� ��ȯ
-    PlayerPalsManager::Get()->Summons();
+    //PlayerPalsManager::Get()->SetSelPal(0);
+    //// �� ��ȯ
+    //PlayerPalsManager::Get()->Summons();
 }
 
 void Player::UiMode()

@@ -141,6 +141,7 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
 
     time = 0; //경과시간 리셋
     shakeNum = 0;
+    downForce = 0.0f;
     
     whitePalTexture.clear();
     whitePalEmissive.clear();
@@ -155,34 +156,36 @@ void PalSpear::StateThrow()
 
     transform->Pos() += direction * speed * DELTA;
     transform->Pos() += tmp * DELTA;
-    speed -= DELTA * 3;
+    speed -= DELTA * 5;
     if (speed <= 0.0f)
     {
         speed = 0.0f;
-        if (transform->Pos().y < terrain->GetHeight(transform->GlobalPos()))
+        if (transform->Pos().y <= terrain->GetHeight(transform->GlobalPos()))
         {
             transform->Pos().y = terrain->GetHeight(transform->GlobalPos());
             time += DELTA; // 시간 경과에 따라 변수에 누적
             if (time > LIFE_SPAN)
             {
                 transform->SetActive(false);
-                speed = 15.0f;
+                speed = 20.0f;
                 downForce = 0.0f;
             }
         }
     }
-    if (transform->Pos().y < terrain->GetHeight(transform->GlobalPos()))
+    else if (transform->Pos().y < terrain->GetHeight(transform->GlobalPos()))
     {
         Vector3 normal;
         transform->Pos().y = terrain->GetHeight(transform->GlobalPos(), &normal);
         normal *= -1;
-        Vector3 tmpDir = (direction + tmp) * -1;
-        //tmpDir = tmpDir.GetNormalized();
+        Vector3 tmpDir = (direction + tmp.GetNormalized()) * -1;
+        tmpDir = tmpDir.GetNormalized();
         Vector3 tmpD = 2 * normal * (Dot(tmpDir, normal));
         tmpDir *= -1;
-        direction = (tmpDir + tmpD).GetNormalized();
+        //direction = (tmpDir + tmpD).GetNormalized();
+        direction = tmpDir + tmpD;
+        //downForce *= -0.6f;
         downForce = 0.0f;
-        speed *= 0.7;
+        speed *= 0.8f;
     }
 }
 
@@ -197,6 +200,7 @@ void PalSpear::StateHitPal()
         state = State::CATCHING;
         hitPalTime = 0.0f;
         pal->GetTransform()->SetActive(false);
+        pal->GetCollider()->SetActive(false);
 
     }
 }
@@ -258,6 +262,7 @@ void PalSpear::StateSuccess()
 void PalSpear::StateFail()
 {
     pal->GetTransform()->SetActive(true);
+    pal->GetCollider()->SetActive(true);
 
     transform->SetActive(false);
     collider->SetActive(false);

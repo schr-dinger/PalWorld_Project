@@ -34,6 +34,8 @@ private:
 	PalBoxUi* palBoxUi;
 	BuildUi* buildUi;
 	PartyUi* partyUi;
+	FieldUI* fieldUI;
+
 	bool UiOn = false;
 
 };

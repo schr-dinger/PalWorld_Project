@@ -9,7 +9,8 @@ Pal::Pal()
 	skill[2] = nullptr;
 	icon = nullptr;
 	iconC = nullptr;
-
+	isUIOn = false;
+	onUITime = 0.0f;
 }
 
 Pal::~Pal()

@@ -131,11 +131,11 @@ void PalsManager::PostRender()
 
 void PalsManager::GUIRender()
 {
-    //for (Pal* pal : pals)
-    //    pal->GUIRender();
-
-    for (ModelAnimatorInstancing* pal : palsInstancing)
+    for (Pal* pal : pals)
         pal->GUIRender();
+
+    //for (ModelAnimatorInstancing* pal : palsInstancing)
+    //    pal->GUIRender();
 
 }
 

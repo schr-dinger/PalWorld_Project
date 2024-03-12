@@ -72,7 +72,27 @@ void Penguin::Update()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
+
+    Ray ray;
+    ray.dir = CAM->Forward();
+    ray.pos = CAM->GlobalPos();
+    Contact contact;
+    if (collider->IsRayCollision(ray, &contact))
+    {
+        isUIOn = true;
+        onUITime = 0.0f;
+    }
+    if (isUIOn)
+    {
+        onUITime += DELTA;
+    }
+    if (onUITime > offUITime)
+    {
+        isUIOn = false;
+    }
+
     //ClipSync();
+
     if (target)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
@@ -121,6 +141,15 @@ void Penguin::PostRender()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     if (velocity.Length() >= 15.0f) return;
+    if (!isUIOn) return;
+
+    Ray ray;
+    ray.dir = CAM->Forward();
+    ray.pos = CAM->GlobalPos();
+    Contact contact;
+    if (!collider->IsRayCollision(ray, &contact)) return;
+    
+
     hpBar->Render();
 
     if (hpBar->Active())

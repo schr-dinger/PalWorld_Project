@@ -48,5 +48,10 @@ public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 
 	// 팰 무적유무 : 팰 스피어에 맞았거나, 기타 등등
 	bool isInvincible;
+
+	// 팰 UI랜더
+	bool isUIOn;
+	float onUITime;
+	float offUITime = 2.0f; // 꺼지는 시간
 };
 
