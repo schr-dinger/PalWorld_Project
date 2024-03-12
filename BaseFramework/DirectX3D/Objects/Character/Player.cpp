@@ -67,7 +67,7 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.5f);
+    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
 
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
@@ -465,6 +465,10 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
+    if (curState == S_THROW)
+    {
+        return;
+    }
     SetState(S_THROW);
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
@@ -479,30 +483,6 @@ void Player::CatchPal()
     tmp.y += 2;
     ray.dir += {0, 0.3f, 0};
     PalSpearManager::Get()->Throw(tmp, ray.dir);
-
-    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    //{
-    //    PalSpearManager::Get()->Throw(tmp, ray.dir);
-    //}
-
-    //PalSpearManager::Get()->Throw(tmp, this->Back());
-    //PalSpearManager::Get()->Throw(this->GlobalPos(), this->Back());
-
-    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    //{
-    //    testPalSpear->SetActive(true);
-    //    testPalSpear->Pos() = hitPoint;
-    //    testPalSpear->UpdateWorld();
-    //}
-    //Ray ray = CAM->ScreenPointToRay(mousePos);
-    //Vector3 hitPoint;
-
-    if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    {
-        testPalSpear->SetActive(true);
-        testPalSpear->Pos() = hitPoint;
-        testPalSpear->UpdateWorld();
-    }
 
 }
 

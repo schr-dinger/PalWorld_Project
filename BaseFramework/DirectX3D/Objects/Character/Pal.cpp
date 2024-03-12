@@ -8,6 +8,8 @@ Pal::Pal()
 	skill[1] = nullptr;
 	skill[2] = nullptr;
 	icon = nullptr;
+	iconC = nullptr;
+
 }
 
 Pal::~Pal()

@@ -159,14 +159,14 @@ void BaseScene1::GUIRender()
 	//terrain->GUIRender();
 	//palBox->GUIRender();
 
-	PalsManager::Get()->GUIRender();
+	//PalsManager::Get()->GUIRender();
 	//PlayerPalsManager::Get()->GUIRender();
 
 	// PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
-	//testUI->GUIRender();
+	testUI->GUIRender();
 	//UiManager::Get()->GuiRender();
 	//LandScapeManager::Get()->GUIRender();
 }
