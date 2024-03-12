@@ -10,7 +10,7 @@ PlayerPalsManager::PlayerPalsManager()
     pals.resize(100);
 
     InsertAllMAI(); // 모든 팔 모델 인스턴싱 생성(현재 "펭키" 하나,)
-    FOR(6)
+    FOR(3)
     {
         Transform* transform = palsMAI["펭키"]->Add();
         transform->SetActive(false);
@@ -24,6 +24,19 @@ PlayerPalsManager::PlayerPalsManager()
         
     }
     
+    FOR(3)
+    {
+        Transform* transform = palsMAI["그린모스"]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* pal = new Mammoth(transform, palsMAI["그린모스"], palsMAIIndex["그린모스"]);
+        // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
+        //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
+        palsMAIIndex["그린모스"]++;// 해당 모델 인스턴싱 인덱스 증가
+        //pals.push_back(pal);
+        pals[i+3] = pal;
+
+    }
 
 
 
@@ -281,8 +294,9 @@ void PlayerPalsManager::Collision()
 
 void PlayerPalsManager::PathFinding()
 {
+    if (pals[selPal] == nullptr) return;
 
-    destPos = CAM->GlobalPos() + CAM->Right() * 0.5f + CAM->Forward() * 1.5f;
+    destPos = CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f;
 
     if (Distance(pals[selPal]->GetTransform()->GlobalPos(), destPos) > 10.0f)
     {

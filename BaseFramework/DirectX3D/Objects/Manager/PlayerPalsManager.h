@@ -32,6 +32,7 @@ public:
     vector<Pal*>& GetPalvector() { return pals; }
     Vector3 destPos;
 
+    int GetPathSize() { return path.size(); }
 private:
     void OnGround(Terrain* terrain);
     void InsertAllMAI();

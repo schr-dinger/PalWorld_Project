@@ -55,6 +55,8 @@ private:
     void SetAction(ACTION action);
 
     void Move();
+    void MoveP();
+
     void UpdateUI();
 
 private:
@@ -71,7 +73,6 @@ private:
 	float maxHP;
 	float curHP;
 
-	Vector3 velocity;
 	UINT index;
 
 	vector<map<float, Event>> totalEvent;

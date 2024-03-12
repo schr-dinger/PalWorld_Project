@@ -79,9 +79,8 @@ void Penguin::Update()
         Move(); //움직이기
     }
 
-    if (isSpawned)
+    if (isSpawned && PlayerPalsManager::Get()->GetPathSize()!= 0)
     {
-        //destVel = PlayerManager::Get()->GetPlayer()->GlobalPos() - transform->GlobalPos();
         destVel = PlayerPalsManager::Get()->destPos - transform->GlobalPos();
 
         MoveP();
@@ -358,27 +357,34 @@ void Penguin::MoveP()
     if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
     //if (action == ACTION::) return; // 추가 가능
 
-    if (destVel.Length() < 0.1)
+
+    Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
+    Vector3 real = { temp.x,LandScapeManager::Get()->GetTerrain()->GetHeight(temp),temp.z };
+
+
+    float distance = (real - transform->Pos()).Length();
+
+    if (distance < 0.5)
     {
         speed = 0;
         SetAction(ACTION::IDLE);
     }
-    else if (destVel.Length() >= 8.0f) // 표적과 거리가 가까울 때는
+    else if (distance >= 8.0f) // 표적과 거리가 가까울 때는
     {
         speed = 8; //두 배로 빨라진다
         SetAction(ACTION::RUN);
     }
-    else if (destVel.Length() < 8.0f)
+    else if (distance < 8.0f)
     {
         speed = 4;
         SetAction(ACTION::WALK);
 
     }
-    //else
-    //{
-    //    speed = 0;
-    //    SetAction(ACTION::IDLE);
-    //}
+    else
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
 
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
