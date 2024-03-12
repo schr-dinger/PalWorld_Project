@@ -261,6 +261,10 @@ void Player::Control()
 
 void Player::Move()
 {
+    if (curState == S_THROW)
+    {
+        return;
+    }
     bool isMoveZ = false;
     bool isMoveX = false;
 
