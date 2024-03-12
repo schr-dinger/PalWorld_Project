@@ -4,7 +4,7 @@ PalSpearManager::PalSpearManager()
 {
     palSpearInstancing = new ModelInstancing("PalSpear");
 
-    palSpears.reserve(SIZE);
+    //palSpears.reserve(SIZE);  // 데큐는 필요없음
     FOR(SIZE)
     {
         Transform* transform = palSpearInstancing->Add();

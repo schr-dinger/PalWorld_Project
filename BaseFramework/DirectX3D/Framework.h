@@ -34,6 +34,7 @@
 
 #include <windows.h>
 #include <string>
+#include <deque>
 #include <vector>
 #include <map>
 #include <unordered_map>

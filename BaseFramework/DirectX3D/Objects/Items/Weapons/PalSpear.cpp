@@ -267,4 +267,5 @@ void PalSpear::SetRenderTarget()
 {
     //renderTarget->Set(depthStencil);
     renderTarget->Set(depthStencil,Float4(1,1,1,0));
+
 }

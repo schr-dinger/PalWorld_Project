@@ -406,6 +406,7 @@ void FieldUI::PostRender()
 		// 팰 스피어 개수
 		Font::Get()->SetStyle("FieldNum1");
 		int tmpT = tmpPalSpear; // *팰 스피어 개수 가져와야 함
+		//int tmpT = PalSpearManager::Get()->GetSize(); // 팰스피어 매니저 말고 아이템 ui에서 가져와야 함
 		if(tmpPalSpear >= 100) Font::Get()->SetColor("White");
 		else Font::Get()->SetColor("Gray");
 		tmpString = to_string(tmpT /100); // 백의 자리

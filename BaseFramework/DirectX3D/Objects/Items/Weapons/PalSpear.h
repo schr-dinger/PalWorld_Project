@@ -38,6 +38,7 @@ public:
     void SetTerrain(class Terrain* terrain) { this->terrain = terrain; }
     void SetPal(class Pal* pal) { this->pal = pal; }
     void SetState(State state) { this->state = state; }
+
 private:
     //¸â¹ö ÇÔ¼ö
     void StateThrow();

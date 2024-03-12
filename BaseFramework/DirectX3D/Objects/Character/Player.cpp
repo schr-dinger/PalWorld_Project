@@ -223,18 +223,18 @@ void Player::Control()
             break;
         }
 
-        if (KEY_DOWN(VK_LBUTTON)) // �� ����
+        if (KEY_DOWN(VK_LBUTTON)) // 총쏘기
         {
             AttackPal();
         }
-        else if (KEY_DOWN('V')) // �� ��ȹ
+        else if (KEY_DOWN('Q')) // 팰 스피어 던지기
         {
             CatchPal();
         }
-        else if (KEY_DOWN('Z')) // ��ȹ�� �� ��ȯ
-        {
-            SummonsPal();
-        }
+        //else if (KEY_DOWN('Z')) // 필드 UI에서 소환
+        //{
+        //    SummonsPal();
+        //}
     }
     else
     {
