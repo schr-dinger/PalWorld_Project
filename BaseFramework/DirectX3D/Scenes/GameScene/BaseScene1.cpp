@@ -100,6 +100,7 @@ void BaseScene1::Update()
 
 void BaseScene1::PreRender()
 {
+	//PalSpearManager::Get()->PreRender();
 
 	water->SetRefraction();
 
@@ -137,6 +138,8 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
+	//PalSpearManager::Get()->PostRender();
+
 
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
@@ -156,11 +159,11 @@ void BaseScene1::GUIRender()
 	//terrain->GUIRender();
 	//palBox->GUIRender();
 
-	//PalsManager::Get()->GUIRender();
+	PalsManager::Get()->GUIRender();
 	//PlayerPalsManager::Get()->GUIRender();
 
 	// PlayerManager::Get()->GUIRender();
-	PalSpearManager::Get()->GUIRender();
+	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
 	//testUI->GUIRender();

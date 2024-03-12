@@ -20,7 +20,6 @@ public:
 private:     
 	void OnGround(Terrain* terrain);     
 	void InsertMAI(string palModelName);     
-	void InsertAllMAI();     
 	void Collision(); // 세부 충돌 판정 진행     
 	void Spawn();     // (재)생성      
     void PathCollider(); 
@@ -28,7 +27,6 @@ private:
 private:     
 	Terrain* terrain;     
 	vector<ModelAnimatorInstancing*> palsInstancing;     
-	map<string, ModelAnimatorInstancing*> palsMAI;     
 	vector<Pal*> pals;
 	Transform* target;
 	Player* player;      

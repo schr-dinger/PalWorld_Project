@@ -78,7 +78,7 @@ void PalSpear::Update()
 void PalSpear::PreRender()
 {
     // 구현 안됨, 해도 포스트 랜더라 캐릭터 다 가림
-    ////SetRenderTarget();
+    //SetRenderTarget();
     //renderTarget->Set(depthStencil, Float4(1, 1, 1, 0));
     //PlayerManager::Get()->Render();
     //if (pal == nullptr) return;
@@ -97,7 +97,8 @@ void PalSpear::PreRender()
     //    pal->GetInstancing()->GetMaterials()[i]->GetData().emissive = tmpF4;
     //    wstring tmp = whitePalTexture[i];
     //    wstring tmp2 = ToWString(pal->name);
-    //    Texture* tmpT = Texture::Add(tmp, tmp2 + L"_Spear");
+    //    //Texture* tmpT = Texture::Add(tmp, tmp2 + L"_Spear");
+    //    Texture* tmpT = Texture::Add(tmp);
     //    pal->GetInstancing()->GetMaterials()[i]->SetDiffuseMap(tmpT);
     //}
     
@@ -112,7 +113,7 @@ void PalSpear::Render()
 
 void PalSpear::PostRender()
 {
-
+    //whitePal->Render();
 }
 
 void PalSpear::GUIRender()
