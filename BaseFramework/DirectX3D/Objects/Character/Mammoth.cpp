@@ -17,7 +17,7 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     // 펭귄 아이콘 추가
     icon = Texture::Add(L"Textures/Model/Mammoth/T_GrassMammoth_icon_normal.png");
-    iconC = Texture::Add(L"Textures/Model/Mammoth/T_GrassMammoth_icon_normal.png");
+    iconC = Texture::Add(L"Textures/Model/Mammoth/T_GrassMammoth_icon_normal_C.png");
 
     root = new Transform(); // 콜라이더가 위치할 장소(위치)
 
