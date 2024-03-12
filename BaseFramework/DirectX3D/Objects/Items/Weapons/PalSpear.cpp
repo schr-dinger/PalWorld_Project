@@ -231,8 +231,8 @@ void PalSpear::StateCatching()
     else
     {
         float tmpRX = RANDOM->Float(-45.0f, 45.0f);
-        float tmpRY = RANDOM->Float(-45.0f, 45.0f);
-        float tmpRZ = RANDOM->Float(-45.0f, 45.0f);
+        float tmpRY = RANDOM->Float(-90.0f, 90.0f);
+        float tmpRZ = RANDOM->Float(-20.0f, 20.0f);
         tmpRX = XM_PIDIV2 + XMConvertToRadians(tmpRX);
         tmpRY = XMConvertToRadians(tmpRY);
         tmpRZ = XMConvertToRadians(tmpRZ);
