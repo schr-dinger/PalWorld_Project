@@ -10,7 +10,9 @@ public:
     ~PalSpearManager();
 
     void Update();
+    void PreRender();
     void Render();
+    void PostRender();
     void GUIRender();
 
     void Throw(Vector3 pos, Vector3 dir); //개별 객체에게 전달하기 위한 매개 함수

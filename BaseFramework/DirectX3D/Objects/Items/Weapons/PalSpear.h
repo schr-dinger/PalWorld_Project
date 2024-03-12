@@ -25,7 +25,9 @@ public:
     ~PalSpear();
 
     void Update();
+    void PreRender();
     void Render();
+    void PostRender();
     void GUIRender();
 
     void Throw(Vector3 pos, Vector3 dir);
@@ -43,6 +45,8 @@ private:
     void StateCatching();
     void StateSuccess();
     void StateFail();
+
+    void SetRenderTarget();
 private:
     //¸â¹ö º¯¼ö
 
@@ -73,6 +77,15 @@ private:
     float catchingTime;
     int shakeNum;  // ÇÑ ¹ø Èçµé¶§ Èçµé¸®´Â È½¼ö
     int shakeTime; // 3¹ø Èçµé±â
+
+    // ÆÓ Èò»ö ¸¸µé±â
+    class Quad* whitePal;
+
+    RenderTarget* renderTarget;
+    DepthStencil* depthStencil;
+
+    vector<wstring> whitePalTexture;
+    vector<Float4> whitePalEmissive;
     
 };
 

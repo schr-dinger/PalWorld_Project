@@ -34,11 +34,21 @@ void PalSpearManager::Update()
     for (PalSpear* palSpear : palSpears) palSpear->Update(); //데이터도 업데이트
 }
 
+void PalSpearManager::PreRender()
+{
+    for (PalSpear* palSpear : palSpears) palSpear->PreRender();
+}
+
 void PalSpearManager::Render()
 {
     palSpearInstancing->Render(); //모델 Render
     for (PalSpear* palSpear : palSpears) palSpear->Render(); //데이터도 Render
                     //지금 호출된 쿠나이Render는 원래는 필요가 없다(어디까지나 충돌체 렌더용)
+}
+
+void PalSpearManager::PostRender()
+{
+    for (PalSpear* palSpear : palSpears) palSpear->PostRender();
 }
 
 void PalSpearManager::GUIRender()

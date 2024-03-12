@@ -24,6 +24,20 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
     catchingTime = 0.0f;
     shakeNum = 0;
     shakeTime = 0;
+
+    // 팰 흰색
+    renderTarget = new RenderTarget(2048, 2048); // 수동으로 투사할 공간의 크기 지정
+    depthStencil = new DepthStencil(2048, 2048);
+
+    whitePal = new Quad(Vector2(1280, 720));
+    whitePal->Pos() = { 640, 360, 0 }; // 사각형을 (실제보다)살짝 당기는 이유 = 실제 위치가 사각형
+    whitePal->SetTag("WhitePal");
+    Texture* texture = Texture::Add(L"WhitePalTex", renderTarget->GetSRV());
+    // 실시간으로 생성되는 이미지를 텍스처화해서 "일렁임"이라는 이름으로
+
+    whitePal->GetMaterial()->SetDiffuseMap(texture);
+    //whitePal->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
+    whitePal->UpdateWorld(); //
 }
 
 PalSpear::~PalSpear()
@@ -61,14 +75,49 @@ void PalSpear::Update()
     collider->UpdateWorld();
 }
 
+void PalSpear::PreRender()
+{
+    // 구현 안됨, 해도 포스트 랜더라 캐릭터 다 가림
+    ////SetRenderTarget();
+    //renderTarget->Set(depthStencil, Float4(1, 1, 1, 0));
+    //PlayerManager::Get()->Render();
+    //if (pal == nullptr) return;
+    //
+    //FOR(pal->GetInstancing()->GetMaterials().size())
+    //{
+    //    whitePalTexture.push_back(pal->GetInstancing()->GetMaterials()[i]->GetDiffuseMap()->GetFile());
+    //    pal->GetInstancing()->GetMaterials()[i]->SetDiffuseMap(L"Textures/Color/White.png");
+    //    whitePalEmissive.push_back(pal->GetInstancing()->GetMaterials()[i]->GetData().emissive);
+    //    pal->GetInstancing()->GetMaterials()[i]->GetData().emissive = Float4(1, 1, 1, 1);
+    //}
+    //pal->GetInstancing()->Render();
+    //FOR(pal->GetInstancing()->GetMaterials().size())
+    //{
+    //    Float4 tmpF4 = whitePalEmissive[i];
+    //    pal->GetInstancing()->GetMaterials()[i]->GetData().emissive = tmpF4;
+    //    wstring tmp = whitePalTexture[i];
+    //    wstring tmp2 = ToWString(pal->name);
+    //    Texture* tmpT = Texture::Add(tmp, tmp2 + L"_Spear");
+    //    pal->GetInstancing()->GetMaterials()[i]->SetDiffuseMap(tmpT);
+    //}
+    
+}
+
 void PalSpear::Render()
 {
     if (!transform->Active()) return;
+
     collider->Render();
+}
+
+void PalSpear::PostRender()
+{
+
 }
 
 void PalSpear::GUIRender()
 {
+    whitePal->GUIRender();
     if (!transform->Active()) return;
     ImGui::Text("Shake : %d", shakeNum);
     ImGui::Text("catchingTime : %f", catchingTime);
@@ -91,6 +140,9 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
 
     time = 0; //경과시간 리셋
     shakeNum = 0;
+    
+    whitePalTexture.clear();
+    whitePalEmissive.clear();
 
 }
 
@@ -209,4 +261,10 @@ void PalSpear::StateFail()
     transform->SetActive(false);
     collider->SetActive(false);
     state = State::THROW;
+}
+
+void PalSpear::SetRenderTarget()
+{
+    //renderTarget->Set(depthStencil);
+    renderTarget->Set(depthStencil,Float4(1,1,1,0));
 }

@@ -100,6 +100,7 @@ void BaseScene1::Update()
 
 void BaseScene1::PreRender()
 {
+
 	water->SetRefraction();
 
 	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
@@ -112,6 +113,7 @@ void BaseScene1::PreRender()
 
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
+
 }
 
 void BaseScene1::Render()
@@ -135,9 +137,11 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
+
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 	StructureManager::Get()->PostRender();
+
 	// UI테스트
 	testUI->PostRender();
 	UiManager::Get()->PostRender();

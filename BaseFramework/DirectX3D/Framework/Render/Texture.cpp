@@ -44,7 +44,11 @@ void Texture::ReadPixels(vector<Float4>& pixels)
 Texture* Texture::Add(wstring file)
 {
     if (textures.count(file) > 0)
+    {
+        //return textures[file];
         return textures[file];
+    }
+        
 
     ScratchImage image;
     HRESULT result;

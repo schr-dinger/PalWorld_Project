@@ -57,6 +57,8 @@ PalsManager::PalsManager()
     // 테스트 : 히트
     testHit = {};
     testIsHit = false;
+    //palsInstancing[1]->GetMaterial(0)->SetDiffuseMap(L"Textures/Color/White.png");
+    //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
 }
 
 PalsManager::~PalsManager()

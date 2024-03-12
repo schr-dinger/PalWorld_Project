@@ -144,6 +144,7 @@ void Penguin::PostRender()
 
 void Penguin::GUIRender()
 {
+    
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     ///collider->GUIRender();
