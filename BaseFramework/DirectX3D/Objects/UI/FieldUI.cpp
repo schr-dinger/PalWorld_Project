@@ -296,12 +296,12 @@ void FieldUI::Update()
 	else if (KEY_DOWN('3')) // ¿À¸¥ÂÊ ÆÓ ¼±ÅÃ
 	{
 		selPal++;
-		SetPalUI();
+		//SetPalUI();
 	}
 	else if (KEY_DOWN('1')) // ¿ÞÂÊ ÆÈ ¼±ÅÃ
 	{
 		selPal--;
-		SetPalUI();
+		//SetPalUI();
 	}
 	hpBar  ->Update();
 	hpBar  ->SetAmount(curHp / (float)maxHp);
@@ -337,6 +337,10 @@ void FieldUI::Update()
 	pressBQuad->Update();
 	pressEQuad->Update();
 	pressQQuad->Update();
+
+
+	SetPalUI();
+
 }
 
 void FieldUI::PostRender()
