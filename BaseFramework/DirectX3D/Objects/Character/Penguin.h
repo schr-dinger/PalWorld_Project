@@ -62,6 +62,9 @@ private:
     void SetAction(ACTION action);
 
     void Move();
+
+    void MoveP();
+
     void UpdateUI(); //캐릭터 UI가 있으면 이후 업데이트
 
 private:
@@ -79,7 +82,7 @@ private:
     float maxHP;
     float curHP;
 
-    Vector3 velocity; //속력 : 실제 움직임
+    //Vector3 velocity; //속력 : 실제 움직임
 
     UINT index; //로봇의 개별 인덱스
 

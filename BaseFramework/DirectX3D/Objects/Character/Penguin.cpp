@@ -73,10 +73,18 @@ void Penguin::Update()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     //ClipSync();
-    if (target)
+    if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
+    }
+
+    if (isSpawned)
+    {
+        //destVel = PlayerManager::Get()->GetPlayer()->GlobalPos() - transform->GlobalPos();
+        destVel = PlayerPalsManager::Get()->destPos - transform->GlobalPos();
+
+        MoveP();
     }
 
     ExecuteEvent(); // 이벤트가 터져야 하면 수행하기
@@ -149,6 +157,8 @@ void Penguin::GUIRender()
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
     //skill[0]->GUIRender();
+
+    //ImGui::Text("% f", destVel.Length());
 }
 
 void Penguin::Attack()
@@ -332,10 +342,48 @@ void Penguin::Move()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
+
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
     // 뒤 돌리기(모델 Back()이 실제로 앞
+
+}
+
+void Penguin::MoveP()
+{
+    // 안움직이는 조건들
+    if (action == ACTION::ATTACK) return; // 공격할 때는 움직이지 않음
+    if (action == ACTION::DAMAGE) return; // 맞을 때는 움직이지 않음
+    if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
+    //if (action == ACTION::) return; // 추가 가능
+
+    if (destVel.Length() < 0.1)
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    else if (destVel.Length() >= 8.0f) // 표적과 거리가 가까울 때는
+    {
+        speed = 8; //두 배로 빨라진다
+        SetAction(ACTION::RUN);
+    }
+    else if (destVel.Length() < 8.0f)
+    {
+        speed = 4;
+        SetAction(ACTION::WALK);
+
+    }
+    //else
+    //{
+    //    speed = 0;
+    //    SetAction(ACTION::IDLE);
+    //}
+
+    velocity.y = 0.0f;
+    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+
 
 }
 

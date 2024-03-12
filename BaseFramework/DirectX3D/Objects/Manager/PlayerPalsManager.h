@@ -30,6 +30,7 @@ public:
     Pal* GetPal(int num) { return pals[num]; }
 
     vector<Pal*>& GetPalvector() { return pals; }
+    Vector3 destPos;
 
 private:
     void OnGround(Terrain* terrain);
@@ -58,9 +59,8 @@ private:
 
     float pathTime = 0;
 
-    Vector3 destPos;
     vector<Vector3> path;
 
-    Vector3 velocity;
+    //Vector3 velocity;
 };
 

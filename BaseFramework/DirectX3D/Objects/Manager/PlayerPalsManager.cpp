@@ -21,6 +21,7 @@ PlayerPalsManager::PlayerPalsManager()
         palsMAIIndex["펭키"]++;// 해당 모델 인스턴싱 인덱스 증가
         //pals.push_back(pal);
         pals[i] = pal;
+        
     }
     
 
@@ -54,8 +55,6 @@ void PlayerPalsManager::Update()
     Collision();
 
 
-    //void PathFinding();
-    //void Move();
 
     // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
     for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
@@ -141,6 +140,10 @@ void PlayerPalsManager::GUIRender()
 {
     ImGui::Text("MyPalsSIze : %d", pals.size());
     ImGui::Text("pathsize : %d", path.size());
+
+    ImGui::Text("destPosX : %f", destPos.x);
+    ImGui::Text("destPosY : %f", destPos.y);
+    ImGui::Text("destPosZ : %f", destPos.z);
 
     if (selPal != -1)
     {
@@ -278,12 +281,24 @@ void PlayerPalsManager::Collision()
 
 void PlayerPalsManager::PathFinding()
 {
-    pathTime += DELTA;
 
-    if (pathTime > 3.0f)
+    destPos = CAM->GlobalPos() + CAM->Right() * 0.5f + CAM->Forward() * 1.5f;
+
+    if (Distance(pals[selPal]->GetTransform()->GlobalPos(), destPos) > 10.0f)
     {
-        //destPos = player->GlobalPos() + Vector3(Random(-0.5f, 0.5f), Random(-0.5f, 0.5f), Random(-0.5f, 0.5f));
-        destPos = player->GlobalPos();
+        pathTime += DELTA;
+    }
+    else
+    {
+        pathTime = 0.0f;
+    }
+
+
+    if (pathTime > 1.0f)
+    {
+        //destPos = CAM->GlobalPos();
+
+        //destPos = player->GlobalPos();
 
         if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(pals[selPal]->GetTransform()->GlobalPos(), destPos))
         {
@@ -315,7 +330,7 @@ void PlayerPalsManager::Move()
         return;
     }
 
-    //SetState(RUN);
+    //pals[selPal]->SetAction(Pal::ACTION::RUN);
 
     Vector3 dest = path.back();
 
@@ -329,16 +344,22 @@ void PlayerPalsManager::Move()
         path.pop_back();
     }
 
-    velocity = direction.GetNormalized();
+    //velocity = direction.GetNormalized();
+    //pals[selPal]->velocity = direction.GetNormalized();
+    pals[selPal]->velocity = direction;
+
     //pals[selPal]->GetTransform()->Pos() += velocity * moveSpeed * DELTA;
 
-    pals[selPal]->GetTransform()->Pos() += velocity * 10.0f * DELTA;
+    //pals[selPal]->GetTransform()->Pos() += pals[selPal]->velocity.GetNormalized() * 4.0f * DELTA;
+    //pals[selPal]->GetTransform()->Rot().y = atan2(pals[selPal]->velocity.x, pals[selPal]->velocity.z) + XM_PI;
+
 
 }
 
 void PlayerPalsManager::Summons()
 {
     if (selPal == -1) return;
+    pals[selPal]->isSpawned = true;
     pals[selPal]->Summons(player->GlobalPos() + player->Back() * 5 ); // 일단은 플레이어 앞에 
     // * 추후 컴퓨트피킹으로 크로스헤어가 가리키는 곳으로 수정해야 함
 }

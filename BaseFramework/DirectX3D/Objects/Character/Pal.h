@@ -2,6 +2,16 @@
 class Pal
 {
 public:
+	enum class ACTION
+	{
+		IDLE,
+		WALK,
+		RUN,
+		ATTACK,
+		DAMAGE,
+	};
+
+public:
 	Pal();
 	~Pal();
 	
@@ -43,7 +53,13 @@ public:  // 감추고(protected, 자식은 바로 쓸 수 있게) 나중에 겟함수 만들어도 됨
 	Texture* icon;
 	Texture* iconC;
 
+	Vector3 destVel;
+	Vector3 velocity;
+	float speed;
+
 	// 팰 무적유무 : 팰 스피어에 맞았거나, 기타 등등
 	bool isInvincible;
+
+	bool isSpawned = false;
 };
 
