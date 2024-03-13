@@ -73,6 +73,7 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
+	StructureManager::Get()->Update();
 	UiManager::Get()->Update(); // UI 관련 업데이트가 먼저
 
 
@@ -83,7 +84,6 @@ void BaseScene1::Update()
 	//player->Update();
 	PlayerManager::Get()->Update();
 
-	StructureManager::Get()->Update();
 
 
 	PalsManager::Get()->Update();
