@@ -63,9 +63,15 @@ Player::Player() : ModelAnimator("NPC")
 
     summonPalSpear = new Model("PalSpear");
     summonPalSpear->Scale() = { 0.02f, 0.02f, 0.02f };
+    summonPalSpear->Pos() = {-0.05f, 0.05f, -0.12f};
     summonPalSpear->Rot().x = XM_PIDIV2;
     summonPalSpear->SetParent(Hand);
     summonPalSpear->SetActive(false);
+    summonPalSpearThrow = new Model("PalSpear");
+    summonPalSpearThrow->Scale() = { 0.02f, 0.02f, 0.02f };
+    //summonPalSpearThrow->Pos() = { -0.05f, 0.05f, -0.12f };
+    summonPalSpearThrow->Rot().x = XM_PIDIV2;
+    summonPalSpearThrow->SetActive(false);
     summonPalSpearCollider = new SphereCollider();
     summonPalSpearCollider->SetParent(summonPalSpear);
     summonPalSpearCollider->Scale() = { 7, 7, 7 }; //크기 기본값은 1.0
@@ -139,10 +145,13 @@ void Player::Update()
 
     testFrontSphere->UpdateWorld();
 
-    //
     particle->Update();
     playerCollider->UpdateWorld();
+
+    // 팰 스피어 던지기 관련
+    ThrowPalSpear();
     summonPalSpear->UpdateWorld();
+    summonPalSpearThrow->UpdateWorld();
     summonPalSpearCollider->UpdateWorld();
 }
 
@@ -159,6 +168,7 @@ void Player::Render()
     playerCollider->Render();
 
     summonPalSpear->Render();
+    summonPalSpearThrow->Render();
     summonPalSpearCollider->Render();
 }
 
@@ -166,11 +176,9 @@ void Player::GUIRender()
 {
     //ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
-    //ImGui::Text("selNum : %d", select);
+    //ImGui::Text("selNum : %d", curState);
     //ImGui::Text("mouseWheel : %d", mouseWheel);
 
-    summonPalSpear->GUIRender();
-    summonPalSpearCollider->GUIRender();
 }
 
 void Player::ClipSync()
@@ -285,23 +293,33 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        SetState(ACTION::S_AIM);
-        isAiming = true;
-        summonPalSpear->SetActive(true);
-
-
+        if (curState != S_THROW)
+        {
+            SetState(ACTION::S_AIM);
+            isAiming = true;
+            summonPalSpear->SetActive(true);
+        }
     }
     else if (KEY_UP('Q'))
     {
-        CatchPal();
-        isAiming = false;
-        summonPalSpear->SetActive(false);
-
+        if (curState == S_AIM)
+        {
+            CatchPal();
+            isAiming = false;
+            summonPalSpear->SetActive(false);
+        }
     }
     else if (KEY_UP('E'))
     {
-        SummonsPal();
-        isAiming = false;
+        if (curState == S_AIM)
+        {
+            SummonsPal();
+            isAiming = false;
+            summonPalSpear->SetActive(false);
+            summonPalSpearThrow->SetActive(true);
+            summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
+            summonPalSpearDIr = CAM->Forward();
+        }
 
     }
 
@@ -563,11 +581,25 @@ void Player::CatchPal()
 void Player::SummonsPal()
 {
     SetState(ACTION::S_THROW);
+}
 
-    //
-    //PlayerPalsManager::Get()->SetSelPal(0);
-    //
-    PlayerPalsManager::Get()->Summons();
+void Player::ThrowPalSpear()
+{
+    if (!summonPalSpearThrow->Active()) return;
+    downForce += gravi * DELTA;
+
+    Vector3 tmp = (down * downForce);
+
+    summonPalSpearThrow->Pos() += summonPalSpearDIr * speed * DELTA;
+    summonPalSpearThrow->Pos() += tmp * DELTA;
+    if (summonPalSpearThrow->Pos().y < LandScapeManager::Get()->GetTerrain()->GetHeight(summonPalSpearThrow->GlobalPos()))
+    {
+        summonPalSpearThrow->Pos().y = LandScapeManager::Get()->GetTerrain()->GetHeight(summonPalSpearThrow->GlobalPos());
+        downForce = 0.0f;
+        speed = 20.0f;
+        summonPalSpearThrow->SetActive(false);
+        PlayerPalsManager::Get()->Summons(summonPalSpearThrow->GlobalPos());
+    }
 }
 
 void Player::UiMode()
