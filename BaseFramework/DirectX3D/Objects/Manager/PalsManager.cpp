@@ -8,7 +8,7 @@ PalsManager::PalsManager()
     palsInstancing[0]->ReadClip("Work");    // 추가 모션
     palsInstancing[0]->SetTag("Penguin");
     //palsInstancing[0]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
-    FOR(SIZE)
+    FOR(penguinN)
     {
         Transform* transform = palsInstancing[0]->Add();
         transform->SetActive(false);
@@ -21,7 +21,7 @@ PalsManager::PalsManager()
     InsertMAI("Mammoth");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
                                             // 추가 모션
     palsInstancing[1]->SetTag("mammoth");
-    FOR(SIZE)
+    FOR(mammothN)
     {
         Transform* transform = palsInstancing[1]->Add();
         transform->SetActive(false);
@@ -34,7 +34,7 @@ PalsManager::PalsManager()
     InsertMAI("DarkWolf");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
                                         // 추가 모션
     palsInstancing[2]->SetTag("wolf");
-    FOR(SIZE)
+    FOR(wolfN)
     {
         Transform* transform = palsInstancing[2]->Add();
         transform->SetActive(false);

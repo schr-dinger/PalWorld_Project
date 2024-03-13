@@ -2,8 +2,12 @@
 class PalsManager : public Singleton<PalsManager>
 {
 private:     
-	UINT SIZE = 10; // 매니저 안에서 굴릴 로봇 대수     
-	float SPAWN_TIME = 1.0f; // 로봇의 생성, 혹은 재생성에 필요한 시간  
+	//UINT SIZE = 10; // 매니저 안에서 굴릴 수
+	UINT penguinN = 15;
+	UINT mammothN = 2;
+	UINT wolfN = 7;
+
+	float SPAWN_TIME = 1.0f; // 생성, 혹은 재생성에 필요한 시간  
 
 public:      
 	PalsManager();     
