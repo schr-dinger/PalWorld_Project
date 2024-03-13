@@ -32,10 +32,9 @@ void UiManager::Update()
 	}
 
 
-
-	palBoxUi->Update();
-	buildUi->Update();
-	partyUi->Update();
+	if (palBoxUiOn)	palBoxUi->Update();
+	if (buildUiOn) buildUi->Update();
+	if (partyUiOn) partyUi->Update();
 	fieldUI->Update();
 }
 
