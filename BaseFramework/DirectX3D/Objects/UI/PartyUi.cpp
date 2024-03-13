@@ -53,7 +53,10 @@ void PartyUi::Update()
 	{
 		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn && partyIcon[i]->GetPal() != nullptr)
 		{
-			model = nullptr;
+			if (model != nullptr)
+			{
+				delete model;
+			}
 			model = new ModelAnimator(partyIcon[i]->GetPal()->GetModelName());
 			model->ReadClip("Idle");
 			//model->ReadClip("Run");
