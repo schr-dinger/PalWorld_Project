@@ -9,6 +9,7 @@
 HINSTANCE hInst;
 HWND hWnd;
 Vector3 mousePos;
+int mouseWheel;
 
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
@@ -124,15 +125,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
         return true;
 
+
     switch (message)
     {
     case WM_COMMAND:
         {
+
             int wmId = LOWORD(wParam);
             // 메뉴 선택을 구문 분석합니다:
             switch (wmId)
@@ -154,12 +159,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             EndPaint(hWnd, &ps);
+
         }
         break;
     case WM_MOUSEMOVE:
         mousePos.x = (float)LOWORD(lParam);
         mousePos.y = WIN_HEIGHT - (float)HIWORD(lParam);
         break;
+    case WM_MOUSEWHEEL:
+    {
+        //mouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
+
+        // 값이 0보다 크면, 휠을 올림
+        if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+        {
+            mouseWheel = 1;
+            //mouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
+        }
+        // 값이 0보다 작으면, 휠을 내림
+        else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+        {
+            mouseWheel = 2;
+            //mouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
+        }
+        break;
+    }
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

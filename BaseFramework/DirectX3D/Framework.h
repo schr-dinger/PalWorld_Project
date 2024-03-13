@@ -257,3 +257,4 @@ using namespace GameMath;
 
 extern HWND hWnd;
 extern Vector3 mousePos;
+extern int mouseWheel;

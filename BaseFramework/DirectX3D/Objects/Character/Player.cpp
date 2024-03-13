@@ -144,7 +144,8 @@ void Player::GUIRender()
 {
     //ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
-
+    ImGui::Text("selNum : %d", select);
+    ImGui::Text("mouseWheel : %d", mouseWheel);
 }
 
 void Player::ClipSync()
@@ -171,16 +172,24 @@ void Player::Control()
         isRun = false;
     }
 
-    if (KEY_DOWN('1'))
+    if (mouseWheel == 1)
     {
-        select = 1;
-        SetState(R_DRAW);
+        select++;
+        //SetState(R_DRAW);
+        if (select > 4)
+        {
+            select = 0;
+        }
     }
-
-    if (KEY_DOWN('2'))
+    else if (mouseWheel == 2)
     {
-        select = 2;
+        select--;
+        if (select < 0)
+        {
+            select = 4;
+        }
     }
+    
 
     switch (select)
     {
@@ -193,6 +202,12 @@ void Player::Control()
         // other weapon
         break;
     case 2:
+        // other weapon
+        isGun = false;
+    case 3:
+        // other weapon
+        isGun = false;
+    case 4:
         // other weapon
         isGun = false;
     default:

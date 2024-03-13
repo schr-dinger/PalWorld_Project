@@ -289,6 +289,7 @@ void FieldUI::Update()
 	{
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
 		{
+			
 			PlayerPalsManager::Get()->SetSelPal(selPal);
 			//PlayerPalsManager::Get()->Summons();
 		}
