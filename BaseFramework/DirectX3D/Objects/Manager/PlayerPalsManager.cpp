@@ -10,7 +10,7 @@ PlayerPalsManager::PlayerPalsManager()
     pals.resize(100);
 
     InsertAllMAI(); // 모든 팔 모델 인스턴싱 생성(현재 "펭키" 하나,)
-    FOR(3)
+    FOR(2)
     {
         Transform* transform = palsMAI["펭키"]->Add();
         transform->SetActive(false);
@@ -24,7 +24,7 @@ PlayerPalsManager::PlayerPalsManager()
         
     }
     
-    FOR(3)
+    FOR(2)
     {
         Transform* transform = palsMAI["그린모스"]->Add();
         transform->SetActive(false);
@@ -34,10 +34,23 @@ PlayerPalsManager::PlayerPalsManager()
         //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
         palsMAIIndex["그린모스"]++;// 해당 모델 인스턴싱 인덱스 증가
         //pals.push_back(pal);
-        pals[i+3] = pal;
+        pals[i+2] = pal;
 
     }
 
+    FOR(2)
+    {
+        Transform* transform = palsMAI["다크울프"]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* pal = new DarkWolf(transform, palsMAI["다크울프"], palsMAIIndex["다크울프"]);
+        // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
+        //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
+        palsMAIIndex["다크울프"]++;// 해당 모델 인스턴싱 인덱스 증가
+        //pals.push_back(pal);
+        pals[i + 4] = pal;
+
+    }
 
 
     FOR(2)
@@ -264,6 +277,22 @@ void PlayerPalsManager::InsertAllMAI()
                                             // "펭키"라는 key(모델 인스턴싱)를 가진 인덱스 값(0번부터),
                                             // 같은 팔을 잡을 때마다 인덱스 값 증가(같은 팔이라도 인덱스가 달라 다른 개체)
     }
+
+    {
+        ModelAnimatorInstancing* pal = new ModelAnimatorInstancing("DarkWolf");
+        pal->ReadClip("Idle");
+        pal->ReadClip("Walk");
+        pal->ReadClip("Run");
+        pal->ReadClip("Attack");
+        pal->ReadClip("Damage");
+        pal->SetTag("wolf");
+        palsMAI.insert({ "다크울프", pal });                                     // 넣는 법 1.
+        //palsMAI.insert(pair<string, ModelAnimatorInstancing*>("펭키", pal)); // 넣는 법 2.
+        palsMAIIndex.insert({ "다크울프", 0 }); // 모델 인스턴스 인덱스용 map에도 추가
+                                            // "펭키"라는 key(모델 인스턴싱)를 가진 인덱스 값(0번부터),
+                                            // 같은 팔을 잡을 때마다 인덱스 값 증가(같은 팔이라도 인덱스가 달라 다른 개체)
+    }
+
 }
 
 void PlayerPalsManager::Collision()
@@ -417,5 +446,23 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
             }
         }
     }
+    else if (CaughtPal->name == "다크울프") // 잡을 다른 팔이 있다면 여기서
+    {
+        Transform* transform = palsMAI[CaughtPal->name]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+        Pal* Cpal = new DarkWolf(transform, palsMAI[CaughtPal->name], palsMAIIndex[CaughtPal->name]);
+
+        palsMAIIndex[CaughtPal->name]++;// 해당 모델 인스턴싱 인덱스 증가
+        for (int i = 0; i < pals.size(); i++)
+        {
+            if (pals[i] == nullptr)
+            {
+                pals[i] = Cpal;
+                return;
+            }
+        }
+    }
+
 
 }

@@ -31,6 +31,19 @@ PalsManager::PalsManager()
     }
 
 
+    InsertMAI("DarkWolf");                   // 공용 : 아이들, 걷기, 런, 공격, 데미지
+                                        // 추가 모션
+    palsInstancing[2]->SetTag("wolf");
+    FOR(SIZE)
+    {
+        Transform* transform = palsInstancing[2]->Add();
+        transform->SetActive(false);
+        transform->Scale() *= 0.01;
+        Pal* pal = new DarkWolf(transform, palsInstancing[2], i);
+        pals.push_back(pal);
+    }
+
+
 
     FOR(2)
         blendState[i] = new BlendState();

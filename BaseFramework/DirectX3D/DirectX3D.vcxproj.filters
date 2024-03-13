@@ -178,6 +178,7 @@
     <ClCompile Include="Objects\Manager\UiManager.cpp" />
     <ClCompile Include="Objects\Structure\WorkBench.cpp" />
     <ClCompile Include="Objects\Character\Mammoth.cpp" />
+    <ClCompile Include="Objects\Character\DarkWolf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -336,6 +337,7 @@
     <ClInclude Include="Objects\Manager\UiManager.h" />
     <ClInclude Include="Objects\Structure\WorkBench.h" />
     <ClInclude Include="Objects\Character\Mammoth.h" />
+    <ClInclude Include="Objects\Character\DarkWolf.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

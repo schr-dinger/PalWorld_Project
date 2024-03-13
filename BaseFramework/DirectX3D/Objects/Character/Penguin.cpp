@@ -72,31 +72,18 @@ void Penguin::Update()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
-
-    Ray ray;
-    ray.dir = CAM->Forward();
-    ray.pos = CAM->GlobalPos();
-    Contact contact;
-    if (collider->IsRayCollision(ray, &contact))
-    {
-        isUIOn = true;
-        onUITime = 0.0f;
-    }
-    if (isUIOn)
-    {
-        onUITime += DELTA;
-    }
-    if (onUITime > offUITime)
-    {
-        isUIOn = false;
-    }
-
     //ClipSync();
-
-    if (target)
+    if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
+    }
+
+    if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0)
+    {
+        destVel = PlayerPalsManager::Get()->destPos - transform->GlobalPos();
+
+        MoveP();
     }
 
     ExecuteEvent(); // 이벤트가 터져야 하면 수행하기
@@ -141,8 +128,6 @@ void Penguin::PostRender()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     if (velocity.Length() >= 15.0f) return;
-    if (!isUIOn) return;
-
     hpBar->Render();
 
     if (hpBar->Active())
@@ -161,19 +146,18 @@ void Penguin::PostRender()
         Font::Get()->GetDC()->BeginDraw();
 
     }
-    
+
 }
 
 void Penguin::GUIRender()
 {
-    
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
     //skill[0]->GUIRender();
-    //ImGui::Text("Time : %f", onUITime);
 
+    //ImGui::Text("% f", destVel.Length());
 }
 
 void Penguin::Attack()
@@ -217,7 +201,7 @@ void Penguin::Damage()
     {
         // 죽는 모션 있으면 세팅
         //SetAction(ACTION::DIE); 
-        
+
         // 현재는 바로 비활성화
         transform->SetActive(false);
         return;//이 함수 종료
@@ -317,7 +301,7 @@ void Penguin::EndDamage()
 
 void Penguin::SetAction(ACTION action)
 {
-    if (action == this->action) return; 
+    if (action == this->action) return;
 
     this->action = action; //매개변수에 따라 상태 변화
     instancing->PlayClip(index, (int)action); //인스턴싱 내 자기 트랜스폼에서 동작 수행 시작
@@ -357,10 +341,55 @@ void Penguin::Move()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
+
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
     // 뒤 돌리기(모델 Back()이 실제로 앞
+
+}
+
+void Penguin::MoveP()
+{
+    // 안움직이는 조건들
+    if (action == ACTION::ATTACK) return; // 공격할 때는 움직이지 않음
+    if (action == ACTION::DAMAGE) return; // 맞을 때는 움직이지 않음
+    if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
+    //if (action == ACTION::) return; // 추가 가능
+
+
+    Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
+    Vector3 real = { temp.x,LandScapeManager::Get()->GetTerrain()->GetHeight(temp),temp.z };
+
+
+    float distance = (real - transform->Pos()).Length();
+
+    if (distance < 0.5)
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    else if (distance >= 8.0f) // 표적과 거리가 가까울 때는
+    {
+        speed = 8; //두 배로 빨라진다
+        SetAction(ACTION::RUN);
+    }
+    else if (distance < 8.0f)
+    {
+        speed = 4;
+        SetAction(ACTION::WALK);
+
+    }
+    else
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+
+    velocity.y = 0.0f;
+    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+
 
 }
 
