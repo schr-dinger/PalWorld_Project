@@ -27,8 +27,13 @@ void UiManager::Update()
 
 	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn)
 	{
+		if (partyUiOn)
+		{
+			partyUi->ClearModel();
+		}
 		partyUiOn = !partyUiOn;
 		partyUi->SetPal();
+		
 	}
 
 

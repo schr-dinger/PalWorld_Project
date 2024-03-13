@@ -64,6 +64,8 @@ void PartyUi::Update()
 			model->Pos() = { 770.0f,150.0f, -150.0f };
 			model->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
 			model->Scale() *= 3.0f;
+			model->SetActive(true);
+
 		}
 
 
@@ -75,7 +77,7 @@ void PartyUi::Update()
 		model->Update();
 	}
 
-	UiMouseManager::Get()->Update();
+	//UiMouseManager::Get()->Update();
 
 }
 
@@ -129,6 +131,18 @@ void PartyUi::SetPal()
 	{
 		partyIcon[i]->SetPal(PlayerPalsManager::Get()->GetPalvector()[(i)]);
 		partyIcon[i]->SetTexture3();
+	}
+
+}
+
+void PartyUi::ClearModel()
+{
+	//
+	if (model != nullptr)
+	{
+		//¿À·ù³²
+		//delete model;
+		model->SetActive(false);
 	}
 
 }
