@@ -3,7 +3,7 @@
 PlayerPalsManager::PlayerPalsManager()
 {
     terrain = nullptr;
-    target = nullptr;
+    //target = nullptr;
 
     selPal = -1;
 
@@ -100,6 +100,7 @@ void PlayerPalsManager::Update()
 
     if (selPal != -1)
     {
+        SetTarget();
         PathFinding();
         Move();
         //palsMAI[pals[selPal]->name]->Update();
@@ -191,16 +192,38 @@ void PlayerPalsManager::GUIRender()
 
 }
 
-void PlayerPalsManager::SetTarget(Transform* target)
+void PlayerPalsManager::SetTarget()
 {
-    this->target = target; // 매니저 입장에서 기록할 표적 : 일괄설정 등이 필요할 때 쓸 것
+    //this->target = target; // 매니저 입장에서 기록할 표적 : 일괄설정 등이 필요할 때 쓸 것
     // 아마 필요 없을 듯
 
     if (selPal != -1)
     {
+        switch (mode)
+        {
+        case PlayerPalsManager::MODE::PASSIVE:
+            pals[selPal]->SetTarget(nullptr);
+            break;
+        case PlayerPalsManager::MODE::AGGRESSIVE:
+            smallest = 1000.0f;
+            //Pal* closePal;
+
+            for (Pal* pal : PalsManager::Get()->GetPalsVector())
+            {
+                float distance = (pals[selPal]->GetTransform()->Pos() - pal->GetTransform()->Pos()).Length();
+                if (distance < smallest)
+                {
+                    smallest = distance;
+                    closePal = pal;
+                }
+            }
+
+            pals[selPal]->SetTarget(closePal->GetTransform());
+            break;
+        }
         // 팔이 셋타겟하는 조건 추가하기
         //if () // 거리라든지(선공), 공격당했을때 등
-        pals[selPal]->SetTarget(target);
+        //pals[selPal]->SetTarget(target);
     }
 
 }
@@ -324,7 +347,7 @@ void PlayerPalsManager::Collision()
 void PlayerPalsManager::PathFinding()
 {
     if (pals[selPal] == nullptr) return;
-
+    //if (pals[selPal]->target == nullptr) return;
     destPos = CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f;
 
     if (Distance(pals[selPal]->GetTransform()->GlobalPos(), destPos) > 10.0f)
@@ -337,7 +360,7 @@ void PlayerPalsManager::PathFinding()
     }
 
 
-    if (pathTime > 1.0f)
+    if (pathTime > 0.1f)
     {
         //destPos = CAM->GlobalPos();
 

@@ -20,7 +20,7 @@ public:
 	void SetPlayer(Player* player); // 플레이어 설정       
 	bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정     
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; } 
-
+	vector<Pal*>& GetPalsVector() { return pals; }
 private:     
 	void OnGround(Terrain* terrain);     
 	void InsertMAI(string palModelName);     

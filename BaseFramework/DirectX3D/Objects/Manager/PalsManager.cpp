@@ -311,13 +311,35 @@ void PalsManager::Spawn()
     }
     randomPos.y = 0;
 
+
     // 위에서 정해진 랜덤 장소에서 로봇 하나 생성 (선착순)
     for (Pal* pal : pals)
     {
+        Vector3 randomPos1;
+        randomPos1 = Vector3(250.0f, 0.0f, 250.0f) + Vector3(RANDOM->Float(-200.0f, 200.0f), 0, RANDOM->Float(-200.0f, 200.0f));
+        Vector3 randomPos2;
+        randomPos2 = Vector3(375.0f, 0.0f, 375.0f) + Vector3(RANDOM->Float(-20.0f, 20.0f), 0, RANDOM->Float(-20.0f, 20.0f));
+        Vector3 randomPos3;
+        randomPos3 = Vector3(250.0f, 0.0f, 125.0f) + Vector3(RANDOM->Float(-50.0f, 50.0f), 0, RANDOM->Float(-50.0f, 50.0f));
+
         if (!pal->GetTransform()->Active()) // 로봇을 조회 중인데 비활성화 중인 개체가 있으면
         {
-            pal->Spawn(randomPos); // 개별 로봇 호출
-            return; //반복문(생성 절차) 종료
+            //pal->Spawn(randomPos); // 개별 로봇 호출
+            //return; //반복문(생성 절차) 종료
+
+            if (pal->name == "펭키")
+            {
+                pal->Spawn(randomPos1);
+            }
+            else if (pal->name == "그린모스")
+            {
+                pal->Spawn(randomPos2);
+            }
+            else if (pal->name == "다크울프")
+            {
+                pal->Spawn(randomPos3);
+            }
+
         }
     }
 }

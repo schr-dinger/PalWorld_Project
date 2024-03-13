@@ -68,5 +68,7 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	bool isUIOn;
 	float onUITime;
 	float offUITime = 2.0f; // ������ �ð�
+
+	Transform* target;
 };
 

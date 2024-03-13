@@ -6,6 +6,14 @@ class PlayerPalsManager : public Singleton<PlayerPalsManager>
 
 public:
 
+    enum class MODE
+    {
+        PASSIVE,
+        AGGRESSIVE,
+    };
+
+public:
+
     PlayerPalsManager();
     ~PlayerPalsManager();
 
@@ -14,7 +22,9 @@ public:
     void PostRender();
     void GUIRender();
 
-    void SetTarget(Transform* target); //표적 설정
+    //void SetTarget(Transform* target); //표적 설정
+    void SetTarget(); //표적 설정
+
     void SetPlayer(Player* player); // 플레이어 설정
 
     bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정
@@ -33,6 +43,9 @@ public:
     Vector3 destPos;
 
     int GetPathSize() { return path.size(); }
+
+    void SetMode(MODE mode) { this->mode = mode; }
+
 private:
     void OnGround(Terrain* terrain);
     void InsertAllMAI();
@@ -49,9 +62,12 @@ private:
     vector<Pal*> pals;
     int selPal;
     map<string, int> palsMAIIndex;
-
-    Transform* target;
+    
+    //Transform* target;
     Player* player;
+
+    MODE mode = MODE::PASSIVE;
+    //MODE mode = MODE::AGGRESSIVE;
 
     float time = 0; //경과된 시간
 
@@ -61,7 +77,10 @@ private:
     float pathTime = 0;
 
     vector<Vector3> path;
-
     //Vector3 velocity;
+
+    float smallest;
+    Pal* closePal;
+
 };
 
