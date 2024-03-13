@@ -285,12 +285,12 @@ FieldUI::~FieldUI()
 void FieldUI::Update()
 {
 	// 팔 선택
-	if (KEY_DOWN('E')) // 선택 팰 소환
+	if (KEY_UP('E')) // 선택 팰 소환
 	{
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
 		{
 			PlayerPalsManager::Get()->SetSelPal(selPal);
-			PlayerPalsManager::Get()->Summons();
+			//PlayerPalsManager::Get()->Summons();
 		}
 	}
 	else if (KEY_DOWN('3')) // 오른쪽 팰 선택

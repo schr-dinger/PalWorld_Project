@@ -157,8 +157,6 @@ void Player::ClipSync()
 
 void Player::Control()
 {
-
-
     Move();
 
     // �׽�Ʈ : �� ��ȹ, ���� ������ ���� �Ƚ��Ǿ� �ݶ��̴� Ȱ��ȭ
@@ -243,6 +241,12 @@ void Player::Control()
 
     }
 
+
+
+
+
+    
+
     if (KEY_DOWN('R'))
     {
         test = !test;
@@ -254,8 +258,6 @@ void Player::Control()
     {
         Rotate();
     }
-
-
     Jump(LandScapeManager::Get()->GetTerrain()->GetHeight(Pos()));
 }
 

@@ -143,13 +143,6 @@ void Penguin::PostRender()
     if (velocity.Length() >= 15.0f) return;
     if (!isUIOn) return;
 
-    Ray ray;
-    ray.dir = CAM->Forward();
-    ray.pos = CAM->GlobalPos();
-    Contact contact;
-    if (!collider->IsRayCollision(ray, &contact)) return;
-    
-
     hpBar->Render();
 
     if (hpBar->Active())
@@ -179,6 +172,8 @@ void Penguin::GUIRender()
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
     //skill[0]->GUIRender();
+    //ImGui::Text("Time : %f", onUITime);
+
 }
 
 void Penguin::Attack()
