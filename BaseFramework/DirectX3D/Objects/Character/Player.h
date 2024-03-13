@@ -99,6 +99,9 @@ private:
     // Å×½ºÆ® : Æ÷È¹
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
+    Model* summonPalSpear;
+    SphereCollider* summonPalSpearCollider;
+    Vector3 summonPalSpearDIr;
 
     Vector3 ogCam = { -0.05,1.7,2.5 };
     Vector3 foCam = { -0.3,1.35,1.0 };

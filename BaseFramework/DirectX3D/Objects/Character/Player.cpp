@@ -55,11 +55,22 @@ Player::Player() : ModelAnimator("NPC")
 
     PlayClip(0);
 
-    // �׽�Ʈ : �� ��ȹ
+    // 테스트 포획
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
     testFrontSphere = new SphereCollider();
+
+    summonPalSpear = new Model("PalSpear");
+    summonPalSpear->Scale() = { 0.02f, 0.02f, 0.02f };
+    summonPalSpear->Rot().x = XM_PIDIV2;
+    summonPalSpear->SetParent(Hand);
+    summonPalSpear->SetActive(false);
+    summonPalSpearCollider = new SphereCollider();
+    summonPalSpearCollider->SetParent(summonPalSpear);
+    summonPalSpearCollider->Scale() = { 7, 7, 7 }; //크기 기본값은 1.0
+    summonPalSpearCollider->Pos() = {};            //위치 기본값 : 부모 위치
+    summonPalSpearDIr = {};
 
     // �׽�Ʈ : ��
     particle = new ParticleSystem("TextData/Particles/Star.fx");
@@ -82,6 +93,8 @@ Player::~Player()
     delete testPalSpear;
     delete particle;
     delete playerCollider;
+    delete summonPalSpear;
+    delete summonPalSpearCollider;
 }
 
 void Player::Update()
@@ -89,11 +102,15 @@ void Player::Update()
 
     if (isAiming)
     {
-        CAM->Pos() = foCam;
+        //CAM->Pos() = foCam;
+        CAM->Pos() = Lerp(ogCam, foCam, 0.8f);
     }
     else
     {
-        CAM->Pos() = ogCam;
+        //CAM->Pos() = ogCam;
+        CAM->Pos() = Lerp(foCam, ogCam, 0.8f);
+
+
     }
 
     CamTransform->Pos() = this->Pos();
@@ -125,6 +142,8 @@ void Player::Update()
     //
     particle->Update();
     playerCollider->UpdateWorld();
+    summonPalSpear->UpdateWorld();
+    summonPalSpearCollider->UpdateWorld();
 }
 
 void Player::Render()
@@ -138,14 +157,20 @@ void Player::Render()
     //
     particle->Render();
     playerCollider->Render();
+
+    summonPalSpear->Render();
+    summonPalSpearCollider->Render();
 }
 
 void Player::GUIRender()
 {
     //ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
-    ImGui::Text("selNum : %d", select);
-    ImGui::Text("mouseWheel : %d", mouseWheel);
+    //ImGui::Text("selNum : %d", select);
+    //ImGui::Text("mouseWheel : %d", mouseWheel);
+
+    summonPalSpear->GUIRender();
+    summonPalSpearCollider->GUIRender();
 }
 
 void Player::ClipSync()
@@ -174,6 +199,7 @@ void Player::Control()
 
     if (mouseWheel == 1)
     {
+        mouseWheel = 0;
         select++;
         //SetState(R_DRAW);
         if (select > 4)
@@ -183,6 +209,8 @@ void Player::Control()
     }
     else if (mouseWheel == 2)
     {
+        mouseWheel = 0;
+
         select--;
         if (select < 0)
         {
@@ -204,17 +232,17 @@ void Player::Control()
     case 2:
         // other weapon
         isGun = false;
+        break;
     case 3:
         // other weapon
         isGun = false;
+        break;
     case 4:
         // other weapon
         isGun = false;
-    default:
-        isGun = false;
-        //othere weapon
         break;
-
+    default:
+        break;
     }
 
 
@@ -240,22 +268,42 @@ void Player::Control()
         {
             AttackPal();
         }
-        else if (KEY_DOWN('Q')) // 팰 스피어 던지기
-        {
-            CatchPal();
-        }
+        //else if (KEY_DOWN('Q')) // 팰 스피어 던지기
+        //{
+        //    CatchPal();
+        //}
         //else if (KEY_DOWN('Z')) // 필드 UI에서 소환
         //{
         //    SummonsPal();
         //}
     }
-    else
+    else if (KEY_UP(VK_RBUTTON))
     {
         isAiming = false;
         isGaim = false;
 
     }
+    else if (KEY_PRESS('Q') || KEY_PRESS('E'))
+    {
+        SetState(ACTION::S_AIM);
+        isAiming = true;
+        summonPalSpear->SetActive(true);
 
+
+    }
+    else if (KEY_UP('Q'))
+    {
+        CatchPal();
+        isAiming = false;
+        summonPalSpear->SetActive(false);
+
+    }
+    else if (KEY_UP('E'))
+    {
+        SummonsPal();
+        isAiming = false;
+
+    }
 
 
 
@@ -508,16 +556,18 @@ void Player::CatchPal()
     //tmp.y += 1.7f;
     //ray.dir += {0, 0.3f, 0};
    // PalSpearManager::Get()->Throw(tmp, ray.dir);
-    PalSpearManager::Get()->Throw(tmp, CAM->Forward());
+    PalSpearManager::Get()->Throw(summonPalSpear->GlobalPos(), CAM->Forward());
 
 }
 
 void Player::SummonsPal()
 {
-    // ù��° �� ����
+    SetState(ACTION::S_THROW);
+
+    //
     //PlayerPalsManager::Get()->SetSelPal(0);
-    //// �� ��ȯ
-    //PlayerPalsManager::Get()->Summons();
+    //
+    PlayerPalsManager::Get()->Summons();
 }
 
 void Player::UiMode()
@@ -529,6 +579,10 @@ void Player::SetAnimation()
 {
     
     if (curState == S_THROW)
+    {
+        return;
+    }
+    if (curState == S_AIM)
     {
         return;
     }
