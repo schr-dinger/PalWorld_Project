@@ -71,6 +71,25 @@ void Mammoth::Update()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
+
+    Ray ray;
+    ray.dir = CAM->Forward();
+    ray.pos = CAM->GlobalPos();
+    Contact contact;
+    if (collider->IsRayCollision(ray, &contact))
+    {
+        isUIOn = true;
+        onUITime = 0.0f;
+    }
+    if (isUIOn)
+    {
+        onUITime += DELTA;
+    }
+    if (onUITime > offUITime)
+    {
+        isUIOn = false;
+    }
+
     //ClipSync();
     if (target && !isSpawned)
     {
@@ -123,6 +142,7 @@ void Mammoth::PostRender()
 {
     if (!transform->Active()) return;
     if (velocity.Length() >= 15.0f) return;
+    if (!isUIOn) return;
     hpBar->Render();
 
     if (hpBar->Active())
@@ -145,7 +165,8 @@ void Mammoth::PostRender()
 
 void Mammoth::GUIRender()
 {
-    if (!transform->Active()) return;
+    //if (!transform->Active()) return;
+    //ImGui::Text("Time : %f", onUITime);
 }
 
 void Mammoth::Attack()

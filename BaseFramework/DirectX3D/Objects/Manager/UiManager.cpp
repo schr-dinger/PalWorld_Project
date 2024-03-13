@@ -5,6 +5,7 @@ UiManager::UiManager()
 	palBoxUi = new PalBoxUi();
 	buildUi = new BuildUi();
 	partyUi = new PartyUi();
+	fieldUI = new FieldUI();
 }
 
 UiManager::~UiManager()
@@ -12,6 +13,7 @@ UiManager::~UiManager()
 	delete palBoxUi;
 	delete buildUi;
 	delete partyUi;
+	delete fieldUI;
 }
 
 void UiManager::Update()
@@ -34,6 +36,7 @@ void UiManager::Update()
 	palBoxUi->Update();
 	buildUi->Update();
 	partyUi->Update();
+	fieldUI->Update();
 }
 
 void UiManager::Render()
@@ -45,6 +48,7 @@ void UiManager::Render()
 
 void UiManager::PostRender()
 {
+	fieldUI->PostRender();
 	if (palBoxUiOn)	palBoxUi->PostRender();
 	if (buildUiOn)	buildUi->PostRender();
 	if (partyUiOn) partyUi->PostRender();
@@ -53,10 +57,10 @@ void UiManager::PostRender()
 
 void UiManager::GuiRender()
 {
-	if (palBoxUiOn)	palBoxUi->GuiRender();
-	if (buildUiOn)	buildUi->GuiRender();
-	if (partyUiOn) partyUi->GuiRender();
-
+	fieldUI->GUIRender();
+	//if (palBoxUiOn)	palBoxUi->GuiRender();
+	//if (buildUiOn)	buildUi->GuiRender();
+	//if (partyUiOn) partyUi->GuiRender();
 }
 
 void UiManager::ControlOn()

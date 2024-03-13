@@ -3,14 +3,16 @@ class PalSpearManager : public Singleton<PalSpearManager>
 {
 private:
     friend class Singleton;
-    UINT SIZE = 3; // 동시에 투척 가능한 팔스피어 최대 개수
+    UINT SIZE = 10; // 동시에 투척 가능한 팔스피어 최대 개수
 
 public:
     PalSpearManager();
     ~PalSpearManager();
 
     void Update();
+    void PreRender();
     void Render();
+    void PostRender();
     void GUIRender();
 
     void Throw(Vector3 pos, Vector3 dir); //개별 객체에게 전달하기 위한 매개 함수
@@ -19,11 +21,14 @@ public:
 
     void SetTerrain(class Terrain* terrain);
 
+    int GetSize() {return palSpears.size();}
+
+    deque<PalSpear*>& GetPalSpears() { return palSpears; }
 
 private:
     //쿠나이 출력용 모델
     ModelInstancing* palSpearInstancing; //쿠나이 모델
-    vector<PalSpear*> palSpears; // 쿠나이들 (벡터)
+    deque<PalSpear*> palSpears; // 쿠나이들 (벡터)
 
     class Terrain* terrain; 
 

@@ -42,6 +42,8 @@ public:
 
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
+    ModelAnimatorInstancing* GetInstancing() { return instancing; }
+
 
 private:
 

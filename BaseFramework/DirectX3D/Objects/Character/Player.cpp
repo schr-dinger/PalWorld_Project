@@ -67,7 +67,7 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.5f);
+    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
 
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
@@ -223,18 +223,18 @@ void Player::Control()
             break;
         }
 
-        if (KEY_DOWN(VK_LBUTTON)) // �� ����
+        if (KEY_DOWN(VK_LBUTTON)) // 총쏘기
         {
             AttackPal();
         }
-        else if (KEY_DOWN('V')) // �� ��ȹ
+        else if (KEY_DOWN('Q')) // 팰 스피어 던지기
         {
             CatchPal();
         }
-        else if (KEY_DOWN('Z')) // ��ȹ�� �� ��ȯ
-        {
-            SummonsPal();
-        }
+        //else if (KEY_DOWN('Z')) // 필드 UI에서 소환
+        //{
+        //    SummonsPal();
+        //}
     }
     else
     {
@@ -261,6 +261,10 @@ void Player::Control()
 
 void Player::Move()
 {
+    if (curState == S_THROW)
+    {
+        return;
+    }
     bool isMoveZ = false;
     bool isMoveX = false;
 
@@ -465,53 +469,38 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
+    if (curState == S_THROW)
+    {
+        return;
+    }
     SetState(S_THROW);
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
 
-    Ray ray;
-    ray.pos = CAM->GlobalPos();
-    ray.dir = CAM->Forward();
-    Vector3 hitPoint;
-
-    // �罺�Ǿ� �Ŵ��� �׽�Ʈ
-    Vector3 tmp = this->GlobalPos();
-    tmp.y += 2;
-    ray.dir += {0, 0.3f, 0};
-    PalSpearManager::Get()->Throw(tmp, ray.dir);
-
-    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    //{
-    //    PalSpearManager::Get()->Throw(tmp, ray.dir);
-    //}
-
-    //PalSpearManager::Get()->Throw(tmp, this->Back());
-    //PalSpearManager::Get()->Throw(this->GlobalPos(), this->Back());
-
-    //if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    //{
-    //    testPalSpear->SetActive(true);
-    //    testPalSpear->Pos() = hitPoint;
-    //    testPalSpear->UpdateWorld();
-    //}
-    //Ray ray = CAM->ScreenPointToRay(mousePos);
+    //Ray ray;
+    //ray.pos = CAM->GlobalPos();
+    //ray.dir = CAM->Forward();
     //Vector3 hitPoint;
 
-    if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    {
-        testPalSpear->SetActive(true);
-        testPalSpear->Pos() = hitPoint;
-        testPalSpear->UpdateWorld();
-    }
+    // �罺�Ǿ� �Ŵ��� �׽�Ʈ
+    Vector3 tmpF = CAM->Forward();
+    tmpF.y = 0.0f;
+    tmpF = tmpF.GetNormalized(); // 앞에서
+    Vector3 tmp = CAM->GlobalPos() + CAM->Left() * 0.4f + tmpF * 1.5f + Vector3(0.0f, 1.0f, 0.0f) * 0.2f;
+    //tmp.x -= 0.3f;
+    //tmp.y += 1.7f;
+    //ray.dir += {0, 0.3f, 0};
+   // PalSpearManager::Get()->Throw(tmp, ray.dir);
+    PalSpearManager::Get()->Throw(tmp, CAM->Forward());
 
 }
 
 void Player::SummonsPal()
 {
     // ù��° �� ����
-    PlayerPalsManager::Get()->SetSelPal(0);
-    // �� ��ȯ
-    PlayerPalsManager::Get()->Summons();
+    //PlayerPalsManager::Get()->SetSelPal(0);
+    //// �� ��ȯ
+    //PlayerPalsManager::Get()->Summons();
 }
 
 void Player::UiMode()

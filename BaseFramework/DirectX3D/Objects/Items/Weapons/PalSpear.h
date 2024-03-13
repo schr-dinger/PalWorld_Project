@@ -25,7 +25,9 @@ public:
     ~PalSpear();
 
     void Update();
+    void PreRender();
     void Render();
+    void PostRender();
     void GUIRender();
 
     void Throw(Vector3 pos, Vector3 dir);
@@ -36,6 +38,7 @@ public:
     void SetTerrain(class Terrain* terrain) { this->terrain = terrain; }
     void SetPal(class Pal* pal) { this->pal = pal; }
     void SetState(State state) { this->state = state; }
+
 private:
     //¸â¹ö ÇÔ¼ö
     void StateThrow();
@@ -43,13 +46,15 @@ private:
     void StateCatching();
     void StateSuccess();
     void StateFail();
+
+    void SetRenderTarget();
 private:
     //¸â¹ö º¯¼ö
 
     Transform* transform;
     SphereCollider* collider;
 
-    float speed = 15;
+    float speed = 20;
     float time = 0; //»ý¼ºµÈ ½Ã°£
 
     Vector3 direction;
@@ -73,6 +78,15 @@ private:
     float catchingTime;
     int shakeNum;  // ÇÑ ¹ø Èçµé¶§ Èçµé¸®´Â È½¼ö
     int shakeTime; // 3¹ø Èçµé±â
+
+    // ÆÓ Èò»ö ¸¸µé±â
+    class Quad* whitePal;
+
+    RenderTarget* renderTarget;
+    DepthStencil* depthStencil;
+
+    vector<wstring> whitePalTexture;
+    vector<Float4> whitePalEmissive;
     
 };
 

@@ -15,7 +15,7 @@ public:
 	Pal();
 	~Pal();
 	
-	// ÀÚ½Äµé °øÅë ÇÔ¼ö
+	// ï¿½Ú½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void PostRender() = 0;
@@ -27,29 +27,32 @@ public:
 	virtual Texture* GetTextureC() = 0;
 	virtual float GetCurHp() = 0;
 
-	// ÆÓÀÇ °øÅë ¸ð¼Ç ¿©±â¼­ ³Ö±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ö±ï¿½
 	virtual void FieldAttack() = 0;
 	virtual void Attack() = 0;
 	virtual void Damage() = 0;
 	//virtual void Die() = 0;
-	// -> ±âÅ¸ µîµî...
-	// ÀÓ½Ã·Î ½ºÆù Ãß°¡
+	// -> ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½...
+	// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	virtual void Spawn(Vector3 pos) = 0;
-	// ¼ÒÈ¯
+	// ï¿½ï¿½È¯
 	virtual void Summons(Vector3 pos) = 0;
 
 	string GetModelName() { return modelName; }
 
-public:  // °¨Ãß°í(protected, ÀÚ½ÄÀº ¹Ù·Î ¾µ ¼ö ÀÖ°Ô) ³ªÁß¿¡ °ÙÇÔ¼ö ¸¸µé¾îµµ µÊ
-	// ÀÚ½Äµé °øÅëºÐ¸ð ¿©±â¼­
+	virtual ModelAnimatorInstancing* GetInstancing() = 0;
+
+public:  // ï¿½ï¿½ï¿½ß°ï¿½(protected, ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½) ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½îµµ ï¿½ï¿½
+	// ï¿½Ú½Äµï¿½ ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ ï¿½ï¿½ï¿½â¼­
 	string name;
 	string modelName;
 	int level;
+	//ModelAnimatorInstancing* instancing;
 
-	// Æç º¸À¯ ½ºÅ³µé, °ÔÀÓÃ³·³ 3°³
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ 3ï¿½ï¿½
 	Skill* skill[3];
 
-	// ÆÓ ¾ÆÀÌÄÜ
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Texture* icon;
 	Texture* iconC;
 
@@ -57,9 +60,13 @@ public:  // °¨Ãß°í(protected, ÀÚ½ÄÀº ¹Ù·Î ¾µ ¼ö ÀÖ°Ô) ³ªÁß¿¡ °ÙÇÔ¼ö ¸¸µé¾îµµ µÊ
 	Vector3 velocity;
 	float speed;
 
-	// ÆÓ ¹«ÀûÀ¯¹« : ÆÓ ½ºÇÇ¾î¿¡ ¸Â¾Ò°Å³ª, ±âÅ¸ µîµî
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾î¿¡ ï¿½Â¾Ò°Å³ï¿½, ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½
 	bool isInvincible;
 
 	bool isSpawned = false;
+	// ï¿½ï¿½ UIï¿½ï¿½ï¿½ï¿½
+	bool isUIOn;
+	float onUITime;
+	float offUITime = 2.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 };
 

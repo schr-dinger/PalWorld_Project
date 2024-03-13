@@ -27,9 +27,6 @@ BaseScene1::BaseScene1()
 	PlayerPalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
-	// 스킬 테스트
-	testSkill = new Tornado();
-
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
 	FieldPalSkillManager::Get(); // 생성자용
@@ -37,17 +34,20 @@ BaseScene1::BaseScene1()
 
 	//palBoxUi = new PalBoxUi();
 
+	// 스킬 테스트
+	//testSkill = new Tornado();
+
 	// UI테스트
-	testUI = new FieldUI();
+	//testUI = new FieldUI();
 
-
-	mam = new ModelAnimator("Mammoth");
-	mam->ReadClip("Idle");
-	mam->ReadClip("Walk");
-	mam->ReadClip("Run");
-	mam->ReadClip("Attack");
-
-	mam->Scale() *= 0.01f;
+	// 모델 테스트
+	//mam = new ModelAnimator("Mammoth");
+	//mam->ReadClip("Idle");
+	//mam->ReadClip("Walk");
+	//mam->ReadClip("Run");
+	//mam->ReadClip("Attack");
+	//
+	//mam->Scale() *= 0.01f;
 
 }
 
@@ -73,6 +73,7 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
+	UiManager::Get()->Update(); // UI 관련 업데이트가 먼저
 
 
 
@@ -84,7 +85,6 @@ void BaseScene1::Update()
 
 	StructureManager::Get()->Update();
 
-	UiManager::Get()->Update();
 
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
@@ -94,12 +94,14 @@ void BaseScene1::Update()
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
 	// UI테스트
-	testUI->Update();
-	mam->Update();
+	//testUI->Update();
+	//mam->Update();
 }
 
 void BaseScene1::PreRender()
 {
+	//PalSpearManager::Get()->PreRender();
+
 	water->SetRefraction();
 
 	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
@@ -112,6 +114,7 @@ void BaseScene1::PreRender()
 
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
+
 }
 
 void BaseScene1::Render()
@@ -121,7 +124,7 @@ void BaseScene1::Render()
 	//terrain->Render();
 	water->Render();
 	
-	mam->Render();
+	//mam->Render();
 
 	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
@@ -135,11 +138,15 @@ void BaseScene1::Render()
 
 void BaseScene1::PostRender()
 {
+	//PalSpearManager::Get()->PostRender();
+
+
 	PalsManager::Get()->PostRender();
 	PlayerPalsManager::Get()->PostRender();
 	StructureManager::Get()->PostRender();
+
 	// UI테스트
-	testUI->PostRender();
+	//testUI->PostRender();
 	UiManager::Get()->PostRender();
 
 }
@@ -155,12 +162,12 @@ void BaseScene1::GUIRender()
 	//PalsManager::Get()->GUIRender();
 	PlayerPalsManager::Get()->GUIRender();
 
-	// PlayerManager::Get()->GUIRender();
-	PalSpearManager::Get()->GUIRender();
+	//PlayerManager::Get()->GUIRender();
+	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
 	//testUI->GUIRender();
-	//UiManager::Get()->GuiRender();
+	UiManager::Get()->GuiRender();
 	//LandScapeManager::Get()->GUIRender();
 }
 

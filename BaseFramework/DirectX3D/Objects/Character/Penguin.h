@@ -45,6 +45,7 @@ public:
     CapsuleCollider* GetCollider() { return collider; }
 
     //void Path(Vector3 start, Vector3 dest);
+    ModelAnimatorInstancing* GetInstancing() { return instancing; }
 
 private:
     //void ClipSync(); // 삭제해도 무방할듯
@@ -71,7 +72,6 @@ private:
     //여기부터
     Transform* transform;
     CapsuleCollider* collider;
-
     ModelAnimatorInstancing* instancing;
     ModelAnimatorInstancing::Motion* motion;
 
