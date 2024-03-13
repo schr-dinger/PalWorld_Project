@@ -64,7 +64,7 @@ void UiManager::GuiRender()
 	fieldUI->GUIRender();
 	//if (palBoxUiOn)	palBoxUi->GuiRender();
 	//if (buildUiOn)	buildUi->GuiRender();
-	//if (partyUiOn) partyUi->GuiRender();
+	if (partyUiOn) partyUi->GuiRender();
 }
 
 void UiManager::ControlOn()
