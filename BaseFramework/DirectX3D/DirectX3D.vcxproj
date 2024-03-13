@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Character\DarkWolf.h" />
     <ClInclude Include="Objects\Character\Mammoth.h" />
     <ClInclude Include="Objects\Manager\AStarManager.h" />
     <ClInclude Include="Objects\Manager\StructureManager.h" />
@@ -300,6 +301,7 @@
     <ClInclude Include="Objects\Structure\WorkBench.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Character\DarkWolf.cpp" />
     <ClCompile Include="Objects\Character\Mammoth.cpp" />
     <ClCompile Include="Objects\Manager\AStarManager.cpp" />
     <ClCompile Include="Objects\Manager\StructureManager.cpp" />
