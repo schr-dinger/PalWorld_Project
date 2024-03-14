@@ -34,7 +34,7 @@ public:
     // 소환 테스트용
     void SetSelPal(int selPal) { this->selPal = selPal; }
 
-    void Summons();     // 소환
+    void Summons(Vector3 summonPos);     // 소환
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
     Pal* GetPal(int num) { return pals[num]; }

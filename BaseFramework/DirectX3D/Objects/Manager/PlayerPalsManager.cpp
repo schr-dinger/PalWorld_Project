@@ -422,12 +422,11 @@ void PlayerPalsManager::Move()
 
 }
 
-void PlayerPalsManager::Summons()
+void PlayerPalsManager::Summons(Vector3 summonPos)
 {
     if (selPal == -1) return;
     pals[selPal]->isSpawned = true;
-    pals[selPal]->Summons(player->GlobalPos() + player->Back() * 5 ); // 일단은 플레이어 앞에 
-    // * 추후 컴퓨트피킹으로 크로스헤어가 가리키는 곳으로 수정해야 함
+    pals[selPal]->Summons(summonPos); 
 }
 
 void PlayerPalsManager::Caught(Pal* CaughtPal)

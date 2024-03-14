@@ -21,6 +21,8 @@ Model::~Model()
 
 void Model::Render()
 {
+    if (!Active()) return;
+    
     worldBuffer->Set(world);
     worldBuffer->SetVS(0);
 

@@ -58,6 +58,13 @@ void DepthStencilState::DepthWriteMask(D3D11_DEPTH_WRITE_MASK value)
     Changed();
 }
 
+void DepthStencilState::DepthFunc(D3D11_COMPARISON_FUNC value)
+{
+    desc.DepthFunc = value;
+
+    Changed();
+}
+
 void DepthStencilState::Changed()
 {
     if (state != nullptr)

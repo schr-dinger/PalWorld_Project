@@ -30,8 +30,9 @@ PartyUi::PartyUi()
 		depthState[i] = new DepthStencilState;
 	}
 	blendState[1]->AlphaToCoverage(true);
-	//blendState[1]->Alpha(false);
+	blendState[1]->Alpha(true);
 	depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);  // 다 가리기
+	//depthState[1]->DepthFunc(D3D11_COMPARISON_ALWAYS);
 
 }
 
@@ -53,7 +54,10 @@ void PartyUi::Update()
 	{
 		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn && partyIcon[i]->GetPal() != nullptr)
 		{
-			model = nullptr;
+			if (model != nullptr)
+			{
+				delete model;
+			}
 			model = new ModelAnimator(partyIcon[i]->GetPal()->GetModelName());
 			model->ReadClip("Idle");
 			//model->ReadClip("Run");
@@ -61,6 +65,8 @@ void PartyUi::Update()
 			model->Pos() = { 770.0f,150.0f, -150.0f };
 			model->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
 			model->Scale() *= 3.0f;
+			model->SetActive(true);
+
 		}
 
 
@@ -72,7 +78,7 @@ void PartyUi::Update()
 		model->Update();
 	}
 
-	UiMouseManager::Get()->Update();
+	//UiMouseManager::Get()->Update();
 
 }
 
@@ -126,6 +132,18 @@ void PartyUi::SetPal()
 	{
 		partyIcon[i]->SetPal(PlayerPalsManager::Get()->GetPalvector()[(i)]);
 		partyIcon[i]->SetTexture3();
+	}
+
+}
+
+void PartyUi::ClearModel()
+{
+	//
+	if (model != nullptr)
+	{
+		//오류남
+		//delete model;
+		model->SetActive(false);
 	}
 
 }

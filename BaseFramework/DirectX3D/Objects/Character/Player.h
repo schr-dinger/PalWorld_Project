@@ -50,6 +50,7 @@ private:
     void AttackPal();
     void CatchPal();
     void SummonsPal();
+    void ThrowPalSpear(); // 팰 소환할때 던지기
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -96,9 +97,19 @@ private:
     bool UiOn = false;
 
 
-    // 테스트 : 포획
+    // 테스트 : 팰 스피어 던지기 관련
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
+    Model* summonPalSpear;
+    Model* summonPalSpearThrow;
+    SphereCollider* summonPalSpearCollider;
+    Vector3 summonPalSpearDIr;
+    float speed = 20;
+    // 팰스피어 중력
+    float gravi = 9.8f;
+    float downForce = 0;
+    Vector3 down = { 0, -1, 0 };
+
 
     Vector3 ogCam = { -0.05,1.7,2.5 };
     Vector3 foCam = { -0.3,1.35,1.0 };

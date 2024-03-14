@@ -10,6 +10,7 @@ public:
 	void PostRender();
 	void GuiRender();
 	void SetPal();
+	void ClearModel();
 
 private:
 private:

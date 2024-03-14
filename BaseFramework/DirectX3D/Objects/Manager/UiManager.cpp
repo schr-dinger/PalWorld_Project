@@ -27,15 +27,19 @@ void UiManager::Update()
 
 	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn)
 	{
+		if (partyUiOn)
+		{
+			partyUi->ClearModel();
+		}
 		partyUiOn = !partyUiOn;
 		partyUi->SetPal();
+		
 	}
 
 
-
-	palBoxUi->Update();
-	buildUi->Update();
-	partyUi->Update();
+	if (palBoxUiOn)	palBoxUi->Update();
+	if (buildUiOn) buildUi->Update();
+	if (partyUiOn) partyUi->Update();
 	fieldUI->Update();
 }
 
@@ -60,7 +64,7 @@ void UiManager::GuiRender()
 	fieldUI->GUIRender();
 	//if (palBoxUiOn)	palBoxUi->GuiRender();
 	//if (buildUiOn)	buildUi->GuiRender();
-	//if (partyUiOn) partyUi->GuiRender();
+	if (partyUiOn) partyUi->GuiRender();
 }
 
 void UiManager::ControlOn()
