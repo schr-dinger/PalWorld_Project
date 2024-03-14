@@ -177,6 +177,7 @@
     <ClInclude Include="Objects\Manager\PlayerManager.h" />
     <ClInclude Include="Objects\UI\PartyUi.h" />
     <ClInclude Include="Framework\Utilities\Random.h" />
+    <ClInclude Include="Objects\UI\PalModeUi.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="Objects\Manager\PlayerManager.cpp" />
     <ClCompile Include="Objects\UI\PartyUi.cpp" />
     <ClCompile Include="Framework\Utilities\Random.cpp" />
+    <ClCompile Include="Objects\UI\PalModeUi.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />

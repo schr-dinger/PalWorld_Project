@@ -185,6 +185,7 @@
     <ClCompile Include="Objects\Manager\ItemManager.cpp" />
     <ClCompile Include="Objects\UI\ItemUI.cpp" />
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
+    <ClCompile Include="Objects\UI\PalModeUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -350,6 +351,7 @@
     <ClInclude Include="Objects\Manager\ItemManager.h" />
     <ClInclude Include="Objects\UI\ItemUI.h" />
     <ClInclude Include="Objects\UI\ItemClickQuad.h" />
+    <ClInclude Include="Objects\UI\PalModeUi.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />
