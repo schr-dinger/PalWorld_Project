@@ -311,6 +311,10 @@ void Player::Control()
             {
             case 1:
                 isGaim = true;
+                if (KEY_DOWN(VK_LBUTTON)) // �� ����
+                {
+                    AttackPal();
+                }
                 break;
             case 2:
                 isBaim = true;
@@ -323,10 +327,7 @@ void Player::Control()
                 isBaim = false;
                 break;
             }
-            if (KEY_DOWN(VK_LBUTTON)) // �� ����
-            {
-                AttackPal();
-            }
+            
         }
     }
     else if (KEY_UP(VK_RBUTTON))
@@ -668,10 +669,11 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
     {
         return;
     }
+
     if (isBow)
     {
         if (isBaim) SetState(BW_AIM);

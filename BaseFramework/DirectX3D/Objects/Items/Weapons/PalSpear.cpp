@@ -257,6 +257,7 @@ void PalSpear::StateSuccess()
     transform->SetActive(false);
     collider->SetActive(false);
     state = State::THROW;
+    pal->isInvincible = false;
 }
 
 void PalSpear::StateFail()
@@ -267,6 +268,8 @@ void PalSpear::StateFail()
     transform->SetActive(false);
     collider->SetActive(false);
     state = State::THROW;
+    pal->isInvincible = false;
+
 }
 
 void PalSpear::SetRenderTarget()
