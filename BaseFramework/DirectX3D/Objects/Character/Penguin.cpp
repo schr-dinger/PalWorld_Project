@@ -1,7 +1,7 @@
 #include "Framework.h"
 
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
-    :transform(transform), instancing(instancing), index(index)
+    : transform(transform),instancing(instancing), index(index)
 {
     name = "펭키";
     modelName = "PenGuin";
@@ -93,6 +93,12 @@ void Penguin::Update()
 
 
     //ClipSync();
+    //움직임
+    if (target == nullptr && !isSpawned)
+    {
+        MoveWithOutTarget();
+    }
+
     if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
@@ -147,7 +153,7 @@ void Penguin::PostRender()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
-    if (velocity.Length() >= 15.0f) return;
+    if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
 
     hpBar->Render();
@@ -412,6 +418,28 @@ void Penguin::MoveP()
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
 
+
+}
+
+void Penguin::MoveWithOutTarget()
+{
+    moveTime += DELTA;
+
+    if (moveTime < 3.0f)
+    {
+        SetAction(ACTION::WALK);
+        transform->Pos() += randomDir.GetNormalized() * 1.5f * DELTA;
+        transform->Rot().y = atan2(randomDir.x, randomDir.z) + XM_PI;
+    }
+    else if (moveTime < 5.0f)
+    {
+        SetAction(ACTION::IDLE);
+    }
+    else
+    {
+        randomDir = { RANDOM->Float(-1.0,1.0f),0,RANDOM->Float(-1.0,1.0f) };
+        moveTime = 0.0f;
+    }
 
 }
 

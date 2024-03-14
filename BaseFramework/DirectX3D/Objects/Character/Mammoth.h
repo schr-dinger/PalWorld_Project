@@ -58,6 +58,7 @@ private:
 
     void Move();
     void MoveP();
+    void MoveWithOutTarget();
 
     void UpdateUI();
 

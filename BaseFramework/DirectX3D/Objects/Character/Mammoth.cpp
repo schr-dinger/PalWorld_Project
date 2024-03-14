@@ -91,6 +91,12 @@ void Mammoth::Update()
     }
 
     //ClipSync();
+    //움직임
+    if (target == nullptr && !isSpawned)
+    {
+        MoveWithOutTarget();
+    }
+
     if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
@@ -141,7 +147,7 @@ void Mammoth::Render()
 void Mammoth::PostRender()
 {
     if (!transform->Active()) return;
-    if (velocity.Length() >= 15.0f) return;
+    if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
     hpBar->Render();
 
@@ -377,6 +383,27 @@ void Mammoth::MoveP()
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
 
+}
+
+void Mammoth::MoveWithOutTarget()
+{
+    moveTime += DELTA;
+
+    if (moveTime < 3.0f)
+    {
+        SetAction(ACTION::WALK);
+        transform->Pos() += randomDir.GetNormalized() * 1.5f * DELTA;
+        transform->Rot().y = atan2(randomDir.x, randomDir.z) + XM_PI;
+    }
+    else if (moveTime < 5.0f)
+    {
+        SetAction(ACTION::IDLE);
+    }
+    else
+    {
+        randomDir = { RANDOM->Float(-1.0,1.0f),0,RANDOM->Float(-1.0,1.0f) };
+        moveTime = 0.0f;
+    }
 }
 
 void Mammoth::UpdateUI()

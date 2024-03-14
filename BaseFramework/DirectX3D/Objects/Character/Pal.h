@@ -70,5 +70,9 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	float offUITime = 2.0f; // ������ �ð�
 
 	Transform* target;
+
+	float moveTime = 0.0f;
+	Vector3 randomDir;
+
 };
 

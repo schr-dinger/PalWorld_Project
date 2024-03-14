@@ -86,6 +86,8 @@ PalsManager::~PalsManager()
 
 void PalsManager::Update()
 {
+    DistanceCulling();
+
     OnGround(terrain);
 
     FOR(pals.size())
@@ -197,6 +199,21 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
         return true; 
     }
     return false; // 거리 갱신 안되면 충돌 실패
+}
+
+void PalsManager::DistanceCulling()
+{
+    for (Pal* pal : pals)
+    {
+        if ((pal->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos()).Length() < 200.0f && CAM->ContainPoint(pal->GetTransform()->Pos(),3.0f))
+        {
+            pal->GetTransform()->SetActive(true);
+        }
+        else
+        {
+            pal->GetTransform()->SetActive(false);
+        }
+    }
 }
 
 void PalsManager::OnGround(Terrain* terrain)
@@ -350,7 +367,7 @@ void PalsManager::PathCollider()
 
     for (Pal* pal : pals)
     {
-        if (Distance(pal->GetTransform()->GlobalPos(), target->GlobalPos()) < 30.0f)
+        if (Distance(pal->GetTransform()->GlobalPos(), PlayerManager::Get()->GetPlayer()->GlobalPos()) < 50.0f)
         {
             Vector3 cPos;
             if (LandScapeManager::Get()->CheckPalCollision(pal->GetCollider(), cPos))

@@ -19,7 +19,7 @@ BaseScene1::BaseScene1()
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
 
-	PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
+	//PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 	

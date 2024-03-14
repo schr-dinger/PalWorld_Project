@@ -66,6 +66,8 @@ private:
 
     void MoveP();
 
+    void MoveWithOutTarget();
+
     void UpdateUI(); //캐릭터 UI가 있으면 이후 업데이트
 
 private:
