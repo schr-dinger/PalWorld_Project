@@ -17,7 +17,7 @@ void UiMouseManager::SetRender()
 {
 	if (tempPal != nullptr)
 	{
-		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTexture());
+		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
 	}
 	else if (tempItem != nullptr)
 	{
