@@ -66,8 +66,8 @@ private:
     //Transform* target;
     Player* player;
 
-    MODE mode = MODE::PASSIVE;
-    //MODE mode = MODE::AGGRESSIVE;
+    //MODE mode = MODE::PASSIVE;
+    MODE mode = MODE::AGGRESSIVE;
 
     float time = 0; //경과된 시간
 

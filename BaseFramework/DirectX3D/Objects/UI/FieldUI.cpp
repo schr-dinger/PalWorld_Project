@@ -291,7 +291,7 @@ void FieldUI::Update()
 		{
 			
 			PlayerPalsManager::Get()->SetSelPal(selPal);
-			PlayerPalsManager::Get()->Summons();
+			//PlayerPalsManager::Get()->Summons();
 		}
 	}
 	else if (KEY_DOWN('3')) // 오른쪽 팰 선택
