@@ -82,6 +82,7 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
+	ItemManager::Get()->Update();
 	PlayerManager::Get()->Update();
 
 

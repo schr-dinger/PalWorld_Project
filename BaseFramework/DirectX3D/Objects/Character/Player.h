@@ -19,12 +19,17 @@ private:
         R_DRAW,
 
         RA_FWD,
-        //RA_BACK,
-        //RA_LEFT,
-        //RA_RIGHT,
+
+        BW_AIM,
+        BW_FIRE,
+
+        M_MINING,
+        M_ATTACK,
 
         S_AIM,
-        S_THROW
+        S_THROW,
+
+        // BW_AIM
 
     };
 
@@ -64,8 +69,12 @@ public:
 
     Transform* GetFrontPoint() { return frontPoint; }
 
+    Transform* GetHand() { return Hand; }
+
     void UiMode();
 
+    void SetModel(int num, Model* model) { weapons[num] = model; }
+    // Model* GetModel() { return weapon; }
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -125,8 +134,14 @@ private:
     ParticleSystem* particle;
     bool isGun = false;
     bool isGaim = false;
-    int select = 0;
+
+    bool isBow = false;
+    bool isBaim = false;
+
+    bool W_Aiming = false;
+    int select = 1;
    
+    vector<Model*> weapons;
 
     //player collider
 

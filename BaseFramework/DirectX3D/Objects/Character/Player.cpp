@@ -43,10 +43,17 @@ Player::Player() : ModelAnimator("NPC")
 
     ReadClip("RA_Run");
 
-    // ReadClip("B_Mining");
+    ReadClip("BW_Aim");
+    ReadClip("BW_Fire");
+
+    ReadClip("M_Mining");
+    ReadClip("M_Attack");
 
     ReadClip("S_Aim");
     ReadClip("S_Throw");
+
+    //ReadClip("BW_Run");
+    //ReadClip("BW_A_Ready");
 
 
     Scale() *= 0.01f;
@@ -89,7 +96,12 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
     GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
+    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+
     playerCollider = new CapsuleCollider(0.25f,0.7f);
+
+    weapons.resize(4);
 }
 
 Player::~Player()
@@ -101,6 +113,8 @@ Player::~Player()
     delete playerCollider;
     delete summonPalSpear;
     delete summonPalSpearCollider;
+
+    weapons.clear();
 }
 
 void Player::Update()
@@ -139,7 +153,18 @@ void Player::Update()
     playerCollider->Pos() = this->Pos() + Vector3(0,1.0f,0);
 
     Hand->SetWorld(GetTransformByNode(68));
-    
+    FOR(weapons.size())
+    {
+        if (weapons[i] != nullptr)
+        {
+            weapons[i]->SetParent(Hand);
+            weapons[i]->UpdateWorld();
+        }
+
+
+    }
+
+
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
 
@@ -170,6 +195,14 @@ void Player::Render()
     summonPalSpear->Render();
     summonPalSpearThrow->Render();
     summonPalSpearCollider->Render();
+
+    //
+    FOR(weapons.size())
+    {
+        if (weapons[select - 1] != nullptr)  weapons[select - 1]->Render();
+
+    }
+
 }
 
 void Player::GUIRender()
@@ -222,35 +255,46 @@ void Player::Control()
         select--;
         if (select < 1)
         {
-            select = 4;
+            select = 3;
         }
     }
     
-
-    switch (select)
+    if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr)
     {
-    case 1:
-        isGun = true;
-        if (KEY_DOWN('R'))
+        switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
         {
-            SetState(R_RELOAD);
+        case 1:
+            isGun = true;
+            isBow = false;
+            if (KEY_DOWN('R'))
+            {
+                SetState(R_RELOAD);
+            }
+
+            break;
+        case 2:
+            isBow = true;
+            isGun = false;
+            break;
+        case 3:
+            // mining or spear
+            isGun = false;
+            isBow = false;
+            break;
+        default:
+            isGun = false;
+            isBow = false;
+            //othere weapon
+            break;
+
         }
-        // other weapon
-        break;
-    case 2:
-        // other weapon
+
+    }
+    else
+    {
         isGun = false;
-        break;
-    case 3:
-        // other weapon
-        isGun = false;
-        break;
-    case 4:
-        // other weapon
-        isGun = false;
-        break;
-    default:
-        break;
+        isBow = false;
+
     }
 
 
@@ -258,29 +302,39 @@ void Player::Control()
     {
         isAiming = true;
 
-        switch (select)
+
+        if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr)
         {
-        case 1:
-            isGaim = true;
-            if (KEY_DOWN(VK_LBUTTON)) // 총쏘기
+            W_Aiming = true;
+
+            switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
+            {
+            case 1:
+                isGaim = true;
+                break;
+            case 2:
+                isBaim = true;
+                break;
+            case 3:
+                //  isSpearAiming = true;
+                break;
+            default:
+                isGaim = false;
+                isBaim = false;
+                break;
+            }
+            if (KEY_DOWN(VK_LBUTTON)) // �� ����
             {
                 AttackPal();
             }
-            break;
-        case 2:
-            
-            //  isSpearAiming = true;
-            break;
-        default:
-
-            break;
         }
     }
     else if (KEY_UP(VK_RBUTTON))
     {
         isAiming = false;
+        W_Aiming = false;
         isGaim = false;
-
+        isBaim = false;
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
@@ -313,11 +367,7 @@ void Player::Control()
         }
 
     }
-
-
-
-
-    
+           
 
     if (KEY_DOWN('R'))
     {
@@ -343,9 +393,7 @@ void Player::Move()
     bool isMoveX = false;
 
 
-
-
-    if (isGaim)
+    if (W_Aiming)
     {
 
         // CamTransform->Rot().y = Rot().y;
@@ -519,8 +567,22 @@ void Player::AttackPal()
     //ray.dir = CamTransform->Forward();
     //Vector3 hitPoint;
 
+    switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
+    {
+    case 1:
 
+        break;
+    case 2:
+        SetState(BW_FIRE);
+        break;
+    case 3:
+        SetState(M_ATTACK);
 
+        break;
+    default:
+
+        break;
+    }
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
@@ -601,53 +663,38 @@ void Player::UiMode()
 void Player::SetAnimation()
 {
     
-    if (curState == S_THROW)
-    {
-        return;
-    }
-    if (curState == S_AIM)
-    {
-        return;
-    }
     if (curState == J_LOOP)
     {
         ClipOnce();
         return;
     }
-
-    if (isGun)
+    else if (curState == S_THROW || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
     {
+        return;
+    }
+    if (isBow)
+    {
+        if (isBaim) SetState(BW_AIM);
+        else
+        {
+            if (velocity.Length() > 0) SetState(RUN);
+            else  SetState(IDLE);
+        }
 
-
+        return;
+    }
+    else if (isGun)
+    {
         if (isGaim)
         {
-
-            if (velocity.Length() > 0)
-            {
-                SetState(RA_FWD);
-            }
+            if (velocity.Length() > 0) SetState(RA_FWD);
             else SetState(R_Aim);
-
-
         }
         else
         {
-
-
-
-            if (velocity.Length() > 0)
-            {
-                SetState(R_RUN);
-
-            }
+            if (velocity.Length() > 0) SetState(R_RUN);
             else SetState(R_IDLE);
-            // ���ؽ� ������ �ֱ�
-            // ���ؽ� ī�޶��� ȸ���� ���� ȸ���ϱ�
-
-
         }
-
-
         return;
     }
 

@@ -173,13 +173,19 @@ using namespace GameMath;
 #include "Objects/UI/PalBoxUi.h"
 #include "Objects/UI/BuildUi.h"
 #include "Objects/UI/PartyUi.h"
-
+#include "Objects/UI/ItemClickQuad.h"
+#include "Objects/UI/ItemUI.h"
 
 
 #include "Objects/Items/Weapons/Kunai.h"
 #include "Objects/Items/Weapons/Crowbar.h"
 #include "Objects/Items/Weapons/PalSpear.h"
 #include "Objects/Items/Weapons/Bullet.h"
+#include "Objects/Items/Item.h"
+#include "Objects/Items/Equipment.h"
+#include "Objects/Items/Ingredient.h"
+
+
 
 #include "Objects/Landscape/Terrain.h"
 #include "Objects/Landscape/TerrainEditor.h"
@@ -247,6 +253,7 @@ using namespace GameMath;
 #include "Objects/Manager/UiMouseManager.h"
 #include "Objects/Manager/UiManager.h"
 #include "Objects/Manager/StructureManager.h"
+#include "Objects/Manager/ItemManager.h"
 #include "Objects/Manager/PlayerManager.h"
 
 
