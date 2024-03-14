@@ -179,6 +179,12 @@
     <ClCompile Include="Objects\Structure\WorkBench.cpp" />
     <ClCompile Include="Objects\Character\Mammoth.cpp" />
     <ClCompile Include="Objects\Character\DarkWolf.cpp" />
+    <ClCompile Include="Objects\Items\Item.cpp" />
+    <ClCompile Include="Objects\Items\Ingredient.cpp" />
+    <ClCompile Include="Objects\Items\Equipment.cpp" />
+    <ClCompile Include="Objects\Manager\ItemManager.cpp" />
+    <ClCompile Include="Objects\UI\ItemUI.cpp" />
+    <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -338,6 +344,12 @@
     <ClInclude Include="Objects\Structure\WorkBench.h" />
     <ClInclude Include="Objects\Character\Mammoth.h" />
     <ClInclude Include="Objects\Character\DarkWolf.h" />
+    <ClInclude Include="Objects\Items\Item.h" />
+    <ClInclude Include="Objects\Items\Ingredient.h" />
+    <ClInclude Include="Objects\Items\Equipment.h" />
+    <ClInclude Include="Objects\Manager\ItemManager.h" />
+    <ClInclude Include="Objects\UI\ItemUI.h" />
+    <ClInclude Include="Objects\UI\ItemClickQuad.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

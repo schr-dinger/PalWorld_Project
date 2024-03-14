@@ -15,7 +15,14 @@ UiMouseManager::~UiMouseManager()
 
 void UiMouseManager::SetRender()
 {
-	quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
+	if (tempPal != nullptr)
+	{
+		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
+	}
+	else if (tempItem != nullptr)
+	{
+		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
+	}
 }
 
 void UiMouseManager::Update()

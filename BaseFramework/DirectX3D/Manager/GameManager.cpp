@@ -74,6 +74,9 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("WaterScene");
     SceneManager::Get()->Add("NewScene");
 
+    // 인벤 u 장착 h  나무에 서있으면 드랍
+
+
 }
 
 GameManager::~GameManager()

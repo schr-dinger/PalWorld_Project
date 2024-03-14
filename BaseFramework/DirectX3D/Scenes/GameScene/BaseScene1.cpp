@@ -82,6 +82,7 @@ void BaseScene1::Update()
 	//player->Jump(terrainF->GetHeight(player->GlobalPos()));
 	//if (KEY_DOWN(VK_SPACE)) player->GlobalPos().y = terrain->GetHeight(player->GlobalPos());
 	//player->Update();
+	ItemManager::Get()->Update();
 	PlayerManager::Get()->Update();
 
 
@@ -183,24 +184,26 @@ void BaseScene1::SetLights()
 	LightBuffer::Light* light0 = Environment::Get()->GetLight(0);
 	light0->type = 0;
 	light0->range = 3000.0f;
-	light0->color = { 55.0f / 255.0f,55.0f / 255.0f,55.0f / 255.0f ,0 };
-	light0->direction = { 0,-1,0 };
+	//light0->color = { 55.0f / 255.0f,55.0f / 255.0f,55.0f / 255.0f ,0 };
+	light0->color = { 1.0f,1.0f,1.0f ,0 };
+	//light0->direction = { 0,-1,0 };
+	light0->direction = { -0.7f,-1.0f,0.0f };
 	light0->pos = { 0.01f,300.0f,0.01f };
 
-	LightBuffer::Light* light1 = Environment::Get()->AddLight();
-	light1->type = 1;
-	light1->range = 3000.0f;
-	light1->color = { 150.0f / 255.0f,150.0f / 255.0f,150.0f / 255.0f ,0 };
-	light1->direction = { 0,-1,0 };
-
-
-	LightBuffer::Light* light2 = Environment::Get()->AddLight();
-	light2->type = 1;
-	light2->range = 0.01f;
-	light2->active = 0;
-
-	LightBuffer::Light* light3 = Environment::Get()->AddLight();
-	light3->type = 1;
-	light3->range = 0.01f;
-	light3->active = 0;
+	//LightBuffer::Light* light1 = Environment::Get()->AddLight();
+	//light1->type = 1;
+	//light1->range = 3000.0f;
+	//light1->color = { 150.0f / 255.0f,150.0f / 255.0f,150.0f / 255.0f ,0 };
+	//light1->direction = { 0,-1,0 };
+	//
+	//
+	//LightBuffer::Light* light2 = Environment::Get()->AddLight();
+	//light2->type = 1;
+	//light2->range = 0.01f;
+	//light2->active = 0;
+	//
+	//LightBuffer::Light* light3 = Environment::Get()->AddLight();
+	//light3->type = 1;
+	//light3->range = 0.01f;
+	//light3->active = 0;
 }
