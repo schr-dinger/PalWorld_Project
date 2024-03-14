@@ -35,7 +35,8 @@ float4 PS(LightPixelInput input) : SV_TARGET
     //return CalcLights(input) * 0.5f + diffuseMap.Sample(samp, input.uv) * 0.5f;
     //return CalcLights(input) * 0.3f + diffuseMap.Sample(samp, input.uv) * 0.7f;
     //return CalcLights(input) * 0.2f + diffuseMap.Sample(samp, input.uv) * 0.8f;
-    return CalcLights(input) * 0.1f + diffuseMap.Sample(samp, input.uv) * 0.9f;
+    //return CalcLights(input) * 0.1f + diffuseMap.Sample(samp, input.uv) * 0.9f;
+	return CalcLights(input) * 0.5f + diffuseMap.Sample(samp, input.uv) * 0.8f;
 
 
 }
