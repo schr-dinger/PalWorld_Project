@@ -212,7 +212,7 @@ void Player::Control()
         //SetState(R_DRAW);
         if (select > 4)
         {
-            select = 0;
+            select = 1;
         }
     }
     else if (mouseWheel == 2)
@@ -220,7 +220,7 @@ void Player::Control()
         mouseWheel = 0;
 
         select--;
-        if (select < 0)
+        if (select < 1)
         {
             select = 4;
         }
@@ -262,6 +262,10 @@ void Player::Control()
         {
         case 1:
             isGaim = true;
+            if (KEY_DOWN(VK_LBUTTON)) // 총쏘기
+            {
+                AttackPal();
+            }
             break;
         case 2:
             
@@ -271,19 +275,6 @@ void Player::Control()
 
             break;
         }
-
-        if (KEY_DOWN(VK_LBUTTON)) // 총쏘기
-        {
-            AttackPal();
-        }
-        //else if (KEY_DOWN('Q')) // 팰 스피어 던지기
-        //{
-        //    CatchPal();
-        //}
-        //else if (KEY_DOWN('Z')) // 필드 UI에서 소환
-        //{
-        //    SummonsPal();
-        //}
     }
     else if (KEY_UP(VK_RBUTTON))
     {

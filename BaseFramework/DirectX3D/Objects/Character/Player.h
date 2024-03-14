@@ -36,6 +36,9 @@ public:
     void Render();
     void GUIRender();
 
+    // 장비창 넘버 가져오기
+    int GetWepSel() { return select; }
+
 private:
     void ClipSync();
     void Control();
@@ -51,6 +54,8 @@ private:
     void CatchPal();
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
+
+    
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
