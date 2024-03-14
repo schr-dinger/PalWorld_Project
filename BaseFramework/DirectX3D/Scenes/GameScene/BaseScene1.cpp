@@ -41,13 +41,13 @@ BaseScene1::BaseScene1()
 	//testUI = new FieldUI();
 
 	// 모델 테스트
-	//mam = new ModelAnimator("Mammoth");
-	//mam->ReadClip("Idle");
-	//mam->ReadClip("Walk");
-	//mam->ReadClip("Run");
-	//mam->ReadClip("Attack");
-	//
-	//mam->Scale() *= 0.01f;
+	mam = new ModelAnimator("Mammoth");
+	mam->ReadClip("Idle");
+	mam->ReadClip("Walk");
+	mam->ReadClip("Run");
+	mam->ReadClip("Attack");
+	
+	mam->Scale() *= 0.01f;
 
 }
 
@@ -95,6 +95,7 @@ void BaseScene1::Update()
 
 	// UI테스트
 	//testUI->Update();
+	//mam->Pos() = CAM->ScreenToWorld(mousePos);
 	//mam->Update();
 }
 
@@ -134,6 +135,8 @@ void BaseScene1::Render()
 
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
+	UiManager::Get()->Render();
+
 }
 
 void BaseScene1::PostRender()
@@ -169,6 +172,10 @@ void BaseScene1::GUIRender()
 	//testUI->GUIRender();
 	UiManager::Get()->GuiRender();
 	//LandScapeManager::Get()->GUIRender();
+	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
+	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
+	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
+	//mam->GUIRender();
 }
 
 void BaseScene1::SetLights()

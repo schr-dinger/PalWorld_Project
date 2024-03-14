@@ -10,9 +10,35 @@ PartyUi::PartyUi()
 	boxBaseName->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	boxBaseName->Pos() = { 310,580,0 };
 
-
 	boxBase->Update();
 	boxBaseName->Update();
+
+	// ÆÓ ¸ðµ¨µé
+	ModelAnimator* tmp = new ModelAnimator("PenGuin");
+	tmp->ReadClip("Idle");
+	tmp->Pos() = { 770.0f,150.0f, -150.0f };
+	tmp->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
+	tmp->Scale() *= 3.0f;
+	//tmp->Scale() *= 0.01f;
+	tmp->SetActive(false);
+	tmp->SetShader(L"Basic/Texture.hlsl");
+	models.insert({ "ÆëÅ°", tmp });
+	tmp = new ModelAnimator("Mammoth");
+	tmp->ReadClip("Idle");
+	tmp->Pos() = { 770.0f,150.0f, -150.0f };
+	tmp->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
+	tmp->Scale() *= 3.0f;
+	tmp->SetActive(false);
+	models.insert({ "±×¸°¸ð½º", tmp });
+	tmp = new ModelAnimator("DarkWolf");
+	tmp->ReadClip("Idle");
+	tmp->Pos() = { 770.0f,150.0f, -150.0f };
+	tmp->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
+	tmp->Scale() *= 3.0f;
+	tmp->SetActive(false);
+	models.insert({ "´ÙÅ©¿ïÇÁ", tmp });
+	//models.insert({ "ÆëÅ°", new ModelAnimator("PenGuin") });
+	name = "";
 
 	FOR(5)
 	{
@@ -54,44 +80,42 @@ void PartyUi::Update()
 	{
 		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn && partyIcon[i]->GetPal() != nullptr)
 		{
-			if (model != nullptr)
-			{
-				delete model;
-			}
-			model = new ModelAnimator(partyIcon[i]->GetPal()->GetModelName());
-			model->ReadClip("Idle");
-			//model->ReadClip("Run");
-			model->PlayClip(0);
-			model->Pos() = { 770.0f,150.0f, -150.0f };
-			model->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
-			model->Scale() *= 3.0f;
-			model->SetActive(true);
-
+			name = partyIcon[i]->GetPal()->name;
+			models[name]->SetActive(true);
+			models[name]->PlayClip(0);;
 		}
-
-
 		partyIcon[i]->Update();
 	}
 
-	if (model != nullptr)
+	if (name != "")
 	{
-		model->Update();
+		//Vector3 tmp = CAM->Forward();
+		//tmp.y = 0;
+		if (KEY_DOWN('N'))
+		{
+			models[name]->Pos() = CAM->GlobalPos() + CAM->Forward() * 3;
+		}
+		models[name]->Update();
+
 	}
-
-	//UiMouseManager::Get()->Update();
-
 }
 
 void PartyUi::Render()
 {
+	//if (name != "")
+	//{
+	//	blendState[1]->SetState();
+	//	depthState[1]->SetState();
+	//	models[name]->Render();
+	//	blendState[0]->SetState();
+	//	depthState[0]->SetState();
+	//}
 }
 
 void PartyUi::PostRender()
 {
 	boxBase->Render();
 	boxBaseName->Render();
-
-
 
 	FOR(5)
 	{
@@ -107,11 +131,11 @@ void PartyUi::PostRender()
 		Font::Get()->GetDC()->BeginDraw();
 	}
 
-	if (model != nullptr)
+	if (name != "")
 	{
 		blendState[1]->SetState();
 		depthState[1]->SetState();
-		model->Render();
+		models[name]->Render();
 		blendState[0]->SetState();
 		depthState[0]->SetState();
 	}
@@ -120,9 +144,10 @@ void PartyUi::PostRender()
 
 void PartyUi::GuiRender()
 {
-	if (model != nullptr)
+	
+	if (name != "")
 	{
-		model->GUIRender();
+		models[name]->GUIRender();
 	}
 }
 
@@ -138,12 +163,9 @@ void PartyUi::SetPal()
 
 void PartyUi::ClearModel()
 {
-	//
-	if (model != nullptr)
+	
+	if (name != "")
 	{
-		//¿À·ù³²
-		//delete model;
-		model->SetActive(false);
+		models[name]->SetActive(false);
 	}
-
 }

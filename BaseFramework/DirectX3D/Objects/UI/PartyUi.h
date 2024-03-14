@@ -28,6 +28,9 @@ private:
 	PartyBox* partyIcon[5];
 
 	ModelAnimator* model;
+	map<string, ModelAnimator*> models;
+	string name;
+
 
 	BlendState* blendState[2];
 	DepthStencilState* depthState[2];
