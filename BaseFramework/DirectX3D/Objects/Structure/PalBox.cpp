@@ -101,6 +101,9 @@ void PalBox::Update()
 
 void PalBox::PreRender()
 {
+	if (!isPlaced) return;
+	if (Done) return;
+
 	shadow->SetRenderTarget(1);
 
 	cube->SetShader(L"Light/DepthMap.hlsl");

@@ -102,6 +102,9 @@ void WorkBench::Update()
 
 void WorkBench::PreRender()
 {
+	if (!isPlaced) return;
+	if (Done) return;
+
 	shadow->SetRenderTarget(2);
 
 	cube->SetShader(L"Light/DepthMap.hlsl");
