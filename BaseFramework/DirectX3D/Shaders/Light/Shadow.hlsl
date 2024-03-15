@@ -108,5 +108,5 @@ float4 PS(PixelInput input) : SV_TARGET
 	if (currentDepth > shadowDepth + 0.0001f)
 		return color * 0.5f;
 
-	return color;
+	return color * 0.3f + diffuseMap.Sample(samp, input.uv) * 0.7f;
 }
