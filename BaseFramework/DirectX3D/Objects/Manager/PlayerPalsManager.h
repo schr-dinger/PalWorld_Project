@@ -8,8 +8,8 @@ public:
 
     enum class MODE
     {
-        PASSIVE,
         AGGRESSIVE,
+        PASSIVE
     };
 
 public:
@@ -66,8 +66,8 @@ private:
     //Transform* target;
     Player* player;
 
-    //MODE mode = MODE::PASSIVE;
-    MODE mode = MODE::AGGRESSIVE;
+    MODE mode = MODE::PASSIVE;
+    //MODE mode = MODE::AGGRESSIVE;
 
     float time = 0; //경과된 시간
 
@@ -80,7 +80,7 @@ private:
     //Vector3 velocity;
 
     float smallest;
-    Pal* closePal;
+    Pal* closePal = nullptr;
 
 };
 
