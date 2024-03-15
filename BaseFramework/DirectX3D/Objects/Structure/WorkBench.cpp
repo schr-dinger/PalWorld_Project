@@ -20,7 +20,7 @@ WorkBench::WorkBench()
 	//Place();
 
 	//light = Environment::Get()->GetLight(1);
-	light = Environment::Get()->GetLight(3);
+	light = Environment::Get()->GetLight(2);
 	light->type = 1;
 	light->range = 0.01f;
 
