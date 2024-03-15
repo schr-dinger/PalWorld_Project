@@ -18,6 +18,7 @@ public:
 	// �ڽĵ� ���� �Լ�
 	virtual void Update() = 0;
 	virtual void Render() = 0;
+	virtual void ShadowRender() = 0;
 	virtual void PostRender() = 0;
 	virtual void GUIRender() = 0;
 	virtual void SetTarget(Transform* target) = 0;
@@ -73,6 +74,9 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 
 	float moveTime = 0.0f;
 	Vector3 randomDir;
+
+	// 테스트 그림자:
+	Sphere* shadowSphere;
 
 };
 

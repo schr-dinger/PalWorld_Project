@@ -69,6 +69,9 @@ PalsManager::PalsManager()
     testIsHit = false;
     //palsInstancing[1]->GetMaterial(0)->SetDiffuseMap(L"Textures/Color/White.png");
     //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
+
+    // 테스트 : 그림자
+    shadow = new Shadow();
 }
 
 PalsManager::~PalsManager()
@@ -82,6 +85,8 @@ PalsManager::~PalsManager()
 
     FOR(2)
         delete blendState[i];
+
+    
 }
 
 void PalsManager::Update()
@@ -135,6 +140,13 @@ void PalsManager::Render()
     for (Pal* pal : pals)
         pal->Render();
 
+}
+
+void PalsManager::PreRender()
+{
+    shadow->SetRenderTarget();
+    for (Pal* pal : pals)
+        pal->ShadowRender();
 }
 
 void PalsManager::PostRender()

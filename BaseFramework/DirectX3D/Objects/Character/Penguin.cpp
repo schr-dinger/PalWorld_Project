@@ -53,6 +53,9 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     velocity = { 0, 0, 0 };
     target = nullptr;
+
+    // 테스트 : 그림자
+    shadowSphere = new Sphere();
 }
 
 Penguin::~Penguin()
@@ -147,6 +150,10 @@ void Penguin::Render()
     collider->Render();
     skill[0]->Render();
 
+}
+
+void Penguin::ShadowRender()
+{
 }
 
 void Penguin::PostRender()

@@ -148,6 +148,10 @@ void DarkWolf::Render()
 
 }
 
+void DarkWolf::ShadowRender()
+{
+}
+
 void DarkWolf::PostRender()
 {
     if (!transform->Active()) return;

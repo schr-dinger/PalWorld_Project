@@ -144,6 +144,10 @@ void Mammoth::Render()
     skill[0]->Render();
 }
 
+void Mammoth::ShadowRender()
+{
+}
+
 void Mammoth::PostRender()
 {
     if (!transform->Active()) return;

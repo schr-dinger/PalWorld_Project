@@ -14,6 +14,7 @@ public:
 	~PalsManager();      
 	void Update();     
 	void Render();     
+	void PreRender();     
 	void PostRender();     
 	void GUIRender();      
 	void SetTarget(Transform* target); //표적 설정     
@@ -48,6 +49,9 @@ private:
 	Vector3 testHit;
 	bool testIsHit;
 	int hitPalIndex;
+
+	// 테스트 : 그림자
+	Shadow* shadow;
 
 };
 
