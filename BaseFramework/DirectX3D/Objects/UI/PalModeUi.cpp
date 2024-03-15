@@ -88,6 +88,7 @@ void PalModeUi::PostRender()
 
 void PalModeUi::GuiRender()
 {
+
 }
 
 void PalModeUi::SetTexture()
