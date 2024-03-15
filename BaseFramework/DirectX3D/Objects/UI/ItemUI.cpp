@@ -240,7 +240,7 @@ void ItemUI::PostRender()
 
 }
 
-void ItemUI::GuiRender()
+void ItemUI::GUIRender()
 {
 
 }

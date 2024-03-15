@@ -185,6 +185,9 @@
     <ClCompile Include="Objects\Manager\ItemManager.cpp" />
     <ClCompile Include="Objects\UI\ItemUI.cpp" />
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
+    <ClCompile Include="Objects\UI\WorkBenchUI.cpp" />
+    <ClCompile Include="Objects\UI\WorkInFo.cpp" />
+    <ClCompile Include="Objects\UI\WorkSlot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -350,6 +353,9 @@
     <ClInclude Include="Objects\Manager\ItemManager.h" />
     <ClInclude Include="Objects\UI\ItemUI.h" />
     <ClInclude Include="Objects\UI\ItemClickQuad.h" />
+    <ClInclude Include="Objects\UI\WorkBenchUI.h" />
+    <ClInclude Include="Objects\UI\WorkInFo.h" />
+    <ClInclude Include="Objects\UI\WorkSlot.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

@@ -58,7 +58,7 @@ GameManager::GameManager()
 
     //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("ModelAnimationScene");
-    //SceneManager::Get()->Add("Collision");
+    //SceneManager::Get()->Add("ParticleConfig");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
     //SceneManager::Get()->Add("BillboardScene");

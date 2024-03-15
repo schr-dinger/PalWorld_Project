@@ -311,10 +311,7 @@ void Player::Control()
             {
             case 1:
                 isGaim = true;
-                if (KEY_DOWN(VK_LBUTTON)) // �� ����
-                {
-                    AttackPal();
-                }
+              
                 break;
             case 2:
                 isBaim = true;
@@ -327,7 +324,10 @@ void Player::Control()
                 isBaim = false;
                 break;
             }
-            
+            if (KEY_DOWN(VK_LBUTTON)) // �� ����
+            {
+                AttackPal();
+            }
         }
     }
     else if (KEY_UP(VK_RBUTTON))
