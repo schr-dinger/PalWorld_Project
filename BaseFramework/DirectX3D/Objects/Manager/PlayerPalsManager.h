@@ -8,8 +8,8 @@ public:
 
     enum class MODE
     {
-        PASSIVE,
         AGGRESSIVE,
+        PASSIVE
     };
 
 public:

@@ -1,6 +1,7 @@
 #pragma once
 class PalModeUi
 {
+public:
 	PalModeUi();
 	~PalModeUi();
 
