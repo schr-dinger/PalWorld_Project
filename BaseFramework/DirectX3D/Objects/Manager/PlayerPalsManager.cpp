@@ -166,6 +166,17 @@ void PlayerPalsManager::PostRender()
     }
 }
 
+void PlayerPalsManager::ShadowRender()
+{
+    for (Pal* pal : pals)
+    {
+        if (pal != nullptr)
+        {
+            pal->ShadowRender();
+        }
+    }
+}
+
 void PlayerPalsManager::GUIRender()
 {
     ImGui::Text("MyPalsSIze : %d", pals.size());

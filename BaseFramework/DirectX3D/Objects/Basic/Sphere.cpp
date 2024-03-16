@@ -23,6 +23,11 @@ void Sphere::Render()
     mesh->Draw();
 }
 
+void Sphere::SetShader(wstring file)
+{
+    material->SetShader(file);
+}
+
 void Sphere::MakeMesh()
 {
     float thetaStep = XM_2PI / sliceCount;

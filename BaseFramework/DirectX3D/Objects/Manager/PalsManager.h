@@ -17,6 +17,7 @@ public:
 	void PreRender();     
 	void PostRender();     
 	void GUIRender();      
+	void ShadowRender();
 	void SetTarget(Transform* target); //표적 설정     
 	void SetPlayer(Player* player); // 플레이어 설정       
 	bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정     

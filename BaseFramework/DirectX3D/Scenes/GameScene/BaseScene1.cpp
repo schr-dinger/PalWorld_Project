@@ -118,8 +118,12 @@ void BaseScene1::PreRender()
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 
-	shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
+	// 그림자
+	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
+	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	PalsManager::Get()->ShadowRender();
+	PlayerPalsManager::Get()->ShadowRender();
 }
 
 void BaseScene1::Render()
@@ -137,6 +141,7 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
+	// 그림자 + 터레인
 	shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();

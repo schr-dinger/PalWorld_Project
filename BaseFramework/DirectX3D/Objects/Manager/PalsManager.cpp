@@ -166,6 +166,12 @@ void PalsManager::GUIRender()
 
 }
 
+void PalsManager::ShadowRender()
+{
+    for (Pal* pal : pals)
+        pal->ShadowRender();
+}
+
 void PalsManager::SetTarget(Transform* target)
 {
     this->target = target; // 매니저 입장에서 기록할 표적 : 일괄설정 등이 필요할 때 쓸 것
