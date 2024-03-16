@@ -5,6 +5,8 @@ ModelAnimatorInstancing::ModelAnimatorInstancing(string name)
 {
     SetShader(L"Model/ModelAnimationInstancing.hlsl");
 
+    ModelName = name;
+
     instanceBuffer = new VertexBuffer(instanceDatas, sizeof(InstanceData), MAX_INSTANCE);
     frameInstancingBuffer = new FrameInstancingBuffer();
 }

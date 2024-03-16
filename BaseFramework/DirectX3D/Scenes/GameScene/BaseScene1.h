@@ -15,6 +15,10 @@ public:
 private:
 	void SetLights();
 
+	void SetShadowModel();
+
+	void RenderShadowModel();
+
 	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;
 	SkyBox* skyBox;
@@ -33,5 +37,11 @@ private:
 	FieldUI* testUI;
 
 	ModelAnimator* mam;
+
+	// 진짜 그림자 모델 테스트
+	ModelAnimator* ModelP;
+	ModelAnimator* ModelM;
+	ModelAnimator* ModelD;
+
 };
 
