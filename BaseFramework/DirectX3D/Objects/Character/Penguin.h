@@ -18,6 +18,7 @@ public:
 
     void Update();
     void Render();
+    void ShadowRender();
     void PostRender();
     void GUIRender();
     Texture* GetTexture() { return icon; }

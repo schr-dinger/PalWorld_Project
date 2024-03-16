@@ -166,6 +166,17 @@ void PlayerPalsManager::PostRender()
     }
 }
 
+void PlayerPalsManager::ShadowRender()
+{
+    for (Pal* pal : pals)
+    {
+        if (pal != nullptr)
+        {
+            pal->ShadowRender();
+        }
+    }
+}
+
 void PlayerPalsManager::GUIRender()
 {
     ImGui::Text("MyPalsSIze : %d", pals.size());
@@ -273,7 +284,9 @@ void PlayerPalsManager::OnGround(Terrain* terrain)
     {
         if (pal != nullptr)
         {
-            pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+            //pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+            pal->GetTransform()->Pos().y = Lerp(pal->GetTransform()->Pos().y, terrain->GetHeight(pal->GetTransform()->GlobalPos()), 10 * DELTA);
+
         }
     }
 }

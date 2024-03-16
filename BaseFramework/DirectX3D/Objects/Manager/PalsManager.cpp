@@ -69,6 +69,9 @@ PalsManager::PalsManager()
     testIsHit = false;
     //palsInstancing[1]->GetMaterial(0)->SetDiffuseMap(L"Textures/Color/White.png");
     //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
+
+    // 테스트 : 그림자
+    shadow = new Shadow();
 }
 
 PalsManager::~PalsManager()
@@ -82,6 +85,8 @@ PalsManager::~PalsManager()
 
     FOR(2)
         delete blendState[i];
+
+    
 }
 
 void PalsManager::Update()
@@ -137,6 +142,13 @@ void PalsManager::Render()
 
 }
 
+void PalsManager::PreRender()
+{
+    shadow->SetRenderTarget();
+    for (Pal* pal : pals)
+        pal->ShadowRender();
+}
+
 void PalsManager::PostRender()
 {
     // 캐릭터 UI랜더
@@ -152,6 +164,12 @@ void PalsManager::GUIRender()
     //for (ModelAnimatorInstancing* pal : palsInstancing)
     //    pal->GUIRender();
 
+}
+
+void PalsManager::ShadowRender()
+{
+    for (Pal* pal : pals)
+        pal->ShadowRender();
 }
 
 void PalsManager::SetTarget(Transform* target)
@@ -220,7 +238,9 @@ void PalsManager::OnGround(Terrain* terrain)
 {
     for (Pal* pal : pals)
     {
-        pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+        //pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+        pal->GetTransform()->Pos().y = Lerp(pal->GetTransform()->Pos().y, terrain->GetHeight(pal->GetTransform()->GlobalPos()), 10 * DELTA);
+
     }
 }
 

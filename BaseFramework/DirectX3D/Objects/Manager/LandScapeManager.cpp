@@ -122,7 +122,7 @@ void LandScapeManager::Render()
 
     //shadow->SetRender();
     //tree1->SetShader(L"Light/Shadow.hlsl");
-    //terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
+    terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
 
     tree1->Render();

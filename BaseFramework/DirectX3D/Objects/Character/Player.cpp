@@ -205,6 +205,14 @@ void Player::Render()
 
 }
 
+void Player::ShadowRender()
+{
+    ModelAnimator::SetShader(L"Light/DepthMap.hlsl");
+    ModelAnimator::Render();
+    ModelAnimator::SetShader(L"Model/ModelAnimation.hlsl");
+
+}
+
 void Player::GUIRender()
 {
     //ModelAnimator::GUIRender();

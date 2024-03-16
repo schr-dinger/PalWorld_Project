@@ -39,6 +39,7 @@ public:
 
     void Update();
     void Render();
+    void ShadowRender();
     void GUIRender();
 
     // 장비창 넘버 가져오기

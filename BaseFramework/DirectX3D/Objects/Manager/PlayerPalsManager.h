@@ -20,6 +20,7 @@ public:
     void Update();
     void Render();
     void PostRender();
+    void ShadowRender();
     void GUIRender();
 
     //void SetTarget(Transform* target); //표적 설정
