@@ -7,10 +7,7 @@ UiManager::UiManager()
 	partyUi = new PartyUi();
 	fieldUI = new FieldUI();
 	itemUi = new ItemUI();
-
-	//
-
-	test = new WorkBenchUI();
+	palModeUi = new PalModeUi();
 }
 
 UiManager::~UiManager()
@@ -20,18 +17,19 @@ UiManager::~UiManager()
 	delete partyUi;
 	delete fieldUI;
 	delete itemUi;
+	delete palModeUi;
 }
 
 void UiManager::Update()
 {
 	ControlOn();
 
-	if (KEY_DOWN('B') && !palBoxUiOn && !partyUiOn)
+	if (KEY_DOWN('B') && !palBoxUiOn && !partyUiOn && !palModeUiOn && !InvenIsOn)
 	{
 		buildUiOn = !buildUiOn;
 	}
 
-	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn)
+	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn && !palModeUiOn && !InvenIsOn)
 	{
 		if (partyUiOn)
 		{
@@ -42,18 +40,26 @@ void UiManager::Update()
 		
 	}
 
-	if (KEY_DOWN('U') && !palBoxUiOn && !partyUiOn)
+	if (KEY_DOWN('U') &&!buildUiOn && !palBoxUiOn && !partyUiOn && !palModeUiOn)
 	{
 		InvenIsOn = !InvenIsOn;
 		itemUi->SetItem();
 	}
-	test->Update();
+
+	if (KEY_DOWN('4') && !buildUiOn && !palBoxUiOn && !partyUiOn && !InvenIsOn)
+	{
+		palModeUiOn = !palModeUiOn;
+	}
+
+
 
 
 	if (palBoxUiOn)	palBoxUi->Update();
 	if (buildUiOn) buildUi->Update();
 	if (partyUiOn) partyUi->Update();
 	if (InvenIsOn) itemUi->Update();
+	if (palModeUiOn) palModeUi->Update();
+
 	fieldUI->Update();
 }
 
@@ -63,6 +69,8 @@ void UiManager::Render()
 	if (buildUiOn) buildUi->Render();
 	if (partyUiOn) partyUi->Render();
 	if (InvenIsOn) itemUi->Render();
+	if (palModeUiOn) palModeUi->Render();
+
 }
 
 void UiManager::PostRender()
@@ -72,9 +80,7 @@ void UiManager::PostRender()
 	if (buildUiOn)	buildUi->PostRender();
 	if (partyUiOn) partyUi->PostRender();
 	if (InvenIsOn) itemUi->PostRender();
-
-	test->Render();
-
+	if (palModeUiOn) palModeUi->PostRender();
 }
 
 void UiManager::GuiRender()
@@ -87,7 +93,7 @@ void UiManager::GuiRender()
 
 void UiManager::ControlOn()
 {
-	if (palBoxUiOn || buildUiOn || partyUiOn || InvenIsOn)
+	if (palBoxUiOn || buildUiOn || partyUiOn || InvenIsOn ||palModeUiOn )
 	{
 		UiOn = true;
 	}
@@ -104,5 +110,6 @@ void UiManager::ControlOn()
 		WorkBenchUiOn = false;
 		partyUiOn = false;
 		InvenIsOn = false;
+		palModeUiOn = false;
 	}
 }

@@ -100,13 +100,14 @@ void DarkWolf::Update()
         MoveWithOutTarget();
     }
 
-    if (target && !isSpawned)
+    //if (target && !isSpawned)
+    if (target)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
     }
 
-    if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0)
+    if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
     {
         destVel = PlayerPalsManager::Get()->destPos - transform->GlobalPos();
 
@@ -323,26 +324,23 @@ void DarkWolf::Move()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
-    //else if (velocity.Length() < 10)
-    //{
-    //    speed = 2;
-    //    SetAction(ACTION::WALK);
-    //}
-    else if (velocity.Length() < 20) // 표적과 거리가 가까울 때는
+    else if (velocity.Length() < 50) // 표적과 거리가 가까울 때는
     {
-        speed = 8; //두 배로 빨라진다
+        speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);
     }
-    else if (velocity.Length() < 30)
+    else if (velocity.Length() < 100)
     {
-        speed = 4;
+        speed = 2;
         SetAction(ACTION::WALK);
     }
     else
     {
-        speed = 0;
+        //speed = 0;
+        target = nullptr;
         SetAction(ACTION::IDLE);
     }
+
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;

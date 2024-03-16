@@ -175,9 +175,9 @@ using namespace GameMath;
 #include "Objects/UI/PartyUi.h"
 #include "Objects/UI/ItemClickQuad.h"
 #include "Objects/UI/ItemUI.h"
-#include "Objects/UI/WorkInFo.h"
-#include "Objects/UI/WorkSlot.h"
-#include "Objects/UI/WorkBenchUI.h"
+#include "Objects/UI/PalModeUi.h"
+
+
 
 #include "Objects/Items/Weapons/Kunai.h"
 #include "Objects/Items/Weapons/Crowbar.h"

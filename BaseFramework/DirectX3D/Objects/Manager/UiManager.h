@@ -17,7 +17,8 @@ public:
 	bool palBoxUiOn = false;
 	bool buildUiOn = false;
 	bool WorkBenchUiOn = false;
-
+	bool partyUiOn = false;
+	bool palModeUiOn = false;
 
 	bool buildPalBox = false;
 	bool PlacedPalBox = false;
@@ -25,7 +26,6 @@ public:
 	bool buildWorkBench = false;
 	bool PlacedWorkBench = false;
 
-	bool partyUiOn = false;
 
 	bool InvenIsOn = false;
 private:
@@ -38,6 +38,7 @@ private:
 	PartyUi* partyUi;
 	FieldUI* fieldUI;
 	ItemUI* itemUi;
+	PalModeUi* palModeUi;
 
 	bool UiOn = false;
 

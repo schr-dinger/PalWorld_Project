@@ -177,8 +177,7 @@
     <ClInclude Include="Objects\Manager\PlayerManager.h" />
     <ClInclude Include="Objects\UI\PartyUi.h" />
     <ClInclude Include="Framework\Utilities\Random.h" />
-    <ClInclude Include="Objects\UI\WorkInFo.h" />
-    <ClInclude Include="Objects\UI\WorkSlot.h" />
+    <ClInclude Include="Objects\UI\PalModeUi.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -307,7 +306,6 @@
     <ClInclude Include="Objects\Manager\UiMouseManager.h" />
     <ClInclude Include="Objects\Manager\UiManager.h" />
     <ClInclude Include="Objects\Structure\WorkBench.h" />
-    <ClInclude Include="Objects\UI\WorkBenchUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
@@ -345,8 +343,7 @@
     <ClCompile Include="Objects\Manager\PlayerManager.cpp" />
     <ClCompile Include="Objects\UI\PartyUi.cpp" />
     <ClCompile Include="Framework\Utilities\Random.cpp" />
-    <ClCompile Include="Objects\UI\WorkInFo.cpp" />
-    <ClCompile Include="Objects\UI\WorkSlot.cpp" />
+    <ClCompile Include="Objects\UI\PalModeUi.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />
@@ -467,7 +464,6 @@
     <ClCompile Include="Objects\Manager\UiMouseManager.cpp" />
     <ClCompile Include="Objects\Manager\UiManager.cpp" />
     <ClCompile Include="Objects\Structure\WorkBench.cpp" />
-    <ClCompile Include="Objects\UI\WorkBenchUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

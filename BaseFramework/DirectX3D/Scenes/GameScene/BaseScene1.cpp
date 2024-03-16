@@ -164,7 +164,7 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	//PlayerPalsManager::Get()->GUIRender();
+	PlayerPalsManager::Get()->GUIRender();
 
 	PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
@@ -197,13 +197,13 @@ void BaseScene1::SetLights()
 	//light1->direction = { 0,-1,0 };
 	//
 	//
-	//LightBuffer::Light* light2 = Environment::Get()->AddLight();
-	//light2->type = 1;
-	//light2->range = 0.01f;
-	//light2->active = 0;
-	//
-	//LightBuffer::Light* light3 = Environment::Get()->AddLight();
-	//light3->type = 1;
-	//light3->range = 0.01f;
-	//light3->active = 0;
+	LightBuffer::Light* light1 = Environment::Get()->AddLight();
+	light1->type = 1;
+	light1->range = 0.01f;
+	light1->active = 1;
+	
+	LightBuffer::Light* light2 = Environment::Get()->AddLight();
+	light2->type = 1;
+	light2->range = 0.01f;
+	light2->active = 1;
 }
