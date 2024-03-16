@@ -284,7 +284,9 @@ void PlayerPalsManager::OnGround(Terrain* terrain)
     {
         if (pal != nullptr)
         {
-            pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+            //pal->GetTransform()->Pos().y = terrain->GetHeight(pal->GetTransform()->GlobalPos());
+            pal->GetTransform()->Pos().y = Lerp(pal->GetTransform()->Pos().y, terrain->GetHeight(pal->GetTransform()->GlobalPos()), 10 * DELTA);
+
         }
     }
 }
