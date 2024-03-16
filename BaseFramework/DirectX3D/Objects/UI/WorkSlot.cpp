@@ -7,29 +7,27 @@ WorkSlot::WorkSlot(int Number)
 	test = Number;
 
 	MakeSlot = new Quad(Vector2(50, 50));
-	MakeSlot->Pos() = Vector3(0, 0, 0);
-
-	wstring file = L"Textures/UI/Make/Make" + to_wstring(test) + L".png";
+	MakeSlotBase = new Quad(Vector2(50, 50));
+		
+	wstring file = L"Textures/UI/Make/Work" + to_wstring(test) + L".png";
 	MakeSlot->GetMaterial()->SetDiffuseMap(file);
-	
-	MakeSlotBase = MakeSlot = new Quad(Vector2(50, 50));
-	MakeSlotBase->Pos() = Vector3(0, 0, 0);
-	
 
-	
+	MakeSlot->Update();
+	MakeSlotBase->Update();
+
 
 	// 스위치로 돌려서 필요한 아이템 수를 넣어서 돌려
 	switch (test)
 	{
 	case 0:
-		
+		matter.resize(2);
 		matter[0] = new WorkInFo(2, 2);
 		matter[1] = new WorkInFo(1, 2);
-		//test = new WorkInFo(2, 2);
+		break;
+		
 	case 1:
 		matter.resize(1);
 		matter[0] = new WorkInFo(1, 4);
-
 		break;
 	case 2:
 		matter.resize(1);
@@ -61,6 +59,7 @@ WorkSlot::WorkSlot(int Number)
 WorkSlot::~WorkSlot()
 {
 	delete MakeSlot;
+	delete MakeSlotBase;
 	matter.clear();
 	 
 
@@ -70,25 +69,32 @@ WorkSlot::~WorkSlot()
 void WorkSlot::Update()
 {
 	if(CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-	else MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/Red.png");
+	else MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
+	
 
-	MakeSlot->UpdateWorld();
-	MakeSlot->UpdateWorld();
-
+	MakeSlotBase->Update();
+	MakeSlot->Update();
+	
 	FOR(matter.size())
 	{
-		matter[i]->SetPos(Vector3(MakeSlot->Pos().x, MakeSlot->Pos().y - i * 100.0f, 0));
+		matter[i]->SetPos(Vector3(MakeSlot->Pos().x+30, MakeSlot->Pos().y - (50 + i * 30.0f), 0));
 		matter[i]->Update();
 	}
 	
+	if (CheckItem() && MouseCollision && KEY_DOWN('J'))
+	{
+		MakeItem();
+	}
+
 	
 
 }
 
 void WorkSlot::Render()
 {
+	MakeSlotBase->Render();
 	MakeSlot->Render();
-
+	
 	if (MouseCollision())
 	{
 		FOR(matter.size())
@@ -96,7 +102,6 @@ void WorkSlot::Render()
 			matter[i]->Render();
 		}
 	}
-
 
 }
 
@@ -134,12 +139,31 @@ bool WorkSlot::CheckItem()
 
 	FOR(matter.size())
 	{
-		if (matter[i]->IsMakeOk());
-		check++;
+		if (matter[i]->IsMakeOk()) check++;
 	}
 	
 
 	if (check != 0 && check == matter.size()) return true;
 	
 	return false;
+}
+
+void WorkSlot::MakeItem()
+{
+
+	FOR(matter.size())
+	{	
+		ItemManager::Get()->GetItemDV()[matter[i]->GetNUM()].second -= matter[i]->GetCount();
+		
+
+
+	}
+
+	// 무기 추가..
+
+
+
+
+
+
 }

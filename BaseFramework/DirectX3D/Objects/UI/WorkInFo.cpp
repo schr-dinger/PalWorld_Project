@@ -5,9 +5,10 @@ WorkInFo::WorkInFo(int num, int ItemC )
 {
 
 	NUM = num;
-	
-	MakeInFo = new Quad(Vector2(200, 50));
-	InFoIcon = new Quad(Vector2(50, 50));
+	Count = ItemC;
+
+	MakeInFo = new Quad(Vector2(200, 30));
+	InFoIcon = new Quad(Vector2(30, 30));
 
 		
 	switch (NUM)
@@ -23,7 +24,7 @@ WorkInFo::WorkInFo(int num, int ItemC )
 		break;
 	}
 	
-	ItemCount  = new Quad(Vector2(70, 50));
+	ItemCount  = new Quad(Vector2(70, 30));
 
 	
 	
@@ -42,9 +43,8 @@ void WorkInFo::Update()
 	
 	MakeInFo->Pos() = InFoPos;
 	InFoIcon->Pos() = Vector3(InFoPos.x - 50, InFoPos.y, 0);
-	ItemCount->Pos() = Vector3(InFoPos.x + 200, InFoPos.y, 0);
+	ItemCount->Pos() = Vector3(InFoPos.x + 130, InFoPos.y, 0);
 	
-
 	MakeInFo->Update();
 	InFoIcon->Update();
 	ItemCount->Update();
@@ -65,18 +65,18 @@ void WorkInFo::Render()
 	switch (NUM)
 	{
 	case 1:
-		Font::Get()->RenderText("나무", Vector2(InFoPos.x + 50, InFoPos.y));
+		Font::Get()->RenderText("나무", Vector2(InFoPos.x + 30, InFoPos.y+10));
 		break;
 	case 2:
-		Font::Get()->RenderText("돌", Vector2(InFoPos.x + 50, InFoPos.y));
+		Font::Get()->RenderText("돌", Vector2(InFoPos.x + 30, InFoPos.y+10));
 		break;
 	default:
 		break;
 	}	
 
 	int a = ItemManager::Get()->GetItemDV()[NUM].second;
-	string b = to_string(a);
-	Font::Get()->RenderText(b, Vector2(InFoPos.x + 200, InFoPos.y));
+	string b =  to_string(a) + " / "  + to_string(Count);
+	Font::Get()->RenderText(b, Vector2(InFoPos.x + 120, InFoPos.y+10));
 
 
 }
@@ -93,17 +93,17 @@ bool WorkInFo::IsMakeOk()
 {
 
 	if (ItemManager::Get()->GetItemDV()[NUM].second != 0 &&
-		ItemManager::Get()->GetItemDV()[NUM].second >= NUM)
+		ItemManager::Get()->GetItemDV()[NUM].second >= Count)
 	{
 		MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
-		ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+		ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 
 		return true;
 	}
 
 
-	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/Red.png");
-	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/Red.png");
+	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
+	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
 
 	return false;
 }

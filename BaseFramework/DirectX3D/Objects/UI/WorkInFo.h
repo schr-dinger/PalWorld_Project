@@ -15,6 +15,9 @@ public:
 	bool IsMakeOk();
 	
 	void SetPos(Vector3 Pos) { InFoPos = Pos; }
+
+	int GetCount() { return Count; }
+	int GetNUM() { return NUM; }
 private:
 
 
@@ -29,6 +32,8 @@ private:
 	Quad* ItemCount; // 들어가는 아이템 갯수..
 		
 	int NUM = 0;
+	int Count = 0;
 
+	
 };
 

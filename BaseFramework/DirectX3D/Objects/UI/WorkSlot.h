@@ -15,6 +15,8 @@ public:
 	bool MouseCollision();
 	bool CheckItem();
 			
+	void MakeItem();
+
 	Quad* GetQuad() { return MakeSlot; }
 	Quad* GetBase() { return MakeSlotBase; }
 
@@ -26,10 +28,9 @@ private:
 
 	vector<WorkInFo*> matter;
 	
-
 	int test;
 
-
+	
 
 
 };

@@ -11,9 +11,7 @@ public:
 	void Render();
 	void PostRender();
 	void GUIRender();
-	
-	void MakeItem();
-		
+				
 private:
 
 

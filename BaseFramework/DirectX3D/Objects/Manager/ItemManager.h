@@ -43,8 +43,9 @@ private:
 	map<int, pair<int, int>> itemData;
 	map<int, vector<Item*>> items;
 
-	vector<Item*> weapons;
 
+
+	vector<Item*> weapons;
 	vector<Item*> invEquip;
 
 

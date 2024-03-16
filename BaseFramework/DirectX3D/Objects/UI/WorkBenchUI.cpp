@@ -16,6 +16,8 @@ WorkBenchUI::WorkBenchUI()
 	{
 		test[i] = new WorkSlot(i);
 		test[i]->GetQuad()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
+
+
 		test[i]->GetBase()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
 
 
@@ -24,7 +26,7 @@ WorkBenchUI::WorkBenchUI()
 	WorkBase->Update();
 	WorkBaseName->Update();
 
-	// y가 안맞음 위치 조정 필요
+	
 
 }
 
@@ -41,7 +43,6 @@ void WorkBenchUI::Update()
 	{
 		test[i]->Update();
 
-
 	}
 
 
@@ -49,8 +50,9 @@ void WorkBenchUI::Update()
 
 void WorkBenchUI::Render()
 {
-	WorkBase->Render();
+	
 	WorkBaseName->Render();
+	WorkBase->Render();
 
 	FOR(5)
 	{
@@ -69,8 +71,6 @@ void WorkBenchUI::GUIRender()
 {
 }
 
-void WorkBenchUI::MakeItem()
-{
-}
+
 
 

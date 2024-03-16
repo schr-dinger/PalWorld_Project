@@ -211,8 +211,8 @@ void ItemUI::PostRender()
 	}
 	FOR(3)
 	{
-		P_Equip[i]->Render();
 		P_EquipBase[i]->Render();
+		P_Equip[i]->Render();
 	}
 
 

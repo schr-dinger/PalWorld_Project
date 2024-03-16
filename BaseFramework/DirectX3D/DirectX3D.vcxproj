@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Items\Consumable.h" />
     <ClInclude Include="Objects\UI\ItemClickQuad.h" />
     <ClInclude Include="Objects\UI\ItemUI.h" />
     <ClInclude Include="Objects\Manager\ItemManager.h" />
@@ -178,6 +179,9 @@
     <ClInclude Include="Objects\UI\PartyUi.h" />
     <ClInclude Include="Framework\Utilities\Random.h" />
     <ClInclude Include="Objects\UI\PalModeUi.h" />
+    <ClInclude Include="Objects\UI\WorkBenchUI.h" />
+    <ClInclude Include="Objects\UI\WorkInFo.h" />
+    <ClInclude Include="Objects\UI\WorkSlot.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -308,6 +312,7 @@
     <ClInclude Include="Objects\Structure\WorkBench.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Items\Consumable.cpp" />
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
     <ClCompile Include="Objects\UI\ItemUI.cpp" />
     <ClCompile Include="Objects\Manager\ItemManager.cpp" />
@@ -344,6 +349,9 @@
     <ClCompile Include="Objects\UI\PartyUi.cpp" />
     <ClCompile Include="Framework\Utilities\Random.cpp" />
     <ClCompile Include="Objects\UI\PalModeUi.cpp" />
+    <ClCompile Include="Objects\UI\WorkBenchUI.cpp" />
+    <ClCompile Include="Objects\UI\WorkInFo.cpp" />
+    <ClCompile Include="Objects\UI\WorkSlot.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />

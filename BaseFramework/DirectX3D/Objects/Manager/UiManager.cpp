@@ -8,6 +8,11 @@ UiManager::UiManager()
 	fieldUI = new FieldUI();
 	itemUi = new ItemUI();
 	palModeUi = new PalModeUi();
+
+
+	//
+
+	test = new WorkBenchUI();
 }
 
 UiManager::~UiManager()
@@ -61,6 +66,10 @@ void UiManager::Update()
 	if (palModeUiOn) palModeUi->Update();
 
 	fieldUI->Update();
+
+	//
+
+	test->Update();
 }
 
 void UiManager::Render()
@@ -81,6 +90,8 @@ void UiManager::PostRender()
 	if (partyUiOn) partyUi->PostRender();
 	if (InvenIsOn) itemUi->PostRender();
 	if (palModeUiOn) palModeUi->PostRender();
+
+	test->Render();
 }
 
 void UiManager::GuiRender()
