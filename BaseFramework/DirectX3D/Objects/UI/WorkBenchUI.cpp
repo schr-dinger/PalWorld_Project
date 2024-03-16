@@ -4,31 +4,28 @@
 WorkBenchUI::WorkBenchUI()
 {
 
-	WorkBase = new Quad(Vector2(300, 300));
+	WorkBase = new Quad(Vector2(350, 300));
 	WorkBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 	WorkBase->Pos() = { WorkIconP.x,WorkIconP.y,0 };
 
 	WorkBaseName = new Quad(Vector2(100, 50));
 	WorkBaseName->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
-	WorkBaseName->Pos() = { WorkIconP.x,WorkIconP.y,0 };
+	WorkBaseName->Pos() = { WorkIconP.x,WorkIconP.y+150,0 };
 	
 	FOR(5)
 	{
-		MakeSlot[i] = new Quad(Vector2(50, 50));
-		wstring file = L"Textures/UI/Make" + to_wstring(i) + L".png";
-		MakeSlot[i]->GetMaterial()->SetDiffuseMap(file);
-		MakeSlot[i]->Pos() = { WorkIconP + Vector3(i & 6, -i / 6, 0) * 60.0f };
-
-
-
-
+		test[i] = new WorkSlot(i);
+		test[i]->GetQuad()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
+		test[i]->GetBase()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
 
 
 	}
 	
+	WorkBase->Update();
+	WorkBaseName->Update();
 
+	// y가 안맞음 위치 조정 필요
 
-	
 }
 
 WorkBenchUI::~WorkBenchUI()
@@ -40,12 +37,28 @@ WorkBenchUI::~WorkBenchUI()
 void WorkBenchUI::Update()
 {
 
+	FOR(5)
+	{
+		test[i]->Update();
+
+
+	}
 
 
 }
 
 void WorkBenchUI::Render()
 {
+	WorkBase->Render();
+	WorkBaseName->Render();
+
+	FOR(5)
+	{
+		test[i]->Render();
+
+	}
+
+
 }
 
 void WorkBenchUI::PostRender()

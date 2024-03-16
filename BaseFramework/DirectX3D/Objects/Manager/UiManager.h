@@ -41,5 +41,9 @@ private:
 
 	bool UiOn = false;
 
+
+	//
+	WorkBenchUI* test;
+
 };
 

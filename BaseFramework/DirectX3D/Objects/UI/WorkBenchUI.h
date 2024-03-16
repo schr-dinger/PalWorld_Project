@@ -13,9 +13,7 @@ public:
 	void GUIRender();
 	
 	void MakeItem();
-
-	void SetInFo();
-
+		
 private:
 
 
@@ -27,6 +25,10 @@ private:
 
 	Quad* WorkBase;
 	Quad* WorkBaseName;
+
+	WorkSlot* test[5];
+
+	
 
 	// 필요한 아이템 
 

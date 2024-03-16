@@ -7,6 +7,10 @@ UiManager::UiManager()
 	partyUi = new PartyUi();
 	fieldUI = new FieldUI();
 	itemUi = new ItemUI();
+
+	//
+
+	test = new WorkBenchUI();
 }
 
 UiManager::~UiManager()
@@ -43,6 +47,7 @@ void UiManager::Update()
 		InvenIsOn = !InvenIsOn;
 		itemUi->SetItem();
 	}
+	test->Update();
 
 
 	if (palBoxUiOn)	palBoxUi->Update();
@@ -67,6 +72,8 @@ void UiManager::PostRender()
 	if (buildUiOn)	buildUi->PostRender();
 	if (partyUiOn) partyUi->PostRender();
 	if (InvenIsOn) itemUi->PostRender();
+
+	test->Render();
 
 }
 

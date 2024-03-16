@@ -13,17 +13,21 @@ public:
 	void GUIRender();
 
 	bool MouseCollision();
+	bool CheckItem();
+			
+	Quad* GetQuad() { return MakeSlot; }
+	Quad* GetBase() { return MakeSlotBase; }
 
 private:
 
-	Vector3 TestPos = { 400,400,0 };
-
+	
 	Quad* MakeSlot;
+	Quad* MakeSlotBase;
 
-	WorkInFo* test;
-	WorkInFo* test2;
+	vector<WorkInFo*> matter;
+	
 
-
+	int test;
 
 
 

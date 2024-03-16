@@ -5,6 +5,7 @@ ItemManager::ItemManager()
 
 
 	weapons.resize(30);
+	invEquip.resize(4);
 	/*
 	FOR(MaxNum)
 	{
@@ -13,7 +14,7 @@ ItemManager::ItemManager()
 
 	*/
 
-	invEquip.resize(4);
+	
 
 
 }
