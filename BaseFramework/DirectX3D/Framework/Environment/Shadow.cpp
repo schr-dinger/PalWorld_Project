@@ -126,7 +126,7 @@ void Shadow::SetViewProjectionPos(Vector3 pos)
 
     //이어서 뷰포트와 투사될 행렬 구하기
     //Matrix view = XMMatrixLookAtLH(Vector3(light->pos), Vector3(), Vector3(0, 1, 0));
-    Matrix view = XMMatrixLookAtLH(pos + tmp * 40, pos, Vector3(0, 1, 0));
+    Matrix view = XMMatrixLookAtLH(pos + tmp * 100, pos, Vector3(0, 1, 0));
     //Matrix view = XMMatrixLookToLH(pos + Vector3(-1.0f, 1.0f, -1.0f) * 80, Vector3(light->direction), Vector3(0, 1, 0));
     //XMMatrixLookAtLH : DX의 기능을 활용해서 행렬 공간을 구하는 함수
     //                   LH는 기준 좌표계. LookAt은 매개변수를 원점->초점 순으로 해석
