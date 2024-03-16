@@ -101,8 +101,11 @@ void PlayerPalsManager::Update()
     if (selPal != -1)
     {
         SetTarget();
-        PathFinding();
-        Move();
+        if (!pals[selPal]->target)
+        {
+            PathFinding();
+            Move();
+        }
         //palsMAI[pals[selPal]->name]->Update();
         //pals[selPal]->Update();
         if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
@@ -174,9 +177,10 @@ void PlayerPalsManager::GUIRender()
 
     if (selPal != -1)
     {
-        //ImGui::Text("X: %f", pals[selPal]->GetTransform()->GlobalPos().x);
-        //ImGui::Text("y: %f", pals[selPal]->GetTransform()->GlobalPos().y);
-        //ImGui::Text("z: %f", pals[selPal]->GetTransform()->GlobalPos().z);
+        ImGui::Text("Mode : %d", mode);
+
+        //ImGui::Text("Target : %d", pals[selPal]->);
+
     }
 
     if (path.size() > 0)
@@ -205,8 +209,8 @@ void PlayerPalsManager::SetTarget()
             pals[selPal]->SetTarget(nullptr);
             break;
         case PlayerPalsManager::MODE::AGGRESSIVE:
-            smallest = 1000.0f;
-            //Pal* closePal;
+            smallest = 100.0f;
+            closePal = nullptr;
 
             for (Pal* pal : PalsManager::Get()->GetPalsVector())
             {
@@ -218,9 +222,17 @@ void PlayerPalsManager::SetTarget()
                 }
             }
 
-            pals[selPal]->SetTarget(closePal->GetTransform());
-            break;
-        }
+            if (!closePal)
+            {
+                mode = MODE::PASSIVE;
+                break;
+            }
+            else
+            {
+                pals[selPal]->SetTarget(closePal->GetTransform());
+                break;
+            }
+       }
         // 팔이 셋타겟하는 조건 추가하기
         //if () // 거리라든지(선공), 공격당했을때 등
         //pals[selPal]->SetTarget(target);
