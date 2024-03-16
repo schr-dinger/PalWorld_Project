@@ -236,7 +236,7 @@ void BaseScene1::SetShadowModel()
 	ModelP->SetTag("Penguin");
 	ModelP->SetShader(L"Light/DepthMap.hlsl");
 	ModelP->Scale() *= 0.01f;
-
+	ModelP->Render();
 
 	ModelM = new ModelAnimatorInstancing("Mammoth");
 	ModelM->ReadClip("Idle");
@@ -247,6 +247,8 @@ void BaseScene1::SetShadowModel()
 	ModelM->SetTag("mammoth");
 	ModelM->SetShader(L"Light/DepthMap.hlsl");
 	ModelM->Scale() *= 0.01f;
+	ModelM->Update();
+	ModelM->Render();
 
 	ModelD = new ModelAnimatorInstancing("DarkWolf");
 	ModelD->ReadClip("Idle");
@@ -257,6 +259,7 @@ void BaseScene1::SetShadowModel()
 	ModelD->SetTag("wolf");
 	ModelD->SetShader(L"Light/DepthMap.hlsl");
 	ModelD->Scale() *= 0.01f;
+	ModelD->Render();
 
 }
 

@@ -13,7 +13,7 @@ PlayerPalsManager::PlayerPalsManager()
     FOR(2)
     {
         Transform* transform = palsMAI["펭키"]->Add();
-        transform->SetActive(false);
+        //transform->SetActive(false);
         transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new Penguin(transform, palsMAI["펭키"], palsMAIIndex["펭키"]);
         // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
@@ -27,7 +27,7 @@ PlayerPalsManager::PlayerPalsManager()
     FOR(2)
     {
         Transform* transform = palsMAI["그린모스"]->Add();
-        transform->SetActive(false);
+        //transform->SetActive(false);
         transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new Mammoth(transform, palsMAI["그린모스"], palsMAIIndex["그린모스"]);
         // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
@@ -41,7 +41,7 @@ PlayerPalsManager::PlayerPalsManager()
     FOR(2)
     {
         Transform* transform = palsMAI["다크울프"]->Add();
-        transform->SetActive(false);
+        //transform->SetActive(false);
         transform->Scale() *= 0.01;// 사이즈 조절은 여기서
         Pal* pal = new DarkWolf(transform, palsMAI["다크울프"], palsMAIIndex["다크울프"]);
         // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
@@ -57,6 +57,22 @@ PlayerPalsManager::PlayerPalsManager()
         blendState[i] = new BlendState();
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
+
+    // 팰들 미리 한 번 업데이트하고 비활성화
+    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    {
+        iter->second->Update();
+        iter->second->Render();
+    }
+    for (Pal* pal : pals)
+    {
+        if (pal != nullptr)
+        {
+            pal->Update();
+            pal->Render();
+            pal->GetTransform()->SetActive(false);
+        }
+    }
 }
 
 PlayerPalsManager::~PlayerPalsManager()
