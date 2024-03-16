@@ -45,13 +45,13 @@ BaseScene1::BaseScene1()
 	//testUI = new FieldUI();
 
 	// 모델 테스트
-	mam = new ModelAnimator("Mammoth");
-	mam->ReadClip("Idle");
-	mam->ReadClip("Walk");
-	mam->ReadClip("Run");
-	mam->ReadClip("Attack");
-	
-	mam->Scale() *= 0.01f;
+	//mam = new ModelAnimator("Mammoth");
+	//mam->ReadClip("Idle");
+	//mam->ReadClip("Walk");
+	//mam->ReadClip("Run");
+	//mam->ReadClip("Attack");
+	//
+	//mam->Scale() *= 0.01f;
 
 }
 
@@ -62,6 +62,9 @@ BaseScene1::~BaseScene1()
 	//delete terrainF;
 	delete shadow;
 	delete water;
+	delete ModelP;
+	delete ModelM;
+	delete ModelD;
 
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
@@ -271,7 +274,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelP->Pos() = pal->Pos();
 					ModelP->Rot() = pal->Rot();
-					ModelP->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelP->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelP->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelP->UpdateWorld();
 					ModelP->Render();
@@ -280,7 +284,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelM->Pos() = pal->Pos();
 					ModelM->Rot() = pal->Rot();
-					ModelM->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelM->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelM->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelM->UpdateWorld();
 					ModelM->Render();
@@ -289,7 +294,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelD->Pos() = pal->Pos();
 					ModelD->Rot() = pal->Rot();
-					ModelD->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelD->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelD->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelD->UpdateWorld();
 					ModelD->Render();
@@ -311,7 +317,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelP->Pos() = pal->Pos();
 					ModelP->Rot() = pal->Rot();
-					ModelP->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelP->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelP->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelP->UpdateWorld();
 					ModelP->Render();
@@ -320,7 +327,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelM->Pos() = pal->Pos();
 					ModelM->Rot() = pal->Rot();
-					ModelM->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelM->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelM->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelM->UpdateWorld();
 					ModelM->Render();
@@ -329,7 +337,8 @@ void BaseScene1::RenderShadowModel()
 				{
 					ModelD->Pos() = pal->Pos();
 					ModelD->Rot() = pal->Rot();
-					ModelD->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					//ModelD->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelD->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
 
 					ModelD->UpdateWorld();
 					ModelD->Render();

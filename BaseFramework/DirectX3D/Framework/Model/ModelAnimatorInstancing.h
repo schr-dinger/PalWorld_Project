@@ -61,7 +61,8 @@ public:
 
     UINT GetClipSize() { return clips.size(); }
 
-    FrameInstancingBuffer* GetFrameIB() { return frameInstancingBuffer; }
+    //FrameInstancingBuffer* GetFrameIB() { return frameInstancingBuffer; }
+    FrameInstancingBuffer& GetFrameIB() { return *frameInstancingBuffer; }
 
     vector<Transform*>& GetInstancingTransform() { return transforms; }
 

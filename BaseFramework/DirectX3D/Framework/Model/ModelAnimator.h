@@ -54,7 +54,8 @@ public:
 
     ModelClip* GetClip(UINT index) { return clips[index]; }
 
-    FrameBuffer* GetFrameB() { return frameBuffer; }
+    //FrameBuffer* GetFrameB() { return frameBuffer; }
+    FrameBuffer& GetFrameB() { return *frameBuffer; }
 
 
 protected:
