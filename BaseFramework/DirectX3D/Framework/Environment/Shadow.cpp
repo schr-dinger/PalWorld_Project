@@ -31,10 +31,16 @@ Shadow::~Shadow()
 
 void Shadow::SetRenderTarget()
 {
-    renderTarget->Set(depthStencil); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
+    renderTarget->Set(depthStencil, { 1.0f, 1.0f, 1.0f, 0.0f }); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
     //renderTarget->Set(depthStencil, {1.0f,0.5f,0.0f,1.0f}); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
 
     SetViewProjection(); //뷰포트, 행렬공간 투사 과정을 여기서 호출
+}
+
+void Shadow::SetRenderTargetPos(Vector3 pos)
+{
+    renderTarget->Set(depthStencil, {1.0f, 1.0f, 1.0f, 0.0f});
+    SetViewProjectionPos(pos);
 }
 
 void Shadow::SetRender()
@@ -89,6 +95,50 @@ void Shadow::SetViewProjection()
                 //                    인지 가능한 가장 가까운 Z좌표는 0.1, 가장 먼 좌표는 1000
 
     //버퍼 세팅
+    viewBuffer->Set(view, XMMatrixInverse(nullptr, view)); // XMMatrixInverse : 역행렬 만들기(행렬 뒤집기)
+                                                           // 이 과정을 통해 행렬 데이터를 GPU에서 연산 가능
+                                                           // 매개변수는 각각 "추가 옵션이 있는가?
+                                                           // 그리고 원본은 무엇인가? (=view)"
+    projectionBuffer->Set(projection);
+
+    //버퍼를 셰이더에 넘기기 (=GPU계산 후 출력 대기)
+    viewBuffer->SetVS(1);
+    projectionBuffer->SetVS(2);
+}
+
+void Shadow::SetViewProjectionPos(Vector3 pos)
+{
+    // 광원 클래스를 써보기 (DX + 프레임워크 설정)
+    LightBuffer::Light* light = Environment::Get()->GetLight(0);
+    //LightBuffer::Light* light = Environment::Get()->AddLight();
+    Vector3 tmp;
+    tmp.x = light->direction.x * -1.0f;
+    tmp.y = light->direction.y * -1.0f;
+    tmp.z = light->direction.z * -1.0f;
+
+
+
+    //LightBuffer : 빛 계산 기능을 버퍼로 바꾼 클래스
+    //Light(프레임워크) : 빛 버퍼 내에 있는 실제 빛 데이터 (세부 데이터는 DX와 셰이더에 분산)
+    //GetLight() : 출력절차에서 생성된 광원 호출하기. 0은 기본으로 생성된 결과
+
+    //->광원 데이터를 포인터로 받았다
+
+    //이어서 뷰포트와 투사될 행렬 구하기
+    //Matrix view = XMMatrixLookAtLH(Vector3(light->pos), Vector3(), Vector3(0, 1, 0));
+    Matrix view = XMMatrixLookAtLH(pos + tmp * 30, pos, Vector3(0, 1, 0));
+    //Matrix view = XMMatrixLookToLH(pos + Vector3(-1.0f, 1.0f, -1.0f) * 80, Vector3(light->direction), Vector3(0, 1, 0));
+    //XMMatrixLookAtLH : DX의 기능을 활용해서 행렬 공간을 구하는 함수
+    //                   LH는 기준 좌표계. LookAt은 매개변수를 원점->초점 순으로 해석
+    // 따라서 현재의 매개변수에 의해 광원에서, 원점으로, 위쪽이 기준축(위)인 공간이 나온다
+
+    Matrix projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, 1, 0.1f, 1000);
+    //XMMatrixPerspectiveFovLH : DX의 기능을 활용해서 원근행렬 공간을 구하는 함수
+    //                          LH는 기준좌표계, Perspective라서 원근이 적용된다.
+    //                     현재 매개변수 설정은 "회전허용은 360도, 좌우대비는 1:1,
+    //                    인지 가능한 가장 가까운 Z좌표는 0.1, 가장 먼 좌표는 1000
+
+//버퍼 세팅
     viewBuffer->Set(view, XMMatrixInverse(nullptr, view)); // XMMatrixInverse : 역행렬 만들기(행렬 뒤집기)
                                                            // 이 과정을 통해 행렬 데이터를 GPU에서 연산 가능
                                                            // 매개변수는 각각 "추가 옵션이 있는가?

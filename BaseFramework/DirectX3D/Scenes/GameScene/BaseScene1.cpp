@@ -6,7 +6,8 @@ BaseScene1::BaseScene1()
 	//Let there be light
 	SetLights();
 
-	shadow = new Shadow();
+	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
+	//shadow = new Shadow();
 
 
 	//terrainF = new Terrain();
@@ -117,6 +118,8 @@ void BaseScene1::PreRender()
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 
+	shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
+	PlayerManager::Get()->GetPlayer()->ShadowRender();
 }
 
 void BaseScene1::Render()
@@ -134,6 +137,7 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
+	shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
@@ -187,7 +191,7 @@ void BaseScene1::SetLights()
 	//light0->color = { 55.0f / 255.0f,55.0f / 255.0f,55.0f / 255.0f ,0 };
 	light0->color = { 1.0f,1.0f,1.0f ,0 };
 	//light0->direction = { 0,-1,0 };
-	light0->direction = { -0.7f,-1.0f,0.0f };
+	light0->direction = { 0.5f,-1.0f,0.5f };
 	light0->pos = { 0.01f,300.0f,0.01f };
 
 	//LightBuffer::Light* light1 = Environment::Get()->AddLight();

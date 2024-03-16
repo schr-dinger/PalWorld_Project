@@ -92,6 +92,7 @@ float4 PS(PixelInput input) : SV_TARGET
 	float4 emissive = mEmissive;
 	
 	color = color + ambient + emissive;
+	color = color * 0.3f + diffuseMap.Sample(samp, input.uv) * 0.7f;
 
 	
 	float2 uv = input.clipPos.xy / input.clipPos.w;
@@ -108,5 +109,6 @@ float4 PS(PixelInput input) : SV_TARGET
 	if (currentDepth > shadowDepth + 0.0001f)
 		return color * 0.5f;
 
-	return color * 0.3f + diffuseMap.Sample(samp, input.uv) * 0.7f;
+	return color;
+	//return color * 0.3f + diffuseMap.Sample(samp, input.uv) * 0.7f;
 }
