@@ -91,7 +91,7 @@ void UiManager::PostRender()
 	if (InvenIsOn) itemUi->PostRender();
 	if (palModeUiOn) palModeUi->PostRender();
 
-	test->Render();
+	test->PostRender();
 }
 
 void UiManager::GuiRender()

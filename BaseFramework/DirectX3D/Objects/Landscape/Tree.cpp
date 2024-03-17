@@ -10,8 +10,8 @@ Tree::Tree(Transform* transform) :transform(transform)
 
 	test = new Equipment(1);
 	test2 = new Equipment(2);
-	test3 = new Ingredient(2);
-	test4 = new Equipment(3);
+	test3 = new Ingredient(1);
+	test4 = new Ingredient(2);
 
 }
 

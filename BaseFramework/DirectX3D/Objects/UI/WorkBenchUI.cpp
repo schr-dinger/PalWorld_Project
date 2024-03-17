@@ -41,7 +41,12 @@ void WorkBenchUI::Update()
 
 	FOR(5)
 	{
+		if (test[i]->CheckItem() && test[i]->MouseCollision() && KEY_DOWN('J'))
+		{
+			test[i]->MakeItem();
+		}
 		test[i]->Update();
+		
 
 	}
 
@@ -51,6 +56,13 @@ void WorkBenchUI::Update()
 void WorkBenchUI::Render()
 {
 	
+	
+
+
+}
+
+void WorkBenchUI::PostRender()
+{
 	WorkBaseName->Render();
 	WorkBase->Render();
 
@@ -60,11 +72,18 @@ void WorkBenchUI::Render()
 
 	}
 
+	Font::Get()->RenderText(" ÀÛ¾÷´ë ", { WorkIconP.x-30,WorkIconP.y + 160 });
+		
+	
+	//string a = to_string(ItemManager::Get()->GetConsumV()[0].size());
+	//string b = to_string(ItemManager::Get()->GetConsumV()[1].size());
+	//string c = to_string(ItemManager::Get()->GetConsumV()[2].size());
+	//	
+	//Font::Get()->RenderText(a, { WorkIconP.x + 30,WorkIconP.y + 160 });
+	//Font::Get()->RenderText(b, { WorkIconP.x + 60,WorkIconP.y + 160 });
+	//Font::Get()->RenderText(c, { WorkIconP.x + 90,WorkIconP.y + 160 });
 
-}
 
-void WorkBenchUI::PostRender()
-{
 }
 
 void WorkBenchUI::GUIRender()

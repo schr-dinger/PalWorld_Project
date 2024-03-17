@@ -20,6 +20,8 @@ public:
 	Quad* GetQuad() { return MakeSlot; }
 	Quad* GetBase() { return MakeSlotBase; }
 
+	int GetNum() { return test; }
+
 private:
 
 	

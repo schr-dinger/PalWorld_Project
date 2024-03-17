@@ -35,9 +35,9 @@ Ingredient::Ingredient(int num)
 
 Ingredient::~Ingredient()
 {
-	delete collider;
+	delete test;
 	delete transform;
-
+	delete collider;
 }
 
 void Ingredient::Update()

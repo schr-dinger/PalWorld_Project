@@ -7,24 +7,17 @@ Consumable::Consumable(int num)
 	this->num = num;
 	type = CONSUMABLE;
 
-	//transform = new Transform();
 
-	//collider = new CapsuleCollider(3);
-	//collider->Scale() *= 2.0f;
-	//collider->SetParent(transform);
-
-	//transform->UpdateWorld();
-
-	switch (num)
+	switch (this->num)
 	{
 	case 1:
 		icon = Texture::Add(L"Textures/UI/Inv/T_Sphere.png");
 		break;
 	case 2:
-		icon = Texture::Add(L"Textures/UI/Inv/T_Arrow.png");
+		icon = Texture::Add(L"Textures/UI/Inv/T_Bullet.png");
 		break;
 	case 3:
-		icon = Texture::Add(L"Textures/UI/Inv/T_Bullet.png");
+		icon = Texture::Add(L"Textures/UI/Inv/T_Arrow.png");
 		break;
 	default:
 		icon = Texture::Add(L"Textures/Color/White.png");
@@ -38,19 +31,18 @@ Consumable::Consumable(int num)
 
 Consumable::~Consumable()
 {
-	//delete collider;
-	//delete transform;
-
+	
+	delete test;
+	
 }
 
 void Consumable::Update()
 {
-
-	//collider->UpdateWorld();
+		
 }
 
 void Consumable::Render()
 {
-	//collider->Render();
+
 }
 

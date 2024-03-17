@@ -1,5 +1,6 @@
 #pragma once
-#define MaxNum 2
+#define MaxMatter 2
+#define MaxCunsum 3
 
 class ItemManager : public Singleton<ItemManager>
 {
@@ -19,7 +20,7 @@ public:
 
 	void Mining(Item* item);
 	void Equip();
-	void MakeEquip(int EquipNum);
+	void MakeItem(int EquipNum);
 
 	// bool isCheck(int NUM);
 
@@ -28,6 +29,10 @@ public:
 	vector<Item*>& GetWeaponV() { return weapons; }
 	map<int, vector<Item*>>& GetItemV() { return items; }
 	map<int, pair<int, int>>& GetItemDV() { return itemData; }
+
+	map<int, vector<Item*>>& GetConsumV() { return consumItems; }
+	map<int, pair<int, int>>& GetConsumDV() { return consumData; }
+
 
 	void SetInvEquip(int NUM, Item* item) { invEquip[NUM] = item; }
 	vector<Item*>& GetEquipV() { return invEquip; }
@@ -43,7 +48,8 @@ private:
 	map<int, pair<int, int>> itemData;
 	map<int, vector<Item*>> items;
 
-
+	map<int, pair<int, int>> consumData;
+	map<int, vector<Item*>> consumItems;
 
 	vector<Item*> weapons;
 	vector<Item*> invEquip;

@@ -16,6 +16,8 @@ public:
 
 	bool MouseCollision();
 	bool Check(int Num);
+	bool Check2(int Num);
+
 
 	Item* GetItem() { return item; }
 	Quad* GetQuad() { return click; }

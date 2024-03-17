@@ -132,7 +132,6 @@ void ItemUI::Update()
 
 
 
-
 		Slot[i]->Update();
 		SlotBase[i]->Update();
 
@@ -258,7 +257,39 @@ void ItemUI::SetItem()
 		}
 
 
-		for (int j = 0; j < MaxNum; j++)
+		for (int r = 0; r < MaxCunsum; r++)
+		{
+
+
+			if (!ItemManager::Get()->GetConsumV()[r].empty() && Slot[i]->GetItem() == nullptr)
+			{
+				bool test2 = false;
+
+				for (int t = 0; t < 30; t++)
+				{
+					if (Slot[t]->GetItem() != nullptr && Slot[t]->Check2(r))
+					{
+						test2 = true;
+						break;
+					}
+				}
+
+
+				if (!test2)
+				{
+					Item* testyo = new Consumable(r + 1);
+					Slot[i]->SetTem(testyo);
+
+				}
+
+
+
+			}
+			//else if (ItemManager::Get()->GetItemV()[j].empty() && Slot[i]->GetItem()->type == ItemManager::Get()->GetItemV()[j])
+		}
+
+
+		for (int j = 0; j < MaxMatter; j++)
 		{
 
 
@@ -278,8 +309,8 @@ void ItemUI::SetItem()
 
 				if (!test)
 				{
-					Item* test = new Ingredient(j + 1);
-					Slot[i]->SetTem(test);
+					Item* testDa = new Ingredient(j + 1);
+					Slot[i]->SetTem(testDa);
 
 				}
 
@@ -289,6 +320,8 @@ void ItemUI::SetItem()
 			//else if (ItemManager::Get()->GetItemV()[j].empty() && Slot[i]->GetItem()->type == ItemManager::Get()->GetItemV()[j])
 
 		}
+
+
 
 
 

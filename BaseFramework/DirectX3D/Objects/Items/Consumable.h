@@ -14,26 +14,21 @@ public:
 	void Update();
 	void Render();
 
-
-	Transform* GetTransform() {}
-	CapsuleCollider* GetCollider() {}
 	Texture* GetTexture() { return icon; }
 	Model* GetModel() { return test; }
+	//Transform* GetTransform() {}
+	//CapsuleCollider* GetCollider() {}
 	//void SetTerrain(class Terrain* terrain) { this->terrain = terrain; }
 
-	void SetPos(Transform* transform);
-	void SetActive();
+	//void SetPos(Transform* transform);
+	//void SetActive();
 
-	bool isColPlayer();
+	//bool isColPlayer();
 
 
 private:
 
-	//Transform* transform;
-	//CapsuleCollider* collider;
-
-	//Terrain* terrain;
-
+	
 	float time;
 
 

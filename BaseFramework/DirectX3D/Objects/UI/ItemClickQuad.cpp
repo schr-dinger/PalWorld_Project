@@ -32,6 +32,14 @@ void ItemClickQuad::Render()
 		string b = to_string(a);
 		Font::Get()->RenderText(b, Vector2(click->Pos().x, click->Pos().y));
 	}
+
+	if (MouseCollision() && GetItem() != nullptr && GetItem()->type == Item::Type::CONSUMABLE)
+	{
+		int a = ItemManager::Get()->GetConsumDV()[GetItem()->num].second;
+		string b = to_string(a);
+		Font::Get()->RenderText(b, Vector2(click->Pos().x, click->Pos().y));
+	}
+
 }
 
 void ItemClickQuad::PostRender()
@@ -50,7 +58,6 @@ void ItemClickQuad::SetTexture()
 	}
 	else
 	{
-		//click->GetMaterial()->SetDiffuseMap(L"Textures/UI/PalIcon/T_Penguin_icon_normal.png");
 		click->GetMaterial()->SetDiffuseMap(item->GetTexture());
 	}
 }
@@ -72,9 +79,25 @@ bool ItemClickQuad::MouseCollision()
 
 bool ItemClickQuad::Check(int Num)
 {
-	if (ItemManager::Get()->GetItemV()[Num].back()->type == GetItem()->type
-		&& ItemManager::Get()->GetItemV()[Num].back()->num == GetItem()->num) return true;
 
+	
+	if (!ItemManager::Get()->GetItemV()[Num].empty() &&
+	ItemManager::Get()->GetItemV()[Num].back()->type == GetItem()->type
+	&& ItemManager::Get()->GetItemV()[Num].back()->num == GetItem()->num) return true;
+
+	
+
+
+	return false;
+}
+
+bool ItemClickQuad::Check2(int Num)
+{
+		
+	if (!ItemManager::Get()->GetConsumV()[Num].empty() &&
+	ItemManager::Get()->GetConsumV()[Num].back()->type == GetItem()->type
+	&& ItemManager::Get()->GetConsumV()[Num].back()->num == GetItem()->num) return true;
+	
 
 	return false;
 }

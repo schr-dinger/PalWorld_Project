@@ -81,10 +81,6 @@ void WorkSlot::Update()
 		matter[i]->Update();
 	}
 	
-	if (CheckItem() && MouseCollision && KEY_DOWN('J'))
-	{
-		MakeItem();
-	}
 
 	
 
@@ -156,9 +152,8 @@ void WorkSlot::MakeItem()
 		ItemManager::Get()->GetItemDV()[matter[i]->GetNUM()].second -= matter[i]->GetCount();
 		
 
-
 	}
-
+	ItemManager::Get()->MakeItem(test);
 	// 무기 추가..
 
 
