@@ -23,6 +23,8 @@ public:
 	bool IsCollision(Ray ray, Vector3& hitPoint); //충돌이 일어난 경우 판정     
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; } 
 	vector<Pal*>& GetPalsVector() { return pals; }
+	vector<ModelAnimatorInstancing*>& GetPalsInstancing() { return palsInstancing; }
+
 private:     
 	void DistanceCulling();
 	void OnGround(Terrain* terrain);     

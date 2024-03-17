@@ -2,7 +2,7 @@
 
 class ModelAnimator : public Model
 {
-protected:
+public:
     struct Frame
     {
         int clip = 0;
@@ -11,6 +11,7 @@ protected:
         float scale = 1.0f;
     };
 
+protected:
     class FrameBuffer : public ConstBuffer
     {
     public:
@@ -52,6 +53,10 @@ public:
     Matrix GetTransformByNode(int nodeIndex);
 
     ModelClip* GetClip(UINT index) { return clips[index]; }
+
+    //FrameBuffer* GetFrameB() { return frameBuffer; }
+    FrameBuffer& GetFrameB() { return *frameBuffer; }
+
 
 protected:
     void CreateTexture();

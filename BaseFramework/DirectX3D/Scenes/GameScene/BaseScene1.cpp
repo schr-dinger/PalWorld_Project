@@ -6,6 +6,9 @@ BaseScene1::BaseScene1()
 	//Let there be light
 	SetLights();
 
+	// 그림자용 모델
+	SetShadowModel();
+
 	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
 
@@ -42,13 +45,13 @@ BaseScene1::BaseScene1()
 	//testUI = new FieldUI();
 
 	// 모델 테스트
-	mam = new ModelAnimator("Mammoth");
-	mam->ReadClip("Idle");
-	mam->ReadClip("Walk");
-	mam->ReadClip("Run");
-	mam->ReadClip("Attack");
-	
-	mam->Scale() *= 0.01f;
+	//mam = new ModelAnimator("Mammoth");
+	//mam->ReadClip("Idle");
+	//mam->ReadClip("Walk");
+	//mam->ReadClip("Run");
+	//mam->ReadClip("Attack");
+	//
+	//mam->Scale() *= 0.01f;
 
 }
 
@@ -59,6 +62,9 @@ BaseScene1::~BaseScene1()
 	//delete terrainF;
 	delete shadow;
 	delete water;
+	delete ModelP;
+	delete ModelM;
+	delete ModelD;
 
 	PalsManager::Get()->Delete();
 	PlayerPalsManager::Get()->Delete();
@@ -122,8 +128,9 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	PalsManager::Get()->ShadowRender();
-	PlayerPalsManager::Get()->ShadowRender();
+	//PalsManager::Get()->ShadowRender();
+	//PlayerPalsManager::Get()->ShadowRender();
+	RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -215,4 +222,132 @@ void BaseScene1::SetLights()
 	light2->type = 1;
 	light2->range = 0.01f;
 	light2->active = 1;
+}
+
+void BaseScene1::SetShadowModel()
+{
+	ModelP = new ModelAnimatorInstancing("PenGuin");
+	ModelP->ReadClip("Idle");
+	ModelP->ReadClip("Walk");
+	ModelP->ReadClip("Run");
+	ModelP->ReadClip("Attack");
+	ModelP->ReadClip("Damage");
+	ModelP->ReadClip("Work");
+	ModelP->SetTag("Penguin");
+	ModelP->SetShader(L"Light/DepthMap.hlsl");
+	ModelP->Scale() *= 0.01f;
+	ModelP->Render();
+
+	ModelM = new ModelAnimatorInstancing("Mammoth");
+	ModelM->ReadClip("Idle");
+	ModelM->ReadClip("Walk");
+	ModelM->ReadClip("Run");
+	ModelM->ReadClip("Attack");
+	ModelM->ReadClip("Damage");
+	ModelM->SetTag("mammoth");
+	ModelM->SetShader(L"Light/DepthMap.hlsl");
+	ModelM->Scale() *= 0.01f;
+	ModelM->Update();
+	ModelM->Render();
+
+	ModelD = new ModelAnimatorInstancing("DarkWolf");
+	ModelD->ReadClip("Idle");
+	ModelD->ReadClip("Walk");
+	ModelD->ReadClip("Run");
+	ModelD->ReadClip("Attack");
+	ModelD->ReadClip("Damage");
+	ModelD->SetTag("wolf");
+	ModelD->SetShader(L"Light/DepthMap.hlsl");
+	ModelD->Scale() *= 0.01f;
+	ModelD->Render();
+
+}
+
+void BaseScene1::RenderShadowModel()
+{
+	// 필드 팰즈 매니저
+	for (int i = 0; i < PalsManager::Get()->GetPalsInstancing().size(); i++)
+	{
+		int tmpIII = 0;
+		for (Transform* pal : PalsManager::Get()->GetPalsInstancing()[i]->GetInstancingTransform())
+		{
+			if (pal->Active())
+			{
+				if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "PenGuin")
+				{
+					ModelP->Pos() = pal->Pos();
+					ModelP->Rot() = pal->Rot();
+					//ModelP->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelP->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelP->UpdateWorld();
+					ModelP->Render();
+				}
+				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "Mammoth")
+				{
+					ModelM->Pos() = pal->Pos();
+					ModelM->Rot() = pal->Rot();
+					//ModelM->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelM->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelM->UpdateWorld();
+					ModelM->Render();
+				}
+				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "DarkWolf")
+				{
+					ModelD->Pos() = pal->Pos();
+					ModelD->Rot() = pal->Rot();
+					//ModelD->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelD->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelD->UpdateWorld();
+					ModelD->Render();
+				}
+			}
+			tmpIII++;
+		}
+	}
+
+	// 플레이어 팰즈 매니저
+	for (auto iter = PlayerPalsManager::Get()->GetPalsMAI().begin(); iter != PlayerPalsManager::Get()->GetPalsMAI().end(); iter++)
+	{
+		int tmpIII = 0;
+		for (Transform* pal : iter->second->GetInstancingTransform())
+		{
+			if (pal->Active())
+			{
+				if (iter->second->ModelName == "PenGuin")
+				{
+					ModelP->Pos() = pal->Pos();
+					ModelP->Rot() = pal->Rot();
+					//ModelP->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelP->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelP->UpdateWorld();
+					ModelP->Render();
+				}
+				else if (iter->second->ModelName == "Mammoth")
+				{
+					ModelM->Pos() = pal->Pos();
+					ModelM->Rot() = pal->Rot();
+					//ModelM->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelM->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelM->UpdateWorld();
+					ModelM->Render();
+				}
+				else if (iter->second->ModelName == "DarkWolf")
+				{
+					ModelD->Pos() = pal->Pos();
+					ModelD->Rot() = pal->Rot();
+					//ModelD->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+					ModelD->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+
+					ModelD->UpdateWorld();
+					ModelD->Render();
+				}
+			}
+			tmpIII++;
+		}
+	}
 }

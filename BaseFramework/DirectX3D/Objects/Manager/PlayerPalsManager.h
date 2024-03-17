@@ -47,6 +47,8 @@ public:
 
     void SetMode(MODE mode) { this->mode = mode; }
 
+    map<string, ModelAnimatorInstancing*>& GetPalsMAI() { return palsMAI; }
+
 private:
     void OnGround(Terrain* terrain);
     void InsertAllMAI();
