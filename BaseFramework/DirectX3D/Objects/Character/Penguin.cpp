@@ -55,10 +55,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     target = nullptr;
 
     // 테스트 : 그림자
-    shadowSphere = new Sphere(100.0f);
-    shadowSphere->SetParent(transform);
-    shadowSphere->Scale() = Vector3(0.4f, 0.0f, 0.4f);
-    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
+    //shadowSphere = new Sphere(100.0f);
+    //shadowSphere->SetParent(transform);
+    //shadowSphere->Scale() = Vector3(0.4f, 0.0f, 0.4f);
+    //shadowSphere->SetShader(L"Light/DepthMap.hlsl");
 
 }
 
@@ -149,7 +149,7 @@ void Penguin::Update()
 
 
     // 그림자
-    shadowSphere->UpdateWorld();
+    //shadowSphere->UpdateWorld();
 
 }
 
@@ -164,8 +164,8 @@ void Penguin::Render()
 
 void Penguin::ShadowRender()
 {
-    if (!transform->Active()) return;
-    shadowSphere->Render();
+    //if (!transform->Active()) return;
+    //shadowSphere->Render();
 }
 
 void Penguin::PostRender()

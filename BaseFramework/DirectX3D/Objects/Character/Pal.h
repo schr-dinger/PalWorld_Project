@@ -76,7 +76,7 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	Vector3 randomDir;
 
 	// 테스트 그림자:
-	Sphere* shadowSphere;
+	//Sphere* shadowSphere;
 
 };
 

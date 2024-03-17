@@ -38,16 +38,16 @@ Player::Player() : ModelAnimator("NPC")
     ReadClip("R_Idle");
     ReadClip("R_Run");
     ReadClip("R_Aim");
-    ReadClip("R_Reload");
-    ReadClip("R_Draw");
+    //ReadClip("R_Reload");
+    //ReadClip("R_Draw");
 
-    ReadClip("RA_Run");
+    //ReadClip("RA_Run");
 
-    ReadClip("BW_Aim");
-    ReadClip("BW_Fire");
+    //ReadClip("BW_Aim");
+    //ReadClip("BW_Fire");
 
-    ReadClip("M_Mining");
-    ReadClip("M_Attack");
+    //ReadClip("M_Mining");
+    //ReadClip("M_Attack");
 
     ReadClip("S_Aim");
     ReadClip("S_Throw");
@@ -93,11 +93,11 @@ Player::Player() : ModelAnimator("NPC")
 
     GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
 
-    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f,0.7f);
 
@@ -274,10 +274,10 @@ void Player::Control()
         case 1:
             isGun = true;
             isBow = false;
-            if (KEY_DOWN('R'))
-            {
-                SetState(R_RELOAD);
-            }
+            //if (KEY_DOWN('R'))
+            //{
+            //    SetState(R_RELOAD);
+            //}
 
             break;
         case 2:
@@ -582,10 +582,10 @@ void Player::AttackPal()
 
         break;
     case 2:
-        SetState(BW_FIRE);
+        //SetState(BW_FIRE);
         break;
     case 3:
-        SetState(M_ATTACK);
+        //SetState(M_ATTACK);
 
         break;
     default:
@@ -677,36 +677,37 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    //else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    else if (curState == S_THROW || curState == S_AIM )
     {
         return;
     }
 
     if (isBow)
     {
-        if (isBaim) SetState(BW_AIM);
-        else
-        {
+        //if (isBaim) SetState(BW_AIM);
+        //else
+        //{
             if (velocity.Length() > 0) SetState(RUN);
             else  SetState(IDLE);
-        }
+        //}
 
         return;
     }
-    else if (isGun)
-    {
-        if (isGaim)
-        {
-            if (velocity.Length() > 0) SetState(RA_FWD);
-            else SetState(R_Aim);
-        }
-        else
-        {
-            if (velocity.Length() > 0) SetState(R_RUN);
-            else SetState(R_IDLE);
-        }
-        return;
-    }
+    //else if (isGun)
+    //{
+    //    if (isGaim)
+    //    {
+    //        if (velocity.Length() > 0) SetState(RA_FWD);
+    //        else SetState(R_Aim);
+    //    }
+    //    else
+    //    {
+    //        if (velocity.Length() > 0) SetState(R_RUN);
+    //        else SetState(R_IDLE);
+    //    }
+    //    return;
+    //}
 
     if (isJump)
     {

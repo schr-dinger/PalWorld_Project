@@ -45,7 +45,7 @@ private:
 
     CapsuleCollider* walls[3];
 
-    Shadow* shadow;
+    //Shadow* shadow;
 
     int treeN = 5;
 

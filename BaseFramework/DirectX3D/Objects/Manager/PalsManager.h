@@ -54,7 +54,7 @@ private:
 	int hitPalIndex;
 
 	// 테스트 : 그림자
-	Shadow* shadow;
+	//Shadow* shadow;
 
 };
 

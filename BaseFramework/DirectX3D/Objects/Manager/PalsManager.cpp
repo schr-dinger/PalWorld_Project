@@ -71,7 +71,7 @@ PalsManager::PalsManager()
     //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
 
     // 테스트 : 그림자
-    shadow = new Shadow();
+    //shadow = new Shadow();
 }
 
 PalsManager::~PalsManager()
@@ -144,9 +144,9 @@ void PalsManager::Render()
 
 void PalsManager::PreRender()
 {
-    shadow->SetRenderTarget();
-    for (Pal* pal : pals)
-        pal->ShadowRender();
+    //shadow->SetRenderTarget();
+    //for (Pal* pal : pals)
+    //    pal->ShadowRender();
 }
 
 void PalsManager::PostRender()
@@ -168,8 +168,8 @@ void PalsManager::GUIRender()
 
 void PalsManager::ShadowRender()
 {
-    for (Pal* pal : pals)
-        pal->ShadowRender();
+    //for (Pal* pal : pals)
+    //    pal->ShadowRender();
 }
 
 void PalsManager::SetTarget(Transform* target)

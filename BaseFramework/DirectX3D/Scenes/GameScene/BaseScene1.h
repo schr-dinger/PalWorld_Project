@@ -15,9 +15,9 @@ public:
 private:
 	void SetLights();
 
-	void SetShadowModel();
+	//void SetShadowModel();
 
-	void RenderShadowModel();
+	//void RenderShadowModel();
 
 	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;
@@ -29,19 +29,19 @@ private:
 	// 스킬 테스트
 	Skill* testSkill;
 
-	Shadow* shadow;
+	//Shadow* shadow;
 
 	//PalBoxUi* palBoxUi;
 
 	// UI테스트
 	FieldUI* testUI;
 
-	ModelAnimator* mam;
+	//ModelAnimator* mam;
 
 	// 진짜 그림자 모델 테스트
-	ModelAnimator* ModelP;
-	ModelAnimator* ModelM;
-	ModelAnimator* ModelD;
+	//ModelAnimator* ModelP;
+	//ModelAnimator* ModelM;
+	//ModelAnimator* ModelD;
 
 };
 

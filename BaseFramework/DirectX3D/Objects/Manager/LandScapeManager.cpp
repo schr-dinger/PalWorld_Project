@@ -27,7 +27,7 @@ LandScapeManager::LandScapeManager()
     grass2 = new ModelInstancing("Grass2");
     PlaceGrass(grass2, grassN2, terrainF);
 
-    shadow = new Shadow();
+    //shadow = new Shadow();
     
     walls[0] = new CapsuleCollider(5.0f,26.0f);
     walls[0]->Pos() = { 42.3,32.6,332.1 };
@@ -69,7 +69,7 @@ LandScapeManager::~LandScapeManager()
     delete grass1;
     delete grass2;
 
-    delete shadow;
+    //delete shadow;
 
     delete terrainF;
     delete terrain;
@@ -98,8 +98,8 @@ void LandScapeManager::Update()
 
 void LandScapeManager::PreRender()
 {
-    shadow->SetRenderTarget();
-    tree1->SetShader(L"Light/DepthMap.hlsl");
+    //shadow->SetRenderTarget();
+    //tree1->SetShader(L"Light/DepthMap.hlsl");
 
     //tree2->SetShader(L"Light/DepthMap.hlsl");
 
@@ -109,7 +109,7 @@ void LandScapeManager::PreRender()
 
     //grass2->SetShader(L"Light/DepthMap.hlsl");
 
-    tree1->Render();
+    //tree1->Render();
     //tree2->Render();
     //rock1->Render();
     //grass1->Render();

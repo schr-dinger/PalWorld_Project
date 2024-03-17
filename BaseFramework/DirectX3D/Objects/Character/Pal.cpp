@@ -11,12 +11,12 @@ Pal::Pal()
 	iconC = nullptr;
 	isUIOn = false;
 	onUITime = 0.0f;
-	shadowSphere = nullptr;
+	//shadowSphere = nullptr;
 }
 
 Pal::~Pal()
 {
-	delete shadowSphere;
+	//delete shadowSphere;
 	delete skill[0];
 	delete skill[1];
 	delete skill[2];
