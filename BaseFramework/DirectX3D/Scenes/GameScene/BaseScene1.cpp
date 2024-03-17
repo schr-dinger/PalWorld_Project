@@ -77,8 +77,9 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
-	light1->pos = CAM->GlobalPos();
+	//LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
+	//light1 = Environment::Get()->GetLight(1);
+	//light1->pos = CAM->GlobalPos();
 
 	StructureManager::Get()->Update();
 	UiManager::Get()->Update(); // UI 관련 업데이트가 먼저
@@ -127,7 +128,7 @@ void BaseScene1::PreRender()
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	//shadow->SetRenderTargetPos(CAM->GlobalPos());
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//PalsManager::Get()->ShadowRender();
 	//PlayerPalsManager::Get()->ShadowRender();
 	//RenderShadowModel();
@@ -141,7 +142,6 @@ void BaseScene1::Render()
 	water->Render();
 	
 	//mam->Render();
-
 	StructureManager::Get()->Render();
 	PlayerManager::Get()->Render();
 
@@ -151,6 +151,7 @@ void BaseScene1::Render()
 	// 그림자 + 터레인
 	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
+
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
 
@@ -211,17 +212,21 @@ void BaseScene1::SetLights()
 	//light1->range = 3000.0f;
 	//light1->color = { 150.0f / 255.0f,150.0f / 255.0f,150.0f / 255.0f ,0 };
 	//light1->direction = { 0,-1,0 };
-	//
-	//
 	LightBuffer::Light* light1 = Environment::Get()->AddLight();
 	light1->type = 1;
 	light1->range = 0.01f;
-	light1->active = 1;
+	light1->active = 0;
+
 	
 	LightBuffer::Light* light2 = Environment::Get()->AddLight();
 	light2->type = 1;
 	light2->range = 0.01f;
-	light2->active = 1;
+	light2->active = 0;
+	
+	LightBuffer::Light* light3 = Environment::Get()->AddLight();
+	light3->type = 1;
+	light3->range = 0.01f;
+	light3->active = 0;
 }
 
 //void BaseScene1::SetShadowModel()

@@ -20,7 +20,7 @@ PalBox::PalBox()
 	//Place();
 
 	//light = Environment::Get()->GetLight(1);
-	light = Environment::Get()->GetLight(1);
+	light = Environment::Get()->GetLight(2);
 	light->type = 1;
 	light->range = 0.01f;
 
@@ -104,7 +104,7 @@ void PalBox::PreRender()
 	if (!isPlaced) return;
 	if (Done) return;
 
-	shadow->SetRenderTarget(1);
+	shadow->SetRenderTarget(2);
 
 	cube->SetShader(L"Light/DepthMap.hlsl");
 	//cube->SetShader(L"Basic/Texture.hlsl");

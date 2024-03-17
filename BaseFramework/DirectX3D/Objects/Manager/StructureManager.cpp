@@ -24,6 +24,7 @@ void StructureManager::PreRender()
 {
 	palBox->PreRender();
 	workBench->PreRender();
+
 }
 
 void StructureManager::Render()
