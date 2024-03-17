@@ -1,13 +1,15 @@
 #include "Framework.h"
 
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
-    :transform(transform), instancing(instancing), index(index)
+    : transform(transform),instancing(instancing), index(index)
 {
     name = "펭키";
+    modelName = "PenGuin";
     level = 1;
     speed = 5; //속력 : 기본 스탯
     maxHP = 100;
     curHP = 100;
+    isInvincible = false;
 
     // 부모에서 가져온 스킬 세팅
     skill[0] = new Tornado();
@@ -51,6 +53,13 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     velocity = { 0, 0, 0 };
     target = nullptr;
+
+    // 테스트 : 그림자
+    shadowSphere = new Sphere(100.0f);
+    shadowSphere->SetParent(transform);
+    shadowSphere->Scale() = Vector3(0.4f, 0.0f, 0.4f);
+    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
+
 }
 
 Penguin::~Penguin()
@@ -64,39 +73,53 @@ Penguin::~Penguin()
 
     // 체력바 삭제
     delete hpBar;
+
+    
 }
 
 void Penguin::Update()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
-    //ClipSync();
-    time += DELTA;
-    if (target )
+
+    Ray ray;
+    ray.dir = CAM->Forward();
+    ray.pos = CAM->GlobalPos();
+    Contact contact;
+    if (collider->IsRayCollision(ray, &contact))
     {
-        //velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+        isUIOn = true;
+        onUITime = 0.0f;
+    }
+    if (isUIOn)
+    {
+        onUITime += DELTA;
+    }
+    if (onUITime > offUITime)
+    {
+        isUIOn = false;
+    }
 
-        if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(transform->GlobalPos(), target->GlobalPos())) // 중간에 장애물이 있으면
-        {
-            if (time > 3.0f)
-            {
-                SetPath(); // 구체적인 경로 내어서 가기
-                time = 0.0f;
-            }
-        }
-        else //장애물이 없는 경우
-        {
-            path.clear(); //3D에서 장애물도 없는데 굳이 길찾기를 쓸 필요 없음
-            path.push_back(target->GlobalPos()); // 가야 할 곳만 경로 벡터에 집어넣기
-                                     // -> 그러면 여우는 Move()로 목적지를 찾아갈 것
-        }
 
-        Vector3 dest = path.back();
+    //ClipSync();
+    //움직임
+    if (target == nullptr && !isSpawned)
+    {
+        MoveWithOutTarget();
+    }
 
-        //Vector3 direction = dest - transform->GlobalPos();
-        velocity = dest - transform->GlobalPos();
-
+    //if (target && !isSpawned)
+    if (target)
+    {
+        velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
+    }
+
+    if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
+    {
+        destVel = PlayerPalsManager::Get()->destPos - transform->GlobalPos();
+
+        MoveP();
     }
 
     ExecuteEvent(); // 이벤트가 터져야 하면 수행하기
@@ -125,6 +148,9 @@ void Penguin::Update()
     skill[0]->Update();
 
 
+    // 그림자
+    shadowSphere->UpdateWorld();
+
 }
 
 void Penguin::Render()
@@ -136,11 +162,19 @@ void Penguin::Render()
 
 }
 
+void Penguin::ShadowRender()
+{
+    if (!transform->Active()) return;
+    shadowSphere->Render();
+}
+
 void Penguin::PostRender()
 {
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
-    if (velocity.Length() >= 15.0f) return;
+    if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
+    if (!isUIOn) return;
+
     hpBar->Render();
 
     if (hpBar->Active())
@@ -159,7 +193,7 @@ void Penguin::PostRender()
         Font::Get()->GetDC()->BeginDraw();
 
     }
-    
+
 }
 
 void Penguin::GUIRender()
@@ -169,6 +203,8 @@ void Penguin::GUIRender()
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
     //skill[0]->GUIRender();
+
+    //ImGui::Text("% f", destVel.Length());
 }
 
 void Penguin::Attack()
@@ -212,7 +248,7 @@ void Penguin::Damage()
     {
         // 죽는 모션 있으면 세팅
         //SetAction(ACTION::DIE); 
-        
+
         // 현재는 바로 비활성화
         transform->SetActive(false);
         return;//이 함수 종료
@@ -255,6 +291,31 @@ void Penguin::SetTarget(Transform* target)
     this->target = target;
 }
 
+//void Penguin::Path(Vector3 start, Vector3 dest)
+//{
+//    //Ray ray;
+//    //ray.pos = start;
+//    //ray.dir = dest - start;
+//    //Contact contact;
+//    //for (Collider* collider : LandScapeManager::Get()->GetObstacles())
+//    //{
+//    //    //if (collider->IsRayCollision(ray) && Distance(collider->GlobalPos(),transform->GlobalPos()) < collider->GlobalScale().x + 20.0f )
+//    //    //{
+//    //    //    Path()
+//    //    //}
+//    //    //else
+//    //    //{
+//    //    //    break;
+//    //    //}
+//
+//    //    if (collider->IsRayCollision(ray,&contact))
+//    //    {
+//    //        Vector3 temp = contact.hitPoint - ray.dir * (collider->GlobalScale().x);
+//    //    }
+//    //}
+//
+//}
+
 void Penguin::SetEvent(int clip, Event event, float timeRatio)
 {
     if (totalEvent[clip].count(timeRatio) > 0) return; // 선행 예약된 이벤트가 있으면 종료
@@ -287,7 +348,7 @@ void Penguin::EndDamage()
 
 void Penguin::SetAction(ACTION action)
 {
-    if (action == this->action) return; 
+    if (action == this->action) return;
 
     this->action = action; //매개변수에 따라 상태 변화
     instancing->PlayClip(index, (int)action); //인스턴싱 내 자기 트랜스폼에서 동작 수행 시작
@@ -304,39 +365,96 @@ void Penguin::Move()
 
     if (velocity.Length() < 5)
     {
-        //speed = 0;
-        speed = 8;
-
+        speed = 0;
         SetAction(ACTION::IDLE);
     }
-    //else if (velocity.Length() < 10)
-    //{
-    //    speed = 2;
-    //    SetAction(ACTION::WALK);
-    //}
-    else if (velocity.Length() < 20) // 표적과 거리가 가까울 때는
+    else if (velocity.Length() < 50) // 표적과 거리가 가까울 때는
     {
-        //speed = 4; //두 배로 빨라진다
-        speed = 8;
+        speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);
     }
-    else if (velocity.Length() < 30)
+    else if (velocity.Length() < 100)
     {
-        //speed = 2;
-        speed = 8;
+        speed = 2;
         SetAction(ACTION::WALK);
     }
     else
     {
         //speed = 0;
-        speed = 8;
-
+        target = nullptr;
         SetAction(ACTION::IDLE);
     }
+
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
     // 뒤 돌리기(모델 Back()이 실제로 앞
+
+}
+
+void Penguin::MoveP()
+{
+    // 안움직이는 조건들
+    if (action == ACTION::ATTACK) return; // 공격할 때는 움직이지 않음
+    if (action == ACTION::DAMAGE) return; // 맞을 때는 움직이지 않음
+    if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
+    //if (action == ACTION::) return; // 추가 가능
+
+
+    Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
+    Vector3 real = { temp.x,LandScapeManager::Get()->GetTerrain()->GetHeight(temp),temp.z };
+
+
+    float distance = (real - transform->Pos()).Length();
+
+    if (distance < 0.5)
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+    else if (distance >= 8.0f) // 표적과 거리가 가까울 때는
+    {
+        speed = 8; //두 배로 빨라진다
+        SetAction(ACTION::RUN);
+    }
+    else if (distance < 8.0f)
+    {
+        speed = 4;
+        SetAction(ACTION::WALK);
+
+    }
+    else
+    {
+        speed = 0;
+        SetAction(ACTION::IDLE);
+    }
+
+    velocity.y = 0.0f;
+    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+
+
+}
+
+void Penguin::MoveWithOutTarget()
+{
+    moveTime += DELTA;
+
+    if (moveTime < 3.0f)
+    {
+        SetAction(ACTION::WALK);
+        transform->Pos() += randomDir.GetNormalized() * 1.5f * DELTA;
+        transform->Rot().y = atan2(randomDir.x, randomDir.z) + XM_PI;
+    }
+    else if (moveTime < 5.0f)
+    {
+        SetAction(ACTION::IDLE);
+    }
+    else
+    {
+        randomDir = { RANDOM->Float(-1.0,1.0f),0,RANDOM->Float(-1.0,1.0f) };
+        moveTime = 0.0f;
+    }
 
 }
 
@@ -370,48 +488,6 @@ void Penguin::UpdateUI()
     hpBar->Scale() = { 0.3f, 0.3f, 0.3f };
 
     hpBar->UpdateWorld(); // 조정된 정점 업데이트
-}
-
-void Penguin::SetPath()
-{
-    int startIndex = AStarManager::Get()->GetAStar()->FindCloseNode(transform->GlobalPos());
-    int endIndex = AStarManager::Get()->GetAStar()->FindCloseNode(target->GlobalPos()); // 헤더에서(+업데이트에서) 정해진 목적지
-
-    AStarManager::Get()->GetAStar()->GetPath(startIndex, endIndex, path); // 길을 낸 다음 path 벡터에 저장
-
-    //AStarManager::Get()->GetAStar()->MakeDirectionPath(transform->GlobalPos(), target->GlobalPos(), path); // 장애물을 지우고 path에 덮어씌우기
-
-    //UINT pathSize = path.size(); // 처음 나온 경로 벡터 크기를 저장
-
-    //while (path.size() > 2) // "남겨진" 경로 노드가 1군데 이하가 될 때까지
-    //{
-    //    vector<Vector3> tempPath = path; // 계산용 임시 경로 받아오기
-    //    tempPath.erase(tempPath.begin()); // 최종 목적지 지우기 (장애물이 있었기 때문에 지금은 중간을 가는 중)
-    //    tempPath.pop_back(); // 시작 위치도 생각에서 제외하기 (이미 지나가고 있으니까)
-
-    //    // 최종과 시작이 빠진 경로의 새로운 시작과 끝을 내기
-    //    Vector3 start = path.back();
-    //    Vector3 end = path.front();
-
-    //    //다시 나온 경로에서 장애물 계산을 또 계산
-    //    AStarManager::Get()->GetAStar()->MakeDirectionPath(start, end, tempPath);
-
-    //    //계산 결과 피드백
-    //    path.clear();
-    //    path = tempPath;
-
-    //    //경로 벡터에 새로운 시작과 끝을 포함
-    //    path.insert(path.begin(), end);
-    //    path.push_back(start);
-
-    //    // 계산을 다시 했는데 벡터 크기가 그대로라면 = 길이 바뀌지 않았다
-    //    if (pathSize == path.size()) break; // 이 이상 계산을 계속할 이유가 없다
-    //    else pathSize = path.size(); // 줄어든 경로 계산을 반영을 해주고 반복문을 다시 진행
-    //}
-
-    //// 다시 조정된, 내가 갈 수 있는 경로에, 최종 목적지를 다시 한번 추가한다
-    //path.insert(path.begin(), target->GlobalPos());
-
 }
 
 //void Penguin::ClipSync()

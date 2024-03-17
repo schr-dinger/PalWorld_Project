@@ -136,8 +136,10 @@ private:
         Light lights[MAX_LIGHT];
 
         UINT lightCount = 1;
-        Float3 ambientLight = { 0.1f, 0.1f, 0.1f };
-        Float3 ambientCeil = { 0.1f, 0.1f, 0.1f };
+        //Float3 ambientLight = { 0.1f, 0.1f, 0.1f };
+        //Float3 ambientCeil = { 0.1f, 0.1f, 0.1f };
+        Float3 ambientLight = { 0.0f, 0.0f, 0.0f };
+        Float3 ambientCeil = { 0.0f, 0.0f, 0.0f };
         float padding;
     };
 

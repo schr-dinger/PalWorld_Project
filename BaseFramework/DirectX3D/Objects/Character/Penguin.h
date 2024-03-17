@@ -18,6 +18,7 @@ public:
 
     void Update();
     void Render();
+    void ShadowRender();
     void PostRender();
     void GUIRender();
     Texture* GetTexture() { return icon; }
@@ -44,6 +45,9 @@ public:
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
 
+    //void Path(Vector3 start, Vector3 dest);
+    ModelAnimatorInstancing* GetInstancing() { return instancing; }
+
 private:
     //void ClipSync(); // 삭제해도 무방할듯
     
@@ -60,22 +64,17 @@ private:
     void SetAction(ACTION action);
 
     void Move();
+
+    void MoveP();
+
+    void MoveWithOutTarget();
+
     void UpdateUI(); //캐릭터 UI가 있으면 이후 업데이트
-
-
-
-    //AStarTest
-    void SetPath();
-
-
-
-
 
 private:
     //여기부터
     Transform* transform;
     CapsuleCollider* collider;
-
     ModelAnimatorInstancing* instancing;
     ModelAnimatorInstancing::Motion* motion;
 
@@ -86,7 +85,7 @@ private:
     float maxHP;
     float curHP;
 
-    Vector3 velocity; //속력 : 실제 움직임
+    //Vector3 velocity; //속력 : 실제 움직임
 
     UINT index; //로봇의 개별 인덱스
 
@@ -106,10 +105,5 @@ private:
     //    라이딩, 작업같은 특수 동작은 enum 뒤로 빼기
 
     int tmpN;
-
-
-    vector<Vector3> path;
-
-    float time;
 };
 

@@ -3,6 +3,7 @@
 Rock::Rock(Transform* transform) : transform(transform)
 {
     collider = new SphereCollider();
+    //collider = new BoxCollider();
 
     collider->SetParent(transform);
     collider->Scale() *= 200.0f;

@@ -15,6 +15,11 @@ AStar::~AStar()
     for (Node* node : nodes)
         delete node;
     delete heap;
+
+    for (Collider* col : obstacles)
+    {
+        delete col;
+    }
 }
 
 void AStar::Update()
@@ -41,7 +46,13 @@ void AStar::Update()
 void AStar::Render()
 {
     for (Node* node : nodes)
-        node->Render(); //노드에 충돌체 설정이 켜져 있으면 렌더
+    {
+        if (node->GetState() == Node::OBSTACLE)
+        {
+            node->Render(); //노드에 충돌체 설정이 켜져 있으면 렌더
+        }
+    }
+
 }
 
 void AStar::SetNode(Terrain* terrain)
@@ -61,28 +72,23 @@ void AStar::SetNode(Terrain* terrain)
     {
         for (UINT x = 0; x <= width; ++x)
         {
-            //if (x == 0 || x == width) continue;
-            //if (z == 0 || z == height) continue;
-
             Vector3 pos = Vector3(x * interval.x, 0, z * interval.y);
             //pos.y = 0; // 기본값
             pos.y = terrain->GetHeight(pos); // A*는 직선이동이 아니라 노드들을 경유하기 때문에
                                              // 지형이 가지는 높이 변화에도 대응 가능
+
             //노드 추가
             nodes.push_back(new Node(pos, nodes.size())); //위치와, 벡터의 현재 마지막 순번을 차례로 부여
             nodes.back()->Scale() = { interval.x, 20, interval.y }; //간격을 적용하고, 위아래로 길게
             nodes.back()->UpdateWorld();
 
-            // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
-            // 샘플 시나리오 : 높은 곳은 곧 장애물이다
+            float c = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z + 0) * interval.y });
+            float r = terrain->GetHeight({ (float)(x + 1) * interval.x, 0, (float)(z + 0) * interval.y });
+            float l = terrain->GetHeight({ (float)(x - 1) * interval.x, 0, (float)(z + 0) * interval.y });
+            float u = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z + 1) * interval.y });
+            float d = terrain->GetHeight({ (float)(x + 0) * interval.x, 0, (float)(z - 1) * interval.y });
 
-            float c = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z + 0)* interval.y });
-            float r = terrain->GetHeight({ (float)(x + 1)* interval.x, 0, (float)(z + 0)* interval.y });
-            float l = terrain->GetHeight({ (float)(x - 1)* interval.x, 0, (float)(z + 0)* interval.y });
-            float u = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z + 1)* interval.y });
-            float d = terrain->GetHeight({ (float)(x + 0)* interval.x, 0, (float)(z - 1)* interval.y });
-
-            float hd = 5.0f;
+            float hd = 3.0f;
             float over = 6.5f;
 
             if (r - c > hd && r - c < over)
@@ -121,8 +127,9 @@ void AStar::SetNode(Terrain* terrain)
                 }
             }
 
-
-            //if (k<0.9f)
+            // 높이에 변화가 있을 경우, 이 밑에 코드를 추가하면 된다
+            // 샘플 시나리오 : 높은 곳은 곧 장애물이다
+            //if (pos.y > 0)
             //{
             //    nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
             //    AddObstacle(nodes.back()); //장애물 추가 함수 호출
@@ -352,14 +359,14 @@ void AStar::SetEdge()
 
         if (i < nodes.size() - width && i % width != width - 1) //맨 아래도 아닌데 오른쪽 끝도 아니라면
         {
-            //nodes[i]->AddEdge(nodes[i + width + 1]); //자기 대각선 오른쪽 아래와 인접지 교환
-            //nodes[i + width + 1]->AddEdge(nodes[i]);
+            nodes[i]->AddEdge(nodes[i + width + 1]); //자기 대각선 오른쪽 아래와 인접지 교환
+            nodes[i + width + 1]->AddEdge(nodes[i]);
         }
 
         if (i < nodes.size() - width && i % width != 0) //맨 아래가 아니고, 왼쪽 끝이 아니다
         {
-            //nodes[i]->AddEdge(nodes[i + width - 1]); //자기 대각선 왼쪽 아래와 인접지 교환
-            //nodes[i + width - 1]->AddEdge(nodes[i]);
+            nodes[i]->AddEdge(nodes[i + width - 1]); //자기 대각선 왼쪽 아래와 인접지 교환
+            nodes[i + width - 1]->AddEdge(nodes[i]);
         }
     }
 }

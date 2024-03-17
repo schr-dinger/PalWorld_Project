@@ -19,12 +19,17 @@ private:
         R_DRAW,
 
         RA_FWD,
-        //RA_BACK,
-        //RA_LEFT,
-        //RA_RIGHT,
+
+        BW_AIM,
+        BW_FIRE,
+
+        M_MINING,
+        M_ATTACK,
 
         S_AIM,
-        S_THROW
+        S_THROW,
+
+        // BW_AIM
 
     };
 
@@ -34,7 +39,11 @@ public:
 
     void Update();
     void Render();
+    void ShadowRender();
     void GUIRender();
+
+    // 장비창 넘버 가져오기
+    int GetWepSel() { return select; }
 
 private:
     void ClipSync();
@@ -50,6 +59,9 @@ private:
     void AttackPal();
     void CatchPal();
     void SummonsPal();
+    void ThrowPalSpear(); // 팰 소환할때 던지기
+
+    
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -58,8 +70,12 @@ public:
 
     Transform* GetFrontPoint() { return frontPoint; }
 
+    Transform* GetHand() { return Hand; }
+
     void UiMode();
 
+    void SetModel(int num, Model* model) { weapons[num] = model; }
+    // Model* GetModel() { return weapon; }
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -95,12 +111,20 @@ private:
     bool test = true;
     bool UiOn = false;
 
-    Model* Gun;
 
-
-    // 테스트 : 포획
+    // 테스트 : 팰 스피어 던지기 관련
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
+    Model* summonPalSpear;
+    Model* summonPalSpearThrow;
+    SphereCollider* summonPalSpearCollider;
+    Vector3 summonPalSpearDIr;
+    float speed = 20;
+    // 팰스피어 중력
+    float gravi = 9.8f;
+    float downForce = 0;
+    Vector3 down = { 0, -1, 0 };
+
 
     Vector3 ogCam = { -0.05,1.7,2.5 };
     Vector3 foCam = { -0.3,1.35,1.0 };
@@ -111,9 +135,14 @@ private:
     ParticleSystem* particle;
     bool isGun = false;
     bool isGaim = false;
-    int select = 0;
-    //Bullet* bullet;
 
+    bool isBow = false;
+    bool isBaim = false;
+
+    bool W_Aiming = false;
+    int select = 1;
+   
+    vector<Model*> weapons;
 
     //player collider
 

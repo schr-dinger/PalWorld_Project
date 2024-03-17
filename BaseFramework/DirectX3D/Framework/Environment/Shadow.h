@@ -10,12 +10,14 @@ public:
     ~Shadow();
 
     void SetRenderTarget();
+    void SetRenderTargetPos(Vector3 pos);
     void SetRender();
     void PostRender();
     void GUIRender();
 
 private:
     void SetViewProjection(); //뷰포트와 화면 투사를 위한 3D행렬 내기
+    void SetViewProjectionPos(Vector3 pos); //뷰포트와 화면 투사를 위한 3D행렬 내기
 
 private:
     float scale = 100;

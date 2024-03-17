@@ -1,51 +1,60 @@
 #pragma once
 class PalsManager : public Singleton<PalsManager>
 {
-private:
-    UINT SIZE = 1; // ¸Å´ÏÀú ¾È¿¡¼­ ±¼¸± ·Îº¿ ´ë¼ö
-    float SPAWN_TIME = 1.0f; // ·Îº¿ÀÇ »ı¼º, È¤Àº Àç»ı¼º¿¡ ÇÊ¿äÇÑ ½Ã°£
+private:     
+	//UINT SIZE = 10; // ë§¤ë‹ˆì € ì•ˆì—ì„œ êµ´ë¦´ ìˆ˜
+	UINT penguinN = 30;
+	UINT mammothN = 3;
+	UINT wolfN = 10;
 
-public:
+	float SPAWN_TIME = 1.0f; // ìƒì„±, í˜¹ì€ ì¬ìƒì„±ì— í•„ìš”í•œ ì‹œê°„  
 
-    PalsManager();
-    ~PalsManager();
+public:      
+	PalsManager();     
+	~PalsManager();      
+	void Update();     
+	void Render();     
+	void PreRender();     
+	void PostRender();     
+	void GUIRender();      
+	void ShadowRender();
+	void SetTarget(Transform* target); //í‘œì  ì„¤ì •     
+	void SetPlayer(Player* player); // í”Œë ˆì´ì–´ ì„¤ì •       
+	bool IsCollision(Ray ray, Vector3& hitPoint); //ì¶©ëŒì´ ì¼ì–´ë‚œ ê²½ìš° íŒì •     
+    void SetTerrain(Terrain* terrain) { this->terrain = terrain; } 
+	vector<Pal*>& GetPalsVector() { return pals; }
+	vector<ModelAnimatorInstancing*>& GetPalsInstancing() { return palsInstancing; }
 
-    void Update();
-    void Render();
-    void PostRender();
-    void GUIRender();
+private:     
+	void DistanceCulling();
+	void OnGround(Terrain* terrain);     
+	void InsertMAI(string palModelName);     
+	void Collision(); // ì„¸ë¶€ ì¶©ëŒ íŒì • ì§„í–‰     
+	void Spawn();     // (ì¬)ìƒì„±      
+    void PathCollider(); 
+	
+private:     
+	Terrain* terrain;     
+	vector<ModelAnimatorInstancing*> palsInstancing;     
+	vector<Pal*> pals;
+	Transform* target;
+	Player* player;      
+	float time = 0; //ê²½ê³¼ëœ ì‹œê°„  
 
-    void SetTarget(Transform* target); //Ç¥Àû ¼³Á¤
-    void SetPlayer(Player* player); // ÇÃ·¹ÀÌ¾î ¼³Á¤
+	// ì•ŒíŒŒê°’ ë¹¼ê¸°     
+	BlendState* blendState[2];      
+
+	// ì¶©ëŒ íŒì •ìš©
+	vector<Vector3> lastPos;
 
 
-    bool IsCollision(Ray ray, Vector3& hitPoint); //Ãæµ¹ÀÌ ÀÏ¾î³­ °æ¿ì ÆÇÁ¤
+	// í…ŒìŠ¤íŠ¸ : íˆíŠ¸ íŒì •     
+	Vector3 testHit;
+	bool testIsHit;
+	int hitPalIndex;
 
-    void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
-private:
-    void OnGround(Terrain* terrain);
-    void InsertMAI(string palModelName);
-    void InsertAllMAI();
-    void Collision(); // ¼¼ºÎ Ãæµ¹ ÆÇÁ¤ ÁøÇà
-    void Spawn();     // (Àç)»ı¼º
+	// í…ŒìŠ¤íŠ¸ : ê·¸ë¦¼ì
+	Shadow* shadow;
 
-private:
-    Terrain* terrain;
-    vector<ModelAnimatorInstancing*> palsInstancing;
-    map<string, ModelAnimatorInstancing*> palsMAI;
-    vector<Pal*> pals;
-
-    Transform* target;
-    Player* player;
-
-    float time = 0; //°æ°úµÈ ½Ã°£
-
-    // ¾ËÆÄ°ª »©±â
-    BlendState* blendState[2];
-
-    // Å×½ºÆ® : È÷Æ® ÆÇÁ¤
-    Vector3 testHit;
-    bool testIsHit;
-    int hitPalIndex;
 };
 

@@ -19,15 +19,38 @@ LandScapeManager::LandScapeManager()
     rock1 = new ModelInstancing("Rock1");
     PlaceRock(rock1, rockN, terrainF);
 
-    grasses.reserve(grassN * grassN * 2);
+    grasses.reserve(grassN1 * grassN1 + grassN2 * grassN2);
 
     grass1 = new ModelInstancing("Grass1");
-    PlaceGrass(grass1, grassN, terrainF);
+    PlaceGrass(grass1, grassN1, terrainF);
 
     grass2 = new ModelInstancing("Grass2");
-    PlaceGrass(grass2, grassN, terrainF);
+    PlaceGrass(grass2, grassN2, terrainF);
 
     shadow = new Shadow();
+    
+    walls[0] = new CapsuleCollider(5.0f,26.0f);
+    walls[0]->Pos() = { 42.3,32.6,332.1 };
+    walls[0]->Rot() = { 0,1.0f * (XM_2PI / 360.0f),90.0f * (XM_2PI / 360.0f) };
+
+    walls[1] = new CapsuleCollider(15.0f, 50.0f);
+    walls[1]->Pos() = { 126.1f,31.6f,311.0f };
+    walls[1]->Rot() = { 0,22.0f * (XM_2PI / 360.0f),99.9f * (XM_2PI / 360.0f) };
+
+
+    walls[2] = new CapsuleCollider(15.0f, 70.0f);
+    walls[2]->Pos() = { 192.9f,28.8f,272.4f };
+    walls[2]->Rot() = { 0,39.0f * (XM_2PI / 360.0f),81.0f * (XM_2PI / 360.0f) };
+
+    walls[0]->SetTag("wall0");
+    walls[1]->SetTag("wall1");
+    walls[2]->SetTag("wall2");
+
+
+    MakeObstacle();
+
+    for (Collider* collider : boxes) collider->UpdateWorld();
+
 }
 
 LandScapeManager::~LandScapeManager()
@@ -60,6 +83,11 @@ void LandScapeManager::Update()
     rock1->Update();
     grass1->Update();
     grass2->Update();
+
+    FOR(3)
+    {
+        walls[i]->UpdateWorld();
+    }
 
 
     for (Tree* tree : trees) tree->Update();
@@ -94,7 +122,7 @@ void LandScapeManager::Render()
 
     //shadow->SetRender();
     //tree1->SetShader(L"Light/Shadow.hlsl");
-    //terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
+    terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
 
     tree1->Render();
@@ -108,11 +136,22 @@ void LandScapeManager::Render()
     for (Tree* tree : trees) tree->Render();
     for (Rock* rock : rocks) rock->Render();
     for (Grass* grass : grasses) grass->Render();
+    for (Collider* collider : boxes) collider->Render();
+
+    FOR(3)
+    {
+        //walls[i]->Render();
+    }
 
 }
 
 void LandScapeManager::GUIRender()
 {
+    //FOR(3)
+    //{
+    //    walls[i]->GUIRender();
+    //}
+
 }
 
 void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain)
@@ -206,5 +245,122 @@ void LandScapeManager::PlaceGrass(ModelInstancing* tree, int size, Terrain* terr
             grasses.push_back(grass);
         }
     }
+
+}
+
+bool LandScapeManager::CheckPalCollision(Collider* collider,Vector3& pos)
+{
+    for (Collider* obstacle : obstacles)
+    {
+        if (obstacle->IsCollision(collider))
+        {
+            pos = obstacle->GlobalPos();
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+void LandScapeManager::MakeObstacle()
+{
+    for (Tree* tree : trees)
+    {
+        if (tree->GetTransform()->Active())
+        {
+            obstacles.push_back(tree->GetCollider());
+        }
+    }
+
+    for (Rock* rock : rocks)
+    {
+        if (rock->GetTransform()->Active())
+        {
+            obstacles.push_back(rock->GetCollider());
+        }
+
+    }
+
+    //FOR(3)
+    //{
+    //    obstacles.push_back(walls[i]);
+    //}
+
+
+    //for (int x = 0; x < 250; x++)
+    //{
+    //    for (int z = 0; z < 250; z++)
+    //    {
+    //        Vector3 tmpNormal;
+    //        float h = terrainF->GetHeight({ (float)x,0,(float)z }, &tmpNormal);
+    //        Vector3 normalG = -tmpNormal.GetNormalized();
+    //        Vector3 up = { 0,1,0 };
+    //        float k = Dot(up, normalG);
+
+    //        if (k < 0.9f)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)x,h,(float)z };
+    //            boxes.push_back(cube);
+    //            obstacles.push_back(cube);
+    //        }
+    //    }
+    //}
+
+    //for (int x = 5; x < 495; x++)
+    //{
+    //    for (int z = 5; z < 495; z++)
+    //    {
+    //        float i = terrainF->GetHeight({ (float)x,0,(float)z });
+    //        float j = terrainF->GetHeight({ (float)(x+0),0,(float)(z+1) });
+    //        float k = terrainF->GetHeight({ (float)(x + 1),0,(float)(z + 0) });
+    //        float l = terrainF->GetHeight({ (float)(x - 1),0,(float)(z + 0) });
+    //        float m = terrainF->GetHeight({ (float)(x + 0),0,(float)(z - 1) });
+
+    //        float d = 0.9f;
+
+    //        if (i - j > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x+0),i,(float)(z+1) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - k > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x + 1),i,(float)(z + 0) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - l > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x - 1),i,(float)(z + 0) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        if (i - m > d)
+    //        {
+    //            BoxCollider* cube = new BoxCollider();
+    //            cube->Pos() = { (float)(x + 0),i,(float)(z - 1) };
+    //            boxes.push_back(cube);
+    //            //obstacles.push_back(cube);
+    //        }
+
+    //        //if (abs(i - j) > 0.75f && abs(i - k) > 0.75f)
+    //        //{
+    //        //    BoxCollider* cube = new BoxCollider();
+    //        //    cube->Pos() = { (float)x,i,(float)z };
+    //        //    boxes.push_back(cube);
+    //        //    //obstacles.push_back(cube);
+
+    //        //}
+    //    }
+    //}
 
 }

@@ -20,7 +20,7 @@ WorkBench::WorkBench()
 	//Place();
 
 	//light = Environment::Get()->GetLight(1);
-	light = Environment::Get()->GetLight(3);
+	light = Environment::Get()->GetLight(2);
 	light->type = 1;
 	light->range = 0.01f;
 
@@ -102,6 +102,9 @@ void WorkBench::Update()
 
 void WorkBench::PreRender()
 {
+	if (!isPlaced) return;
+	if (Done) return;
+
 	shadow->SetRenderTarget(2);
 
 	cube->SetShader(L"Light/DepthMap.hlsl");

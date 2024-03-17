@@ -29,14 +29,20 @@
 
 #define FOR(n) for(int i = 0; i < n ; i++)
 
+#define RANDOM		RandomNum::Get()
+
+
 #include <windows.h>
 #include <string>
+#include <deque>
 #include <vector>
 #include <map>
 #include <unordered_map>
 #include <functional>
 #include <algorithm>
 #include <assert.h>
+#include <chrono>
+#include <random>
 
 #include <d3d11.h>
 #include <DirectXMath.h>
@@ -90,6 +96,7 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Font.h"
 #include "Framework/Utilities/Audio.h"
+#include "Framework/Utilities/Random.h"
 
 using namespace Utility;
 
@@ -165,12 +172,22 @@ using namespace GameMath;
 #include "Objects/UI/FieldUI.h"
 #include "Objects/UI/PalBoxUi.h"
 #include "Objects/UI/BuildUi.h"
+#include "Objects/UI/PartyUi.h"
+#include "Objects/UI/ItemClickQuad.h"
+#include "Objects/UI/ItemUI.h"
+#include "Objects/UI/PalModeUi.h"
+
 
 
 #include "Objects/Items/Weapons/Kunai.h"
 #include "Objects/Items/Weapons/Crowbar.h"
 #include "Objects/Items/Weapons/PalSpear.h"
 #include "Objects/Items/Weapons/Bullet.h"
+#include "Objects/Items/Item.h"
+#include "Objects/Items/Equipment.h"
+#include "Objects/Items/Ingredient.h"
+
+
 
 #include "Objects/Landscape/Terrain.h"
 #include "Objects/Landscape/TerrainEditor.h"
@@ -218,6 +235,8 @@ using namespace GameMath;
 //Pal
 #include "Objects/Character/Pal.h"
 #include "Objects/Character/Penguin.h"
+#include "Objects/Character/Mammoth.h"
+#include "Objects/Character/DarkWolf.h"
 
 //Player
 #include "Objects/Character/Player.h"
@@ -236,6 +255,7 @@ using namespace GameMath;
 #include "Objects/Manager/UiMouseManager.h"
 #include "Objects/Manager/UiManager.h"
 #include "Objects/Manager/StructureManager.h"
+#include "Objects/Manager/ItemManager.h"
 #include "Objects/Manager/PlayerManager.h"
 
 
@@ -247,3 +267,4 @@ using namespace GameMath;
 
 extern HWND hWnd;
 extern Vector3 mousePos;
+extern int mouseWheel;

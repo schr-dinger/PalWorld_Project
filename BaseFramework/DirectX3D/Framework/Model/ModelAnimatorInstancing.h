@@ -18,6 +18,8 @@ public:
         }
     };
 
+    string ModelName;
+
 private:
     class FrameInstancingBuffer : public ConstBuffer
     {
@@ -58,6 +60,11 @@ public:
     }
 
     UINT GetClipSize() { return clips.size(); }
+
+    //FrameInstancingBuffer* GetFrameIB() { return frameInstancingBuffer; }
+    FrameInstancingBuffer& GetFrameIB() { return *frameInstancingBuffer; }
+
+    vector<Transform*>& GetInstancingTransform() { return transforms; }
 
 private:    
     void UpdateFrame(UINT instanceID, Motion& motion);

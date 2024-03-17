@@ -5,6 +5,8 @@ ModelAnimatorInstancing::ModelAnimatorInstancing(string name)
 {
     SetShader(L"Model/ModelAnimationInstancing.hlsl");
 
+    ModelName = name;
+
     instanceBuffer = new VertexBuffer(instanceDatas, sizeof(InstanceData), MAX_INSTANCE);
     frameInstancingBuffer = new FrameInstancingBuffer();
 }
@@ -40,10 +42,10 @@ void ModelAnimatorInstancing::GUIRender()
 {
     ImGui::Text("DrawCount : %d", drawCount);
 
-    //for (Transform* transform : transforms)
-    //{
-    //    transform->GUIRender();
-    //}
+    for (Transform* transform : transforms)
+    {
+        transform->GUIRender();
+    }
 }
 
 Transform* ModelAnimatorInstancing::Add()

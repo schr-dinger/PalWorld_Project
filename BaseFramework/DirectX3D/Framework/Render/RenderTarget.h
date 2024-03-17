@@ -13,6 +13,7 @@ public:
 
     //렌더타겟 세팅 (뎁스 스텐실 기능 필요, 기본 배경색은 흰색)
     void Set(DepthStencil* depthStencil, Float4 clearColor = Float4(1, 1, 1, 1));
+    //void Set(DepthStencil* depthStencil, Float4 clearColor = Float4(1, 1, 1, 0));
 
     ID3D11ShaderResourceView*& GetSRV() { return srv; }
     ID3D11RenderTargetView*& GetRTV() { return rtv; } //DX는 렌더타겟 기능 기본 제공

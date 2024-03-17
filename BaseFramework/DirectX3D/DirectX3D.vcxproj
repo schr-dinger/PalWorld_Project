@@ -142,6 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\UI\ItemClickQuad.h" />
+    <ClInclude Include="Objects\UI\ItemUI.h" />
+    <ClInclude Include="Objects\Manager\ItemManager.h" />
+    <ClInclude Include="Objects\Items\Equipment.h" />
+    <ClInclude Include="Objects\Items\Ingredient.h" />
+    <ClInclude Include="Objects\Items\Item.h" />
+    <ClInclude Include="Objects\Character\DarkWolf.h" />
+    <ClInclude Include="Objects\Character\Mammoth.h" />
     <ClInclude Include="Objects\Manager\AStarManager.h" />
     <ClInclude Include="Objects\Manager\StructureManager.h" />
     <ClInclude Include="Objects\UI\BuildUi.h" />
@@ -167,6 +175,9 @@
     <ClInclude Include="Objects\UI\PalClickQuad.h" />
     <ClInclude Include="Objects\UI\PartyBox.h" />
     <ClInclude Include="Objects\Manager\PlayerManager.h" />
+    <ClInclude Include="Objects\UI\PartyUi.h" />
+    <ClInclude Include="Framework\Utilities\Random.h" />
+    <ClInclude Include="Objects\UI\PalModeUi.h" />
     <ClInclude Include="Scenes\GameScene\BaseScene1.h" />
     <ClInclude Include="Framework\Shader\DomainShader.h" />
     <ClInclude Include="Framework\Shader\HullShader.h" />
@@ -297,6 +308,14 @@
     <ClInclude Include="Objects\Structure\WorkBench.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
+    <ClCompile Include="Objects\UI\ItemUI.cpp" />
+    <ClCompile Include="Objects\Manager\ItemManager.cpp" />
+    <ClCompile Include="Objects\Items\Equipment.cpp" />
+    <ClCompile Include="Objects\Items\Ingredient.cpp" />
+    <ClCompile Include="Objects\Items\Item.cpp" />
+    <ClCompile Include="Objects\Character\DarkWolf.cpp" />
+    <ClCompile Include="Objects\Character\Mammoth.cpp" />
     <ClCompile Include="Objects\Manager\AStarManager.cpp" />
     <ClCompile Include="Objects\Manager\StructureManager.cpp" />
     <ClCompile Include="Objects\UI\BuildUi.cpp" />
@@ -322,6 +341,9 @@
     <ClCompile Include="Objects\UI\PalClickQuad.cpp" />
     <ClCompile Include="Objects\UI\PartyBox.cpp" />
     <ClCompile Include="Objects\Manager\PlayerManager.cpp" />
+    <ClCompile Include="Objects\UI\PartyUi.cpp" />
+    <ClCompile Include="Framework\Utilities\Random.cpp" />
+    <ClCompile Include="Objects\UI\PalModeUi.cpp" />
     <ClCompile Include="Scenes\GameScene\BaseScene1.cpp" />
     <ClCompile Include="Framework\Shader\DomainShader.cpp" />
     <ClCompile Include="Framework\Shader\HullShader.cpp" />

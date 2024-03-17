@@ -21,4 +21,9 @@ private:
 
 
     BlendState* blendState[2];
+
+
+    // 
+    Transform* testyo;
+    Model* test;
 };

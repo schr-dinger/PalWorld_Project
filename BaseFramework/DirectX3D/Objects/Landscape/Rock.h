@@ -14,10 +14,13 @@ public:
     Transform* GetTransform() { return transform; }
     SphereCollider* GetCollider() { return collider; }
 
+    //BoxCollider* GetCollider() { return collider; }
+
 private:
     Transform* transform;
 
     SphereCollider* collider;
+    //BoxCollider* collider;
 
     float Hp = 200;
 };

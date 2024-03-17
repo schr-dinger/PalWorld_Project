@@ -38,7 +38,7 @@ void BuildUi::Update()
 	SetTexture();
 	donutPiece->Rot().z = pieceRot;
 
-	if (selectPalBox->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+	if (selectPalBox->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn )
 	{
 		UiManager::Get()->buildPalBox = true;
 		UiManager::Get()->buildUiOn = false;
@@ -50,7 +50,7 @@ void BuildUi::Update()
 		pieceRot = XM_2PI * (0.0f / 6.0f);
 	}
 
-	if (selectWorkBench->MouseCollision() && KEY_DOWN(VK_LBUTTON))
+	if (selectWorkBench->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn)
 	{
 		UiManager::Get()->buildWorkBench = true;
 		UiManager::Get()->buildUiOn = false;

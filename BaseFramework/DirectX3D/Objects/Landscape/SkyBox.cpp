@@ -14,6 +14,7 @@ SkyBox::SkyBox(wstring file)
         rasterizerState[i] = new RasterizerState();
         depthStencilState[i] = new DepthStencilState();
     }
+
     rasterizerState[1]->FrontCounterClockwise(true); // 래스터에서 "앞" = 양면
                                                      // = 양면을 모두 앞으로 치겠다
     depthStencilState[1]->DepthEnable(false);        // 화소 우선순위 무시 =

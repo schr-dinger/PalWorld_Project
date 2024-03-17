@@ -285,23 +285,24 @@ FieldUI::~FieldUI()
 void FieldUI::Update()
 {
 	// 팔 선택
-	if (KEY_DOWN('E')) // 선택 팰 소환
+	if (KEY_UP('E')) // 선택 팰 소환
 	{
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
 		{
+			
 			PlayerPalsManager::Get()->SetSelPal(selPal);
-			PlayerPalsManager::Get()->Summons();
+			//PlayerPalsManager::Get()->Summons();
 		}
 	}
 	else if (KEY_DOWN('3')) // 오른쪽 팰 선택
 	{
 		selPal++;
-		SetPalUI();
+		//SetPalUI();
 	}
 	else if (KEY_DOWN('1')) // 왼쪽 팔 선택
 	{
 		selPal--;
-		SetPalUI();
+		//SetPalUI();
 	}
 	hpBar  ->Update();
 	hpBar  ->SetAmount(curHp / (float)maxHp);
@@ -332,11 +333,38 @@ void FieldUI::Update()
 	palSpearIcon->Update();
 	equipTextQuad->Update();
 	equipRenderQuad->Update();
+	if (true) // 플레이어 장비창 선택에 따라
+	{
+		
+	}
+	switch (PlayerManager::Get()->GetPlayer()->GetWepSel())
+	{
+	case 0:
+		break;
+	case 1:
+		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_assault_rifle_UI.png");
+		break;
+	case 2:
+		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_Bow_UI.png");
+		break;
+	case 3:
+		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_pixaxe_UI.png");
+		break;
+	case 4:
+		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+		break;
+	default:
+		break;
+	}
 	equipIcon->Update();
 	equipSlash->Update();
 	pressBQuad->Update();
 	pressEQuad->Update();
 	pressQQuad->Update();
+
+
+	SetPalUI();
+
 }
 
 void FieldUI::PostRender()
@@ -402,6 +430,7 @@ void FieldUI::PostRender()
 		// 팰 스피어 개수
 		Font::Get()->SetStyle("FieldNum1");
 		int tmpT = tmpPalSpear; // *팰 스피어 개수 가져와야 함
+		//int tmpT = PalSpearManager::Get()->GetSize(); // 팰스피어 매니저 말고 아이템 ui에서 가져와야 함
 		if(tmpPalSpear >= 100) Font::Get()->SetColor("White");
 		else Font::Get()->SetColor("Gray");
 		tmpString = to_string(tmpT /100); // 백의 자리
@@ -418,19 +447,52 @@ void FieldUI::PostRender()
 		tmpString = to_string(tmpT); // 일의 자리
 		Font::Get()->RenderText(tmpString, { parSpear001FontPos.x, parSpear001FontPos.y },1);
 
-		// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
-		Font::Get()->SetStyle("FieldNum3");
-		Font::Get()->SetColor("Gray");
+		// 장비아이템용, 투사체 출력 유무
+		int tmpBow = 0;
+		switch (PlayerManager::Get()->GetPlayer()->GetWepSel())
+		{
+		case 0:
+			break;
+		case 1:
+			// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
+			Font::Get()->SetStyle("FieldNum3");
+			Font::Get()->SetColor("Gray");
 
-		int tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
-		tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
-		Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
+			tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
+			tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
+			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
 
-		Font::Get()->SetStyle("FieldNum2");
-		Font::Get()->SetColor("White");
-		tmpBow = 8; //장전되어 있는 개수
-		tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
-		Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+			Font::Get()->SetStyle("FieldNum2");
+			Font::Get()->SetColor("White");
+			tmpBow = 8; //장전되어 있는 개수
+			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
+			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+			break;
+		case 2:
+		{
+			// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
+			Font::Get()->SetStyle("FieldNum3");
+			Font::Get()->SetColor("Gray");
+
+			tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
+			tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
+			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
+
+			Font::Get()->SetStyle("FieldNum2");
+			Font::Get()->SetColor("White");
+			tmpBow = 8; //장전되어 있는 개수
+			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
+			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+		}
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		default:
+			break;
+		}
+		
 
 		// 플레이 수행 안내
 		tmpString = "건축"; 

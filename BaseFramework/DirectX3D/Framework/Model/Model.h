@@ -12,6 +12,7 @@ public:
     void SetShader(wstring file);
 
     Material* GetMaterial(int num) { return materials[num]; }
+    vector<Material*>& GetMaterials() { return materials; }
 
 
 private:

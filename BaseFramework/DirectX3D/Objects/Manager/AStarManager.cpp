@@ -1,5 +1,4 @@
 #include "Framework.h"
-#include "AStarManager.h"
 
 AStarManager::AStarManager()
 {
