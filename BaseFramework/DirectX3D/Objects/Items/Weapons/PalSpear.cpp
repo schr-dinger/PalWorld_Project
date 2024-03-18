@@ -77,30 +77,6 @@ void PalSpear::Update()
 
 void PalSpear::PreRender()
 {
-    // 구현 안됨, 해도 포스트 랜더라 캐릭터 다 가림
-    //SetRenderTarget();
-    //renderTarget->Set(depthStencil, Float4(1, 1, 1, 0));
-    //PlayerManager::Get()->Render();
-    //if (pal == nullptr) return;
-    //
-    //FOR(pal->GetInstancing()->GetMaterials().size())
-    //{
-    //    whitePalTexture.push_back(pal->GetInstancing()->GetMaterials()[i]->GetDiffuseMap()->GetFile());
-    //    pal->GetInstancing()->GetMaterials()[i]->SetDiffuseMap(L"Textures/Color/White.png");
-    //    whitePalEmissive.push_back(pal->GetInstancing()->GetMaterials()[i]->GetData().emissive);
-    //    pal->GetInstancing()->GetMaterials()[i]->GetData().emissive = Float4(1, 1, 1, 1);
-    //}
-    //pal->GetInstancing()->Render();
-    //FOR(pal->GetInstancing()->GetMaterials().size())
-    //{
-    //    Float4 tmpF4 = whitePalEmissive[i];
-    //    pal->GetInstancing()->GetMaterials()[i]->GetData().emissive = tmpF4;
-    //    wstring tmp = whitePalTexture[i];
-    //    wstring tmp2 = ToWString(pal->name);
-    //    //Texture* tmpT = Texture::Add(tmp, tmp2 + L"_Spear");
-    //    Texture* tmpT = Texture::Add(tmp);
-    //    pal->GetInstancing()->GetMaterials()[i]->SetDiffuseMap(tmpT);
-    //}
     
 }
 
@@ -177,7 +153,8 @@ void PalSpear::StateThrow()
         Vector3 normal;
         transform->Pos().y = terrain->GetHeight(transform->GlobalPos(), &normal);
         normal *= -1;
-        Vector3 tmpDir = (direction + tmp.GetNormalized()) * -1;
+        //Vector3 tmpDir = (direction + tmp.GetNormalized()) * -1;
+        Vector3 tmpDir = (direction * speed + tmp) * -1;
         tmpDir = tmpDir.GetNormalized();
         Vector3 tmpD = 2 * normal * (Dot(tmpDir, normal));
         tmpDir *= -1;
