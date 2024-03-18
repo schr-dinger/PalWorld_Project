@@ -15,6 +15,8 @@ public:
 
 	void Interaction();
 
+	Transform* GetBuilding() { return building; }
+	bool PalWorkCheck();
 private:
 	Model* building;
 	Model* finished;

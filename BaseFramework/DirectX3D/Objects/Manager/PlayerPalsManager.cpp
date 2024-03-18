@@ -252,13 +252,27 @@ void PlayerPalsManager::SetTarget()
             if (!closePal)
             {
                 mode = MODE::PASSIVE;
-                break;
             }
             else
             {
                 pals[selPal]->SetTarget(closePal->GetTransform());
-                break;
             }
+
+            break;
+
+        case PlayerPalsManager::MODE::WORK:
+
+            if (StructureManager::Get()->isPalBoxWork())
+            {
+                pals[selPal]->SetTarget(StructureManager::Get()->GetPalBox());
+            }
+            else
+            {
+                mode = MODE::PASSIVE;
+            }
+
+            break;
+
        }
         // 팔이 셋타겟하는 조건 추가하기
         //if () // 거리라든지(선공), 공격당했을때 등

@@ -9,7 +9,8 @@ public:
     enum class MODE
     {
         AGGRESSIVE,
-        PASSIVE
+        PASSIVE,
+        WORK
     };
 
 public:
