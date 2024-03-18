@@ -56,12 +56,7 @@ DarkWolf::DarkWolf(Transform* transform, ModelAnimatorInstancing* instancing, UI
     target = nullptr;
 
 
-    // 테스트 : 그림자
-    shadowSphere = new Sphere(100.0f);
-    shadowSphere->SetParent(transform);
-    shadowSphere->Scale() = Vector3(0.5f, 0.0f, 1.0f);
-    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
-
+    
 }
 
 DarkWolf::~DarkWolf()
@@ -147,8 +142,7 @@ void DarkWolf::Update()
     skill[0]->Update();
 
 
-    // 그림자
-    shadowSphere->UpdateWorld();
+   
 }
 
 void DarkWolf::Render()
@@ -161,8 +155,7 @@ void DarkWolf::Render()
 
 void DarkWolf::ShadowRender()
 {
-    if (!transform->Active()) return;
-    shadowSphere->Render();
+   
 }
 
 void DarkWolf::PostRender()
