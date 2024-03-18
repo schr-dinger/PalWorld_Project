@@ -44,7 +44,7 @@ private:
 
 
 	//
-	WorkBenchUI* test;
+	WorkBenchUI* WorkBenUI;
 
 };
 

@@ -13,8 +13,8 @@ public:
 
 private:
 
-    //Particle* particle;
-    ParticleSystem* particle;
+    Particle* particle;
+    //ParticleSystem* particle;
 
     SphereCollider* collider;
 

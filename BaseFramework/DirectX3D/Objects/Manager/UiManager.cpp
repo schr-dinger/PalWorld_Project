@@ -8,11 +8,11 @@ UiManager::UiManager()
 	fieldUI = new FieldUI();
 	itemUi = new ItemUI();
 	palModeUi = new PalModeUi();
-
+	WorkBenUI = new WorkBenchUI();
 
 	//
 
-	test = new WorkBenchUI();
+	
 }
 
 UiManager::~UiManager()
@@ -23,6 +23,7 @@ UiManager::~UiManager()
 	delete fieldUI;
 	delete itemUi;
 	delete palModeUi;
+	delete WorkBenUI;
 }
 
 void UiManager::Update()
@@ -55,7 +56,7 @@ void UiManager::Update()
 	{
 		palModeUiOn = !palModeUiOn;
 	}
-
+	
 
 
 
@@ -64,12 +65,13 @@ void UiManager::Update()
 	if (partyUiOn) partyUi->Update();
 	if (InvenIsOn) itemUi->Update();
 	if (palModeUiOn) palModeUi->Update();
+	if (WorkBenchUiOn) WorkBenUI->Update();
 
 	fieldUI->Update();
 
 	//
 
-	test->Update();
+	
 }
 
 void UiManager::Render()
@@ -79,7 +81,7 @@ void UiManager::Render()
 	if (partyUiOn) partyUi->Render();
 	if (InvenIsOn) itemUi->Render();
 	if (palModeUiOn) palModeUi->Render();
-
+	if (WorkBenchUiOn) WorkBenUI->Render();
 }
 
 void UiManager::PostRender()
@@ -90,8 +92,8 @@ void UiManager::PostRender()
 	if (partyUiOn) partyUi->PostRender();
 	if (InvenIsOn) itemUi->PostRender();
 	if (palModeUiOn) palModeUi->PostRender();
-
-	test->PostRender();
+	if (WorkBenchUiOn) WorkBenUI->PostRender();
+	
 }
 
 void UiManager::GuiRender()
@@ -104,7 +106,7 @@ void UiManager::GuiRender()
 
 void UiManager::ControlOn()
 {
-	if (palBoxUiOn || buildUiOn || partyUiOn || InvenIsOn ||palModeUiOn )
+	if (palBoxUiOn || buildUiOn || partyUiOn || InvenIsOn ||palModeUiOn || WorkBenchUiOn)
 	{
 		UiOn = true;
 	}
@@ -122,5 +124,6 @@ void UiManager::ControlOn()
 		partyUiOn = false;
 		InvenIsOn = false;
 		palModeUiOn = false;
+		WorkBenchUiOn = false;
 	}
 }

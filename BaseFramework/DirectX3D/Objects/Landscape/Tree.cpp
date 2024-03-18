@@ -8,20 +8,16 @@ Tree::Tree(Transform* transform) :transform(transform)
 	collider->Scale() *= 100.0f;
 	collider->Rot().x = XM_PIDIV2;
 
-	test = new Equipment(1);
-	test2 = new Equipment(2);
-	test3 = new Ingredient(1);
-	test4 = new Ingredient(2);
-
+	
+	test = new Ingredient(1);
+	
 }
 
 Tree::~Tree()
 {
 	delete collider;
 	delete test;
-	delete test2;
-	delete test3;
-	delete test4;
+	
 }
 
 void Tree::Update()
@@ -34,8 +30,8 @@ void Tree::Update()
 	}
 
 
-
 	GetTem(PlayerManager::Get()->GetPlayer()->GetPlayerCol());
+
 
 	transform->UpdateWorld();
 	collider->UpdateWorld();
@@ -63,6 +59,15 @@ void Tree::GUIRender()
 void Tree::Hit()
 {
 	Hp -= 20.0f;
+
+	if (Hp <= 0)
+	{
+		if(transform->Active()) ItemManager::Get()->Mining(test);
+	
+	}
+	
+
+
 }
 
 void Tree::GetTem(Collider* collider)
@@ -70,20 +75,14 @@ void Tree::GetTem(Collider* collider)
 
 	if (this->collider->IsCollision(collider))
 	{
-		Time += 3 * DELTA;
+		// 캐릭터 앞에 충돌체 키 입력시 애니메이션 후 충돌체 Active 충돌하면 힛하고 충돌체 off
+		// 애니메이션이 끝나면 충돌체 off
+
+		// if(PlayerManager::Get()->GetPlayer()->)
+
 
 	}
 
 
-
-	if (Time > 5)
-	{
-		ItemManager::Get()->Mining(test);
-		ItemManager::Get()->Mining(test2);
-		ItemManager::Get()->Mining(test3);
-		ItemManager::Get()->Mining(test4);
-		//test2 = nullptr;
-		Time = 0;
-	}
-
+	
 }
