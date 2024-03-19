@@ -14,6 +14,7 @@ public:
     {
         THROW,
         HITPAL,
+        ABSORB,
         CATCHING,
         SUCCESS,
         FAIL
@@ -43,6 +44,7 @@ private:
     //¸â¹ö ÇÔ¼ö
     void StateThrow();
     void StateHitPal();
+    void StateAbsorb();
     void StateCatching();
     void StateSuccess();
     void StateFail();
@@ -88,5 +90,9 @@ private:
     vector<wstring> whitePalTexture;
     vector<Float4> whitePalEmissive;
     
+    // ÀÌÆåÆ®
+    class ParticleSystem* palSpearParticle;
+    Vector3 palToPalSpearVel; // ÆÓ¿¡¼­ ÆÓ½ºÇÇ¾î·Î °¡´Â ¼Óµµ
+    float particleTime;
 };
 

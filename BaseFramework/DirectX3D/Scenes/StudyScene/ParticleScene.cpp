@@ -18,7 +18,7 @@ ParticleScene::ParticleScene()
     // 범용 파티클 사용
     //particle = new ParticleSystem(L"Textures/Effect/explosion.png");
                                         // 그림으로 만들기
-    particle = new ParticleSystem("TextData/Particles/Star.fx");
+    particle = new ParticleSystem("TextData/Particles/PalSpear.fx");
                                         // 사전에 설정된 파일을 읽어서 만들기
 }
 

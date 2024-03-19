@@ -38,12 +38,15 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
     whitePal->GetMaterial()->SetDiffuseMap(texture);
     //whitePal->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
     whitePal->UpdateWorld(); //
+
+    palSpearParticle = new ParticleSystem("TextData/Particles/PalSpear.fx");
+
 }
 
 PalSpear::~PalSpear()
 {
     delete collider;
-
+    delete palSpearParticle;
 }
 
 void PalSpear::Update()
@@ -59,6 +62,9 @@ void PalSpear::Update()
     case PalSpear::State::HITPAL:
         StateHitPal();
         break;
+    case PalSpear::State::ABSORB:
+        StateAbsorb();
+        break;
     case PalSpear::State::CATCHING:
         StateCatching();
         break;
@@ -73,6 +79,7 @@ void PalSpear::Update()
     }
 
     collider->UpdateWorld();
+    palSpearParticle->Update();
 }
 
 void PalSpear::PreRender()
@@ -85,6 +92,8 @@ void PalSpear::Render()
     if (!transform->Active()) return;
 
     collider->Render();
+    palSpearParticle->Render();
+
 }
 
 void PalSpear::PostRender()
@@ -174,12 +183,30 @@ void PalSpear::StateHitPal()
     transform->Pos() += transform->Down() * 2 * DELTA; // 오른쪽
     if (hitPalTime > 0.4f)
     {
-        state = State::CATCHING;
+        state = State::ABSORB;
         hitPalTime = 0.0f;
         pal->GetTransform()->SetActive(false);
         pal->GetCollider()->SetActive(false);
 
+        // 이펙트 활성화
+        palSpearParticle->Play(pal->GetCollider()->GlobalPos());
+        palToPalSpearVel = transform->Pos() - palSpearParticle->GetPos();
     }
+}
+
+void PalSpear::StateAbsorb()
+{
+    // 이펙트 팰 스피어로 이동
+    Vector3 tmp = palSpearParticle->GetPos() + palToPalSpearVel * DELTA;
+    palSpearParticle->SetPos(tmp);
+    particleTime += DELTA;
+    if (particleTime >= 1.0f)
+    {
+        particleTime = 0.0f;
+        state = State::CATCHING;
+    }
+
+
 }
 
 void PalSpear::StateCatching()

@@ -23,12 +23,19 @@ void Transform::UpdateWorld()
     XMVECTOR outS, outR, outT;
     XMMatrixDecompose(&outS, &outR, &outT, world);
 
-    Float3 tempPos, tempScale;
+    Float3 tempPos, tempScale, tempRot;
     XMStoreFloat3(&tempPos, outT);
     XMStoreFloat3(&tempScale, outS);
+    XMStoreFloat3(&tempRot, outR);
 
     globalPosition = tempPos;
-    globalScale = tempScale;    
+    globalScale = tempScale;   
+    tempRot.x *= XM_PI;
+    tempRot.y *= XM_PI;
+    tempRot.z *= XM_PI;
+    //if (parent)
+    //    world = parent->world;
+    globalRotation = tempRot;
 }
 
 void Transform::GUIRender()
@@ -54,6 +61,13 @@ void Transform::GUIRender()
         localRotation.y = XMConvertToRadians(rot.y);
         localRotation.z = XMConvertToRadians(rot.z);
     
+        temp = tag + "_GlobalRot";
+        Float3 grot;
+        grot.x = XMConvertToDegrees(globalRotation.x);
+        grot.y = XMConvertToDegrees(globalRotation.y);
+        grot.z = XMConvertToDegrees(globalRotation.z);
+        ImGui::DragFloat3(temp.c_str(), (float*)&grot, 1.0f, -180, 180);
+
         temp = tag + "_Scale";
         ImGui::DragFloat3(temp.c_str(), (float*)&localScale, 0.1f);
     

@@ -43,5 +43,7 @@ private:
 	ModelAnimator* ModelM;
 	ModelAnimator* ModelD;
 
+	class ParticleSystem* paTest;
+
 };
 

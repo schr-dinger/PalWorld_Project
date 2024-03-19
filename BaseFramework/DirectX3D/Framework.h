@@ -96,7 +96,6 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Font.h"
 #include "Framework/Utilities/Audio.h"
-#include "Framework/Utilities/Random.h"
 
 using namespace Utility;
 
@@ -127,6 +126,7 @@ using namespace Utility;
 #include "Framework/Math/Vector3.h"
 #include "Framework/Math/Transform.h"
 #include "Framework/Math/GameMath.h"
+#include "Framework/Utilities/Random.h"
 
 #include "Framework/Render/Texture.h"
 #include "Framework/Render/Material.h"
