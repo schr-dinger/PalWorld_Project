@@ -75,6 +75,8 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	float moveTime = 0.0f;
 	Vector3 randomDir;
 
-	
+	// 테스트 그림자:
+	Sphere* shadowSphere;
+
 };
 

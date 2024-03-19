@@ -168,7 +168,8 @@ void PalsManager::GUIRender()
 
 void PalsManager::ShadowRender()
 {
-    
+    for (Pal* pal : pals)
+        pal->ShadowRender();
 }
 
 void PalsManager::SetTarget(Transform* target)
