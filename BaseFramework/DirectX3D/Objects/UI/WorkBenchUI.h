@@ -26,7 +26,7 @@ private:
 
 	WorkSlot* test[5];
 
-	
+	// Quad* Bar;
 
 	// 필요한 아이템 
 

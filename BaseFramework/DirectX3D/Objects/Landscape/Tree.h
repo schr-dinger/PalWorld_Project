@@ -31,6 +31,7 @@ private:
 
     float Hp = 100;
 
+    float time = 0;
    
 
 };

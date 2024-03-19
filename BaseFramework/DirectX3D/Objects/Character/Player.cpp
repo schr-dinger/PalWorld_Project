@@ -29,28 +29,28 @@ Player::Player() : ModelAnimator("NPC")
 
     ReadClip("B_Idle");
     ReadClip("B_Walk");
-    ReadClip("B_Run");
-
-    ReadClip("J_Start");
-    ReadClip("J_End");
-    ReadClip("J_Loop");
-
-    ReadClip("R_Idle");
-    ReadClip("R_Run");
-    ReadClip("R_Aim");
-    ReadClip("R_Reload");
-    ReadClip("R_Draw");
-
-    ReadClip("RA_Run");
-
-    ReadClip("BW_Aim");
-    ReadClip("BW_Fire");
-
+    //ReadClip("B_Run");
+    //
+    //ReadClip("J_Start");
+    //ReadClip("J_End");
+    //ReadClip("J_Loop");
+    //
+    //ReadClip("R_Idle");
+    //ReadClip("R_Run");
+    //ReadClip("R_Aim");
+    //ReadClip("R_Reload");
+    //ReadClip("R_Draw");
+    //
+    //ReadClip("RA_Run");
+    //
+    //ReadClip("BW_Aim");
+    //ReadClip("BW_Fire");
+    //
     ReadClip("M_Mining");
-    ReadClip("M_Attack");
-
-    ReadClip("S_Aim");
-    ReadClip("S_Throw");
+    //ReadClip("M_Attack");
+    //
+    //ReadClip("S_Aim");
+    //ReadClip("S_Throw");
 
     //ReadClip("BW_Run");
     //ReadClip("BW_A_Ready");
@@ -88,20 +88,24 @@ Player::Player() : ModelAnimator("NPC")
     // �׽�Ʈ : ��
     particle = new ParticleSystem("TextData/Particles/Star.fx");
 
-    GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
-    GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-
-    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
-
-    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-
-    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
+    //GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //
+    //GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
+    //
+    //GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //
+    //GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_MINING)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_MINING)->SetEvent(bind(&Player::MState, this), 0.7f);
+    // GetClip(M_MINING)->SetEvent(bind(&Player::MState, this), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f,0.7f);
+    MiningCollider = new SphereCollider(0.2f);
+    MiningCollider->SetActive(false);
+       
+    
 
     weapons.resize(4);
 }
@@ -115,6 +119,7 @@ Player::~Player()
     delete playerCollider;
     delete summonPalSpear;
     delete summonPalSpearCollider;
+    delete MiningCollider;
 
     weapons.clear();
 }
@@ -150,9 +155,15 @@ void Player::Update()
 
     SetAnimation();
 
-
+    if (weapons[0] != nullptr)
+    {
+        MiningCollider->SetParent(weapons[0]->GetParent());
+        MiningCollider->Pos() = Vector3(0.0f, 0.25f, -0.3f);
+    }
+    
     //
     playerCollider->Pos() = this->Pos() + Vector3(0,1.0f,0);
+    
 
     Hand->SetWorld(GetTransformByNode(68));
     FOR(weapons.size())
@@ -174,6 +185,7 @@ void Player::Update()
 
     particle->Update();
     playerCollider->UpdateWorld();
+    if(MiningCollider->Active()) MiningCollider->UpdateWorld();
 
     // 팰 스피어 던지기 관련
     ThrowPalSpear();
@@ -204,7 +216,7 @@ void Player::Render()
         if (weapons[select - 1] != nullptr)  weapons[select - 1]->Render();
 
     }
-
+    if (MiningCollider->Active()) MiningCollider->Render();
 }
 
 void Player::ShadowRender()
@@ -278,7 +290,7 @@ void Player::Control()
             isBow = false;
             if (KEY_DOWN('R'))
             {
-                SetState(R_RELOAD);
+                //SetState(R_RELOAD);
             }
 
             break;
@@ -349,40 +361,46 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        if (curState != S_THROW)
-        {
-            SetState(ACTION::S_AIM);
+        //if (curState != S_THROW)
+        //{
+        //    SetState(ACTION::S_AIM);
             isAiming = true;
             summonPalSpear->SetActive(true);
-        }
+        //}
     }
     else if (KEY_UP('Q'))
     {
-        if (curState == S_AIM)
-        {
+        //if (curState == S_AIM)
+        //{
             CatchPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
-        }
+        //}
     }
     else if (KEY_UP('E'))
     {
-        if (curState == S_AIM)
-        {
+        //if (curState == S_AIM)
+        //{
             SummonsPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
             summonPalSpearThrow->SetActive(true);
             summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
             summonPalSpearDIr = CAM->Forward();
-        }
+        //}
 
     }
            
     if (KEY_DOWN('G'))
     {
+        MiningCollider->SetActive(true);
         SetState(M_MINING);
-        MState();
+    }
+
+    if (KEY_DOWN('N'))
+    {
+        MiningCollider->SetActive(false);
+        
     }
 
 
@@ -402,10 +420,10 @@ void Player::Control()
 
 void Player::Move()
 {
-    if (curState == S_THROW)
-    {
-        return;
-    }
+    //if (curState == S_THROW)
+    //{
+    //    return;
+    //}
     bool isMoveZ = false;
     bool isMoveX = false;
 
@@ -508,7 +526,7 @@ void Player::Move()
 
         if (KEY_DOWN(VK_SPACE))
         {
-            action = J_START;
+            //action = J_START;
             jumpVelocity = jumpForce;
             isJump = true;
             isSpace = true;
@@ -559,7 +577,7 @@ void Player::Jump(float _ground)
 
     if (Pos().y > _ground + 0.5f)
     {
-        if (action != J_LOOP) action = J_LOOP;
+        //if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
     }
@@ -569,7 +587,7 @@ void Player::Jump(float _ground)
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10 * DELTA);
         jumpVelocity = 0;
-        if (curState == J_LOOP) SetState(J_END);
+        //if (curState == J_LOOP) SetState(J_END);
         isJump = false;
         isSpace = false;
     }
@@ -590,10 +608,10 @@ void Player::AttackPal()
 
         break;
     case 2:
-        SetState(BW_FIRE);
+        //SetState(BW_FIRE);
         break;
     case 3:
-        SetState(M_ATTACK);
+        //SetState(M_ATTACK);
 
         break;
     default:
@@ -622,11 +640,11 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
-    if (curState == S_THROW)
-    {
-        return;
-    }
-    SetState(S_THROW);
+    //if (curState == S_THROW)
+    //{
+    //    return;
+    //}
+    //SetState(S_THROW);
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
 
@@ -650,7 +668,7 @@ void Player::CatchPal()
 
 void Player::SummonsPal()
 {
-    SetState(ACTION::S_THROW);
+    //SetState(ACTION::S_THROW);
 }
 
 void Player::ThrowPalSpear()
@@ -679,7 +697,7 @@ void Player::UiMode()
 
 void Player::SetAnimation()
 {
-    
+    /*
     if (curState == J_LOOP)
     {
         ClipOnce();
@@ -733,7 +751,7 @@ void Player::SetAnimation()
             SetState(IDLE);
         }
     }
-
+    */
 }
 
 void Player::SetState(ACTION state)

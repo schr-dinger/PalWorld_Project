@@ -7,9 +7,9 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 
-	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
+	//shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
 
 
@@ -126,11 +126,11 @@ void BaseScene1::PreRender()
 
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	shadow->SetRenderTargetPos(CAM->GlobalPos());
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//shadow->SetRenderTargetPos(CAM->GlobalPos());
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//PalsManager::Get()->ShadowRender();
 	//PlayerPalsManager::Get()->ShadowRender();
-	RenderShadowModel();
+	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -149,7 +149,7 @@ void BaseScene1::Render()
 	PlayerPalsManager::Get()->Render();
 
 	// 그림자 + 터레인
-	shadow->SetRender();
+	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
@@ -226,40 +226,40 @@ void BaseScene1::SetLights()
 
 void BaseScene1::SetShadowModel()
 {
-	ModelP = new ModelAnimatorInstancing("PenGuin");
-	ModelP->ReadClip("Idle");
-	ModelP->ReadClip("Walk");
-	ModelP->ReadClip("Run");
-	ModelP->ReadClip("Attack");
-	ModelP->ReadClip("Damage");
-	ModelP->ReadClip("Work");
-	ModelP->SetTag("Penguin");
-	ModelP->SetShader(L"Light/DepthMap.hlsl");
-	ModelP->Scale() *= 0.01f;
-	ModelP->Render();
-
-	ModelM = new ModelAnimatorInstancing("Mammoth");
-	ModelM->ReadClip("Idle");
-	ModelM->ReadClip("Walk");
-	ModelM->ReadClip("Run");
-	ModelM->ReadClip("Attack");
-	ModelM->ReadClip("Damage");
-	ModelM->SetTag("mammoth");
-	ModelM->SetShader(L"Light/DepthMap.hlsl");
-	ModelM->Scale() *= 0.01f;
-	ModelM->Update();
-	ModelM->Render();
-
-	ModelD = new ModelAnimatorInstancing("DarkWolf");
-	ModelD->ReadClip("Idle");
-	ModelD->ReadClip("Walk");
-	ModelD->ReadClip("Run");
-	ModelD->ReadClip("Attack");
-	ModelD->ReadClip("Damage");
-	ModelD->SetTag("wolf");
-	ModelD->SetShader(L"Light/DepthMap.hlsl");
-	ModelD->Scale() *= 0.01f;
-	ModelD->Render();
+	//ModelP = new ModelAnimatorInstancing("PenGuin");
+	//ModelP->ReadClip("Idle");
+	//ModelP->ReadClip("Walk");
+	//ModelP->ReadClip("Run");
+	//ModelP->ReadClip("Attack");
+	//ModelP->ReadClip("Damage");
+	//ModelP->ReadClip("Work");
+	//ModelP->SetTag("Penguin");
+	//ModelP->SetShader(L"Light/DepthMap.hlsl");
+	//ModelP->Scale() *= 0.01f;
+	//ModelP->Render();
+	//
+	//ModelM = new ModelAnimatorInstancing("Mammoth");
+	//ModelM->ReadClip("Idle");
+	//ModelM->ReadClip("Walk");
+	//ModelM->ReadClip("Run");
+	//ModelM->ReadClip("Attack");
+	//ModelM->ReadClip("Damage");
+	//ModelM->SetTag("mammoth");
+	//ModelM->SetShader(L"Light/DepthMap.hlsl");
+	//ModelM->Scale() *= 0.01f;
+	//ModelM->Update();
+	//ModelM->Render();
+	//
+	//ModelD = new ModelAnimatorInstancing("DarkWolf");
+	//ModelD->ReadClip("Idle");
+	//ModelD->ReadClip("Walk");
+	//ModelD->ReadClip("Run");
+	//ModelD->ReadClip("Attack");
+	//ModelD->ReadClip("Damage");
+	//ModelD->SetTag("wolf");
+	//ModelD->SetShader(L"Light/DepthMap.hlsl");
+	//ModelD->Scale() *= 0.01f;
+	//ModelD->Render();
 
 }
 

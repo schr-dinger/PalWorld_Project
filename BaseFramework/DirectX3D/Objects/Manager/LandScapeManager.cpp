@@ -152,6 +152,8 @@ void LandScapeManager::GUIRender()
     //    walls[i]->GUIRender();
     //}
 
+    
+
 }
 
 void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain)

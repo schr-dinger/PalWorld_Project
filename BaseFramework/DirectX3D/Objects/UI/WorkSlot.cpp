@@ -69,8 +69,11 @@ WorkSlot::~WorkSlot()
 void WorkSlot::Update()
 {
 	if(CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-	else MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
-	
+	else
+	{
+		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
+		MakeSlotBase->GetMaterial()->GetData().emissive = { 0.5,0.5,0.5,1 };
+	}
 
 	MakeSlotBase->Update();
 	MakeSlot->Update();
@@ -154,10 +157,8 @@ void WorkSlot::MakeItem()
 
 	}
 	ItemManager::Get()->MakeItem(test);
-	// 무기 추가..
-
-
-
+	
+	
 
 
 

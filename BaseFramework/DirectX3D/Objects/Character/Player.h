@@ -6,28 +6,28 @@ private:
     {
         IDLE,
         WALK,
-        RUN,
-
-        J_START,
-        J_END,
-        J_LOOP,
-
-        R_IDLE,
-        R_RUN,
-        R_Aim,
-        R_RELOAD,
-        R_DRAW,
-
-        RA_FWD,
-
-        BW_AIM,
-        BW_FIRE,
-
+        //RUN,
+        //
+        //J_START,
+        //J_END,
+        //J_LOOP,
+        //
+        //R_IDLE,
+        //R_RUN,
+        //R_Aim,
+        //R_RELOAD,
+        //R_DRAW,
+        //
+        //RA_FWD,
+        //
+        //BW_AIM,
+        //BW_FIRE,
+        //
         M_MINING,
-        M_ATTACK,
-
-        S_AIM,
-        S_THROW,
+        //M_ATTACK,
+        //
+        //S_AIM,
+        //S_THROW,
 
         // BW_AIM
 
@@ -62,7 +62,7 @@ private:
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
     //
-    void MState() { Picking = !Picking; }
+    void MState() { MiningCollider->SetActive(false); } // 애니메이션 끝나면 넣는 용도
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -72,6 +72,7 @@ public:
     Transform* GetFrontPoint() { return frontPoint; }
 
     Transform* GetHand() { return Hand; }
+    SphereCollider* GetMiningCol() { return MiningCollider; }
 
     void UiMode();
 
@@ -148,9 +149,9 @@ private:
 
     //player collider
 
-
-
-
     CapsuleCollider* playerCollider;
+
+    // Mining 
+    SphereCollider* MiningCollider;
 };
 

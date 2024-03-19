@@ -32,6 +32,12 @@ WorkBenchUI::WorkBenchUI()
 
 WorkBenchUI::~WorkBenchUI()
 {
+	delete WorkBase;
+	delete WorkBaseName;
+	FOR(5)
+	{
+		delete test[i];
+	}
 
 
 }
@@ -43,6 +49,7 @@ void WorkBenchUI::Update()
 	{
 		if (test[i]->CheckItem() && test[i]->MouseCollision() && KEY_DOWN('J'))
 		{
+			// 다른 곳으로 추가?
 			test[i]->MakeItem();
 		}
 		test[i]->Update();
