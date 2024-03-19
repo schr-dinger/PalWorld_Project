@@ -225,7 +225,9 @@ void LandScapeManager::PlaceGrass(ModelInstancing* tree, int size, Terrain* terr
             {
                 transform->Scale().x *= 5.0f;
                 transform->Scale().y *= 5.0f;
-                transform->Scale().z *= 5.0f;
+                //transform->Scale().z *= 5.0f;
+                transform->Scale().z *= 3.0f;
+
             }
             else
             {

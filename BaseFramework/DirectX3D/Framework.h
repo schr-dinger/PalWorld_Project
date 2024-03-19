@@ -9,7 +9,7 @@
 #define MAX_LIGHT 10
 #define MAX_BONE 512
 #define MAX_FRAME 2048
-#define MAX_INSTANCE 1000
+#define MAX_INSTANCE 5000
 
 #define CENTER_X (WIN_WIDTH * 0.5f)
 #define CENTER_Y (WIN_HEIGHT * 0.5f)
