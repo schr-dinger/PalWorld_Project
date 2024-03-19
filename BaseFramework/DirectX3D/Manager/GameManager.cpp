@@ -67,14 +67,14 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");
     //SceneManager::Get()->Add("Particle");
-    //SceneManager::Get()->Add("Particle");
+    //SceneManager::Get()->Add("ParticleConfig");
     //SceneManager::Get()->Add("HumanScene");
     //SceneManager::Get()->Add("QuadTree");
     //SceneManager::Get()->Add("LOD");
     //SceneManager::Get()->Add("WaterScene");
     SceneManager::Get()->Add("NewScene");
 
-   
+    // 인벤 u 장착 h  나무에 서있으면 드랍
 
 
 }

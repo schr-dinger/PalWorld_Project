@@ -98,8 +98,6 @@ Player::Player() : ModelAnimator("NPC")
 
     GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_MINING)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_MINING)->SetEvent(bind(&Player::MState, this), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f,0.7f);
 
@@ -379,12 +377,6 @@ void Player::Control()
 
     }
            
-    if (KEY_DOWN('G'))
-    {
-        SetState(M_MINING);
-        MState();
-    }
-
 
     if (KEY_DOWN('R'))
     {
@@ -685,7 +677,7 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING)
+    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
     {
         return;
     }

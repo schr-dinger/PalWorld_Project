@@ -61,8 +61,7 @@ private:
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
-    //
-    void MState() { Picking = !Picking; }
+    
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -140,16 +139,12 @@ private:
     bool isBow = false;
     bool isBaim = false;
 
-    bool Picking = false;
     bool W_Aiming = false;
     int select = 1;
    
     vector<Model*> weapons;
 
     //player collider
-
-
-
 
     CapsuleCollider* playerCollider;
 };

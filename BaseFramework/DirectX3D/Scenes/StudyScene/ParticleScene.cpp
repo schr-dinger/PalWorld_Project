@@ -8,7 +8,7 @@ ParticleScene::ParticleScene()
     //particle = new Spark(L"Textures/Effect/star.png", true);
     //particle = new Rain(); //비 생성
     //particle = new Sprite(L"Textures/Effect/explosion.png", 10, 10, 5, 3);
-    particle = new Sprite(L"Textures/Effect/T_Thunder01.png", 5, 25, 4, 1, true);
+    //particle = new Sprite(L"Textures/Effect/fire_8x2.png", 5, 25, 8, 2, false);
 
     // 파티클이 개별이고, 조건이 아닌 수동 재생이 필요할 때
     //particle->Play(Vector3()); //원점에서 날씨 이펙트 실행
@@ -18,7 +18,7 @@ ParticleScene::ParticleScene()
     // 범용 파티클 사용
     //particle = new ParticleSystem(L"Textures/Effect/explosion.png");
                                         // 그림으로 만들기
-    //particle = new ParticleSystem("TextData/Particles/Test.fx");
+    particle = new ParticleSystem("TextData/Particles/Star.fx");
                                         // 사전에 설정된 파일을 읽어서 만들기
 }
 

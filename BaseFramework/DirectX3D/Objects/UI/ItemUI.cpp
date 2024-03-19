@@ -280,8 +280,6 @@ void ItemUI::SetItem()
 					Item* testyo = new Consumable(r + 1);
 					Slot[i]->SetTem(testyo);
 
-
-					delete testyo;
 				}
 
 
@@ -314,8 +312,6 @@ void ItemUI::SetItem()
 					Item* testDa = new Ingredient(j + 1);
 					Slot[i]->SetTem(testDa);
 
-
-					delete testDa;
 				}
 
 
