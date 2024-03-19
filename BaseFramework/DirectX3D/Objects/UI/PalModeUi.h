@@ -18,6 +18,8 @@ private:
 
 	ClickQuad* selectA;
 	ClickQuad* selectP;
+	ClickQuad* selectW;
+
 	Quad* selectMiddle;
 
 

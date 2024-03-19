@@ -177,3 +177,10 @@ void PalBox::Interaction()
 	}
 
 }
+
+bool PalBox::PalWorkCheck()
+{
+	if (isPlaced && !Done) return true;
+	else	return false;
+
+}

@@ -174,3 +174,9 @@ void WorkBench::Interaction()
 	}
 
 }
+
+bool WorkBench::PalWorkCheck()
+{
+	if (isPlaced && !Done) return true;
+	else	return false;
+}
