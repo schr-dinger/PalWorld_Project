@@ -86,5 +86,7 @@ private:
     float smallest;
     Pal* closePal = nullptr;
 
+    Quad* palStateIcon;
+    Vector2 stateIconSize = { 0.5f,0.5f };
 };
 

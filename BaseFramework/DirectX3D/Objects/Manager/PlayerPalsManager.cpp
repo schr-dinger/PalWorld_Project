@@ -9,6 +9,9 @@ PlayerPalsManager::PlayerPalsManager()
 
     pals.resize(100);
 
+    palStateIcon = new Quad(stateIconSize);
+    palStateIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+
     InsertAllMAI(); // 모든 팔 모델 인스턴싱 생성(현재 "펭키" 하나,)
     FOR(2)
     {
@@ -87,6 +90,8 @@ PlayerPalsManager::~PlayerPalsManager()
         delete pal;
 
     FOR(2)  delete blendState[i];
+
+    delete palStateIcon;
 }
 
 void PlayerPalsManager::Update()
@@ -128,9 +133,18 @@ void PlayerPalsManager::Update()
         {
             pals[selPal]->Attack();
         }
+
+
+
+
+
+
+
+        palStateIcon->Pos() = pals[selPal]->GetTransform()->Pos() + Vector3(0.0f, 2.0f, 0.0f);
+        palStateIcon->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
     }
     
-
+    palStateIcon->Update();
 }
 
 void PlayerPalsManager::Render()
@@ -154,6 +168,9 @@ void PlayerPalsManager::Render()
         pal->Render();
     }
 
+    blendState[1]->SetState();
+    palStateIcon->Render();
+    blendState[0]->SetState();
 
     // 소환한 팔만 활성화, 모션 랜더(현재는 한 마리만 소환)
 
@@ -234,6 +251,8 @@ void PlayerPalsManager::SetTarget()
         {
         case PlayerPalsManager::MODE::PASSIVE:
             pals[selPal]->SetTarget(nullptr);
+            palStateIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_prt_monitoring_button_0_2.png");
+
             break;
         case PlayerPalsManager::MODE::AGGRESSIVE:
             smallest = 100.0f;
@@ -258,6 +277,7 @@ void PlayerPalsManager::SetTarget()
                 pals[selPal]->SetTarget(closePal->GetTransform());
             }
 
+            palStateIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_pal_battle.png");
             break;
 
         case PlayerPalsManager::MODE::WORK:
@@ -271,6 +291,7 @@ void PlayerPalsManager::SetTarget()
                 mode = MODE::PASSIVE;
             }
 
+            palStateIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_pal_work.png");
             break;
 
        }
@@ -278,6 +299,8 @@ void PlayerPalsManager::SetTarget()
         //if () // 거리라든지(선공), 공격당했을때 등
         //pals[selPal]->SetTarget(target);
     }
+
+
 
 }
 
