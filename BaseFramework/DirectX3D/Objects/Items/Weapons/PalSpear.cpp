@@ -40,7 +40,7 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
     //whitePal->UpdateWorld(); //
 
     //palSpearParticle = new ParticleSystem("TextData/Particles/PalSpear.fx");
-    palSpearParticle = new ParticleSystem("TextData/Particles/PalSpearNotBill.fx");
+    palSpearParticle = new ParticleSystem("TextData/Particles/PalSpearNotBill1.fx");
     particleTime = 0.0f;
 
 }
@@ -191,8 +191,8 @@ void PalSpear::StateHitPal()
 {
     hitPalTime += DELTA;
     transform->Pos() += Vector3(0.0f, 1.0f, 0.0f) * 2 * DELTA;  // 위로
-    transform->Pos() += transform->Left() * DELTA; // 던지는 방향 반대
-    transform->Pos() += transform->Down() * 2 * DELTA; // 오른쪽
+    transform->Pos() += PlayerManager::Get()->GetPlayer()->Forward() * DELTA; // 던지는 방향 반대
+    transform->Pos() += PlayerManager::Get()->GetPlayer()->Left() * 2 * DELTA; // 오른쪽
     if (hitPalTime > 0.4f)
     {
         state = State::ABSORB;

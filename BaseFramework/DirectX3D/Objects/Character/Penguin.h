@@ -94,7 +94,6 @@ private:
     vector<map<float, Event>::iterator> eventIters;
 
     // 팔 UI들(정보, 체력 등)
-    ProgressBar* hpBar;
 
     Vector3 barPos; //체력바가 위치할 곳
 

@@ -215,10 +215,10 @@ void Player::ShadowRender()
 
 void Player::GUIRender()
 {
-    //ModelAnimator::GUIRender();
+    ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
     //ImGui::Text("selNum : %d", curState);
-    //ImGui::Text("mouseWheel : %d", mouseWheel);
+    //ImGui::Text("state : %d", curState);
 
 }
 
@@ -720,7 +720,7 @@ void Player::SetAnimation()
             else SetState(WALK);
 
         }
-        else
+        else 
         {
             SetState(IDLE);
         }

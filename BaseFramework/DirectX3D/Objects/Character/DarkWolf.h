@@ -82,7 +82,6 @@ private:
     vector<map<float, Event>> totalEvent;
     vector<map<float, Event>::iterator> eventIters;
 
-    ProgressBar* hpBar;
 
     Vector3 barPos;
 

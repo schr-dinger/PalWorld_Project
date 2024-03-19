@@ -200,9 +200,9 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	PlayerPalsManager::Get()->GUIRender();
+	//PlayerPalsManager::Get()->GUIRender();
 
-	PlayerManager::Get()->GUIRender();
+	//PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
@@ -290,19 +290,19 @@ void BaseScene1::SetShadowModel()
 	treeS2->Scale() *= 0.01f;
 	treeS2->SetShader(L"Light/DepthMap.hlsl");
 
-	rockS  = new Model("Rock1");
-	rockS->Scale() *= 0.01f;
-	rockS->SetShader(L"Light/DepthMap.hlsl");
+	//rockS  = new Model("Rock1");
+	//rockS->Scale() *= 0.01f;
+	//rockS->SetShader(L"Light/DepthMap.hlsl");
 
-	grassS1= new Model("Grass1");
-	//grassS1->Scale() *= 0.01f;
-	//grassS1->Scale() *= 5.0f;
-	grassS1->SetShader(L"Light/DepthMap.hlsl");
-
-	grassS2= new Model("Grass2");
-	//grassS2->Scale() *= 0.01f;
-	//grassS2->Scale().z *= 3.0f;
-	grassS2->SetShader(L"Light/DepthMap.hlsl");
+	//grassS1= new Model("Grass1");
+	////grassS1->Scale() *= 0.01f;
+	////grassS1->Scale() *= 5.0f;
+	//grassS1->SetShader(L"Light/DepthMap.hlsl");
+	//
+	//grassS2= new Model("Grass2");
+	////grassS2->Scale() *= 0.01f;
+	////grassS2->Scale().z *= 3.0f;
+	//grassS2->SetShader(L"Light/DepthMap.hlsl");
 
 
 }
@@ -397,10 +397,6 @@ void BaseScene1::RenderShadowModel()
 	}
 
 	// 나무1
-	//for (int i = 0; i < LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms().size(); i++)
-	//{
-	//	treeS1->Pos() = 
-	//}
 	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
 	{
 		treeS1->Pos() = tree1->GlobalPos();
@@ -417,29 +413,29 @@ void BaseScene1::RenderShadowModel()
 		treeS2->Render();
 	}
 	// 돌
-	for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
-	{
-		rockS->Pos() = rock->GlobalPos();
-		rockS->Rot() = rock->Rot();
-		rockS->UpdateWorld();
-		rockS->Render();
-	}
+	//for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
+	//{
+	//	rockS->Pos() = rock->GlobalPos();
+	//	rockS->Rot() = rock->Rot();
+	//	rockS->UpdateWorld();
+	//	rockS->Render();
+	//}
 	// 풀1
-	for (Transform* grass1 : LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms())
-	{
-		grassS1->Pos() = grass1->GlobalPos();
-		grassS1->Rot() = grass1->Rot();
-		grassS1->Scale() = grass1->Scale();
-		grassS1->UpdateWorld();
-		grassS1->Render();
-	}
-	// 풀2
-	for (Transform* grass2 : LandScapeManager::Get()->GetGrass2Instancing()->GetTransforms())
-	{
-		grassS2->Pos() = grass2->GlobalPos();
-		grassS2->Rot() = grass2->Rot();
-		grassS2->Scale() = grass2->Scale();
-		grassS2->UpdateWorld();
-		grassS2->Render();
-	}
+	//for (Transform* grass1 : LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms())
+	//{
+	//	grassS1->Pos() = grass1->GlobalPos();
+	//	grassS1->Rot() = grass1->Rot();
+	//	grassS1->Scale() = grass1->Scale();
+	//	grassS1->UpdateWorld();
+	//	grassS1->Render();
+	//}
+	//// 풀2
+	//for (Transform* grass2 : LandScapeManager::Get()->GetGrass2Instancing()->GetTransforms())
+	//{
+	//	grassS2->Pos() = grass2->GlobalPos();
+	//	grassS2->Rot() = grass2->Rot();
+	//	grassS2->Scale() = grass2->Scale();
+	//	grassS2->UpdateWorld();
+	//	grassS2->Render();
+	//}
 }
