@@ -19,7 +19,7 @@ Equipment::Equipment(int num)
 
 		break;
 	case 2:
-		test = new Model("Bow");
+		test = new Model("Rifle");
 		icon = Texture::Add(L"Textures/UI/Inv/T_Bow.png");
 
 		test->Rot().x -= XM_PIDIV4 + XM_PIDIV4 - (XM_PIDIV4 * 10 / XM_PIDIV4);
