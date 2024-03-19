@@ -23,6 +23,12 @@ public:
 
     bool CheckPalCollision(Collider* collider,Vector3& pos);
 
+    ModelInstancing* GetTree1Instancing() { return tree1; }
+    ModelInstancing* GetTree2Instancing() { return tree2; }
+    ModelInstancing* GetRock1Instancing() { return rock1; }
+    ModelInstancing* GetGrass1Instancing() { return grass1; }
+    ModelInstancing* GetGrass2Instancing() { return grass2; }
+
 private:
     void MakeObstacle();
 private:

@@ -12,6 +12,8 @@ public:
 
     Transform* Add();
 
+    vector<Transform*>& GetTransforms() { return transforms; }
+
 private:
     vector<Transform*> transforms;
     InstanceData instanceDatas[MAX_INSTANCE];
