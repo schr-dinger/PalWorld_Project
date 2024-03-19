@@ -20,9 +20,7 @@ public:
     CapsuleCollider* GetCollider() { return collider; }
 
     Item* test;
-    Item* test2;
-    Item* test3;
-    Item* test4;
+    
 
 private:
     Transform* transform;
@@ -33,10 +31,7 @@ private:
 
     float Hp = 100;
 
-
-    // Å×½ºÆ®
-
-    float Time = 0;
+   
 
 };
 
