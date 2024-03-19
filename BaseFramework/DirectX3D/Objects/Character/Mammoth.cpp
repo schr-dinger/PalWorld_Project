@@ -52,11 +52,7 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     velocity = { 0, 0, 0 };
     target = nullptr;
 
-    // 테스트 : 그림자
-    shadowSphere = new Sphere(100.0f);
-    shadowSphere->SetParent(transform);
-    shadowSphere->Scale() = Vector3(1.8f, 0.0f, 2.7f);
-    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
+    
 
 }
 
@@ -142,8 +138,6 @@ void Mammoth::Update()
     skill[0]->Update();
 
 
-    // 그림자
-    shadowSphere->UpdateWorld();
 }
 
 void Mammoth::Render()
@@ -155,8 +149,7 @@ void Mammoth::Render()
 
 void Mammoth::ShadowRender()
 {
-    if (!transform->Active()) return;
-    shadowSphere->Render();
+    
 }
 
 void Mammoth::PostRender()
