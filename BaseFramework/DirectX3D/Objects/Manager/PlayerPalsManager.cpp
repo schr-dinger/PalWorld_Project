@@ -284,7 +284,7 @@ void PlayerPalsManager::SetTarget()
 
             if (StructureManager::Get()->isPalBoxWork())
             {
-                pals[selPal]->SetTarget(StructureManager::Get()->GetPalBox());
+                pals[selPal]->SetTarget(StructureManager::Get()->GetPalBox()->GetBuilding());
             }
             else
             {

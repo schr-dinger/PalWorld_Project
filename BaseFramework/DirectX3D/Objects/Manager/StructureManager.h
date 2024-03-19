@@ -11,12 +11,12 @@ public:
 	void PostRender();
 	void GUIRender();
 
-	Transform* GetPalBox() { return palBox->GetBuilding(); }
-	Transform* GetWorkBench() { return workBench->GetBuilding(); }
 
 	bool isPalBoxWork() { return palBox->PalWorkCheck(); }
 	bool isWorkBenchWork() { return workBench->PalWorkCheck(); }
 
+	PalBox* GetPalBox() { return palBox; }
+	WorkBench* GetWorkBench() { return workBench; }
 private:
 	PalBox* palBox;
 	WorkBench* workBench;

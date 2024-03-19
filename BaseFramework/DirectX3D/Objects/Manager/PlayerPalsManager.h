@@ -47,7 +47,7 @@ public:
     int GetPathSize() { return path.size(); }
 
     void SetMode(MODE mode) { this->mode = mode; }
-
+    MODE GetMode() { return mode; }
     map<string, ModelAnimatorInstancing*>& GetPalsMAI() { return palsMAI; }
 
 private:
