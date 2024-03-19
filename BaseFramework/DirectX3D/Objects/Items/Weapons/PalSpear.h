@@ -81,14 +81,14 @@ private:
     int shakeNum;  // ÇÑ ¹ø Èçµé¶§ Èçµé¸®´Â È½¼ö
     int shakeTime; // 3¹ø Èçµé±â
 
-    // ÆÓ Èò»ö ¸¸µé±â
-    class Quad* whitePal;
-
-    RenderTarget* renderTarget;
-    DepthStencil* depthStencil;
-
-    vector<wstring> whitePalTexture;
-    vector<Float4> whitePalEmissive;
+    // ÆÓ Èò»ö ¸¸µé±â, ³ª~Áß¿¡ ÇÒ¼öµµ?
+    //class Quad* whitePal;
+    //
+    //RenderTarget* renderTarget;
+    //DepthStencil* depthStencil;
+    //
+    //vector<wstring> whitePalTexture;
+    //vector<Float4> whitePalEmissive;
     
     // ÀÌÆåÆ®
     class ParticleSystem* palSpearParticle;

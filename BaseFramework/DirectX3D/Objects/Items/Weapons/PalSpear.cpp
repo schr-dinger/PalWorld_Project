@@ -26,20 +26,22 @@ PalSpear::PalSpear(Transform* transform) : transform(transform)
     shakeTime = 0;
 
     // 팰 흰색
-    renderTarget = new RenderTarget(2048, 2048); // 수동으로 투사할 공간의 크기 지정
-    depthStencil = new DepthStencil(2048, 2048);
+    //renderTarget = new RenderTarget(2048, 2048); // 수동으로 투사할 공간의 크기 지정
+    //depthStencil = new DepthStencil(2048, 2048);
+    //
+    //whitePal = new Quad(Vector2(1280, 720));
+    //whitePal->Pos() = { 640, 360, 0 }; // 사각형을 (실제보다)살짝 당기는 이유 = 실제 위치가 사각형
+    //whitePal->SetTag("WhitePal");
+    //Texture* texture = Texture::Add(L"WhitePalTex", renderTarget->GetSRV());
+    //// 실시간으로 생성되는 이미지를 텍스처화해서 "일렁임"이라는 이름으로
+    //
+    //whitePal->GetMaterial()->SetDiffuseMap(texture);
+    ////whitePal->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
+    //whitePal->UpdateWorld(); //
 
-    whitePal = new Quad(Vector2(1280, 720));
-    whitePal->Pos() = { 640, 360, 0 }; // 사각형을 (실제보다)살짝 당기는 이유 = 실제 위치가 사각형
-    whitePal->SetTag("WhitePal");
-    Texture* texture = Texture::Add(L"WhitePalTex", renderTarget->GetSRV());
-    // 실시간으로 생성되는 이미지를 텍스처화해서 "일렁임"이라는 이름으로
-
-    whitePal->GetMaterial()->SetDiffuseMap(texture);
-    //whitePal->GetMaterial()->SetDiffuseMap(L"Textures/Color/White.png");
-    whitePal->UpdateWorld(); //
-
-    palSpearParticle = new ParticleSystem("TextData/Particles/PalSpear.fx");
+    //palSpearParticle = new ParticleSystem("TextData/Particles/PalSpear.fx");
+    palSpearParticle = new ParticleSystem("TextData/Particles/PalSpearNotBill.fx");
+    particleTime = 0.0f;
 
 }
 
@@ -79,6 +81,16 @@ void PalSpear::Update()
     }
 
     collider->UpdateWorld();
+    Vector3 tmpRot;
+    Vector3 c = CAM->Forward();
+    tmpRot.y = atan2(c.x, c.z);
+    Vector2 a = { c.x, c.z };
+    tmpRot.x = atan2(a.Length(), c.y) - XM_PIDIV2;
+    //tmpRot.x = atanf(a.Length() / c.y);
+    palSpearParticle->GetQuad()->Rot().x = tmpRot.x;
+    palSpearParticle->GetQuad()->Rot().y = tmpRot.y;
+    palSpearParticle->GetQuad()->Rot().z += 80* DELTA;
+
     palSpearParticle->Update();
 }
 
@@ -103,7 +115,7 @@ void PalSpear::PostRender()
 
 void PalSpear::GUIRender()
 {
-    whitePal->GUIRender();
+    //whitePal->GUIRender();
     if (!transform->Active()) return;
     ImGui::Text("Shake : %d", shakeNum);
     ImGui::Text("catchingTime : %f", catchingTime);
@@ -118,7 +130,7 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
     direction = dir;
 
     //방향에 맞게 모델(=트랜스폼) 회전 적용
-    transform->Rot().z = atan2(dir.x, dir.z); //방향 적용 + 모델 정면에 따른 보정
+    transform->Rot().y = atan2(dir.z, dir.x); //방향 적용 + 모델 정면에 따른 보정
     //transform->Rot().y = CAM->Rot().y; //방향 적용 + 모델 정면에 따른 보정
                                                           //쿠나이 모델은 90도 돌아가 있었음
     //transform->Rot().y = atan2(dir.x, dir.z) - XMConvertToRadians(90);
@@ -128,8 +140,8 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
     shakeNum = 0;
     downForce = 0.0f;
     
-    whitePalTexture.clear();
-    whitePalEmissive.clear();
+    //whitePalTexture.clear();
+    //whitePalEmissive.clear();
 
 }
 
@@ -279,6 +291,6 @@ void PalSpear::StateFail()
 void PalSpear::SetRenderTarget()
 {
     //renderTarget->Set(depthStencil);
-    renderTarget->Set(depthStencil,Float4(1,1,1,0));
+    //renderTarget->Set(depthStencil,Float4(1,1,1,0));
 
 }

@@ -81,6 +81,7 @@ public:
     void GUIRender();
     void SetPos(Vector3 pos);
     Vector3 GetPos() { return quad->Pos(); }
+    Quad* GetQuad() { return quad; }
 
     void Play(Vector3 pos, Vector3 rot = Vector3()); // 파티클을 재생할 장소와, 회전정보
                                     // 회전정보가 필요한 이유 = 빌보드가 아닐 수도 있어서
