@@ -53,7 +53,7 @@ BaseScene1::BaseScene1()
 	//
 	//mam->Scale() *= 0.01f;
 
-	paTest = new ParticleSystem("TextData/Particles/PalSpear.fx");
+	//paTest = new ParticleSystem("TextData/Particles/PalSpear.fx");
 
 }
 
@@ -110,19 +110,19 @@ void BaseScene1::Update()
 
 	// 
 	// 파티클 테스트
-	if (KEY_DOWN('Z'))
-	{
-		Ray ray;
-		ray.dir = CAM->Forward();
-		ray.pos = CAM->GlobalPos();
-		Vector3 hitP;
-
-		if (PalsManager::Get()->IsCollision(ray, hitP)) //마우스 커서가 구체에 닿으면
-		{
-			paTest->Play(hitP); //거기서 파티클 재생
-		}
-	}
-	paTest->Update();
+	//if (KEY_DOWN('Z'))
+	//{
+	//	Ray ray;
+	//	ray.dir = CAM->Forward();
+	//	ray.pos = CAM->GlobalPos();
+	//	Vector3 hitP;
+	//
+	//	if (PalsManager::Get()->IsCollision(ray, hitP)) //마우스 커서가 구체에 닿으면
+	//	{
+	//		paTest->Play(hitP); //거기서 파티클 재생
+	//	}
+	//}
+	//paTest->Update();
 }
 
 void BaseScene1::PreRender()
@@ -172,7 +172,7 @@ void BaseScene1::Render()
 	UiManager::Get()->Render();
 
 
-	paTest->Render();
+	//paTest->Render();
 
 }
 
