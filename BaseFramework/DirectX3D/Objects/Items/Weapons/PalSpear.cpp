@@ -200,7 +200,7 @@ void PalSpear::StateAbsorb()
     Vector3 tmp = palSpearParticle->GetPos() + palToPalSpearVel * DELTA;
     palSpearParticle->SetPos(tmp);
     particleTime += DELTA;
-    if (particleTime >= 1.0f)
+    if (particleTime >= 1.3f)
     {
         particleTime = 0.0f;
         state = State::CATCHING;

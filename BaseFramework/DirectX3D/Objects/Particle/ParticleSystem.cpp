@@ -31,6 +31,7 @@ ParticleSystem::ParticleSystem(wstring file)
     FOR(2) depthState[i] = new DepthStencilState();
 
     blendState[1]->Alpha(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
+    blendState[1]->AlphaToCoverage(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
     depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ZERO); // 안 가려짐
     //depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);
 
@@ -78,7 +79,7 @@ void ParticleSystem::Render()
 
     //출력 상태 준비
     blendState[1]->SetState();
-    depthState[1]->SetState();
+    //depthState[1]->SetState();
 
     DC->DrawIndexedInstanced(6, drawCount, 0, 0, 0); // 마지막 매개변수 3개는 다른 곳에서 설정을 해두고
                                                      // 여기선 0, 0, 0 하면 가장 속이 편하다
@@ -149,7 +150,8 @@ void ParticleSystem::UpdatePhysical()
             tmpRot.y = atan2(c.x, c.z);
             Vector2 a = { c.x, c.z };
             tmpRot.x = atan2(a.Length(), c.y) - XM_PIDIV2;
-            //particleInfo[i].transform.Rot().x = tmpRot.x;
+            //tmpRot.x = atanf(a.Length() / c.y);
+            particleInfo[i].transform.Rot().x = tmpRot.x;
             particleInfo[i].transform.Rot().y = tmpRot.y;
 
             //particleInfo[i].transform.Rot().x = atan2(CAM->Forward().z, CAM->Forward().y);

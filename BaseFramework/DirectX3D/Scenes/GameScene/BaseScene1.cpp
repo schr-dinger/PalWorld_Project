@@ -146,8 +146,6 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	//PalsManager::Get()->ShadowRender();
-	//PlayerPalsManager::Get()->ShadowRender();
 	RenderShadowModel();
 }
 
@@ -166,6 +164,7 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
+	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
 	shadow->SetRender();
 	LandScapeManager::Get()->Render();
