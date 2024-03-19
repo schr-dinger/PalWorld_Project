@@ -15,6 +15,10 @@ public:
 
 	void Interaction();
 
+	Transform* GetBuilding() { return building; }
+	bool PalWorkCheck();
+
+	void SetProgress(bool b) { this->Progressing = b; }
 private:
 	Model* building;
 	Model* finished;

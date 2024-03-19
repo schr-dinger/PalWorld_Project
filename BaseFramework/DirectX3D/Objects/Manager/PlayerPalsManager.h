@@ -9,7 +9,8 @@ public:
     enum class MODE
     {
         AGGRESSIVE,
-        PASSIVE
+        PASSIVE,
+        WORK
     };
 
 public:
@@ -46,7 +47,7 @@ public:
     int GetPathSize() { return path.size(); }
 
     void SetMode(MODE mode) { this->mode = mode; }
-
+    MODE GetMode() { return mode; }
     map<string, ModelAnimatorInstancing*>& GetPalsMAI() { return palsMAI; }
 
 private:
@@ -85,5 +86,7 @@ private:
     float smallest;
     Pal* closePal = nullptr;
 
+    Quad* palStateIcon;
+    Vector2 stateIconSize = { 0.5f,0.5f };
 };
 

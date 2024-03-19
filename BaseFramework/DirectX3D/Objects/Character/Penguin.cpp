@@ -94,11 +94,27 @@ void Penguin::Update()
     }
 
     //if (target && !isSpawned)
-    if (target)
+    if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
     }
+
+    if (target && isSpawned)
+    {
+        velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
+
+        if (PlayerPalsManager::Get()->GetMode() == PlayerPalsManager::MODE::WORK)
+        {
+            MoveW();
+        }
+        else
+        {
+            Move(); //움직이기
+        }
+    }
+
+
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
     {
@@ -424,6 +440,37 @@ void Penguin::MoveP()
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
 
+
+}
+
+void Penguin::MoveW()
+{
+    if (action == ACTION::ATTACK) return; // 공격할 때는 움직이지 않음
+    if (action == ACTION::DAMAGE) return; // 맞을 때는 움직이지 않음
+    //if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
+
+    if (velocity.Length() < 5)
+    {
+        speed = 0;
+        SetAction(ACTION::WORK);
+        StructureManager::Get()->GetPalBox()->SetProgress(true);
+
+        if (!StructureManager::Get()->isPalBoxWork())
+        {
+            target = nullptr;
+            SetAction(ACTION::IDLE);
+        }
+    }
+    else
+    {
+        speed = 4;
+        SetAction(ACTION::RUN);
+        StructureManager::Get()->GetPalBox()->SetProgress(false);
+    }
+
+    velocity.y = 0.0f;
+    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
 
 }
 
