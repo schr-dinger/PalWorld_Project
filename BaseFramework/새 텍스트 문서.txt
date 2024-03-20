@@ -98,7 +98,7 @@ void WorkBench::Update()
 			isPlaced = true;
 		}
 	}
-	//»óÈ£ÀÛ¿ë ÇÔ¼ö
+	//ìƒí˜¸ìž‘ìš© í•¨ìˆ˜
 	Interaction();
 
 	cube->UpdateWorld();
@@ -169,19 +169,19 @@ void WorkBench::BarUpdate()
 {
 	
 	
-	// ÀÌ Å¸ÀÓÀº ¾ÆÀÌÅÛ°íÀ¯ÀÇ Á¦ÀÛ ½Ã°£À¸·Î ÇÒÁö´Â »ý°¢
+	// ì´ íƒ€ìž„ì€ ì•„ì´í…œê³ ìœ ì˜ ì œìž‘ ì‹œê°„ìœ¼ë¡œ í• ì§€ëŠ” ìƒê°
 	if (time > testComplete)
 	{
 		produceBar->SetActive(false);
 		
-		// ½Ã°£ ÃÊ±âÈ­
-		// ¾ÆÀÌÅÛ Ãß°¡
+		// ì‹œê°„ ì´ˆê¸°í™”
+		// ì•„ì´í…œ ì¶”ê°€
 		return;
 	}
 	else
 	{
 		
-		// Ãæµ¹ÇÏ°í ÀÖÀ» ¶§ ¹öÆ° ´©¸£¸é ½Ã°£ ³Ö±â 
+		// ì¶©ëŒí•˜ê³  ìžˆì„ ë•Œ ë²„íŠ¼ ëˆ„ë¥´ë©´ ì‹œê°„ ë„£ê¸° 
 		time += 1 * DELTA;
 	}
 
@@ -199,7 +199,7 @@ void WorkBench::BarUpdate()
 	}
 
 	
-	// ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖÀ»¶§ Æ®·ç·Î 
+	// ì•„ì´í…œì„ ê°€ì§€ê³  ìžˆì„ë•Œ íŠ¸ë£¨ë¡œ 
 	if (!produceBar->Active()) produceBar->SetActive(true);
 
 	produceBar->Pos() = CAM->WorldToScreen(testPos);
