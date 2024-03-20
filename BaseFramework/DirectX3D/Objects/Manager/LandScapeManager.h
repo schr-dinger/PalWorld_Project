@@ -62,7 +62,7 @@ private:
 
     int grassN1 = 5;
 
-    int grassN2 = 20;
+    int grassN2 = 30;
 
 
     float WIDTH = 500;
