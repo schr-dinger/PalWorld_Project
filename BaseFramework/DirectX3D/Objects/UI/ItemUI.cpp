@@ -83,20 +83,6 @@ void ItemUI::Update()
 	{
 		Slot[i]->SetTexture();
 
-		if (Slot[i]->GetItem() != nullptr && Slot[i]->MouseCollision() && Slot[i]->GetItem()->type == Item::Type::WEAPON && KEY_DOWN('H'))
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				if (P_Equip[j]->GetItem() == nullptr)
-				{
-					P_Equip[j]->SetTem(Slot[i]->GetItem());
-					Slot[i]->SetTem(nullptr);
-				}
-
-			}
-
-		}
-
 
 
 		if (Slot[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetItem() == nullptr)
@@ -104,19 +90,82 @@ void ItemUI::Update()
 			UiMouseManager::Get()->SetItem(Slot[i]->GetItem());
 			UiMouseManager::Get()->SetIndex(i);
 			//Slot[i]->SetTem(nullptr);
+
+			select = 1;
+
 		}
-		if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
+
+		// 
+
+		for (int j = 0; j < 3; j++)
 		{
+			if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
+			{
+				if (select == 1)
+				{
 
-			int tmp = UiMouseManager::Get()->GetIndex();
-			Item* palTmp = Slot[i]->GetItem();
-			Slot[i]->SetTem(Slot[tmp]->GetItem());
-			Slot[tmp]->SetTem(palTmp);
-			SetItem();
+					int tmp = UiMouseManager::Get()->GetIndex();
+					Item* itemTmp = Slot[i]->GetItem();
+					Slot[i]->SetTem(Slot[tmp]->GetItem());
+					Slot[tmp]->SetTem(itemTmp);
+					SetItem();
 
-			UiMouseManager::Get()->SetItem(nullptr);
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+				else if (select == 2)
+				{
+					int tmp = UiMouseManager::Get()->GetIndex();
+					Item* itemTmp = Slot[i]->GetItem();
+					Slot[i]->SetTem(P_Equip[tmp]->GetItem());
+					P_Equip[tmp]->SetTem(itemTmp);
+
+					UiMouseManager::Get()->SetItem(nullptr);
+
+				}
+
+			}
+
+
+			if (P_Equip[j]->MouseCollision() && KEY_DOWN(VK_LBUTTON && UiMouseManager::Get()->GetItem() == nullptr))
+			{
+				UiMouseManager::Get()->SetItem(P_Equip[j]->GetItem());
+				UiMouseManager::Get()->SetIndex(j);
+
+				select = 2;
+
+			}
+
+
+			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON && P_Equip[j]->GetItem() == nullptr)
+			{
+
+				if (select == 1)
+				{
+					int test = UiMouseManager::Get()->GetIndex();
+					Item* itemTest = P_Equip[j]->GetItem();
+					P_Equip[j]->SetTem(Slot[test]->GetItem());
+					Slot[test]->SetTem(itemTest);
+
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+				else if (select == 2)
+				{
+					int test = UiMouseManager::Get()->GetIndex();
+					Item* itemTest = P_Equip[j]->GetItem();
+					P_Equip[j]->SetTem(P_Equip[test]->GetItem());
+					P_Equip[test]->SetTem(itemTest);
+
+
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+
+
+
+			}
+			//	Slot[i]->SetTem(nullptr);
 
 		}
+
 
 
 		if (SlotBase[i]->MouseCollision())
@@ -129,7 +178,6 @@ void ItemUI::Update()
 			SlotBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 
 		}
-
 
 
 
@@ -211,8 +259,8 @@ void ItemUI::PostRender()
 	}
 	FOR(3)
 	{
-		P_Equip[i]->Render();
 		P_EquipBase[i]->Render();
+		P_Equip[i]->Render();
 	}
 
 
@@ -240,7 +288,7 @@ void ItemUI::PostRender()
 
 }
 
-void ItemUI::GuiRender()
+void ItemUI::GUIRender()
 {
 
 }
@@ -258,7 +306,40 @@ void ItemUI::SetItem()
 		}
 
 
-		for (int j = 0; j < MaxNum; j++)
+		for (int r = 0; r < MaxCunsum; r++)
+		{
+
+
+			if (!ItemManager::Get()->GetConsumV()[r].empty() && Slot[i]->GetItem() == nullptr)
+			{
+				bool test2 = false;
+
+				for (int t = 0; t < 30; t++)
+				{
+					if (Slot[t]->GetItem() != nullptr && Slot[t]->Check2(r))
+					{
+						test2 = true;
+						break;
+					}
+				}
+
+
+				if (!test2)
+				{
+					Item* testyo = new Consumable(r + 1);
+					Slot[i]->SetTem(testyo);
+
+
+				}
+
+
+
+			}
+			//else if (ItemManager::Get()->GetItemV()[j].empty() && Slot[i]->GetItem()->type == ItemManager::Get()->GetItemV()[j])
+		}
+
+
+		for (int j = 0; j < MaxMatter; j++)
 		{
 
 
@@ -278,8 +359,9 @@ void ItemUI::SetItem()
 
 				if (!test)
 				{
-					Item* test = new Ingredient(j + 1);
-					Slot[i]->SetTem(test);
+					Item* testDa = new Ingredient(j + 1);
+					Slot[i]->SetTem(testDa);
+
 
 				}
 
@@ -289,6 +371,8 @@ void ItemUI::SetItem()
 			//else if (ItemManager::Get()->GetItemV()[j].empty() && Slot[i]->GetItem()->type == ItemManager::Get()->GetItemV()[j])
 
 		}
+
+
 
 
 

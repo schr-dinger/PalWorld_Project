@@ -5,16 +5,12 @@ ItemManager::ItemManager()
 
 
 	weapons.resize(30);
-	/*
-	FOR(MaxNum)
-	{
-		items[i].resize(30);
-	}
-
-	*/
-
 	invEquip.resize(4);
 
+
+	Item* test = new Equipment(1);
+
+	weapons.push_back(test);
 
 }
 
@@ -24,7 +20,6 @@ ItemManager::~ItemManager()
 	invEquip.clear();
 	for (auto& pair : items)
 	{
-
 		for (auto item : pair.second)
 		{
 			delete item;
@@ -32,6 +27,16 @@ ItemManager::~ItemManager()
 		pair.second.clear();
 
 	}
+	for (auto& pair : consumItems)
+	{
+		for (auto item : pair.second)
+		{
+			delete item;
+		}
+		pair.second.clear();
+
+	}
+
 }
 
 void ItemManager::Update()
@@ -68,9 +73,29 @@ void ItemManager::Mining(Item* item)
 		return;
 
 
-	if (item->type == Item::Type::INGREDIENT)
+	if (item->type == Item::Type::CONSUMABLE)
 	{
 
+		if (consumData[item->num].second == 0)
+		{
+			consumData[item->num].first = item->num;
+			consumData[item->num].second++;
+		}
+		else
+		{
+			for (auto& data : consumData)
+			{
+				if (data.second.first == item->num)
+				{
+					data.second.second++;
+					break;
+				}
+			}
+		}
+		consumItems[item->num - 1].push_back(item);
+	}
+	else if (item->type == Item::Type::INGREDIENT)
+	{
 
 		if (itemData[item->num].second == 0)
 		{
@@ -100,13 +125,35 @@ void ItemManager::Mining(Item* item)
 
 }
 
-void ItemManager::MakeEquip(int EquipNum)
+void ItemManager::MakeItem(int EquipNum)
 {
+	Item* test = nullptr;
 
 
 
+	switch (EquipNum)
+	{
+	case 0:
+		test = new Equipment(1);
+		break;
+	case 1:
+		test = new Equipment(2);
+		break;
+	case 2:
+		test = new Consumable(1);
+		break;
+	case 3:
+		test = new Consumable(2);
+		break;
+	case 4:
+		test = new Consumable(3);
+		break;
+	default:
+		test = new Equipment(3);
+		break;
+	}
 
-
+	Mining(test);
 
 
 }
