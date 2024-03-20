@@ -11,9 +11,11 @@ BaseScene1::BaseScene1()
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
+		rasterizer[i] = new RasterizerState();
 	}
 	blendState[1]->Alpha(true);
 	blendState[1]->AlphaToCoverage(true);
+	rasterizer[1]->CullMode(D3D11_CULL_NONE);
 
 	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
@@ -402,6 +404,8 @@ void BaseScene1::RenderShadowModel()
 		}
 	}
 	blendState[1]->SetState();
+	rasterizer[1]->SetState();
+
 	// 나무1
 	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
 	{
@@ -445,5 +449,5 @@ void BaseScene1::RenderShadowModel()
 	//	grassS2->Render();
 	//}
 	blendState[0]->SetState();
-
+	rasterizer[0]->SetState();
 }

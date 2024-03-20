@@ -50,6 +50,7 @@ private:
 
 	// 그림자용
 	BlendState* blendState[2];
+	RasterizerState* rasterizer[2];
 
 	// 파티클 테스트용
 	class ParticleSystem* paTest;

@@ -99,7 +99,9 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    playerCollider = new CapsuleCollider(0.25f,0.7f);
+    playerCollider = new CapsuleCollider(0.25f,1.2f);
+    playerLastPos = {};
+    isCollision = false;
 
     weapons.resize(4);
 }
@@ -119,6 +121,12 @@ Player::~Player()
 
 void Player::Update()
 {
+    //if (!isCollision) // 테스트
+    //{
+    //    playerLastPos = ModelAnimator::GlobalPos();
+    //}
+    playerLastPos = ModelAnimator::GlobalPos();
+
 
     if (isAiming)
     {
@@ -150,7 +158,7 @@ void Player::Update()
 
 
     //
-    playerCollider->Pos() = this->Pos() + Vector3(0,1.0f,0);
+    playerCollider->Pos() = this->Pos() + Vector3(0,0.8f,0);
 
     Hand->SetWorld(GetTransformByNode(68));
     FOR(weapons.size())
@@ -178,6 +186,8 @@ void Player::Update()
     summonPalSpear->UpdateWorld();
     summonPalSpearThrow->UpdateWorld();
     summonPalSpearCollider->UpdateWorld();
+
+    Collision();
 }
 
 void Player::Render()
@@ -566,6 +576,79 @@ void Player::Jump(float _ground)
         isSpace = false;
     }
 
+}
+
+void Player::Collision()
+{
+    //isCollision = false; // 끼임 방지, 충돌하면 라스트 포스 갱신안함
+
+    // 필드 팰 충돌시
+    for (Pal* pal : PalsManager::Get()->GetPalsVector())
+    {
+        if (playerCollider->IsCollision(pal->GetCollider()))
+        {
+            Vector3 nol = GlobalPos() - pal->GetTransform()->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = GlobalPos() - playerLastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = pal->GetTransform()->GlobalPos() - GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            ModelAnimator::Pos() = playerLastPos + fDir;
+            ModelAnimator::UpdateWorld();
+            //isCollision = true;
+        }
+    }
+    // 나무
+    for (Tree* tree : LandScapeManager::Get()->GetTrees())
+    {
+        if (playerCollider->IsCollision(tree->GetCollider()))
+        {
+            Vector3 nol = GlobalPos() - tree->GetTransform()->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = GlobalPos() - playerLastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = tree->GetTransform()->GlobalPos() - GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            ModelAnimator::Pos() = playerLastPos + fDir;
+            ModelAnimator::UpdateWorld();
+            //isCollision = true;
+
+        }
+    }
+    // 돌
+    for (Rock* rock : LandScapeManager::Get()->GetRocks())
+    {
+        if (playerCollider->IsCollision(rock->GetCollider()))
+        {
+            Vector3 nol = GlobalPos() - rock->GetTransform()->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = GlobalPos() - playerLastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = rock->GetTransform()->GlobalPos() - GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            ModelAnimator::Pos() = playerLastPos + fDir;
+            ModelAnimator::UpdateWorld();
+            //isCollision = true;
+        }
+    }
 }
 
 void Player::AttackPal()

@@ -55,6 +55,8 @@ private:
     void SetState(ACTION state);
     void Jump(float _ground);
 
+    void Collision();
+
     // 필드 팔 상호작용 함수
     void AttackPal();
     void CatchPal();
@@ -146,6 +148,9 @@ private:
 
     //player collider
 
+    // 충돌용
     CapsuleCollider* playerCollider;
+    Vector3 playerLastPos;
+    bool isCollision;
 };
 

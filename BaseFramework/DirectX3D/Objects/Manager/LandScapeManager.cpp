@@ -55,9 +55,11 @@ LandScapeManager::LandScapeManager()
     FOR(2)
     {
         blendState[i] = new BlendState();
+        rasterizer[i] = new RasterizerState();
     }
     blendState[1]->Alpha(true);
     blendState[1]->AlphaToCoverage(true);
+    rasterizer[1]->CullMode(D3D11_CULL_NONE);
 }
 
 LandScapeManager::~LandScapeManager()
@@ -132,12 +134,14 @@ void LandScapeManager::Render()
     terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
     blendState[1]->SetState();
+    rasterizer[1]->SetState();
     tree1->Render();
     tree2->Render();
     rock1->Render();
     grass1->Render();
     grass2->Render();
     blendState[0]->SetState();
+    rasterizer[0]->SetState();
 
     terrain->Render();
 
