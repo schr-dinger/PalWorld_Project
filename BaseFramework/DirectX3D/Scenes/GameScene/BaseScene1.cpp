@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 
 	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
@@ -130,7 +130,7 @@ void BaseScene1::PreRender()
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//PalsManager::Get()->ShadowRender();
 	//PlayerPalsManager::Get()->ShadowRender();
-	RenderShadowModel();
+	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
