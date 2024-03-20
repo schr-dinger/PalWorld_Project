@@ -223,7 +223,7 @@ void PalsManager::DistanceCulling()
 {
     for (Pal* pal : pals)
     {
-        if ((pal->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos()).Length() < 200.0f && CAM->ContainPoint(pal->GetTransform()->Pos(),3.0f) && pal->isInvincible == false && pal->GetCollider()->Active())
+        if ((pal->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos()).Length() < 200.0f && CAM->ContainPoint(pal->GetTransform()->Pos(),3.0f) && pal->isInvincible == false && pal->GetCollider()->Active() && !pal->isDead)
         {
             pal->GetTransform()->SetActive(true);
         }

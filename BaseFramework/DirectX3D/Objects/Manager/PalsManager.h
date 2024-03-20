@@ -3,9 +3,9 @@ class PalsManager : public Singleton<PalsManager>
 {
 private:     
 	//UINT SIZE = 10; // 매니저 안에서 굴릴 수
-	UINT penguinN = 30;
+	UINT penguinN = 10;
 	UINT mammothN = 3;
-	UINT wolfN = 10;
+	UINT wolfN = 5;
 
 	float SPAWN_TIME = 1.0f; // 생성, 혹은 재생성에 필요한 시간  
 
@@ -32,7 +32,6 @@ private:
 	void Collision(); // 세부 충돌 판정 진행     
 	void Spawn();     // (재)생성      
     void PathCollider(); 
-	
 private:     
 	Terrain* terrain;     
 	vector<ModelAnimatorInstancing*> palsInstancing;     

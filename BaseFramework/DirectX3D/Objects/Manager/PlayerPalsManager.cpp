@@ -260,6 +260,13 @@ void PlayerPalsManager::SetTarget()
 
             for (Pal* pal : PalsManager::Get()->GetPalsVector())
             {
+                if (pal->isDead)
+                {
+                    //smallest = 100.0f;
+                    //closePal = nullptr;
+                    continue;
+                }
+
                 float distance = (pals[selPal]->GetTransform()->Pos() - pal->GetTransform()->Pos()).Length();
                 if (distance < smallest)
                 {

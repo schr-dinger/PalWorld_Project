@@ -42,7 +42,7 @@ public:
 	string GetModelName() { return modelName; }
 
 	virtual ModelAnimatorInstancing* GetInstancing() = 0;
-
+	Quad* GetEmote() { return emote; }
 public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� �ְ�) ���߿� ���Լ� ���� ��
 	// �ڽĵ� ����и� ���⼭
 	string name;
@@ -74,9 +74,15 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 
 	float moveTime = 0.0f;
 	Vector3 randomDir;
+	float r = 5.0f;
 
 	// 테스트 그림자:
 	Sphere* shadowSphere;
 
+	Quad* emote;
+
+	BlendState* blendState[2];
+
+	bool isDead = false;
 };
 

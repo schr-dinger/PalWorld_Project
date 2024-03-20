@@ -105,6 +105,12 @@ void DarkWolf::Update()
     if (target == nullptr && !isSpawned)
     {
         MoveWithOutTarget();
+
+        if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() < 15.0f)
+        {
+            target = PlayerManager::Get()->GetPlayer();
+        }
+
     }
 
     //if (target && !isSpawned)
@@ -123,6 +129,14 @@ void DarkWolf::Update()
 
     ExecuteEvent(); // 이벤트가 터져야 하면 수행하기
     UpdateUI(); //UI 업데이트
+
+    if (!isSpawned && target)
+    {
+        emote->Pos() = transform->Pos() + CAM->Back() + CAM->Up()*1.1f + CAM->Right() * 0.3f;
+        emote->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+        emote->Update();
+    }
+
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
     //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
@@ -156,6 +170,13 @@ void DarkWolf::Render()
     if (!transform->Active()) return;
     collider->Render();
     skill[0]->Render();
+
+    if (!isSpawned && target)
+    {
+        blendState[1]->SetState();
+        emote->Render();
+        blendState[0]->SetState();
+    }
 
 }
 
@@ -239,6 +260,7 @@ void DarkWolf::Damage()
         //SetAction(ACTION::DIE); 
 
         // 현재는 바로 비활성화
+        isDead = true;
         transform->SetActive(false);
         return;//이 함수 종료
     }
@@ -337,18 +359,27 @@ void DarkWolf::Move()
 
     if (velocity.Length() < 5)
     {
-        speed = 0;
-        SetAction(ACTION::IDLE);
+        if (isSpawned)
+        {
+            Attack();
+        }
+        else
+        {
+            FieldAttack();
+        }
+        //speed = 0;
+        //SetAction(ACTION::IDLE);
     }
-    else if (velocity.Length() < 50) // 표적과 거리가 가까울 때는
-    {
-        speed = 4; //두 배로 빨라진다
-        SetAction(ACTION::RUN);
-    }
-    else if (velocity.Length() < 100)
+    else if (velocity.Length() < 15) // 표적과 거리가 가까울 때는
     {
         speed = 2;
         SetAction(ACTION::WALK);
+
+    }
+    else if (velocity.Length() < 50)
+    {
+        speed = 4; //두 배로 빨라진다
+        SetAction(ACTION::RUN);
     }
     else
     {
@@ -416,13 +447,14 @@ void DarkWolf::MoveWithOutTarget()
         transform->Pos() += randomDir.GetNormalized() * 1.5f * DELTA;
         transform->Rot().y = atan2(randomDir.x, randomDir.z) + XM_PI;
     }
-    else if (moveTime < 5.0f)
+    else if (moveTime < r)
     {
         SetAction(ACTION::IDLE);
     }
     else
     {
         randomDir = { RANDOM->Float(-1.0,1.0f),0,RANDOM->Float(-1.0,1.0f) };
+        r = RANDOM->Float(3.5f, 6.0f);
         moveTime = 0.0f;
     }
 }
