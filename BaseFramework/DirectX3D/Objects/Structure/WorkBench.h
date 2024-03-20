@@ -11,6 +11,8 @@ public:
 	void PostRender();
 	void GUIRender();
 
+	void BarUpdate();
+
 	void Place(float x, float z);
 
 	void Interaction();
@@ -26,6 +28,7 @@ private:
 	BlendState* blendState[2];
 
 	FakeShadow* shadow;
+	ProgressBar* produceBar;
 
 	Model* cube;
 	Vector3 off = { 13,0,13 };
@@ -36,6 +39,14 @@ private:
 	bool Done = false;
 
 	bool isPlaced = false;
+
+	// TEST
+
+	bool testTime = false;
+	float time = 1;
+	float testComplete = 100;
+
+	Vector3 testPos;
 
 };
 

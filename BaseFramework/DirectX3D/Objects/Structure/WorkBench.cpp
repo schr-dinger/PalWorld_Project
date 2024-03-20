@@ -33,6 +33,13 @@ WorkBench::WorkBench()
 	range = new SphereCollider(5.0f);
 	mouseHit = new SphereCollider(2.5f);
 
+	produceBar = new ProgressBar(
+		L"Textures/UI/hp_bar.png",
+		L"Textures/UI/hp_bar_BG.png"
+	);
+
+
+
 }
 
 WorkBench::~WorkBench()
@@ -45,6 +52,7 @@ WorkBench::~WorkBench()
 	delete cube;
 	delete shadow;
 	delete light;
+	delete produceBar;
 }
 
 void WorkBench::Update()
@@ -98,6 +106,8 @@ void WorkBench::Update()
 	finished->UpdateWorld();
 	range->UpdateWorld();
 	mouseHit->UpdateWorld();
+
+	BarUpdate();
 }
 
 void WorkBench::PreRender()
@@ -146,10 +156,55 @@ void WorkBench::Render()
 
 void WorkBench::PostRender()
 {
+	produceBar->Render();
+
+
 }
 
 void WorkBench::GUIRender()
 {
+}
+
+void WorkBench::BarUpdate()
+{
+	
+	// 이 타임은 아이템고유의 제작 시간으로 할지는 생각
+
+	if (time > testComplete)
+	{
+		produceBar->SetActive(false);
+		// 시간 초기화
+		// 아이템 추가
+
+		return;
+	}
+	else
+	{
+		// 충돌하고 있을 때 버튼 누르면 시간 넣기 
+		
+		time += 1 * DELTA;
+	}
+
+
+	produceBar->SetAmount(time / testComplete);
+
+
+	testPos = building->Pos() + Vector3(0, 1.8f, 0);
+		
+	if (!CAM->ContainPoint(testPos))
+	{
+		
+		produceBar->SetActive(false);
+		return;
+	}
+
+	// 아이템을 가지고 있을때 트루로 
+	if (!produceBar->Active()) produceBar->SetActive(true);
+
+	produceBar->Pos() = CAM->WorldToScreen(testPos);
+
+	produceBar->Scale() = { 0.3f,0.3f,0.3f };
+	produceBar->UpdateWorld();
 }
 
 void WorkBench::Place(float x, float z)
