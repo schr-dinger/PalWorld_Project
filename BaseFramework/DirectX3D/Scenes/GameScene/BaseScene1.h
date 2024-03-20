@@ -48,6 +48,8 @@ private:
 	Model* grassS1;
 	Model* grassS2;
 
+	// 그림자용
+	BlendState* blendState[2];
 
 	// 파티클 테스트용
 	class ParticleSystem* paTest;

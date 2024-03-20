@@ -57,7 +57,7 @@ LandScapeManager::LandScapeManager()
         blendState[i] = new BlendState();
     }
     blendState[1]->Alpha(true);
-    //blendState[1]->AlphaToCoverage(true);
+    blendState[1]->AlphaToCoverage(true);
 }
 
 LandScapeManager::~LandScapeManager()
@@ -137,6 +137,7 @@ void LandScapeManager::Render()
     rock1->Render();
     grass1->Render();
     grass2->Render();
+    blendState[0]->SetState();
 
     terrain->Render();
 
@@ -149,7 +150,6 @@ void LandScapeManager::Render()
     {
         //walls[i]->Render();
     }
-    blendState[0]->SetState();
 
 }
 

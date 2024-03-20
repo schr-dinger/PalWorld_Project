@@ -8,6 +8,12 @@ BaseScene1::BaseScene1()
 
 	// 그림자용 모델
 	SetShadowModel();
+	FOR(2)
+	{
+		blendState[i] = new BlendState();
+	}
+	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
 
 	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
@@ -284,11 +290,11 @@ void BaseScene1::SetShadowModel()
 
 	treeS1 = new Model("Tree1");
 	treeS1->Scale() *= 0.01f;
-	treeS1->SetShader(L"Light/DepthMap.hlsl");
+	//treeS1->SetShader(L"Light/DepthMap.hlsl");
 
 	treeS2 = new Model("Tree2");
 	treeS2->Scale() *= 0.01f;
-	treeS2->SetShader(L"Light/DepthMap.hlsl");
+	//treeS2->SetShader(L"Light/DepthMap.hlsl");
 
 	//rockS  = new Model("Rock1");
 	//rockS->Scale() *= 0.01f;
@@ -395,7 +401,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-
+	blendState[1]->SetState();
 	// 나무1
 	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
 	{
@@ -438,4 +444,6 @@ void BaseScene1::RenderShadowModel()
 	//	grassS2->UpdateWorld();
 	//	grassS2->Render();
 	//}
+	blendState[0]->SetState();
+
 }
