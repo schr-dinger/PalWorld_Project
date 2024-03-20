@@ -33,8 +33,8 @@ private:
     class Terrain* terrain; 
 
     // ÀâÀº ÆÓ Èò»öÀ¸·Î Ãâ·ÂÇØÁÙ »õ ¸ğµ¨ µ¨
-    Texture* palWhiteTexture;
-    Pal* catchingPal;
+    //Texture* palWhiteTexture;
+    //Pal* catchingPal;
 
 };
 

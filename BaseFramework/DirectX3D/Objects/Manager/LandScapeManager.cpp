@@ -51,6 +51,13 @@ LandScapeManager::LandScapeManager()
 
     for (Collider* collider : boxes) collider->UpdateWorld();
 
+
+    FOR(2)
+    {
+        blendState[i] = new BlendState();
+    }
+    blendState[1]->Alpha(true);
+    //blendState[1]->AlphaToCoverage(true);
 }
 
 LandScapeManager::~LandScapeManager()
@@ -98,18 +105,18 @@ void LandScapeManager::Update()
 
 void LandScapeManager::PreRender()
 {
-    shadow->SetRenderTarget();
-    tree1->SetShader(L"Light/DepthMap.hlsl");
-
-    //tree2->SetShader(L"Light/DepthMap.hlsl");
-
-    //rock1->SetShader(L"Light/DepthMap.hlsl");
-
-    //grass1->SetShader(L"Light/DepthMap.hlsl");
-
-    //grass2->SetShader(L"Light/DepthMap.hlsl");
-
-    tree1->Render();
+    //shadow->SetRenderTarget();
+    //tree1->SetShader(L"Light/DepthMap.hlsl");
+    //
+    ////tree2->SetShader(L"Light/DepthMap.hlsl");
+    //
+    ////rock1->SetShader(L"Light/DepthMap.hlsl");
+    //
+    ////grass1->SetShader(L"Light/DepthMap.hlsl");
+    //
+    ////grass2->SetShader(L"Light/DepthMap.hlsl");
+    //
+    //tree1->Render();
     //tree2->Render();
     //rock1->Render();
     //grass1->Render();
@@ -124,7 +131,7 @@ void LandScapeManager::Render()
     //tree1->SetShader(L"Light/Shadow.hlsl");
     terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
-
+    blendState[1]->SetState();
     tree1->Render();
     tree2->Render();
     rock1->Render();
@@ -142,6 +149,7 @@ void LandScapeManager::Render()
     {
         //walls[i]->Render();
     }
+    blendState[0]->SetState();
 
 }
 

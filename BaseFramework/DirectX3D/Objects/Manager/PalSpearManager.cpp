@@ -13,8 +13,8 @@ PalSpearManager::PalSpearManager()
         palSpears.push_back(palSpear);
     }
 
-    palWhiteTexture = Texture::Add(L"Textures/Color/White.png");
-    catchingPal == nullptr;
+    //palWhiteTexture = Texture::Add(L"Textures/Color/White.png");
+    //catchingPal == nullptr;
 }
 
 PalSpearManager::~PalSpearManager()
@@ -25,7 +25,7 @@ PalSpearManager::~PalSpearManager()
 
     //모델도 지우기
     delete palSpearInstancing;
-    delete catchingPal;
+    //delete catchingPal;
 }
 
 void PalSpearManager::Update()

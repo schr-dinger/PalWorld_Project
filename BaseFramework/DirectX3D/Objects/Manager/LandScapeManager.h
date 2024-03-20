@@ -69,5 +69,7 @@ private:
     bool isPlaced2 = false;
     bool isPlaced3 = false;
 
+    BlendState* blendState[2];
+
 };
 
