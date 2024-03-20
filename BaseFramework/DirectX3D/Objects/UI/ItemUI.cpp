@@ -82,41 +82,90 @@ void ItemUI::Update()
 	FOR(30)
 	{
 		Slot[i]->SetTexture();
-
-		if (Slot[i]->GetItem() != nullptr && Slot[i]->MouseCollision() && Slot[i]->GetItem()->type == Item::Type::WEAPON && KEY_DOWN('H'))
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				if (P_Equip[j]->GetItem() == nullptr)
-				{
-					P_Equip[j]->SetTem(Slot[i]->GetItem());
-					Slot[i]->SetTem(nullptr);
-				}
-
-			}
-
-		}
-
-
+			
+		
 
 		if (Slot[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetItem() == nullptr)
 		{
 			UiMouseManager::Get()->SetItem(Slot[i]->GetItem());
 			UiMouseManager::Get()->SetIndex(i);
 			//Slot[i]->SetTem(nullptr);
+
+			select = 1;
+
 		}
-		if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
+		
+		// 
+
+		for (int j = 0; j < 3; j++)
 		{
+			if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
+			{
+				if (select == 1)
+				{
 
-			int tmp = UiMouseManager::Get()->GetIndex();
-			Item* palTmp = Slot[i]->GetItem();
-			Slot[i]->SetTem(Slot[tmp]->GetItem());
-			Slot[tmp]->SetTem(palTmp);
-			SetItem();
+					int tmp = UiMouseManager::Get()->GetIndex();
+					Item* itemTmp = Slot[i]->GetItem();
+					Slot[i]->SetTem(Slot[tmp]->GetItem());
+					Slot[tmp]->SetTem(itemTmp);
+					SetItem();
 
-			UiMouseManager::Get()->SetItem(nullptr);
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+				else if (select == 2)
+				{
+					int tmp = UiMouseManager::Get()->GetIndex();
+					Item* itemTmp = Slot[i]->GetItem();
+					Slot[i]->SetTem(P_Equip[tmp]->GetItem());
+					P_Equip[tmp]->SetTem(itemTmp);
+
+					UiMouseManager::Get()->SetItem(nullptr);
+
+				}
+
+			}
+
+
+			if (P_Equip[j]->MouseCollision() && KEY_DOWN(VK_LBUTTON && UiMouseManager::Get()->GetItem() == nullptr))
+			{
+				UiMouseManager::Get()->SetItem(P_Equip[j]->GetItem());
+				UiMouseManager::Get()->SetIndex(j);
+
+				select = 2;
+
+			}
+
+
+			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) &&  UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON  && P_Equip[j]->GetItem() == nullptr)
+			{
+				
+				if (select == 1)
+				{
+					int test = UiMouseManager::Get()->GetIndex();
+					Item* itemTest = P_Equip[j]->GetItem();
+					P_Equip[j]->SetTem(Slot[test]->GetItem());
+					Slot[test]->SetTem(itemTest);
+
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+				else if (select == 2)
+				{
+					int test = UiMouseManager::Get()->GetIndex();
+					Item* itemTest = P_Equip[j]->GetItem();
+					P_Equip[j]->SetTem(P_Equip[test]->GetItem());
+					P_Equip[test]->SetTem(itemTest);
+
+										
+					UiMouseManager::Get()->SetItem(nullptr);
+				}
+
+
+
+			}
+			//	Slot[i]->SetTem(nullptr);
 
 		}
+
 
 
 		if (SlotBase[i]->MouseCollision())

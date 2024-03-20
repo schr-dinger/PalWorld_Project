@@ -134,7 +134,7 @@ private:
 
     // 무기 조준
 
-    ParticleSystem* particle;
+    Particle* particle;
     bool isGun = false;
     bool isGaim = false;
 

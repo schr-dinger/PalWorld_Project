@@ -18,9 +18,7 @@ public:
 
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
-
-    Item* test;
-    
+        
 
 private:
     Transform* transform;
@@ -33,6 +31,7 @@ private:
 
     float time = 0;
    
+    Item* matter;
 
 };
 

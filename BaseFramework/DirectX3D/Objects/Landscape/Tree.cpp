@@ -8,14 +8,14 @@ Tree::Tree(Transform* transform) :transform(transform)
 	collider->Scale() *= 100.0f;
 	collider->Rot().x = XM_PIDIV2;
 		
-	test = new Ingredient(1);
+	matter = new Ingredient(1);
 	
 }
 
 Tree::~Tree()
 {
 	delete collider;
-	delete test;
+	delete matter;
 	
 }
 
@@ -26,12 +26,10 @@ void Tree::Update()
 	if (Hp < 0.0f)
 	{
 		transform->SetActive(false);
-		ItemManager::Get()->Mining(test);
+		ItemManager::Get()->Mining(matter);
 	}
 
-
 	GetTem(PlayerManager::Get()->GetPlayer()->GetMiningCol());
-
 
 	transform->UpdateWorld();
 	collider->UpdateWorld();
@@ -60,7 +58,7 @@ void Tree::GUIRender()
 
 void Tree::Hit()
 {
-	Hp -= 20.0f;
+	Hp -= 60.0f;
 }
 
 void Tree::GetTem(Collider* collider)

@@ -91,7 +91,7 @@ private:
 
     float lifeSpan = 0;
     UINT drawCount = 0;
-    UINT particleCount = 100;
+    UINT particleCount = 2;
 
     BlendState* blendState[2];
     DepthStencilState* depthState[2];

@@ -45,5 +45,7 @@ private:
 
 	vector<Quad*> TIcon;
 
+	int select = 0;
+
 };
 

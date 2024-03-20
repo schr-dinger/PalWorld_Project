@@ -8,7 +8,7 @@ ItemManager::ItemManager()
 	invEquip.resize(4);
 	
 
-	Item* test = new Equipment(3);
+	Item* test = new Equipment(1);
 
 	weapons.push_back(test);
 

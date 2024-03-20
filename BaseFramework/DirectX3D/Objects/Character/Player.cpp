@@ -86,7 +86,7 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // �׽�Ʈ : ��
-    particle = new ParticleSystem("TextData/Particles/Star.fx");
+    particle = new Sprite(L"Textures/Effect/T_Thunder01.png", 5, 25, 4, 1, true);
 
     //GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     //GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
@@ -158,7 +158,7 @@ void Player::Update()
     if (weapons[0] != nullptr)
     {
         MiningCollider->SetParent(weapons[0]->GetParent());
-        MiningCollider->Pos() = Vector3(0.0f, 0.25f, -0.3f);
+        MiningCollider->Pos() = Vector3(0.0f, 0.3f, 0.0f);
     }
     
     //
@@ -233,6 +233,8 @@ void Player::GUIRender()
     //PalSpearManager::Get()->GUIRender();
     //ImGui::Text("selNum : %d", curState);
     //ImGui::Text("mouseWheel : %d", mouseWheel);
+
+    MiningCollider->GUIRender();
 
 }
 
@@ -463,7 +465,6 @@ void Player::Move()
         if (velocity.Length() > 1) velocity.Normalize();
 
 
-
         if (!isMoveZ)
             velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //�������� ����
 
@@ -541,13 +542,14 @@ void Player::Move()
 
         if (cross.y < 0)
         {
-            Rot().y += 5 * DELTA;
+            Rot().y += 5.0f * DELTA;
         }
         else if (cross.y > 0)
         {
-            Rot().y -= 5 * DELTA;
+            Rot().y -= 5.0f * DELTA;
         }
 
+        //Rot().y = Lerp(Rot().y, atan2(velocity.x, velocity.z), XM_PIDIV4);
 
 
         Pos() += velocity * moveSpeed * DELTA;

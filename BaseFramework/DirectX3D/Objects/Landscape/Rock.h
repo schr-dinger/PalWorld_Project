@@ -10,6 +10,7 @@ public:
     void GUIRender();
 
     void Hit();
+    void GetTem(Collider* collider);
 
     Transform* GetTransform() { return transform; }
     SphereCollider* GetCollider() { return collider; }
@@ -22,6 +23,9 @@ private:
     SphereCollider* collider;
     //BoxCollider* collider;
 
+    Item* matter;
     float Hp = 200;
+
+    float time = 0;
 };
 
