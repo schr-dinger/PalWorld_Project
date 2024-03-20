@@ -153,5 +153,8 @@ private:
 
     // Mining 
     SphereCollider* MiningCollider;
+
+
+    Vector3 testyo;
 };
 

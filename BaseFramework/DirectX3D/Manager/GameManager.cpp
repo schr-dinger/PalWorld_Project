@@ -29,7 +29,7 @@ GameManager::GameManager()
     Create();
 
     SceneManager::Get()->Create("Grid", new GridScene());
-    SceneManager::Get()->Create("ModelExport", new ModelExportScene());
+    //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
 
     //SceneManager::Get()->Create("Cube", new CubeScene());
     //SceneManager::Get()->Create("Sphere", new SphereScene());
@@ -54,15 +54,15 @@ GameManager::GameManager()
 
 
     SceneManager::Get()->Add("Grid");
-    SceneManager::Get()->Add("ModelExport");
+    //SceneManager::Get()->Add("ModelExport");
 
-    SceneManager::Get()->Add("ModelRender");
+    //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("ModelAnimationScene");
     //SceneManager::Get()->Add("Particle");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
     //SceneManager::Get()->Add("ParticleConfig");
-    //SceneManager::Get()->Add("RenderTarget");
+    SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("ShadowScene");
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");

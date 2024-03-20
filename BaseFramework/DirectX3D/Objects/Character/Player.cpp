@@ -236,6 +236,15 @@ void Player::GUIRender()
 
     MiningCollider->GUIRender();
 
+
+    ImGui::Text("CAM 1 : %2.f", CamTransform->Pos().y);
+    ImGui::Text("Pos 1 : %2.f", Pos().y);
+
+
+    ImGui::Text("velocity 1 : %3.f", velocity.x);
+    ImGui::Text("velocity 2 : %3.f", velocity.z);
+
+    ImGui::Text("cross : %3.f", testyo.y);
 }
 
 void Player::ClipSync()
@@ -539,15 +548,21 @@ void Player::Move()
         //���⼭���� �ٽú���
         Vector3 forward = Forward();
         Vector3 cross = Cross(forward, velocity);
+               
 
-        if (cross.y < 0)
+        if (cross.y < -0.1f)
         {
-            Rot().y += 5.0f * DELTA;
+            Rot().y += 3.0f * DELTA;
+
         }
-        else if (cross.y > 0)
+        else if (cross.y > 0.1f)
         {
-            Rot().y -= 5.0f * DELTA;
+            Rot().y -= 3.0f * DELTA;
         }
+
+
+        // Lerp(Rot().y, CamTransform->Rot().y, 0.5f);
+                
 
         //Rot().y = Lerp(Rot().y, atan2(velocity.x, velocity.z), XM_PIDIV4);
 
@@ -555,6 +570,7 @@ void Player::Move()
         Pos() += velocity * moveSpeed * DELTA;
     }
 
+    
 
 }
 

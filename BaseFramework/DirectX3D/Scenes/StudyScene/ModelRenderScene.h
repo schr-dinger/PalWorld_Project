@@ -13,5 +13,5 @@ public:
     virtual void GUIRender() override;
 
 private:
-    Model* model;
+    Model* Spike[3];
 };
