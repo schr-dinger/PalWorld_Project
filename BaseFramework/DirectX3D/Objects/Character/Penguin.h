@@ -106,5 +106,7 @@ private:
     //    라이딩, 작업같은 특수 동작은 enum 뒤로 빼기
 
     int tmpN;
+
+    int ransSkill;
 };
 

@@ -16,6 +16,13 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     skill[0]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
     skill[0]->SetSkill();   // 스킬 세팅(시작 위치), 
 
+    // 스킬 전용 함수가 있다면 이렇게
+    IceSpear* tmp = new IceSpear();
+    tmp->SetHeight(Vector3(0, 1.8f, 0)); //이 팔의 높이에서 스킬 시작
+    skill[1] = tmp;
+    skill[1]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
+    skill[1]->SetSkill();   // 스킬 세팅(시작 위치)
+
     // 펭귄 아이콘 추가
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
@@ -146,7 +153,15 @@ void Penguin::Update()
     //    Attack();
     //    //FieldAtack();
     //}
-    skill[0]->Update();
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (skill[i] !=nullptr)
+        {
+            skill[i]->Update();
+
+        }
+    }
 
 
     
@@ -158,8 +173,15 @@ void Penguin::Render()
     //활성화 시에만 업데이트
     if (!transform->Active()) return;
     collider->Render();
-    skill[0]->Render();
 
+    for (int i = 0; i < 3; i++)
+    {
+        if (skill[i] != nullptr)
+        {
+            skill[i]->Render();
+
+        }
+    }
 }
 
 void Penguin::ShadowRender()
@@ -209,7 +231,7 @@ void Penguin::GUIRender()
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
-    //skill[0]->GUIRender();
+    skill[1]->GUIRender();
 
     //ImGui::Text("% f", destVel.Length());
 }
@@ -222,9 +244,11 @@ void Penguin::Attack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // 스킬 액티브
-    skill[0]->SetActive(true);
-    skill[0]->SetSkill();
-    MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
+    ransSkill = RANDOM->Int(0, 1);
+    skill[ransSkill]->SetActive(true);
+    skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SetEnemy(target);
+    MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }
 
@@ -236,9 +260,11 @@ void Penguin::FieldAttack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // 스킬 액티브
-    skill[0]->SetActive(true);
-    skill[0]->SetSkill();
-    FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
+    ransSkill = RANDOM->Int(0, 1);
+    skill[ransSkill]->SetActive(true);
+    skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SetEnemy(target);
+    FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 }
 
 void Penguin::Damage()

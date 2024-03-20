@@ -208,7 +208,7 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	//PlayerPalsManager::Get()->GUIRender();
+	PlayerPalsManager::Get()->GUIRender();
 
 	//PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();

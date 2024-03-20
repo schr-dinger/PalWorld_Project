@@ -212,31 +212,31 @@ void PlayerPalsManager::ShadowRender()
 
 void PlayerPalsManager::GUIRender()
 {
-    ImGui::Text("MyPalsSIze : %d", pals.size());
-    ImGui::Text("pathsize : %d", path.size());
+    //ImGui::Text("MyPalsSIze : %d", pals.size());
+    //ImGui::Text("pathsize : %d", path.size());
+    //
+    //ImGui::Text("destPosX : %f", destPos.x);
+    //ImGui::Text("destPosY : %f", destPos.y);
+    //ImGui::Text("destPosZ : %f", destPos.z);
 
-    ImGui::Text("destPosX : %f", destPos.x);
-    ImGui::Text("destPosY : %f", destPos.y);
-    ImGui::Text("destPosZ : %f", destPos.z);
-
-    if (selPal != -1)
-    {
-        ImGui::Text("Mode : %d", mode);
-
-        //ImGui::Text("Target : %d", pals[selPal]->);
-
-    }
-
-    if (path.size() > 0)
-    {
-        ImGui::Text("X: %f", path.back().x);
-        ImGui::Text("y: %f", path.back().y);
-        ImGui::Text("z: %f", path.back().z);
-        ImGui::Text("X: %f", destPos.x);
-        ImGui::Text("y: %f", destPos.y);
-        ImGui::Text("z: %f", destPos.z);
-    }
-
+    //if (selPal != -1)
+    //{
+    //    ImGui::Text("Mode : %d", mode);
+    //
+    //    //ImGui::Text("Target : %d", pals[selPal]->);
+    //
+    //}
+    //
+    //if (path.size() > 0)
+    //{
+    //    ImGui::Text("X: %f", path.back().x);
+    //    ImGui::Text("y: %f", path.back().y);
+    //    ImGui::Text("z: %f", path.back().z);
+    //    ImGui::Text("X: %f", destPos.x);
+    //    ImGui::Text("y: %f", destPos.y);
+    //    ImGui::Text("z: %f", destPos.z);
+    //}
+    //pals[0]->GUIRender();
 
 }
 
