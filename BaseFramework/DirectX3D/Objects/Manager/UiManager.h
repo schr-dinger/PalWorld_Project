@@ -39,6 +39,7 @@ private:
 	FieldUI* fieldUI;
 	ItemUI* itemUi;
 	PalModeUi* palModeUi;
+	WorkBenchUI* WorkBenUI;
 
 	bool UiOn = false;
 

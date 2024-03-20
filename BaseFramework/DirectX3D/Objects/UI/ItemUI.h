@@ -8,7 +8,7 @@ public:
 	void Update();
 	void Render();
 	void PostRender();
-	void GuiRender();
+	void GUIRender();
 	void SetItem();
 
 	bool Check();
@@ -44,6 +44,8 @@ private:
 	// PalClickQuad* boxIconBase[30];
 
 	vector<Quad*> TIcon;
+
+	int select = 0;
 
 };
 

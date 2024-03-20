@@ -176,7 +176,9 @@ using namespace GameMath;
 #include "Objects/UI/ItemClickQuad.h"
 #include "Objects/UI/ItemUI.h"
 #include "Objects/UI/PalModeUi.h"
-
+#include "Objects/UI/WorkInFo.h"
+#include "Objects/UI/WorkSlot.h"
+#include "Objects/UI/WorkBenchUI.h"
 
 
 #include "Objects/Items/Weapons/Kunai.h"
@@ -186,7 +188,7 @@ using namespace GameMath;
 #include "Objects/Items/Item.h"
 #include "Objects/Items/Equipment.h"
 #include "Objects/Items/Ingredient.h"
-
+#include "Objects/Items/Consumable.h"
 
 
 #include "Objects/Landscape/Terrain.h"
