@@ -23,19 +23,22 @@ void Transform::UpdateWorld()
     XMVECTOR outS, outR, outT;
     XMMatrixDecompose(&outS, &outR, &outT, world);
 
-    Float3 tempPos, tempScale, tempRot;
+    Float3 tempPos, tempScale;
+    Float4 tempRot;
     XMStoreFloat3(&tempPos, outT);
     XMStoreFloat3(&tempScale, outS);
-    XMStoreFloat3(&tempRot, outR);
+    XMStoreFloat4(&tempRot, outR);
 
     globalPosition = tempPos;
     globalScale = tempScale;   
-    tempRot.x *= XM_PI;
-    tempRot.y *= XM_PI;
-    tempRot.z *= XM_PI;
+    //tempRot.x *= XM_PI;
+    //tempRot.y *= XM_PI;
+    //tempRot.z *= XM_PI;
     //if (parent)
     //    world = parent->world;
-    globalRotation = tempRot;
+    
+    //globalRotation = XMQuaternionToAxisAngle;
+    SetEul(tempRot.x, tempRot.y, tempRot.z, tempRot.w);
 }
 
 void Transform::GUIRender()
@@ -140,4 +143,22 @@ void Transform::Load()
     localScale.z = reader->Float();
 
     delete reader;
+}
+
+void Transform::SetEul(float x, float y, float z, float w)
+{
+    float t0 = +2.0f * (w * x + y * z);
+    float t1 = +1.0f - 2.0 * (x * x + y * y);
+    globalRotation.x = atan2(t0, t1);
+
+    float t2 = +2.0f * (w * y - z * x);
+    if (std::abs(t2) >= 1)
+        globalRotation.y = std::copysign(XM_PI / 2, t2);
+    else
+        globalRotation.y = std::asin(t2);
+
+
+    float t3 = +2.0f * (w * z + x * y);
+    float t4 = +1.0f - 2.0f * (y * y + z * z);
+    globalRotation.z = atan2(t3, t4);
 }

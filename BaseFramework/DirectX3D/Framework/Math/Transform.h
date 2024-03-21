@@ -41,6 +41,8 @@ public:
     void Save();
     void Load();
 
+    void SetEul(float x, float y, float z, float w);
+
 protected:
     string tag;
 
