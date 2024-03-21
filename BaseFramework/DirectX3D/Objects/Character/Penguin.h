@@ -25,21 +25,21 @@ public:
     Texture* GetTextureC() { return iconC; }
     float GetCurHp() { return curHP / maxHP; }
 
-    // ¾×¼Ç : °ø°İ
-    void Attack();      // ³» ÆÈ °ø°İ
-    void FieldAttack(); // ÇÊµå ÆÈ °ø°İ
+    // ì•¡ì…˜ : ê³µê²©
+    void Attack();      // ë‚´ íŒ” ê³µê²©
+    void FieldAttack(); // í•„ë“œ íŒ” ê³µê²©
 
-    // ¾×¼Ç : ¾ò¾î¸Â±â
+    // ì•¡ì…˜ : ì–»ì–´ë§ê¸°
     void Damage();
 
-    // ¾×¼Ç : »ı¼ºµÇ±â
+    // ì•¡ì…˜ : ìƒì„±ë˜ê¸°
     void Spawn(Vector3 pos);
 
-    // ¼ÒÈ¯ÇÏ±â : ÇÃ·¹ÀÌ¾î°¡ ÆÈ ¼ÒÈ¯¿ë
+    // ì†Œí™˜í•˜ê¸° : í”Œë ˆì´ì–´ê°€ íŒ” ì†Œí™˜ìš©
     void Summons(Vector3 pos);
 
 
-    //Ç¥Àû ¼³Á¤
+    //í‘œì  ì„¤ì •
     void SetTarget(Transform* target);
 
     Transform* GetTransform() { return transform; }
@@ -49,16 +49,16 @@ public:
     ModelAnimatorInstancing* GetInstancing() { return instancing; }
 
 private:
-    //void ClipSync(); // »èÁ¦ÇØµµ ¹«¹æÇÒµí
+    //void ClipSync(); // ì‚­ì œí•´ë„ ë¬´ë°©í• ë“¯
     
     void SetEvent(int clip, Event event, float timeRatio);
     void ExecuteEvent();
 
-    // µ¿ÀÛ ³¡³ª¸é ½ÇÇàÇÏ´Â ÇÔ¼ö(¼ÒÈ¯, »ç¸Á ¸ğ¼Ç ÇÊ¿ä)
+    // ë™ì‘ ëë‚˜ë©´ ì‹¤í–‰í•˜ëŠ” í•¨ìˆ˜(ì†Œí™˜, ì‚¬ë§ ëª¨ì…˜ í•„ìš”)
     //void EndStandUp();
     void EndAttack();
-    void EndDamage(); // Hit ¿´À¸³ª enum°ú ¸íÄª ÀÏÄ¡½ÃÅ°±â
-                      // -> ¸ÂÀº ¸ğ¼Ç ÈÄ ¹«¾ùÀ» ÇÒ °ÍÀÎ°¡
+    void EndDamage(); // Hit ì˜€ìœ¼ë‚˜ enumê³¼ ëª…ì¹­ ì¼ì¹˜ì‹œí‚¤ê¸°
+                      // -> ë§ì€ ëª¨ì…˜ í›„ ë¬´ì—‡ì„ í•  ê²ƒì¸ê°€
     //void EndDying();
 
     void SetAction(ACTION action);
@@ -71,10 +71,10 @@ private:
 
     void MoveWithOutTarget();
 
-    void UpdateUI(); //Ä³¸¯ÅÍ UI°¡ ÀÖÀ¸¸é ÀÌÈÄ ¾÷µ¥ÀÌÆ®
+    void UpdateUI(); //ìºë¦­í„° UIê°€ ìˆìœ¼ë©´ ì´í›„ ì—…ë°ì´íŠ¸
 
 private:
-    //¿©±âºÎÅÍ
+    //ì—¬ê¸°ë¶€í„°
     Transform* transform;
     CapsuleCollider* collider;
     ModelAnimatorInstancing* instancing;
@@ -83,27 +83,27 @@ private:
     Transform* root;
     Transform* target;
 
-    float speed; //¼Ó·Â : ±âº» ½ºÅÈ
+    float speed; //ì†ë ¥ : ê¸°ë³¸ ìŠ¤íƒ¯
     float maxHP;
     float curHP;
 
-    //Vector3 velocity; //¼Ó·Â : ½ÇÁ¦ ¿òÁ÷ÀÓ
+    //Vector3 velocity; //ì†ë ¥ : ì‹¤ì œ ì›€ì§ì„
 
-    UINT index; //·Îº¿ÀÇ °³º° ÀÎµ¦½º
+    UINT index; //ë¡œë´‡ì˜ ê°œë³„ ì¸ë±ìŠ¤
 
-    //½ºÅ×ÀÌÆ® È¤Àº ¿òÁ÷ÀÓ¿¡ µû¸¥ ÀÌº¥Æ® ÁöÁ¤
+    //ìŠ¤í…Œì´íŠ¸ í˜¹ì€ ì›€ì§ì„ì— ë”°ë¥¸ ì´ë²¤íŠ¸ ì§€ì •
     vector<map<float, Event>> totalEvent;
     vector<map<float, Event>::iterator> eventIters;
 
-    // ÆÈ UIµé(Á¤º¸, Ã¼·Â µî)
+    // íŒ” UIë“¤(ì •ë³´, ì²´ë ¥ ë“±)
 
-    Vector3 barPos; //Ã¼·Â¹Ù°¡ À§Ä¡ÇÒ °÷
+    Vector3 barPos; //ì²´ë ¥ë°”ê°€ ìœ„ì¹˜í•  ê³³
 
-    //¿©±â±îÁö °øÅë, ºÎ¸ğ¿¡¼­ ¹°·Á ¹ŞÀ» °Íµé
+    //ì—¬ê¸°ê¹Œì§€ ê³µí†µ, ë¶€ëª¨ì—ì„œ ë¬¼ë ¤ ë°›ì„ ê²ƒë“¤
 
     ACTION action = ACTION::IDLE; 
-    // -> ºÎ¸ğ·Î ÀÌµ¿ °¡´É, ÀÌµ¿½Ã
-    //    ¶óÀÌµù, ÀÛ¾÷°°Àº Æ¯¼ö µ¿ÀÛÀº enum µÚ·Î »©±â
+    // -> ë¶€ëª¨ë¡œ ì´ë™ ê°€ëŠ¥, ì´ë™ì‹œ
+    //    ë¼ì´ë”©, ì‘ì—…ê°™ì€ íŠ¹ìˆ˜ ë™ì‘ì€ enum ë’¤ë¡œ ë¹¼ê¸°
 
     int tmpN;
 

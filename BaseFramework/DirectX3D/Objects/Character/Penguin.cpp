@@ -3,41 +3,42 @@
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
     : transform(transform),instancing(instancing), index(index)
 {
+    name = "pp";
     name = "펭키";
     modelName = "PenGuin";
     level = 1;
-    speed = 5; //�ӷ� : �⺻ ����
+    speed = 5; //
     maxHP = 100;
     curHP = 100;
     isInvincible = false;
 
-    // �θ𿡼� ������ ��ų ����
+    // 
     skill[0] = new Tornado();
-    skill[0]->Setpal(this); // ��ų ���� ��ġ �޾ư��� �Լ�, �� ���� ��ġ����
-    skill[0]->SetSkill();   // ��ų ����(���� ��ġ), 
+    skill[0]->Setpal(this); // 
+    skill[0]->SetSkill();   // 
 
-    // ��ų ���� �Լ��� �ִٸ� �̷���
+    // 
     IceSpear* tmp = new IceSpear();
-    tmp->SetHeight(Vector3(0, 1.8f, 0)); //�� ���� ���̿��� ��ų ����
+    tmp->SetHeight(Vector3(0, 1.8f, 0)); //
     skill[1] = tmp;
-    skill[1]->Setpal(this); // ��ų ���� ��ġ �޾ư��� �Լ�, �� ���� ��ġ����
-    skill[1]->SetSkill();   // ��ų ����(���� ��ġ)
+    skill[1]->Setpal(this); // 
+    skill[1]->SetSkill();   // 
 
-    // ��� ������ �߰�
+    // 
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
 
-    root = new Transform(); // �ݶ��̴��� ��ġ�� ���(��ġ)
+    root = new Transform(); // 
 
-    //�浹ü
-    collider = new CapsuleCollider(35, 20); // ������
+    //
+    collider = new CapsuleCollider(35, 20); // 
     collider->SetParent(root);
     collider->Rot().z = XMConvertToRadians(90.0f);
     collider->Pos() = { 10, 0, 0 };
-    collider->SetActive(true); //�浹ü ���̱� ���� ���� �� �κ� false
+    collider->SetActive(true); //
 
     motion = instancing->GetMotion(index);
-    totalEvent.resize(instancing->GetClipSize()); //���� ���� ���� ���ڸ�ŭ �̺�Ʈ ������¡
+    totalEvent.resize(instancing->GetClipSize()); //
     eventIters.resize(instancing->GetClipSize());
 
     //�̺�Ʈ ����
@@ -46,10 +47,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     FOR(totalEvent.size())
     {
-        eventIters[i] = totalEvent[i].begin(); // ��ϵǾ� ���� �̺�Ʈ�� ������������ �ݺ��� ����
+        eventIters[i] = totalEvent[i].begin(); // 
     }
 
-    //ĳ���� UI �߰�
+    //
     tmpN = 0;
 
     velocity = { 0, 0, 0 };
@@ -61,17 +62,17 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
 Penguin::~Penguin()
 {
-    // ��ü ����
+    // 
     delete collider;
     delete root;
 
-    // �ӽ� ����
+    // 
     delete transform;
 }
 
 void Penguin::Update()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active())
     {
         return;
@@ -97,7 +98,7 @@ void Penguin::Update()
 
 
     //ClipSync();
-    //������
+    //
     if (target == nullptr && !isSpawned)
     {
         MoveWithOutTarget();
@@ -111,13 +112,13 @@ void Penguin::Update()
     //if (target && !isSpawned)
     if (target && !isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // �ӷ±��� : ǥ���� �ڽ��� �Ÿ�
+        velocity = target->GlobalPos() - transform->GlobalPos(); // 
         Move(); //�����̱�
     }
 
     if (target && isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // �ӷ±��� : ǥ���� �ڽ��� �Ÿ�
+        velocity = target->GlobalPos() - transform->GlobalPos(); //
 
         if (PlayerPalsManager::Get()->GetMode() == PlayerPalsManager::MODE::WORK)
         {
@@ -125,7 +126,7 @@ void Penguin::Update()
         }
         else
         {
-            Move(); //�����̱�
+            Move(); //
         }
     }
 
@@ -138,8 +139,8 @@ void Penguin::Update()
         MoveP();
     }
 
-    ExecuteEvent(); // �̺�Ʈ�� ������ �ϸ� �����ϱ�
-    UpdateUI(); //UI ������Ʈ
+    ExecuteEvent(); //
+    UpdateUI(); //UI 
 
     if (!isSpawned && target)
     {
@@ -150,7 +151,7 @@ void Penguin::Update()
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
     //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
-    collider->UpdateWorld(); //�浹ü ������Ʈ
+    collider->UpdateWorld(); //
 
     //if (KEY_DOWN('Q'))
     //{
@@ -162,7 +163,7 @@ void Penguin::Update()
     //
     //}
 
-    // ��ų �׽�Ʈ
+    // 
     //if (KEY_DOWN('K') && !skill[0]->Active())
     //{
     //    Attack();
@@ -185,7 +186,7 @@ void Penguin::Update()
 
 void Penguin::Render()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active()) return;
     collider->Render();
 
@@ -213,7 +214,7 @@ void Penguin::ShadowRender()
 
 void Penguin::PostRender()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active()) return;
     if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
