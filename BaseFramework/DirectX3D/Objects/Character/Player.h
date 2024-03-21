@@ -12,22 +12,22 @@ private:
         J_END,
         J_LOOP,
 
-        R_IDLE,
-        R_RUN,
-        R_Aim,
-        R_RELOAD,
-        R_DRAW,
+        //R_IDLE,
+        //R_RUN,
+        //R_Aim,
+        //R_RELOAD,
+        //R_DRAW,
 
-        RA_FWD,
+        //RA_FWD,
 
-        BW_AIM,
-        BW_FIRE,
+        //BW_AIM,
+        //BW_FIRE,
 
-        M_MINING,
-        M_ATTACK,
+        //M_MINING,
+        //M_ATTACK,
 
-        S_AIM,
-        S_THROW,
+        //S_AIM,
+        //S_THROW,
 
         // BW_AIM
 

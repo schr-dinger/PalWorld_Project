@@ -13,6 +13,17 @@ Tree::Tree(Transform* transform) :transform(transform)
 	test3 = new Ingredient(2);
 	test4 = new Equipment(3);
 
+	Impostor = new Quad(Vector2(50.0f, 50.0f));
+	Impostor->GetMaterial()->SetDiffuseMap(L"Textures/Model/Tree2/tree2I_1A.png");
+
+	FOR(2)
+	{
+		blendState[i] = new BlendState();
+	}
+
+	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
+
 }
 
 Tree::~Tree()
@@ -22,10 +33,21 @@ Tree::~Tree()
 	delete test2;
 	delete test3;
 	delete test4;
+
+	delete Impostor;
+	FOR(2)
+	{
+		delete blendState[i];
+	}
 }
 
 void Tree::Update()
 {
+	Impostor->Pos() = transform->Pos() + Vector3(0.0f,20.0f,0.0f);
+	Impostor->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+	Impostor->Update();
+
+	//Vector2 dir = CAM->GlobalPos() - 
 	if (!transform->Active()) return;
 
 	if (Hp < 0.0f)
@@ -43,9 +65,17 @@ void Tree::Update()
 
 void Tree::Render()
 {
-	if (!transform->Active()) return;
+	if (transform->Active())
+	{
+		collider->Render();
+	}
+	else
+	{
+		blendState[1]->SetState();
+		Impostor->Render();
+		blendState[0]->SetState();
+	}
 
-	collider->Render();
 }
 
 void Tree::GUIRender()

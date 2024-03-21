@@ -15,7 +15,7 @@ public:
 
     //void Place(ModelInstancing* tree);
     void GetTem(Collider* collider);
-
+    
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
 
@@ -37,6 +37,8 @@ private:
     // Å×½ºÆ®
 
     float Time = 0;
+    Quad* Impostor;
 
+    BlendState* blendState[2];
 };
 

@@ -91,13 +91,13 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
+    //GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
 
-    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f,0.7f);
 
@@ -276,7 +276,7 @@ void Player::Control()
             isBow = false;
             if (KEY_DOWN('R'))
             {
-                SetState(R_RELOAD);
+                //SetState(R_RELOAD);
             }
 
             break;
@@ -347,33 +347,33 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        if (curState != S_THROW)
-        {
-            SetState(ACTION::S_AIM);
-            isAiming = true;
-            summonPalSpear->SetActive(true);
-        }
+        //if (curState != S_THROW)
+        //{
+        //    SetState(ACTION::S_AIM);
+        //    isAiming = true;
+        //    summonPalSpear->SetActive(true);
+        //}
     }
     else if (KEY_UP('Q'))
     {
-        if (curState == S_AIM)
-        {
-            CatchPal();
-            isAiming = false;
-            summonPalSpear->SetActive(false);
-        }
+        //if (curState == S_AIM)
+        //{
+        //    CatchPal();
+        //    isAiming = false;
+        //    summonPalSpear->SetActive(false);
+        //}
     }
     else if (KEY_UP('E'))
     {
-        if (curState == S_AIM)
-        {
-            SummonsPal();
-            isAiming = false;
-            summonPalSpear->SetActive(false);
-            summonPalSpearThrow->SetActive(true);
-            summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
-            summonPalSpearDIr = CAM->Forward();
-        }
+        //if (curState == S_AIM)
+        //{
+        //    SummonsPal();
+        //    isAiming = false;
+        //    summonPalSpear->SetActive(false);
+        //    summonPalSpearThrow->SetActive(true);
+        //    summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
+        //    summonPalSpearDIr = CAM->Forward();
+        //}
 
     }
            
@@ -394,10 +394,10 @@ void Player::Control()
 
 void Player::Move()
 {
-    if (curState == S_THROW)
-    {
-        return;
-    }
+    //if (curState == S_THROW)
+    //{
+    //    return;
+    //}
     bool isMoveZ = false;
     bool isMoveX = false;
 
@@ -582,10 +582,10 @@ void Player::AttackPal()
 
         break;
     case 2:
-        SetState(BW_FIRE);
+        //SetState(BW_FIRE);
         break;
     case 3:
-        SetState(M_ATTACK);
+        //SetState(M_ATTACK);
 
         break;
     default:
@@ -614,11 +614,11 @@ void Player::AttackPal()
 
 void Player::CatchPal()
 {
-    if (curState == S_THROW)
-    {
-        return;
-    }
-    SetState(S_THROW);
+    //if (curState == S_THROW)
+    //{
+    //    return;
+    //}
+    //SetState(S_THROW);
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
 
@@ -642,7 +642,7 @@ void Player::CatchPal()
 
 void Player::SummonsPal()
 {
-    SetState(ACTION::S_THROW);
+    //SetState(ACTION::S_THROW);
 }
 
 void Player::ThrowPalSpear()
@@ -677,34 +677,34 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
-    {
-        return;
-    }
+    //else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    //{
+    //    return;
+    //}
 
     if (isBow)
     {
-        if (isBaim) SetState(BW_AIM);
-        else
-        {
-            if (velocity.Length() > 0) SetState(RUN);
-            else  SetState(IDLE);
-        }
+        //if (isBaim) SetState(BW_AIM);
+        //else
+        //{
+        //    if (velocity.Length() > 0) SetState(RUN);
+        //    else  SetState(IDLE);
+        //}
 
         return;
     }
     else if (isGun)
     {
-        if (isGaim)
-        {
-            if (velocity.Length() > 0) SetState(RA_FWD);
-            else SetState(R_Aim);
-        }
-        else
-        {
-            if (velocity.Length() > 0) SetState(R_RUN);
-            else SetState(R_IDLE);
-        }
+        //if (isGaim)
+        //{
+        //    if (velocity.Length() > 0) SetState(RA_FWD);
+        //    else SetState(R_Aim);
+        //}
+        //else
+        //{
+        //    if (velocity.Length() > 0) SetState(R_RUN);
+        //    else SetState(R_IDLE);
+        //}
         return;
     }
 

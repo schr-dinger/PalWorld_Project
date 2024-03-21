@@ -78,6 +78,19 @@ LandScapeManager::~LandScapeManager()
 
 void LandScapeManager::Update()
 {
+    for (Tree* tree : trees)
+    {
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 30.0f)
+        {
+            tree->GetTransform()->SetActive(false);
+        }
+        else
+        {
+            tree->GetTransform()->SetActive(true);
+
+        }
+    }
+
     tree1->Update();
     tree2->Update();
     rock1->Update();
