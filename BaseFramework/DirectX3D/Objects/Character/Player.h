@@ -42,7 +42,7 @@ public:
     void ShadowRender();
     void GUIRender();
 
-    // ÀåºñÃ¢ ³Ñ¹ö °¡Á®¿À±â
+    // ì¥ë¹„ì°½ ë„˜ë²„ ê°€ì ¸ì˜¤ê¸°
     int GetWepSel() { return select; }
 
 private:
@@ -57,11 +57,11 @@ private:
 
     void Collision();
 
-    // ÇÊµå ÆÈ »óÈ£ÀÛ¿ë ÇÔ¼ö
+    // í•„ë“œ íŒ” ìƒí˜¸ì‘ìš© í•¨ìˆ˜
     void AttackPal();
     void CatchPal();
     void SummonsPal();
-    void ThrowPalSpear(); // ÆÓ ¼ÒÈ¯ÇÒ¶§ ´øÁö±â
+    void ThrowPalSpear(); // íŒ° ì†Œí™˜í• ë•Œ ë˜ì§€ê¸°
 
 
 
@@ -98,7 +98,7 @@ private:
 
     Vector3 z = { 0,0,0 };
 
-    float moveSpeed = 10;
+    float moveSpeed = 100;
     float rotSpeed = 1;
     float deceleration = 5;
 
@@ -114,7 +114,7 @@ private:
     bool UiOn = false;
 
 
-    // Å×½ºÆ® : ÆÓ ½ºÇÇ¾î ´øÁö±â °ü·Ã
+    // í…ŒìŠ¤íŠ¸ : íŒ° ìŠ¤í”¼ì–´ ë˜ì§€ê¸° ê´€ë ¨
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
     Model* summonPalSpear;
@@ -122,7 +122,7 @@ private:
     SphereCollider* summonPalSpearCollider;
     Vector3 summonPalSpearDIr;
     float speed = 20;
-    // ÆÓ½ºÇÇ¾î Áß·Â
+    // íŒ°ìŠ¤í”¼ì–´ ì¤‘ë ¥
     float gravi = 9.8f;
     float downForce = 0;
     Vector3 down = { 0, -1, 0 };
@@ -132,7 +132,7 @@ private:
     Vector3 foCam = { -0.3,1.35,1.0 };
 
 
-    // ¹«±â Á¶ÁØ
+    // ë¬´ê¸° ì¡°ì¤€
 
     ParticleSystem* particle;
     bool isGun = false;
@@ -148,7 +148,7 @@ private:
 
     //player collider
 
-    // Ãæµ¹¿ë
+    // ì¶©ëŒìš©
     CapsuleCollider* playerCollider;
     Vector3 playerLastPos;
     bool isCollision;

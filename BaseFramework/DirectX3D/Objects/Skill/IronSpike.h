@@ -5,7 +5,6 @@ private:
 
 	float Life_Time = 10;
 
-
 public:
 
 	IronSpike();
@@ -23,11 +22,9 @@ public:
 
 private:
 
-	Vector3 startPos;
-	Vector3 dir;
-
-	Model* Spike[3];
-	ParticleSystem* particle[3];
+	
+	Model* Spike;
+	ParticleSystem* particle;
 
 	float time = 0;
 	float danger = 0;

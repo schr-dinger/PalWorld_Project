@@ -24,21 +24,21 @@ public:
     Texture* GetTextureC() { return iconC; }
     float GetCurHp() { return curHP / maxHP; }
 
-    // ¾×¼Ç : °ø°İ
-    void Attack();      // ³» ÆÈ °ø°İ
-    void FieldAttack(); // ÇÊµå ÆÈ °ø°İ
+    // ì•¡ì…˜ : ê³µê²©
+    void Attack();      // ë‚´ íŒ” ê³µê²©
+    void FieldAttack(); // í•„ë“œ íŒ” ê³µê²©
 
-    // ¾×¼Ç : ¾ò¾î¸Â±â
+    // ì•¡ì…˜ : ì–»ì–´ë§ê¸°
     void Damage();
 
-    // ¾×¼Ç : »ı¼ºµÇ±â
+    // ì•¡ì…˜ : ìƒì„±ë˜ê¸°
     void Spawn(Vector3 pos);
 
-    // ¼ÒÈ¯ÇÏ±â : ÇÃ·¹ÀÌ¾î°¡ ÆÈ ¼ÒÈ¯¿ë
+    // ì†Œí™˜í•˜ê¸° : í”Œë ˆì´ì–´ê°€ íŒ” ì†Œí™˜ìš©
     void Summons(Vector3 pos);
 
 
-    //Ç¥Àû ¼³Á¤
+    //í‘œì  ì„¤ì •
     void SetTarget(Transform* target);
 
     Transform* GetTransform() { return transform; }
@@ -51,9 +51,9 @@ private:
     void SetEvent(int clip, Event event, float timeRatio);
     void ExecuteEvent();
 
-    // µ¿ÀÛ ³¡³ª¸é ½ÇÇàÇÏ´Â ÇÔ¼ö(¼ÒÈ¯, »ç¸Á ¸ğ¼Ç ÇÊ¿ä)
+    // ë™ì‘ ëë‚˜ë©´ ì‹¤í–‰í•˜ëŠ” í•¨ìˆ˜(ì†Œí™˜, ì‚¬ë§ ëª¨ì…˜ í•„ìš”)
     void EndAttack();
-    void EndDamage(); // Hit ¿´À¸³ª enum°ú ¸íÄª ÀÏÄ¡½ÃÅ°±â
+    void EndDamage(); // Hit ì˜€ìœ¼ë‚˜ enumê³¼ ëª…ì¹­ ì¼ì¹˜ì‹œí‚¤ê¸°
 
     void SetAction(ACTION action);
 
@@ -87,7 +87,10 @@ private:
 
 
 	ACTION action = ACTION::IDLE;
-	int tmpN;
+    int tmpN;
+
+
+   
 
 };
 

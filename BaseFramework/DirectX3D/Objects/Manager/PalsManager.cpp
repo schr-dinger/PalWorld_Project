@@ -3,23 +3,23 @@
 PalsManager::PalsManager()
 {
     
-    // ¿©±â¼­ºÎÅÍ
-    InsertMAI("PenGuin");                   // °ø¿ë : ¾ÆÀÌµé, °È±â, ·±, °ø°Ý, µ¥¹ÌÁö
-    palsInstancing[0]->ReadClip("Work");    // Ãß°¡ ¸ð¼Ç
+    // ì—¬ê¸°ì„œë¶€í„°
+    InsertMAI("PenGuin");                   // ê³µìš© : ì•„ì´ë“¤, ê±·ê¸°, ëŸ°, ê³µê²©, ë°ë¯¸ì§€
+    palsInstancing[0]->ReadClip("Work");    // ì¶”ê°€ ëª¨ì…˜
     palsInstancing[0]->SetTag("Penguin");
     //palsInstancing[0]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
     FOR(penguinN)
     {
         Transform* transform = palsInstancing[0]->Add();
         transform->SetActive(false);
-        transform->Scale() *= 0.01;// »çÀÌÁî Á¶ÀýÀº ¿©±â¼­
+        transform->Scale() *= 0.01;// ì‚¬ì´ì¦ˆ ì¡°ì ˆì€ ì—¬ê¸°ì„œ
         Pal* pal = new Penguin(transform, palsInstancing[0], i);
         pals.push_back(pal);
     }
-    // ¿©±â±îÁö°¡ ÆÈ ÇÏ³ª
+    // ì—¬ê¸°ê¹Œì§€ê°€ íŒ” í•˜ë‚˜
 
-    InsertMAI("Mammoth");                   // °ø¿ë : ¾ÆÀÌµé, °È±â, ·±, °ø°Ý, µ¥¹ÌÁö
-                                            // Ãß°¡ ¸ð¼Ç
+    InsertMAI("Mammoth");                   // ê³µìš© : ì•„ì´ë“¤, ê±·ê¸°, ëŸ°, ê³µê²©, ë°ë¯¸ì§€
+                                            // ì¶”ê°€ ëª¨ì…˜
     palsInstancing[1]->SetTag("mammoth");
     FOR(mammothN)
     {
@@ -31,8 +31,8 @@ PalsManager::PalsManager()
     }
 
 
-    InsertMAI("DarkWolf");                   // °ø¿ë : ¾ÆÀÌµé, °È±â, ·±, °ø°Ý, µ¥¹ÌÁö
-                                        // Ãß°¡ ¸ð¼Ç
+    InsertMAI("DarkWolf");                   // ê³µìš© : ì•„ì´ë“¤, ê±·ê¸°, ëŸ°, ê³µê²©, ë°ë¯¸ì§€
+                                        // ì¶”ê°€ ëª¨ì…˜
     palsInstancing[2]->SetTag("wolf");
     FOR(wolfN)
     {
@@ -52,25 +52,25 @@ PalsManager::PalsManager()
 
     lastPos.resize(pals.size());
 
-    // ÀüºÎ ÇÊµå¿¡ ¼ÒÈ¯
+    // ì „ë¶€ í•„ë“œì— ì†Œí™˜
     FOR(pals.size())
     {
         Spawn();
     }
-    // ¸ðµ¨ ¾÷µ¥ÀÌÆ®
+    // ëª¨ë¸ ì—…ë°ì´íŠ¸
     for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->Update();
 
     for (Pal* pal : pals)
         pal->Update();
 
-    // Å×½ºÆ® : È÷Æ®
+    // í…ŒìŠ¤íŠ¸ : ížˆíŠ¸
     testHit = {};
     testIsHit = false;
     //palsInstancing[1]->GetMaterial(0)->SetDiffuseMap(L"Textures/Color/White.png");
     //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
 
-    // Å×½ºÆ® : ±×¸²ÀÚ
+    // í…ŒìŠ¤íŠ¸ : ê·¸ë¦¼ìž
     shadow = new Shadow();
 }
 
@@ -100,26 +100,26 @@ void PalsManager::Update()
         lastPos[i] = pals[i]->GetTransform()->GlobalPos();
     }
 
-    // ¸®½ºÆù
-    //time += DELTA; //°æ°ú½Ã°£ ´©Àû
+    // ë¦¬ìŠ¤í°
+    //time += DELTA; //ê²½ê³¼ì‹œê°„ ëˆ„ì 
     //
-    //if (time >= SPAWN_TIME) //°æ°ú ½Ã°£ÀÌ »ý¼º°£°Ý¿¡ µµ´ÞÇÏ¸é
+    //if (time >= SPAWN_TIME) //ê²½ê³¼ ì‹œê°„ì´ ìƒì„±ê°„ê²©ì— ë„ë‹¬í•˜ë©´
     //{
     //    time -= SPAWN_TIME;
-    //    Spawn(); //»ý¼º(½ºÆù)
+    //    Spawn(); //ìƒì„±(ìŠ¤í°)
     //}
 
     PathCollider();
 
-    // ¸ðµ¨ ¾÷µ¥ÀÌÆ®
+    // ëª¨ë¸ ì—…ë°ì´íŠ¸
     for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->Update();
 
     for (Pal* pal : pals)
-        pal->Update(); // pal¿¡¼­ ¹öÃò¾ó·Î ±¸ÇöÇßÁö¸¸, 
-                       // Àû¿ë¾ÈµÇ¸é ±âº» ÇÔ¼ö·Î ¹Ù²Ù±â
+        pal->Update(); // palì—ì„œ ë²„ì¸„ì–¼ë¡œ êµ¬í˜„í–ˆì§€ë§Œ, 
+                       // ì ìš©ì•ˆë˜ë©´ ê¸°ë³¸ í•¨ìˆ˜ë¡œ ë°”ê¾¸ê¸°
 
-    // Ãæµ¹ ÆÇÁ¤ ÁøÇà
+    // ì¶©ëŒ íŒì • ì§„í–‰
     Collision();
 
     if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
@@ -132,7 +132,7 @@ void PalsManager::Update()
 
 void PalsManager::Render()
 {
-    blendState[1]->SetState(); // Åõ¸íµµ Àû¿ë
+    blendState[1]->SetState(); // íˆ¬ëª…ë„ ì ìš©
     for (ModelAnimatorInstancing* pal : palsInstancing)
         pal->Render();
     blendState[0]->SetState();
@@ -151,7 +151,7 @@ void PalsManager::PreRender()
 
 void PalsManager::PostRender()
 {
-    // Ä³¸¯ÅÍ UI·£´õ
+    // ìºë¦­í„° UIëžœë”
     for (Pal* pal : pals)
         pal->PostRender();
 }
@@ -173,12 +173,12 @@ void PalsManager::ShadowRender()
 
 void PalsManager::SetTarget(Transform* target)
 {
-    this->target = target; // ¸Å´ÏÀú ÀÔÀå¿¡¼­ ±â·ÏÇÒ Ç¥Àû : ÀÏ°ý¼³Á¤ µîÀÌ ÇÊ¿äÇÒ ¶§ ¾µ °Í
-    //°¢ ·Îº¿ ÀÔÀå¿¡¼­ÀÇ Ç¥Àûµµ Áö±Ý ¼³Á¤
+    this->target = target; // ë§¤ë‹ˆì € ìž…ìž¥ì—ì„œ ê¸°ë¡í•  í‘œì  : ì¼ê´„ì„¤ì • ë“±ì´ í•„ìš”í•  ë•Œ ì“¸ ê²ƒ
+    //ê° ë¡œë´‡ ìž…ìž¥ì—ì„œì˜ í‘œì ë„ ì§€ê¸ˆ ì„¤ì •
     for (Pal* pal : pals)
     {
-        // ÆÈÀÌ ¼ÂÅ¸°ÙÇÏ´Â Á¶°Ç Ãß°¡ÇÏ±â
-        //if () // °Å¸®¶óµçÁö(¼±°ø), °ø°Ý´çÇßÀ»¶§ µî
+        // íŒ”ì´ ì…‹íƒ€ê²Ÿí•˜ëŠ” ì¡°ê±´ ì¶”ê°€í•˜ê¸°
+        //if () // ê±°ë¦¬ë¼ë“ ì§€(ì„ ê³µ), ê³µê²©ë‹¹í–ˆì„ë•Œ ë“±
         pal->SetTarget(target);
     }
 }
@@ -195,27 +195,27 @@ bool PalsManager::IsCollision(Ray ray, Vector3& hitPoint)
     int tmp = 0;
     for (Pal* pal : pals)
     {
-        //¿ÜºÎ¿¡¼­ ¿Â ±¤¼±°ú ·Îº¿ÀÌ Ãæµ¹ÇÏ¸é...
+        //ì™¸ë¶€ì—ì„œ ì˜¨ ê´‘ì„ ê³¼ ë¡œë´‡ì´ ì¶©ëŒí•˜ë©´...
         if (pal->GetCollider()->IsRayCollision(ray, &contact))
         {
-            if (contact.distance < minDistance) //·Îº¿¸¶´Ù Á¢Á¡ Á¤º¸ ¸ðµÎ °»½Å
+            if (contact.distance < minDistance) //ë¡œë´‡ë§ˆë‹¤ ì ‘ì  ì •ë³´ ëª¨ë‘ ê°±ì‹ 
             {
-                minDistance = contact.distance; // °»½ÅÁ¤º¸ °è¼Ó ¹Ý¿µ
+                minDistance = contact.distance; // ê°±ì‹ ì •ë³´ ê³„ì† ë°˜ì˜
                 hitPoint = contact.hitPoint;
                 hitPalIndex = tmp;
             }
         }
         tmp++;
     }
-    if (minDistance != FLT_MAX) // Ãæµ¹ È®ÀÎ µÆÀ¸¸é ¸®ÅÏ
+    if (minDistance != FLT_MAX) // ì¶©ëŒ í™•ì¸ ëìœ¼ë©´ ë¦¬í„´
     {
-        // Å×½ºÆ® : È÷Æ®
+        // í…ŒìŠ¤íŠ¸ : ížˆíŠ¸
         testHit = hitPoint;
         testIsHit = true;
 
         return true; 
     }
-    return false; // °Å¸® °»½Å ¾ÈµÇ¸é Ãæµ¹ ½ÇÆÐ
+    return false; // ê±°ë¦¬ ê°±ì‹  ì•ˆë˜ë©´ ì¶©ëŒ ì‹¤íŒ¨
 }
 
 void PalsManager::DistanceCulling()
@@ -259,7 +259,7 @@ void PalsManager::Collision()
 {
     //for (Pal* pal : pals)
     //{
-    //    // Á¶°Ç¿¡µû¶ó µ¥¹ÌÁö È£Ãâ
+    //    // ì¡°ê±´ì—ë”°ë¼ ë°ë¯¸ì§€ í˜¸ì¶œ
     //    if (false) // 
     //    {
     //        pal->Damage();
@@ -316,21 +316,21 @@ void PalsManager::Collision()
 
     for (Pal* pal : pals) 
     {
-        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(), pal) && pal->isInvincible == false) // ÆÓ½ºÇÇ¾îÀÇ ÄÝ¸®ÀüÀ» ºÒ·¯¿Í¼­, ¸ðµç ÆÓ½ºÇÇ¾î¿Í ¸ðµç ÇÊµå ÆÓÀ» Ãæµ¹°Ë»ç
+        if (PalSpearManager::Get()->IsCollision(pal->GetCollider(), pal) && pal->isInvincible == false) // íŒ°ìŠ¤í”¼ì–´ì˜ ì½œë¦¬ì „ì„ ë¶ˆëŸ¬ì™€ì„œ, ëª¨ë“  íŒ°ìŠ¤í”¼ì–´ì™€ ëª¨ë“  í•„ë“œ íŒ°ì„ ì¶©ëŒê²€ì‚¬
         {
-            // ¿©±â µé¾î¿À¸é ÆÈ½ºÇÇ¾î ¸ÂÀº °³Ã¼, ÇÃ·¹ÀÌ¾î ÆÈ¸Å´ÏÀú¿¡ ÇØ´ç ÆÈ ±íÀº º¹»ç
+            // ì—¬ê¸° ë“¤ì–´ì˜¤ë©´ íŒ”ìŠ¤í”¼ì–´ ë§žì€ ê°œì²´, í”Œë ˆì´ì–´ íŒ”ë§¤ë‹ˆì €ì— í•´ë‹¹ íŒ” ê¹Šì€ ë³µì‚¬
             //PlayerPalsManager::Get()->Caught(pal);
-            //// ÀÌÈÄ Á×À½Ã³¸®(Áö±ÝÀº ´Ü¼ø Æ®·£½ºÆû ºñÈ°¼ºÈ­), ³ªÁß¿¡ ´Ù½Ã ½ºÆùµÉ °Í
+            //// ì´í›„ ì£½ìŒì²˜ë¦¬(ì§€ê¸ˆì€ ë‹¨ìˆœ íŠ¸ëžœìŠ¤í¼ ë¹„í™œì„±í™”), ë‚˜ì¤‘ì— ë‹¤ì‹œ ìŠ¤í°ë  ê²ƒ
             //pal->GetTransform()->SetActive(false);
 
-            // À§°úÁ¤Àº 240311ºÎ·Î ÆÓ½ºÇÇ¾î ¸Å´ÏÀú¿¡¼­
+            // ìœ„ê³¼ì •ì€ 240311ë¶€ë¡œ íŒ°ìŠ¤í”¼ì–´ ë§¤ë‹ˆì €ì—ì„œ
             //pal->GetCollider()->SetActive(false); 
-            // ÆÓ½ºÇÇ¾î¿¡ ¸Â´Â ¼ø°£ °ø°Ý ¾È´çÇÏ°Ô ÇÏ±â
+            // íŒ°ìŠ¤í”¼ì–´ì— ë§žëŠ” ìˆœê°„ ê³µê²© ì•ˆë‹¹í•˜ê²Œ í•˜ê¸°
             pal->isInvincible = true;
 
-            return; //ÆÈ½ºÇÇ¾î(Æ÷È¹)¿¡ ¸Â¾Ò¿©±â¼­ ¸®ÅÏ
+            return; //íŒ”ìŠ¤í”¼ì–´(í¬íš)ì— ë§žì•˜ì—¬ê¸°ì„œ ë¦¬í„´
         }
-        //else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // ÆÓ½ºÇÇ¾î¿¡ ¸ÂÁö ¾Ê°í ³» ÆÓ ½ºÅ³¿¡ ¸Â¾Ò´Ù¸é ¸Â±â
+        //else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // íŒ°ìŠ¤í”¼ì–´ì— ë§žì§€ ì•Šê³  ë‚´ íŒ° ìŠ¤í‚¬ì— ë§žì•˜ë‹¤ë©´ ë§žê¸°
         //{
         //    pal->Damage();
         //    return;
@@ -339,13 +339,13 @@ void PalsManager::Collision()
         for (int i = 0; i < MyPalSkillManager::Get()->GetPlayerSkills().size(); i++)
         {
             if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
-                // ½ºÅ³ÀÌ ¸Å°³º¯¼ö 'collider'¿¡ Ãæµ¹Çß´Ù¸é
+                // ìŠ¤í‚¬ì´ ë§¤ê°œë³€ìˆ˜ 'collider'ì— ì¶©ëŒí–ˆë‹¤ë©´
             {
-                if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "¾óÀ½Ã¢")
+                if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "test")
                 {
-                    MyPalSkillManager::Get()->GetPlayerSkills()[i]->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+                    MyPalSkillManager::Get()->GetPlayerSkills()[i]->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
                 }
-                //skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+                //skill->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
                 pal->damage = MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetDamage();
                 pal->Damage();
                 return;
@@ -353,9 +353,9 @@ void PalsManager::Collision()
         }
     }
 
-    if (testIsHit) // ¸Â¾ÒÀ¸¸é È°¼º
+    if (testIsHit) // ë§žì•˜ìœ¼ë©´ í™œì„±
     {
-        // ¸Â±â
+        // ë§žê¸°
         pals[hitPalIndex]->damage = 600;
         pals[hitPalIndex]->Damage();
         testIsHit = false;
@@ -370,9 +370,9 @@ void PalsManager::Spawn()
     dir.x = RANDOM->Float(-1.0f, 1.0f);
     dir.z = RANDOM->Float(-1.0f, 1.0f);
 
-    //»ý¼º°Å¸® °è¼ö¿Í ÇÔ²² Ç¥ÀûÀÇ ÁÖÀ§¿¡¼­ »ý¼ºÀ» ÇÑ´Ù
+    //ìƒì„±ê±°ë¦¬ ê³„ìˆ˜ì™€ í•¨ê»˜ í‘œì ì˜ ì£¼ìœ„ì—ì„œ ìƒì„±ì„ í•œë‹¤
     Vector3 randomPos;
-    if (target == nullptr) // Å¸°Ù ¾ø´Â °æ¿ì Å×½ºÆ®
+    if (target == nullptr) // íƒ€ê²Ÿ ì—†ëŠ” ê²½ìš° í…ŒìŠ¤íŠ¸
     {
         randomPos = Vector3(100.0f,0.0f,100.0f) + (dir.GetNormalized() * 20);
     }
@@ -384,7 +384,7 @@ void PalsManager::Spawn()
     randomPos.y = 0;
 
 
-    // À§¿¡¼­ Á¤ÇØÁø ·£´ý Àå¼Ò¿¡¼­ ·Îº¿ ÇÏ³ª »ý¼º (¼±Âø¼ø)
+    // ìœ„ì—ì„œ ì •í•´ì§„ ëžœë¤ ìž¥ì†Œì—ì„œ ë¡œë´‡ í•˜ë‚˜ ìƒì„± (ì„ ì°©ìˆœ)
     for (Pal* pal : pals)
     {
         Vector3 randomPos1;
@@ -394,20 +394,20 @@ void PalsManager::Spawn()
         Vector3 randomPos3;
         randomPos3 = Vector3(250.0f, 0.0f, 125.0f) + Vector3(RANDOM->Float(-50.0f, 50.0f), 0, RANDOM->Float(-50.0f, 50.0f));
 
-        if (!pal->GetTransform()->Active()) // ·Îº¿À» Á¶È¸ ÁßÀÎµ¥ ºñÈ°¼ºÈ­ ÁßÀÎ °³Ã¼°¡ ÀÖÀ¸¸é
+        if (!pal->GetTransform()->Active()) // ë¡œë´‡ì„ ì¡°íšŒ ì¤‘ì¸ë° ë¹„í™œì„±í™” ì¤‘ì¸ ê°œì²´ê°€ ìžˆìœ¼ë©´
         {
-            //pal->Spawn(randomPos); // °³º° ·Îº¿ È£Ãâ
-            //return; //¹Ýº¹¹®(»ý¼º ÀýÂ÷) Á¾·á
+            //pal->Spawn(randomPos); // ê°œë³„ ë¡œë´‡ í˜¸ì¶œ
+            //return; //ë°˜ë³µë¬¸(ìƒì„± ì ˆì°¨) ì¢…ë£Œ
 
-            if (pal->name == "ÆëÅ°")
+            if (pal->name == "íŽ­í‚¤")
             {
                 pal->Spawn(randomPos1);
             }
-            else if (pal->name == "±×¸°¸ð½º")
+            else if (pal->name == "ê·¸ë¦°ëª¨ìŠ¤")
             {
                 pal->Spawn(randomPos2);
             }
-            else if (pal->name == "´ÙÅ©¿ïÇÁ")
+            else if (pal->name == "ë‹¤í¬ìš¸í”„")
             {
                 pal->Spawn(randomPos3);
             }

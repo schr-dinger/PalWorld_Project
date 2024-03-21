@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "targetver.h"
 #define WIN32_LEAN_AND_MEAN
@@ -228,6 +228,7 @@ using namespace GameMath;
 #include "Objects/Skill/Skill.h"
 #include "Objects/Skill/Tornado.h"
 #include "Objects/Skill/IceSpear.h"
+#include "Objects/Skill/IronSpike.h"
 
 #include "Objects/Character/StudyCharacter/Human.h"
 #include "Objects/Character/StudyCharacter/Robot.h"

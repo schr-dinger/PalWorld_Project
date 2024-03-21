@@ -6,89 +6,62 @@ IronSpike::IronSpike()
 
 	name = "스파이크";
 	damage = 50;
-	startPos = Vector3();
+	// startPos = Vector3();
 
-	FOR(3)
-	{
-		Spike[i] = new Model("Spike");
-		Spike[i]->Rot().x += XM_PIDIV2;
-		Spike[i]->Scale() *= 10.0f;
+	
+	Spike = new Model("Spike");
+	Spike->Rot().x += XM_PIDIV2;
+	Spike->Scale() *= 5.0f;
+	string a = "IR" + to_string(1);
+	Spike->SetTag(a);
+	Spike->GetMaterial(0)->SetDiffuseMap(L"Textures/Model/Spike/T_DustCristal_02.png");
 
-		particle[i] = new ParticleSystem("TextData/Particles/test2.fx");
+	//particle = new ParticleSystem("TextData/Particles/Star.fx");
 
-	}
-
-
+	col = new CapsuleCollider();
+	col->SetParent(Spike);
+	col->Rot().x += XM_PIDIV2;
+	col->Scale() *= 0.4f;
+	
 }
 
 IronSpike::~IronSpike()
 {
-	FOR(3)
-	{
-		delete Spike[i];
-		delete particle[i];
-	}
-
+	delete Spike;
+	delete particle;
 }
 
 void IronSpike::Update()
 {
-	if (!Spike[2]->Active()) return;
+	if (!Spike->Active()) return;
 
 
-	FOR(3)
+
+	if (time > Life_Time)
 	{
-
-
-		if (time > Life_Time)
-		{
-			Spike[i]->SetActive(false);
-			SetSkill();
-		}
-
-		if (pal)
-		{
-			if (Start)
-			{
-				particle[i]->Play(pal->GetTransform()->GlobalPos() + Vector3(0, -10, (i + 1) * 5));
-				danger += 3 * DELTA;
-
-			}
-			if (danger > 5)
-			{
-				if (Spike[i]->Pos().y < pal->GetTransform()->GlobalPos().y + 10)  Spike[i]->Pos().y += (i + 10) * DELTA;
-				Start = false;
-			}
-
-
-
-			time += 1 * DELTA;
-
-		}
-		else
-		{
-			if (Start)
-			{
-				particle[i]->Play(pal->GetTransform()->GlobalPos() + Vector3(0, -10, (i + 1) * 5));
-				danger += 3 * DELTA;
-
-			}
-			if (danger > 5)
-			{
-				if (Spike[i]->Pos().y < pal->GetTransform()->GlobalPos().y + 10)  Spike[i]->Pos().y += (i + 10) * DELTA;
-				Start = false;
-			}
-
-			if (Spike[i]->Pos().y < 10)  Spike[i]->Pos().y += (i + 10) * DELTA;
-
-			time += 1 * DELTA;
-
-
-		}
-		particle[i]->Update();
-		Spike[i]->UpdateWorld();
+		Spike->SetActive(false);
+		SetSkill();
+		time = 0;
 	}
 
+
+	if (pal)
+	{
+		
+		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y +=  3 * DELTA;
+		else time += 3 * DELTA;
+
+	}
+	else
+	{
+		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 3 * DELTA;
+		else time += 3 * DELTA;
+
+	}
+
+	//particle->Update();
+	Spike->UpdateWorld();
+	col->UpdateWorld();
 
 	// 충돌체 추가 필요
 
@@ -99,61 +72,61 @@ void IronSpike::Update()
 
 void IronSpike::Render()
 {
-	if (!Spike[2]->Active()) return;
+	if (!Spike->Active()) return;
 
-	FOR(3)
-	{
-		particle[i]->Render();
-		Spike[i]->Render();
+	
+		
+	Spike->Render();
+	col->Render();
+	//particle->Render();
 
-	}
 
 }
 
 void IronSpike::GUIRender()
 {
+	
+		
+	Spike->GUIRender();
+	
+	
 }
 
 
 
 bool IronSpike::Active()
 {
-	return Spike[0]->Active();
+	return Spike->Active();
 }
 
 void IronSpike::SetActive(bool active)
 {
-	FOR(3)
-	{
-		Spike[i]->SetActive(active);
-	}
+	
+	Spike->SetActive(active);
+	
 
 
 }
 
 void IronSpike::SetSkill()
 {
-	if (pal)
+	if (enemy != nullptr)
 	{
-		Start = true;
-		danger = 0;
-		FOR(3)
-		{
-			Spike[i]->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -10, (i + 1) * 5);
-		}
+		Spike->UpdateWorld();
+		enemy->UpdateWorld();
 
-		// startPos = pal->GetTransform()->GlobalPos();
-		dir = pal->GetTransform()->Back();
+		
+		Spike->Pos() = enemy->GlobalPos() + Vector3(0,-5,0);
+		Spike->UpdateWorld();
+		//particle->Play(enemy->GlobalPos() + Vector3(0, 1, 0));
 
 	}
 	else
 	{
-		FOR(3)
-		{
-			Spike[i]->Pos() = Vector3(0, 0, 0);
-		}
-		// startPos = Vector3(0, 0, 0);
-		dir = Vector3(0, 0, -1);
+		
+		Spike->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -5, 0) + pal->GetTransform()->Back() * 5;
+		Spike->UpdateWorld();
+		//particle->Play(pal->GetTransform()->GlobalPos() + pal->GetTransform()->Back() * 10);
 
 	}
 

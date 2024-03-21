@@ -3,7 +3,7 @@
 
 MyPalSkillManager::MyPalSkillManager()
 {
-    playerPalSkills.reserve(100); // ´ëÃæ 100°³ µé¾î°¥ ¼ö ÀÖ°Ô ¿¹¾àÇØµÎ±â
+    playerPalSkills.reserve(100); // ëŒ€ì¶© 100ê°œ ë“¤ì–´ê°ˆ ìˆ˜ ìˆê²Œ ì˜ˆì•½í•´ë‘ê¸°
 
 }
 
@@ -13,33 +13,33 @@ MyPalSkillManager::~MyPalSkillManager()
 
 void MyPalSkillManager::Update()
 {
-    if (playerPalSkills.size() == 0) return; // ÇÊµå¿¡ È°¼ºÈ­µÅÀÖ´Â ½ºÅ³ ¾øÀ¸¸é ¸®ÅÏ
+    if (playerPalSkills.size() == 0) return; // í•„ë“œì— í™œì„±í™”ë¼ìˆëŠ” ìŠ¤í‚¬ ì—†ìœ¼ë©´ ë¦¬í„´
 
     for (int i = 0; i < playerPalSkills.size(); i++)
     {
         if (!playerPalSkills[i]->Active())
         {
             playerPalSkills.erase(playerPalSkills.begin() + i);
-            // ½ºÅ³ÀÌ ºñÈ°¼ºÈ­µÇ¸é vector¿¡¼­ ¾ø¾ÖÁÖ±â
-            // ¾÷µ¥ÀÌÆ® ¾ÈÇØÁÖ±â ¿ëµµ, ÃÖÀûÈ­,
+            // ìŠ¤í‚¬ì´ ë¹„í™œì„±í™”ë˜ë©´ vectorì—ì„œ ì—†ì• ì£¼ê¸°
+            // ì—…ë°ì´íŠ¸ ì•ˆí•´ì£¼ê¸° ìš©ë„, ìµœì í™”,
         }
     }
 }
 
 bool MyPalSkillManager::IsCollision(Collider* collider)
 {
-    if (playerPalSkills.size() == 0) return false; // ÇÊµå¿¡ È°¼ºÈ­µÅÀÖ´Â ½ºÅ³ ¾øÀ¸¸é ¸®ÅÏ
+    if (playerPalSkills.size() == 0) return false; // í•„ë“œì— í™œì„±í™”ë¼ìˆëŠ” ìŠ¤í‚¬ ì—†ìœ¼ë©´ ë¦¬í„´
 
     for (Skill* skill : playerPalSkills)
     {
         if (skill->GetCol()->IsCollision(collider))
-            // ½ºÅ³ÀÌ ¸Å°³º¯¼ö 'collider'¿¡ Ãæµ¹Çß´Ù¸é
+            // ìŠ¤í‚¬ì´ ë§¤ê°œë³€ìˆ˜ 'collider'ì— ì¶©ëŒí–ˆë‹¤ë©´
         {
-            if (skill->GetName() == "¾óÀ½Ã¢")
+            if (skill->GetName() == "test")
             {
-                skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+                skill->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
             }
-            //skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+            //skill->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
 
             return true;
         }

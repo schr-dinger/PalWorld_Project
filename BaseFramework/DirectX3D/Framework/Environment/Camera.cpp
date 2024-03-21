@@ -77,9 +77,9 @@ void Camera::GUIRender()
 
 void Camera::SetView()
 {  
-    //ºä Æ÷Æ®¸¦ ´Ù½Ã ¼³Á¤ÇÏ°í Ä«¸Þ¶ó À§Ä¡¿¡ ¸ÂÃß´Â °úÁ¤ Ãß°¡
-    view = XMMatrixInverse(nullptr, world); // Ä«¸Þ¶óÀÇ Æ®·£½ºÆû¿¡ ºä ¸ÂÃß±â
-    viewBuffer->Set(view, world); //ºä ¹öÆÛ(ºä¿Í Æ®·£½ºÆû) Àç¼³Á¤
+    //ë·° í¬íŠ¸ë¥¼ ë‹¤ì‹œ ì„¤ì •í•˜ê³  ì¹´ë©”ë¼ ìœ„ì¹˜ì— ë§žì¶”ëŠ” ê³¼ì • ì¶”ê°€
+    view = XMMatrixInverse(nullptr, world); // ì¹´ë©”ë¼ì˜ íŠ¸ëžœìŠ¤í¼ì— ë·° ë§žì¶”ê¸°
+    viewBuffer->Set(view, world); //ë·° ë²„í¼(ë·°ì™€ íŠ¸ëžœìŠ¤í¼) ìž¬ì„¤ì •
 
     viewBuffer->SetVS(1);
     viewBuffer->SetPS(1);
@@ -157,8 +157,8 @@ void Camera::FreeMode()
     Vector3 delta = mousePos - prevMousePos;
     prevMousePos = mousePos;
 
-    //if (KEY_PRESS(VK_RBUTTON))
-    if (0)
+    if (KEY_PRESS(VK_RBUTTON))
+    //if (0)
     {
         if (KEY_PRESS('W'))
             Pos() += Forward() * moveSpeed * DELTA;
@@ -321,8 +321,8 @@ bool Camera::ContainPoint(Vector3 point, float raidus)
 
 //bool Camera::ContainPoint(Vector3 center, float radius)
 //{
-//    Vector3 edge; // °¡ÀåÀÚ¸®
-//    Vector3 dot; // Á¡°ö¿¡ ÀÇÇÑ Àç°è»ê º¤ÅÍ
+//    Vector3 edge; // ê°€ìž¥ìžë¦¬
+//    Vector3 dot; // ì ê³±ì— ì˜í•œ ìž¬ê³„ì‚° ë²¡í„°
 //
 //    FOR(6)
 //    {
@@ -392,14 +392,14 @@ bool Camera::ContainPoint(Vector3 point, float raidus)
 //        dot = XMPlaneDotCoord(planes[i], edge);
 //        if (dot.x > 0) continue;
 //
-//        //ÀÌ·¸°Ô 8¹øÀÇ ÄÁÆ¼´º¸¦ Åë°úÇÏ°í ¿©±â±îÁö ¿Ô´Ù¸é
-//        // -> dotÀ» 8¹øÀÌ³ª °è»êÀ» ÇØÁá´Âµ¥ ¹ý¼±°ªÀÌ ÇÑ ¹øµµ 0º¸´Ù Å« ÀûÀÌ ¾ø¾ú´Ù
-//        // -> center¿Í radius·Î Á¤ÀÇµÈ ´ë»ó ¿µ¿ªÀÌ ÇöÀç Ä«¸Þ¶óÀÇ ÇÁ·¯½ºÅÒ ¹ÛÀ¸·Î ³ª°¬´Ù
+//        //ì´ë ‡ê²Œ 8ë²ˆì˜ ì»¨í‹°ë‰´ë¥¼ í†µê³¼í•˜ê³  ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´
+//        // -> dotì„ 8ë²ˆì´ë‚˜ ê³„ì‚°ì„ í•´ì¤¬ëŠ”ë° ë²•ì„ ê°’ì´ í•œ ë²ˆë„ 0ë³´ë‹¤ í° ì ì´ ì—†ì—ˆë‹¤
+//        // -> centerì™€ radiusë¡œ ì •ì˜ëœ ëŒ€ìƒ ì˜ì—­ì´ í˜„ìž¬ ì¹´ë©”ë¼ì˜ í”„ëŸ¬ìŠ¤í…€ ë°–ìœ¼ë¡œ ë‚˜ê°”ë‹¤
 //
 //        return false;
 //    }
 //
-//    // ¿©±â±îÁö ¿Ô´Ù¸é : ¹Ýº¹¹®À» 6¹øÀÌ³ª, °Ë»ç¸¦ 48ÀÌ³ª Çß´Âµ¥ ÇÑ ¹øµµ Æú½º°¡ ¾ø¾ú´Ù
+//    // ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´ : ë°˜ë³µë¬¸ì„ 6ë²ˆì´ë‚˜, ê²€ì‚¬ë¥¼ 48ì´ë‚˜ í–ˆëŠ”ë° í•œ ë²ˆë„ í´ìŠ¤ê°€ ì—†ì—ˆë‹¤
 //
-//    return true; // ÀÌ°Íº¸´Ù ÂüÀÎ °æ¿ì´Â ¾ø´Ù = ÇØ´ç ¿µ¿ªÀÇ ÃÖ¼Ò ÀÏºÎ´Â ¹Ýµå½Ã ÇÁ·¯½ºÅÒ ¾È¿¡ ÀÖ´Ù
+//    return true; // ì´ê²ƒë³´ë‹¤ ì°¸ì¸ ê²½ìš°ëŠ” ì—†ë‹¤ = í•´ë‹¹ ì˜ì—­ì˜ ìµœì†Œ ì¼ë¶€ëŠ” ë°˜ë“œì‹œ í”„ëŸ¬ìŠ¤í…€ ì•ˆì— ìžˆë‹¤
 //}
