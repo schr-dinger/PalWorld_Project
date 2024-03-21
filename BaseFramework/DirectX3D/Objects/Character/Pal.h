@@ -61,6 +61,8 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	Vector3 velocity;
 	float speed;
 
+	float damage;
+
 	// �� �������� : �� ���Ǿ �¾Ұų�, ��Ÿ ���
 	bool isInvincible;
 
@@ -84,5 +86,8 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 	BlendState* blendState[2];
 
 	bool isDead = false;
+	// 240319 팰 UI용
+	Quad* palQuad;
+	ProgressBar* palHpBar;
 };
 

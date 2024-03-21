@@ -14,6 +14,7 @@ public:
     {
         THROW,
         HITPAL,
+        ABSORB,
         CATCHING,
         SUCCESS,
         FAIL
@@ -43,6 +44,7 @@ private:
     //¸â¹ö ÇÔ¼ö
     void StateThrow();
     void StateHitPal();
+    void StateAbsorb();
     void StateCatching();
     void StateSuccess();
     void StateFail();
@@ -79,14 +81,18 @@ private:
     int shakeNum;  // ÇÑ ¹ø Èçµé¶§ Èçµé¸®´Â È½¼ö
     int shakeTime; // 3¹ø Èçµé±â
 
-    // ÆÓ Èò»ö ¸¸µé±â
-    class Quad* whitePal;
-
-    RenderTarget* renderTarget;
-    DepthStencil* depthStencil;
-
-    vector<wstring> whitePalTexture;
-    vector<Float4> whitePalEmissive;
+    // ÆÓ Èò»ö ¸¸µé±â, ³ª~Áß¿¡ ÇÒ¼öµµ?
+    //class Quad* whitePal;
+    //
+    //RenderTarget* renderTarget;
+    //DepthStencil* depthStencil;
+    //
+    //vector<wstring> whitePalTexture;
+    //vector<Float4> whitePalEmissive;
     
+    // ÀÌÆåÆ®
+    class ParticleSystem* palSpearParticle;
+    Vector3 palToPalSpearVel; // ÆÓ¿¡¼­ ÆÓ½ºÇÇ¾î·Î °¡´Â ¼Óµµ
+    float particleTime;
 };
 

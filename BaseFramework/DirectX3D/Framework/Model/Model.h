@@ -3,6 +3,9 @@
 class Model : public Transform
 {
 public:
+    string ModelName;
+
+public:
     Model(string name);
     ~Model();
 

@@ -131,6 +131,11 @@ void PlayerPalsManager::Update()
         //pals[selPal]->Update();
         if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
         {
+            Vector3 tmpDIr = pals[selPal]->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos();
+            tmpDIr.y = 0;
+            tmpDIr = tmpDIr.GetNormalized();
+            pals[selPal]->GetTransform()->Rot().y = atan2(tmpDIr.x, tmpDIr.z);
+            pals[selPal]->GetTransform()->UpdateWorld();
             pals[selPal]->Attack();
         }
 
@@ -212,31 +217,31 @@ void PlayerPalsManager::ShadowRender()
 
 void PlayerPalsManager::GUIRender()
 {
-    ImGui::Text("MyPalsSIze : %d", pals.size());
-    ImGui::Text("pathsize : %d", path.size());
+    //ImGui::Text("MyPalsSIze : %d", pals.size());
+    //ImGui::Text("pathsize : %d", path.size());
+    //
+    //ImGui::Text("destPosX : %f", destPos.x);
+    //ImGui::Text("destPosY : %f", destPos.y);
+    //ImGui::Text("destPosZ : %f", destPos.z);
 
-    ImGui::Text("destPosX : %f", destPos.x);
-    ImGui::Text("destPosY : %f", destPos.y);
-    ImGui::Text("destPosZ : %f", destPos.z);
-
-    if (selPal != -1)
-    {
-        ImGui::Text("Mode : %d", mode);
-
-        //ImGui::Text("Target : %d", pals[selPal]->);
-
-    }
-
-    if (path.size() > 0)
-    {
-        ImGui::Text("X: %f", path.back().x);
-        ImGui::Text("y: %f", path.back().y);
-        ImGui::Text("z: %f", path.back().z);
-        ImGui::Text("X: %f", destPos.x);
-        ImGui::Text("y: %f", destPos.y);
-        ImGui::Text("z: %f", destPos.z);
-    }
-
+    //if (selPal != -1)
+    //{
+    //    ImGui::Text("Mode : %d", mode);
+    //
+    //    //ImGui::Text("Target : %d", pals[selPal]->);
+    //
+    //}
+    //
+    //if (path.size() > 0)
+    //{
+    //    ImGui::Text("X: %f", path.back().x);
+    //    ImGui::Text("y: %f", path.back().y);
+    //    ImGui::Text("z: %f", path.back().z);
+    //    ImGui::Text("X: %f", destPos.x);
+    //    ImGui::Text("y: %f", destPos.y);
+    //    ImGui::Text("z: %f", destPos.z);
+    //}
+    //pals[0]->GUIRender();
 
 }
 
@@ -420,9 +425,25 @@ void PlayerPalsManager::Collision()
         if (pal != nullptr)
         {
             // 조건에따라 데미지 호출
-            if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
+            //if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
+            //{
+            //    pal->Damage();
+            //}
+            if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) continue;
+            for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
             {
-                pal->Damage();
+                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
+                    // 스킬이 매개변수 'collider'에 충돌했다면
+                {
+                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
+                    {
+                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                    }
+                    //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                    pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+                    pal->Damage();
+                    return;
+                }
             }
         }
     }

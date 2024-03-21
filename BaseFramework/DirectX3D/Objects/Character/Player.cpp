@@ -607,7 +607,7 @@ void Player::Collision()
     // 장애물
     for (Collider* obs : LandScapeManager::Get()->GetObstacles())
     {
-        if (playerCollider->IsCollision(obs))
+        if (playerCollider->IsCollision(obs) && obs->Active())
         {
             Vector3 nol = GlobalPos() - obs->GlobalPos();
             nol.y = 0;
@@ -631,7 +631,7 @@ void Player::Collision()
     // 나무
     //for (Tree* tree : LandScapeManager::Get()->GetTrees())
     //{
-    //    if (playerCollider->IsCollision(tree->GetCollider()))
+    //    if (playerCollider->IsCollision(tree->GetCollider()) && tree->GetTransform()->Active())
     //    {
     //        Vector3 nol = GlobalPos() - tree->GetTransform()->GlobalPos();
     //        nol.y = 0;
@@ -827,7 +827,7 @@ void Player::SetAnimation()
             else SetState(WALK);
 
         }
-        else
+        else 
         {
             SetState(IDLE);
         }

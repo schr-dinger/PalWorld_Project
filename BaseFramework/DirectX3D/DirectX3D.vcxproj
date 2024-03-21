@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Skill\IceSpear.h" />
+    <ClInclude Include="Objects\Items\Consumable.h" />
     <ClInclude Include="Objects\UI\ItemClickQuad.h" />
     <ClInclude Include="Objects\UI\ItemUI.h" />
     <ClInclude Include="Objects\Manager\ItemManager.h" />
@@ -306,8 +308,13 @@
     <ClInclude Include="Objects\Manager\UiMouseManager.h" />
     <ClInclude Include="Objects\Manager\UiManager.h" />
     <ClInclude Include="Objects\Structure\WorkBench.h" />
+    <ClInclude Include="Objects\UI\WorkBenchUI.h" />
+    <ClInclude Include="Objects\UI\WorkInFo.h" />
+    <ClInclude Include="Objects\UI\WorkSlot.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Skill\IceSpear.cpp" />
+    <ClCompile Include="Objects\Items\Consumable.cpp" />
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
     <ClCompile Include="Objects\UI\ItemUI.cpp" />
     <ClCompile Include="Objects\Manager\ItemManager.cpp" />
@@ -464,6 +471,9 @@
     <ClCompile Include="Objects\Manager\UiMouseManager.cpp" />
     <ClCompile Include="Objects\Manager\UiManager.cpp" />
     <ClCompile Include="Objects\Structure\WorkBench.cpp" />
+    <ClCompile Include="Objects\UI\WorkBenchUI.cpp" />
+    <ClCompile Include="Objects\UI\WorkInFo.cpp" />
+    <ClCompile Include="Objects\UI\WorkSlot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

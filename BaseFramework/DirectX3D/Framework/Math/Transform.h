@@ -18,6 +18,7 @@ public:
           
     Vector3 GlobalPos() { return globalPosition; }
     Vector3 GlobalScale() { return globalScale; }
+    Vector3 GlobalRotation() { return globalRotation; }
 
     Transform* GetParent();
     Matrix GetWorld() { return world; }
@@ -40,6 +41,8 @@ public:
     void Save();
     void Load();
 
+    void SetEul(float x, float y, float z, float w);
+
 protected:
     string tag;
 
@@ -57,7 +60,7 @@ private:
     Vector3 pivot;
 
     Vector3 right, up, forward;
-    Vector3 globalPosition, globalScale;
+    Vector3 globalPosition, globalScale, globalRotation;
 
     XMFLOAT4X4 matWorld;
     

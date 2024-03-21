@@ -40,6 +40,10 @@ private:
         float maxStartTime = 0; //최대 지연 시작 시간
         Float4 startColor = { 1, 1, 1, 1 }; //시작 시 출력할 색상 범위(혹은 색상 보정)
         Float4 endColor = { 1, 1, 1, 1 }; //종료 시 출력할 색상 범위(혹은 색상 보정)
+        bool isPos = false; // 각 파티클의 위치를 정할 것인가 -> true = 구형으로 랜덤, false = 0 0 0 기준
+        float radius = 0.5f; // 반지름 얼마만큼의 구체인가
+        bool isDestPos = false; // 각 파티클이 목적지로 이동하는가
+        Vector3 DestPos = {}; // 그 목적지는 어디인가
 
         // -> 물리 현상, 셰이더 연산 등을 고려하지 않고 의도 가능한 최소한의 옵션을 작성
         // -> 위 옵션의 범위에서 각 입자가 만들어질 때 랜덤으로 옵션을 결정
@@ -75,6 +79,9 @@ public:
     void Update();
     void Render();
     void GUIRender();
+    void SetPos(Vector3 pos);
+    Vector3 GetPos() { return quad->Pos(); }
+    Quad* GetQuad() { return quad; }
 
     void Play(Vector3 pos, Vector3 rot = Vector3()); // 파티클을 재생할 장소와, 회전정보
                                     // 회전정보가 필요한 이유 = 빌보드가 아닐 수도 있어서

@@ -96,7 +96,6 @@ private:
     vector<map<float, Event>::iterator> eventIters;
 
     // 팔 UI들(정보, 체력 등)
-    ProgressBar* hpBar;
 
     Vector3 barPos; //체력바가 위치할 곳
 
@@ -107,5 +106,7 @@ private:
     //    라이딩, 작업같은 특수 동작은 enum 뒤로 빼기
 
     int tmpN;
+
+    int ransSkill;
 };
 

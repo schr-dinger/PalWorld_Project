@@ -4,7 +4,7 @@ Tornado::Tornado()
 {
 
 	name = "토네이도";
-	damage = 30;
+	damage = 200;
 	startPos = Vector3();
 	
 	Tornado1 = new Model("TestTornadoIn");
@@ -87,8 +87,6 @@ Tornado::~Tornado()
 	delete Tornado4;
 	delete Tornado5;
 
-	delete col;
-
 	FOR(2) delete blendState[i];
 	FOR(2) delete rasterizerState[i];
 }
@@ -161,15 +159,15 @@ void Tornado::GUIRender()
 	Tornado5->GUIRender();
 }
 
-void Tornado::Setpal(Pal* pal)
-{
-	this->pal = pal;
-}
-
-Collider* Tornado::GetCol()
-{
-	return col;
-}
+//void Tornado::Setpal(Pal* pal)
+//{
+//	this->pal = pal;
+//}
+//
+//Collider* Tornado::GetCol()
+//{
+//	return col;
+//}
 
 bool Tornado::Active()
 {

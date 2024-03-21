@@ -9,8 +9,8 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void GUIRender() override;
-	virtual void Setpal(class Pal* pal) override;
-	virtual Collider* GetCol() override;
+	//virtual void Setpal(class Pal* pal) override;
+	//virtual Collider* GetCol() override;
 	virtual bool Active() override;
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;

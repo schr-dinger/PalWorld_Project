@@ -31,6 +31,7 @@ ParticleSystem::ParticleSystem(wstring file)
     FOR(2) depthState[i] = new DepthStencilState();
 
     blendState[1]->Alpha(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
+    blendState[1]->AlphaToCoverage(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
     depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ZERO); // 안 가려짐
     //depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);
 
@@ -43,6 +44,7 @@ ParticleSystem::~ParticleSystem()
     delete instanceBuffer;
     FOR(2) delete blendState[i];
     FOR(2) delete depthState[i];
+
 }
 
 void ParticleSystem::Update()
@@ -77,7 +79,7 @@ void ParticleSystem::Render()
 
     //출력 상태 준비
     blendState[1]->SetState();
-    depthState[1]->SetState();
+    //depthState[1]->SetState();
 
     DC->DrawIndexedInstanced(6, drawCount, 0, 0, 0); // 마지막 매개변수 3개는 다른 곳에서 설정을 해두고
                                                      // 여기선 0, 0, 0 하면 가장 속이 편하다
@@ -96,6 +98,11 @@ void ParticleSystem::Render()
 void ParticleSystem::GUIRender()
 {
     quad->GUIRender(); // 그림을 디버그에서 출력
+}
+
+void ParticleSystem::SetPos(Vector3 pos)
+{
+    quad->Pos() = pos;
 }
 
 void ParticleSystem::Play(Vector3 pos, Vector3 rot)
@@ -138,8 +145,18 @@ void ParticleSystem::UpdatePhysical()
         //빌보드 옵션이 켜져 있었을 경우, 그림을 빌보드 출력이 되도록
         if (data.isBillboard)
         {
-            particleInfo[i].transform.Rot().x = CAM->Rot().x; // 카메라 방향과 동기화
-            particleInfo[i].transform.Rot().y = CAM->Rot().y;
+            Vector3 tmpRot;
+            Vector3 c = CAM->Forward();
+            tmpRot.y = atan2(c.x, c.z);
+            Vector2 a = { c.x, c.z };
+            tmpRot.x = atan2(a.Length(), c.y) - XM_PIDIV2;
+            //tmpRot.x = atanf(a.Length() / c.y);
+            particleInfo[i].transform.Rot().x = tmpRot.x;
+            particleInfo[i].transform.Rot().y = tmpRot.y;
+
+            //particleInfo[i].transform.Rot().x = atan2(CAM->Forward().z, CAM->Forward().y);
+            //particleInfo[i].transform.Rot().y = atan2(CAM->Forward().x, CAM->Forward().z);
+
         }
         // * 왜 카메라인가 (벡터가 아니고) -> 벡터를 쓰면 카메라와 방향을 맞추기보다
         //   이미지가 카메라*를* 바라보게 된다 -> 보는 입장에서 꼭 정면 100%라는 보장이 없어서
@@ -205,7 +222,9 @@ void ParticleSystem::Init()
 
     lifeSpan = 0; // 생애 주기....(중에서 지금은 경과된 시간) : 소멸 시점은 duration에서
     drawCount = 0; //드로우 콜 횟수 (0 초기화)
-    data.count = particleCount; // 클래스에서 파티클 개수 옵션 바꾼 결과 받아오기
+    //data.count = particleCount; // 클래스에서 파티클 개수 옵션 바꾼 결과 받아오기
+    particleCount = data.count; // 클래스에서 파티클 개수 옵션 바꾼 결과 받아오기
+
 
     //data.count와 particleCount가 달랐다면 여기서 초기화
     instances.resize(data.count);
@@ -214,21 +233,71 @@ void ParticleSystem::Init()
     // 개별 인스턴스의 옵션을 여기서 세팅 (샘플 상황)
     // * 혹시 다른 곳에서 옵션이 바뀌어야 할 수도 있으므로 그런 경우는 적절히 수정
 
-    for (ParticleInfo& info : particleInfo) // 개별 인스턴스 내 정보들을 호출해서 수정
+    for (ParticleInfo& info : particleInfo)
     {
-        info.transform.Pos() = {}; // 일단 대기
 
-        //각 파티클의 실체 옵션 설정
-        info.velocity = Random(data.minVelocity, data.maxVelocity);
-        info.acceleration = Random(data.minAcceleration, data.maxAcceleration);
-        info.angularVelocity = Random(data.minAngularVelocity, data.maxAngularVelocity);
-        info.speed = Random(data.minSpeed, data.maxSpeed);
-        info.startTime = Random(data.minStartTime, data.maxStartTime);
-        info.startScale = Random(data.minStartScale, data.maxStartScale);
-        info.endScale = Random(data.minEndScale, data.maxEndScale);
+        if (data.isPos == true) //  0 0 0 에서 생성이 아니라면, 구체형태 안에서 생성
+        {
+            float tmpXY = XMConvertToRadians(RANDOM->Float(0.0f, 360.0f));
+            float tmpZ = XMConvertToRadians(RANDOM->Float(0.0f, 360.0f));
+            float tmpR = RANDOM->Float(0.0f, data.radius);
+            info.transform.Pos() = Vector3(
+                cosf(tmpZ) * cosf(tmpXY) * tmpR,
+                cosf(tmpZ) * sinf(tmpXY) * tmpR,
+                sinf(tmpZ) * tmpR);
+            if (data.isDestPos == true) // 목표지점 있으면 목표지점으로 가기
+            {
+                info.velocity = data.DestPos - info.transform.Pos();
+                info.acceleration = RANDOM->RVector3(data.minAcceleration, data.maxAcceleration);
+                info.angularVelocity = RANDOM->Float(data.minAngularVelocity, data.maxAngularVelocity);
+                //info.speed = 1;
+                info.speed = RANDOM->Float(data.minSpeed, data.maxSpeed);
+                info.startTime = RANDOM->Float(data.minStartTime, data.maxStartTime);
+                info.startScale = RANDOM->RVector3(data.minStartScale, data.maxStartScale);
+                info.endScale = RANDOM->RVector3(data.minEndScale, data.maxEndScale);
+            }
+            else
+            {
+                info.velocity = RANDOM->RVector3(data.minVelocity, data.maxVelocity);
+                info.acceleration = RANDOM->RVector3(data.minAcceleration, data.maxAcceleration);
+                info.angularVelocity = RANDOM->Float(data.minAngularVelocity, data.maxAngularVelocity);
+                info.speed = RANDOM->Float(data.minSpeed, data.maxSpeed);
+                info.startTime = RANDOM->Float(data.minStartTime, data.maxStartTime);
+                info.startScale = RANDOM->RVector3(data.minStartScale, data.maxStartScale);
+                info.endScale = RANDOM->RVector3(data.minEndScale, data.maxEndScale);
 
-        // 옵션 : 속력(빠르기)을 기준속도(길이1 + 방향)로 수정한다면 아래 코드까지
-        info.velocity.Normalize(); // = 정규화
+                info.velocity.Normalize();
+            }
+
+        }
+        else
+        {
+            info.transform.Pos() = {}; // 일단 대기
+            if (data.isDestPos == true) // 목표지점 있으면 목표지점으로 가기
+            {
+                info.velocity = info.transform.Pos() - data.DestPos;
+                info.acceleration = RANDOM->RVector3(data.minAcceleration, data.maxAcceleration);
+                info.angularVelocity = RANDOM->Float(data.minAngularVelocity, data.maxAngularVelocity);
+                info.speed = 1;
+                info.startTime = RANDOM->Float(data.minStartTime, data.maxStartTime);
+                info.startScale = RANDOM->RVector3(data.minStartScale, data.maxStartScale);
+                info.endScale = RANDOM->RVector3(data.minEndScale, data.maxEndScale);
+            }
+            else
+            {
+                //각 파티클의 실체 옵션 설정
+                info.velocity = RANDOM->RVector3(data.minVelocity, data.maxVelocity);
+                info.acceleration = RANDOM->RVector3(data.minAcceleration, data.maxAcceleration);
+                info.angularVelocity = RANDOM->Float(data.minAngularVelocity, data.maxAngularVelocity);
+                info.speed = RANDOM->Float(data.minSpeed, data.maxSpeed);
+                info.startTime = RANDOM->Float(data.minStartTime, data.maxStartTime);
+                info.startScale = RANDOM->RVector3(data.minStartScale, data.maxStartScale);
+                info.endScale = RANDOM->RVector3(data.minEndScale, data.maxEndScale);
+
+                info.velocity.Normalize();
+            }
+
+        }
     }
     // -> 반복문이 끝나면 파티클 옵션에 따른 각 이미지를 가진 입자 생성
 }

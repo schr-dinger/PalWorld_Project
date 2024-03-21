@@ -7,7 +7,15 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	//SetShadowModel();
+	SetShadowModel();
+	FOR(2)
+	{
+		blendState[i] = new BlendState();
+		rasterizer[i] = new RasterizerState();
+	}
+	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
+	rasterizer[1]->CullMode(D3D11_CULL_NONE);
 
 	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
@@ -52,6 +60,8 @@ BaseScene1::BaseScene1()
 	//mam->ReadClip("Attack");
 	//
 	//mam->Scale() *= 0.01f;
+
+	//paTest = new ParticleSystem("TextData/Particles/PalSpear.fx");
 
 }
 
@@ -105,6 +115,22 @@ void BaseScene1::Update()
 	//testUI->Update();
 	//mam->Pos() = CAM->ScreenToWorld(mousePos);
 	//mam->Update();
+
+	// 
+	// 파티클 테스트
+	//if (KEY_DOWN('Z'))
+	//{
+	//	Ray ray;
+	//	ray.dir = CAM->Forward();
+	//	ray.pos = CAM->GlobalPos();
+	//	Vector3 hitP;
+	//
+	//	if (PalsManager::Get()->IsCollision(ray, hitP)) //마우스 커서가 구체에 닿으면
+	//	{
+	//		paTest->Play(hitP); //거기서 파티클 재생
+	//	}
+	//}
+	//paTest->Update();
 }
 
 void BaseScene1::PreRender()
@@ -128,9 +154,7 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	//PalsManager::Get()->ShadowRender();
-	//PlayerPalsManager::Get()->ShadowRender();
-	//RenderShadowModel();
+	RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -148,11 +172,15 @@ void BaseScene1::Render()
 	PalsManager::Get()->Render();
 	PlayerPalsManager::Get()->Render();
 
+	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
 	shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
+
+
+	//paTest->Render();
 
 }
 
@@ -182,7 +210,7 @@ void BaseScene1::GUIRender()
 	//PalsManager::Get()->GUIRender();
 	PlayerPalsManager::Get()->GUIRender();
 
-	PlayerManager::Get()->GUIRender();
+	//PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
@@ -261,7 +289,32 @@ void BaseScene1::SetShadowModel()
 	ModelD->Scale() *= 0.01f;
 	ModelD->Render();
 
+
+	treeS1 = new Model("Tree1");
+	treeS1->Scale() *= 0.01f;
+	//treeS1->SetShader(L"Light/DepthMap.hlsl");
+
+	treeS2 = new Model("Tree2");
+	treeS2->Scale() *= 0.01f;
+	//treeS2->SetShader(L"Light/DepthMap.hlsl");
+
+	//rockS  = new Model("Rock1");
+	//rockS->Scale() *= 0.01f;
+	//rockS->SetShader(L"Light/DepthMap.hlsl");
+
+	//grassS1= new Model("Grass1");
+	////grassS1->Scale() *= 0.01f;
+	////grassS1->Scale() *= 5.0f;
+	//grassS1->SetShader(L"Light/DepthMap.hlsl");
+	//
+	//grassS2= new Model("Grass2");
+	////grassS2->Scale() *= 0.01f;
+	////grassS2->Scale().z *= 3.0f;
+	//grassS2->SetShader(L"Light/DepthMap.hlsl");
+
+
 }
+
 
 void BaseScene1::RenderShadowModel()
 {
@@ -350,4 +403,59 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
+	blendState[1]->SetState();
+	rasterizer[1]->SetState();
+
+	// 나무1
+	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
+	{
+		if (tree1->Active())
+		{
+			treeS1->Pos() = tree1->GlobalPos();
+			treeS1->Rot() = tree1->Rot();
+			treeS1->UpdateWorld();
+			treeS1->Render();
+		}
+		
+	}
+	// 나무2
+	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
+	{
+		if (tree2->Active())
+		{
+			treeS2->Pos() = tree2->GlobalPos();
+			treeS2->Rot() = tree2->Rot();
+			treeS2->UpdateWorld();
+			treeS2->Render();
+		}
+		
+	}
+	// 돌
+	//for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
+	//{
+	//	rockS->Pos() = rock->GlobalPos();
+	//	rockS->Rot() = rock->Rot();
+	//	rockS->UpdateWorld();
+	//	rockS->Render();
+	//}
+	// 풀1
+	//for (Transform* grass1 : LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms())
+	//{
+	//	grassS1->Pos() = grass1->GlobalPos();
+	//	grassS1->Rot() = grass1->Rot();
+	//	grassS1->Scale() = grass1->Scale();
+	//	grassS1->UpdateWorld();
+	//	grassS1->Render();
+	//}
+	//// 풀2
+	//for (Transform* grass2 : LandScapeManager::Get()->GetGrass2Instancing()->GetTransforms())
+	//{
+	//	grassS2->Pos() = grass2->GlobalPos();
+	//	grassS2->Rot() = grass2->Rot();
+	//	grassS2->Scale() = grass2->Scale();
+	//	grassS2->UpdateWorld();
+	//	grassS2->Render();
+	//}
+	blendState[0]->SetState();
+	rasterizer[0]->SetState();
 }

@@ -6,7 +6,7 @@ public:
 
 	enum Type
 	{
-		WEAPON, INGREDIENT
+		WEAPON, INGREDIENT, CONSUMABLE
 	};
 
 public:

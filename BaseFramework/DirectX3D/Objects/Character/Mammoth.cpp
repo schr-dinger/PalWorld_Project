@@ -41,22 +41,12 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     }
 
     //캐릭터 UI 추가
-    hpBar = new ProgressBar(
-        L"Textures/UI/hp_bar.png",
-        L"Textures/UI/hp_bar_BG.png"
-    );
-    hpBar->SetActive(false);
-
     tmpN = 0;
 
     velocity = { 0, 0, 0 };
     target = nullptr;
 
-    // 테스트 : 그림자
-    shadowSphere = new Sphere(100.0f);
-    shadowSphere->SetParent(transform);
-    shadowSphere->Scale() = Vector3(1.8f, 0.0f, 2.7f);
-    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
+    
 
 }
 
@@ -68,15 +58,12 @@ Mammoth::~Mammoth()
 
     // 임시 삭제
     delete transform;
-
-    // 체력바 삭제
-    delete hpBar;
 }
 
 void Mammoth::Update()
 {
     //활성화 시에만 업데이트
-    if (!transform->Active()) return;
+    //if (!transform->Active()) return;
 
     Ray ray;
     ray.dir = CAM->Forward();
@@ -156,8 +143,6 @@ void Mammoth::Update()
     skill[0]->Update();
 
 
-    // 그림자
-    shadowSphere->UpdateWorld();
 }
 
 void Mammoth::Render()
@@ -177,8 +162,7 @@ void Mammoth::Render()
 
 void Mammoth::ShadowRender()
 {
-    if (!transform->Active()) return;
-    shadowSphere->Render();
+    
 }
 
 void Mammoth::PostRender()
@@ -186,23 +170,31 @@ void Mammoth::PostRender()
     if (!transform->Active()) return;
     if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
-    hpBar->Render();
 
-    if (hpBar->Active())
+    palQuad->Render();
+    palHpBar->Render();
+
+    if (palQuad->Active() && palHpBar->Active())
     {
-        Vector3 tmp = transform->Pos() + Vector3(0, 2.0f, 0);
-        //tmp = CAM->WorldToScreen(tmp);
-        tmp = hpBar->GlobalPos();
-        //tmp.x += 30.0f;
-        tmp.y += 35.0f;
+        string tmpString = to_string(level);
+        //tmpString = "99";
+        Font::Get()->SetStyle("FieldLvNum");
+        palQuad->UpdateWorld();
+        Vector3 tmpFP = palQuad->Pos() + Vector3(-38.0f, 13.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
 
-        string tmpString = name + " 테스트ㄻ";
-        Font::Get()->SetStyle("Default2");
-        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y }, 1);
+        tmpString = "LV";
+        Font::Get()->SetStyle("FieldLv");
+        tmpFP = palQuad->Pos() + Vector3(-50.0f, 7.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
+
+        tmpString = name;
+        Font::Get()->SetStyle("FieldName");
+        tmpFP = palQuad->Pos() + Vector3(-11.0f, 11.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
         Font::Get()->SetStyle("Default");
         Font::Get()->GetDC()->EndDraw();
         Font::Get()->GetDC()->BeginDraw();
-
     }
 }
 
@@ -244,8 +236,10 @@ void Mammoth::Damage()
 //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
 
 //체력에 -
-    curHP -= 200 * DELTA;
-    hpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
+    //curHP -= 200 * DELTA;
+    curHP -= damage * DELTA;
+
+    palHpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면
     if (curHP <= 0)
@@ -454,33 +448,23 @@ void Mammoth::MoveWithOutTarget()
 void Mammoth::UpdateUI()
 {
     //(모델이 바뀌면 이 숫자도 바꿀 것)
-    barPos = transform->Pos() + Vector3(0, 1.8f, 0);
+    barPos = transform->Pos() + Vector3(0, 4.5f, 0);
 
     if (!CAM->ContainPoint(barPos))
     {
-        //hpBar->Scale() = {0, 0, 0};
-        hpBar->SetActive(false);
+        palQuad->SetActive(false);
+        palHpBar->SetActive(false);
         return;
     }
 
-    if (!hpBar->Active()) hpBar->SetActive(true);
+    if (!palQuad->Active()) palQuad->SetActive(true);
+    if (!palHpBar->Active()) palHpBar->SetActive(true);
 
-    // 뷰포트에 대한 함수를 호출하여 2D 이미지의 위치를 설정
-    hpBar->Pos() = CAM->WorldToScreen(barPos); // 행렬 공간상의(=3D의) 물체를 뷰포트(=2D)에 투사
-                                               // 이런 출력을 캔버싱이라고 한다
+    palQuad->Pos() = CAM->WorldToScreen(barPos);
+    palQuad->UpdateWorld(); // 조정된 정점 업데이트
 
-    float scale = 100 / velocity.Length(); // 임시 크기 변수를 지정해서, 표적과 트랜스폼의 거리에 따라
-                                           // UI 크기가 최대 100픽셀까지 조절 가능
-
-    scale = Clamp(0.1f, 1.0f, scale); // 최대 최소 범위를 다시 준다 (최대 범위 강제 가능)
-                                      // 최초 계산의 크기를 살리고 싶다면 두 번째 매개변수를 더 많이 주면 된다
-
-
-    // *추후 체력바, 다른 UI 스케일 고정 필요
-    //hpBar->Scale() = { scale, scale, scale };
-    hpBar->Scale() = { 0.3f, 0.3f, 0.3f };
-
-    hpBar->UpdateWorld(); // 조정된 정점 업데이트
+    palHpBar->Pos() = palQuad->Pos() + Vector3(0.0, -10.0f, 0.0f);
+    palHpBar->UpdateWorld(); // 조정된 정점 업데이트
 
 }
 

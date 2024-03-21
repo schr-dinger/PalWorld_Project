@@ -6,8 +6,10 @@ Skill::Skill()
 	damage = 0;
 	pal = nullptr;
 	col = nullptr;
+	enemy = nullptr;
 }
 
 Skill::~Skill()
 {
+	delete col;
 }

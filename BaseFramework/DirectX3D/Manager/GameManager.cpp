@@ -50,6 +50,8 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("QuadTree", new QuadTreeScene());
     //SceneManager::Get()->Create("LOD", new TerrainLODScene());
     //SceneManager::Get()->Create("WaterScene", new WaterScene());
+
+
     SceneManager::Get()->Create("NewScene", new BaseScene1());
 
 
@@ -66,7 +68,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("ShadowScene");
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");
-    //SceneManager::Get()->Add("Particle");
+    SceneManager::Get()->Add("Particle");
     //SceneManager::Get()->Add("ParticleConfig");
     //SceneManager::Get()->Add("HumanScene");
     //SceneManager::Get()->Add("QuadTree");

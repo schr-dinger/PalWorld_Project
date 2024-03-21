@@ -23,6 +23,15 @@ public:
 
     bool CheckPalCollision(Collider* collider,Vector3& pos);
 
+    ModelInstancing* GetTree1Instancing() { return tree1; }
+    ModelInstancing* GetTree2Instancing() { return tree2; }
+    ModelInstancing* GetRock1Instancing() { return rock1; }
+    ModelInstancing* GetGrass1Instancing() { return grass1; }
+    ModelInstancing* GetGrass2Instancing() { return grass2; }
+
+    vector<Tree*>& GetTrees() { return trees; }
+    vector<Rock*>& GetRocks() { return rocks; }
+
 private:
     void MakeObstacle();
 private:
@@ -62,6 +71,9 @@ private:
     bool isPlaced1 = false;
     bool isPlaced2 = false;
     bool isPlaced3 = false;
+
+    BlendState* blendState[2];
+    RasterizerState* rasterizer[2];
 
 };
 

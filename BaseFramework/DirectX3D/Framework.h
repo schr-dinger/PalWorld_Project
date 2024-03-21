@@ -96,7 +96,6 @@ typedef function<void(int)> IntParamEvent;
 #include "Framework/Utilities/Utility.h"
 #include "Framework/Utilities/Font.h"
 #include "Framework/Utilities/Audio.h"
-#include "Framework/Utilities/Random.h"
 
 using namespace Utility;
 
@@ -127,6 +126,7 @@ using namespace Utility;
 #include "Framework/Math/Vector3.h"
 #include "Framework/Math/Transform.h"
 #include "Framework/Math/GameMath.h"
+#include "Framework/Utilities/Random.h"
 
 #include "Framework/Render/Texture.h"
 #include "Framework/Render/Material.h"
@@ -176,7 +176,9 @@ using namespace GameMath;
 #include "Objects/UI/ItemClickQuad.h"
 #include "Objects/UI/ItemUI.h"
 #include "Objects/UI/PalModeUi.h"
-
+#include "Objects/UI/WorkInFo.h"
+#include "Objects/UI/WorkSlot.h"
+#include "Objects/UI/WorkBenchUI.h"
 
 
 #include "Objects/Items/Weapons/Kunai.h"
@@ -186,7 +188,7 @@ using namespace GameMath;
 #include "Objects/Items/Item.h"
 #include "Objects/Items/Equipment.h"
 #include "Objects/Items/Ingredient.h"
-
+#include "Objects/Items/Consumable.h"
 
 
 #include "Objects/Landscape/Terrain.h"
@@ -225,6 +227,7 @@ using namespace GameMath;
 
 #include "Objects/Skill/Skill.h"
 #include "Objects/Skill/Tornado.h"
+#include "Objects/Skill/IceSpear.h"
 
 #include "Objects/Character/StudyCharacter/Human.h"
 #include "Objects/Character/StudyCharacter/Robot.h"

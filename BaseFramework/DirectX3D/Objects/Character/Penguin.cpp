@@ -3,84 +3,76 @@
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
     : transform(transform),instancing(instancing), index(index)
 {
-    name = "ÆëÅ°";
+    name = "ï¿½ï¿½Å°";
     modelName = "PenGuin";
     level = 1;
-    speed = 5; //¼Ó·Â : ±âº» ½ºÅÈ
+    speed = 5; //ï¿½Ó·ï¿½ : ï¿½âº» ï¿½ï¿½ï¿½ï¿½
     maxHP = 100;
     curHP = 100;
     isInvincible = false;
 
-    // ºÎ¸ð¿¡¼­ °¡Á®¿Â ½ºÅ³ ¼¼ÆÃ
+    // ï¿½Î¸ð¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
     skill[0] = new Tornado();
-    skill[0]->Setpal(this); // ½ºÅ³ ½ÃÀÛ À§Ä¡ ¹Þ¾Æ°¡´Â ÇÔ¼ö, ÀÌ ÆÈÀÇ À§Ä¡¿¡¼­
-    skill[0]->SetSkill();   // ½ºÅ³ ¼¼ÆÃ(½ÃÀÛ À§Ä¡), 
+    skill[0]->Setpal(this); // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Þ¾Æ°ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
+    skill[0]->SetSkill();   // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡), 
 
-    // Æë±Ï ¾ÆÀÌÄÜ Ãß°¡
+    // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½
+    IceSpear* tmp = new IceSpear();
+    tmp->SetHeight(Vector3(0, 1.8f, 0)); //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
+    skill[1] = tmp;
+    skill[1]->Setpal(this); // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Þ¾Æ°ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
+    skill[1]->SetSkill();   // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡)
+
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
 
-    root = new Transform(); // ÄÝ¶óÀÌ´õ°¡ À§Ä¡ÇÒ Àå¼Ò(À§Ä¡)
+    root = new Transform(); // ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½Ä¡)
 
-    //Ãæµ¹Ã¼
-    collider = new CapsuleCollider(35, 20); // »çÀÌÁî
+    //ï¿½æµ¹Ã¼
+    collider = new CapsuleCollider(35, 20); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     collider->SetParent(root);
     collider->Rot().z = XMConvertToRadians(90.0f);
     collider->Pos() = { 10, 0, 0 };
-    collider->SetActive(true); //Ãæµ¹Ã¼ º¸ÀÌ±â ½ÈÀ» ¶§´Â ÀÌ ºÎºÐ false
+    collider->SetActive(true); //ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ false
 
     motion = instancing->GetMotion(index);
-    totalEvent.resize(instancing->GetClipSize()); //¸ðµ¨ÀÌ °¡Áø µ¿ÀÛ ¼ýÀÚ¸¸Å­ ÀÌº¥Æ® ¸®»çÀÌÂ¡
+    totalEvent.resize(instancing->GetClipSize()); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½Å­ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¡
     eventIters.resize(instancing->GetClipSize());
 
-    //ÀÌº¥Æ® ¼¼ÆÃ
+    //ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     SetEvent((int)ACTION::ATTACK, bind(&Penguin::EndAttack, this), 1.5f);
     SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.9f);
 
     FOR(totalEvent.size())
     {
-        eventIters[i] = totalEvent[i].begin(); // µî·ÏµÇ¾î ÀÖÀ» ÀÌº¥Æ®ÀÇ ½ÃÀÛÁöÁ¡À¸·Î ¹Ýº¹ÀÚ ¼³Á¤
+        eventIters[i] = totalEvent[i].begin(); // ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    //Ä³¸¯ÅÍ UI Ãß°¡
-    hpBar = new ProgressBar(
-        L"Textures/UI/hp_bar.png",
-        L"Textures/UI/hp_bar_BG.png"
-    );
-    hpBar->SetActive(false);
-
+    //Ä³ï¿½ï¿½ï¿½ï¿½ UI ï¿½ß°ï¿½
     tmpN = 0;
 
     velocity = { 0, 0, 0 };
     target = nullptr;
 
-    // Å×½ºÆ® : ±×¸²ÀÚ
-    shadowSphere = new Sphere(100.0f);
-    shadowSphere->SetParent(transform);
-    shadowSphere->Scale() = Vector3(0.4f, 0.0f, 0.4f);
-    shadowSphere->SetShader(L"Light/DepthMap.hlsl");
+    
 
 }
 
 Penguin::~Penguin()
 {
-    // °´Ã¼ »èÁ¦
+    // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
     delete collider;
     delete root;
 
-    // ÀÓ½Ã »èÁ¦
+    // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½
     delete transform;
-
-    // Ã¼·Â¹Ù »èÁ¦
-    delete hpBar;
-
-    
 }
 
 void Penguin::Update()
 {
-    //È°¼ºÈ­ ½Ã¿¡¸¸ ¾÷µ¥ÀÌÆ®
-    if (!transform->Active()) return;
+    //È°ï¿½ï¿½È­ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    //if (!transform->Active()) return;
 
     Ray ray;
     ray.dir = CAM->Forward();
@@ -102,7 +94,7 @@ void Penguin::Update()
 
 
     //ClipSync();
-    //¿òÁ÷ÀÓ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if (target == nullptr && !isSpawned)
     {
         MoveWithOutTarget();
@@ -116,13 +108,13 @@ void Penguin::Update()
     //if (target && !isSpawned)
     if (target && !isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // ¼Ó·Â±âÁØ : Ç¥Àû°ú ÀÚ½ÅÀÇ °Å¸®
-        Move(); //¿òÁ÷ÀÌ±â
+        velocity = target->GlobalPos() - transform->GlobalPos(); // ï¿½Ó·Â±ï¿½ï¿½ï¿½ : Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+        Move(); //ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
     }
 
     if (target && isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // ¼Ó·Â±âÁØ : Ç¥Àû°ú ÀÚ½ÅÀÇ °Å¸®
+        velocity = target->GlobalPos() - transform->GlobalPos(); // ï¿½Ó·Â±ï¿½ï¿½ï¿½ : Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
 
         if (PlayerPalsManager::Get()->GetMode() == PlayerPalsManager::MODE::WORK)
         {
@@ -130,7 +122,7 @@ void Penguin::Update()
         }
         else
         {
-            Move(); //¿òÁ÷ÀÌ±â
+            Move(); //ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
         }
     }
 
@@ -143,8 +135,8 @@ void Penguin::Update()
         MoveP();
     }
 
-    ExecuteEvent(); // ÀÌº¥Æ®°¡ ÅÍÁ®¾ß ÇÏ¸é ¼öÇàÇÏ±â
-    UpdateUI(); //UI ¾÷µ¥ÀÌÆ®
+    ExecuteEvent(); // ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+    UpdateUI(); //UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
     if (!isSpawned && target)
     {
@@ -155,7 +147,7 @@ void Penguin::Update()
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
     //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
-    collider->UpdateWorld(); //Ãæµ¹Ã¼ ¾÷µ¥ÀÌÆ®
+    collider->UpdateWorld(); //ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
     //if (KEY_DOWN('Q'))
     //{
@@ -167,25 +159,32 @@ void Penguin::Update()
     //
     //}
 
-    // ½ºÅ³ Å×½ºÆ®
+    // ï¿½ï¿½Å³ ï¿½×½ï¿½Æ®
     //if (KEY_DOWN('K') && !skill[0]->Active())
     //{
     //    Attack();
     //    //FieldAtack();
     //}
-    skill[0]->Update();
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (skill[i] !=nullptr)
+        {
+            skill[i]->Update();
+
+        }
+    }
 
 
-    // ±×¸²ÀÚ
-    shadowSphere->UpdateWorld();
+    
+
 }
 
 void Penguin::Render()
 {
-    //È°¼ºÈ­ ½Ã¿¡¸¸ ¾÷µ¥ÀÌÆ®
+    //È°ï¿½ï¿½È­ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     if (!transform->Active()) return;
     collider->Render();
-    skill[0]->Render();
 
     if (!isSpawned && target)
     {
@@ -194,102 +193,122 @@ void Penguin::Render()
         blendState[0]->SetState();
     }
 
+    for (int i = 0; i < 3; i++)
+    {
+        if (skill[i] != nullptr)
+        {
+            skill[i]->Render();
+
+        }
+    }
 }
 
 void Penguin::ShadowRender()
 {
-    if (!transform->Active()) return;
-    shadowSphere->Render();
+    
 }
 
 void Penguin::PostRender()
 {
-    //È°¼ºÈ­ ½Ã¿¡¸¸ ¾÷µ¥ÀÌÆ®
+    //È°ï¿½ï¿½È­ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     if (!transform->Active()) return;
     if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
 
-    hpBar->Render();
+    palQuad->Render();
+    palHpBar->Render();
 
-    if (hpBar->Active())
+   
+    if (palQuad->Active() && palHpBar->Active())
     {
-        Vector3 tmp = transform->Pos() + Vector3(0, 2.0f, 0);
-        //tmp = CAM->WorldToScreen(tmp);
-        tmp = hpBar->GlobalPos();
-        //tmp.x += 30.0f;
-        tmp.y += 35.0f;
+        palQuad->UpdateWorld();
 
-        string tmpString = name + " Å×½ºÆ®¤±¤¤¤·¤«¤¤¤·¤«¤·¤¤¤©¤¤¤·¤±¤©¤¤¤±¤·¤¤¤·¤«";
-        Font::Get()->SetStyle("Default2");
-        Font::Get()->RenderText(tmpString, { tmp.x, tmp.y }, 1);
+        string tmpString = to_string(level);
+        //tmpString = "99";
+        Font::Get()->SetStyle("FieldLvNum");
+        Vector3 tmpFP = palQuad->Pos() + Vector3(-38.0f, 13.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
+
+        tmpString = "LV";
+        Font::Get()->SetStyle("FieldLv");
+        tmpFP = palQuad->Pos() + Vector3(-50.0f, 7.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
+
+        tmpString = name;
+        Font::Get()->SetStyle("FieldName");
+        tmpFP = palQuad->Pos() + Vector3(-11.0f, 11.0f, 0.0f);
+        Font::Get()->RenderText(tmpString, { tmpFP.x, tmpFP.y });
         Font::Get()->SetStyle("Default");
         Font::Get()->GetDC()->EndDraw();
         Font::Get()->GetDC()->BeginDraw();
-
     }
-
 }
 
 void Penguin::GUIRender()
 {
-    //È°¼ºÈ­ ½Ã¿¡¸¸ ¾÷µ¥ÀÌÆ®
+    //È°ï¿½ï¿½È­ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
-    //skill[0]->GUIRender();
+    skill[1]->GUIRender();
 
     //ImGui::Text("% f", destVel.Length());
 }
 
 void Penguin::Attack()
 {
-    // ¸ð¼Ç ¼³Á¤
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     action = ACTION::ATTACK;
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ½ºÅ³ ¾×Æ¼ºê
-    skill[0]->SetActive(true);
-    skill[0]->SetSkill();
-    MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
+    // ï¿½ï¿½Å³ ï¿½ï¿½Æ¼ï¿½ï¿½
+    ransSkill = RANDOM->Int(0, 1);
+    skill[ransSkill]->SetActive(true);
+    skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SetEnemy(target);
+    MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }
 
 void Penguin::FieldAttack()
 {
-    // ¸ð¼Ç ¼³Á¤
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     action = ACTION::ATTACK;
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ½ºÅ³ ¾×Æ¼ºê
-    skill[0]->SetActive(true);
-    skill[0]->SetSkill();
-    FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
+    // ï¿½ï¿½Å³ ï¿½ï¿½Æ¼ï¿½ï¿½
+    ransSkill = RANDOM->Int(0, 1);
+    skill[ransSkill]->SetActive(true);
+    skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SetEnemy(target);
+    FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 }
 
 void Penguin::Damage()
 {
-    // ¹«ÀûÀÌ µÇ´Â Á¶°Çµé
-    //if (action == ACTION::DAMAGE) return; // ¸Â°í ÀÖÀ» ¶© ¾È ¸Â´Â´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Çµï¿½
+    //if (action == ACTION::DAMAGE) return; // ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Â´Â´ï¿½.
 
-    //Ã¼·Â¿¡ -
-    curHP -= 200 * DELTA;
-    hpBar->SetAmount(curHP / maxHP); // Ã¼·Â ºñÀ²¿¡ µû¶ó Ã¼·Â¹Ù ¼³Á¤
+    //Ã¼ï¿½Â¿ï¿½ -
+    //curHP -= 200 * DELTA;
+    curHP -= damage * DELTA;
+    palHpBar->SetAmount(curHP / maxHP); // Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Â¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    // Ã¼·ÂÀÌ ¿ÏÀüÈ÷ ¹Ù´Ú³ª¸é
+    // Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú³ï¿½ï¿½ï¿½
     if (curHP <= 0)
     {
-        // Á×´Â ¸ð¼Ç ÀÖÀ¸¸é ¼¼ÆÃ
+        // ï¿½×´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //SetAction(ACTION::DIE); 
 
-        // ÇöÀç´Â ¹Ù·Î ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         isDead = true;
         transform->SetActive(false);
-        return;//ÀÌ ÇÔ¼ö Á¾·á
+        return;//ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ¾ÆÁ÷ ¾È Á×¾úÀ¸¸é »ê ·Îº¿´ä°Ô ¸Â´Â µ¿ÀÛ ¼öÇà
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     action = ACTION::DAMAGE;
     instancing->PlayClip(index, (int)ACTION::DAMAGE);
     eventIters[(int)ACTION::DAMAGE] = totalEvent[(int)ACTION::DAMAGE].begin();
@@ -297,11 +316,11 @@ void Penguin::Damage()
 
 void Penguin::Spawn(Vector3 pos)
 {
-    transform->SetActive(true); //ºñÈ°¼ºÈ­¿´´Ù¸é È°¼ºÈ­ ½ÃÀÛ
+    transform->SetActive(true); //ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ï¿½Ù¸ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     collider->SetActive(true);
 
-    SetAction(ACTION::IDLE); // ¼ÒÈ¯ ¸ð¼Ç ÀÖ´Ù¸é ¼ÒÈ¯¸ð¼ÇºÎÅÍ
-                             // ¿©±â¼± ¹Ù·Î ¾ÆÀÌµé
+    SetAction(ACTION::IDLE); // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½È¯ï¿½ï¿½Çºï¿½ï¿½ï¿½
+                             // ï¿½ï¿½ï¿½â¼± ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 
     curHP = maxHP;
     //hpBar->SetAmount(curHP / maxHP);
@@ -311,7 +330,7 @@ void Penguin::Spawn(Vector3 pos)
 
 void Penguin::Summons(Vector3 pos)
 {
-    transform->SetActive(true); //ºñÈ°¼ºÈ­¿´´Ù¸é È°¼ºÈ­ ½ÃÀÛ
+    transform->SetActive(true); //ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ï¿½Ù¸ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     collider->SetActive(true);
 
     SetAction(ACTION::IDLE); // 
@@ -353,21 +372,21 @@ void Penguin::SetTarget(Transform* target)
 
 void Penguin::SetEvent(int clip, Event event, float timeRatio)
 {
-    if (totalEvent[clip].count(timeRatio) > 0) return; // ¼±Çà ¿¹¾àµÈ ÀÌº¥Æ®°¡ ÀÖÀ¸¸é Á¾·á
+    if (totalEvent[clip].count(timeRatio) > 0) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     totalEvent[clip][timeRatio] = event;
 }
 
 void Penguin::ExecuteEvent()
 {
-    int index = (int)action; //ÇöÀç »óÅÂ ¹Þ¾Æ¿À±â
+    int index = (int)action; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
     if (totalEvent[index].empty()) return;
     if (eventIters[index] == totalEvent[index].end()) return;
 
-    float ratio = motion->runningTime / motion->duration; //ÁøÇàµÈ ½Ã°£ ³ª´©±â ÀüÃ¼ ÁøÇà½Ã°£
+    float ratio = motion->runningTime / motion->duration; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 
-    if (eventIters[index]->first > ratio) return; // ÁøÇà ½Ã°£ÀÌ Á¤ÇØÁø ±âÁØ¿¡ ¸ø ¹ÌÄ¡¸é Á¾·á(Àç½ÃÀÛ)
+    if (eventIters[index]->first > ratio) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¿ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-    eventIters[index]->second(); //µî·ÏµÈ ÀÌº¥Æ® ¼öÇà
+    eventIters[index]->second(); //ï¿½ï¿½Ïµï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     eventIters[index]++;
 }
 
@@ -378,25 +397,25 @@ void Penguin::EndAttack()
 
 void Penguin::EndDamage()
 {
-    SetAction(ACTION::IDLE); //¸Â¾Ò°í, ¾È Á×¾ú°í, ¿òÂñÇßÀ¸´Ï ¿ø·¡´ë·Î
+    SetAction(ACTION::IDLE); //ï¿½Â¾Ò°ï¿½, ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void Penguin::SetAction(ACTION action)
 {
     if (action == this->action) return;
 
-    this->action = action; //¸Å°³º¯¼ö¿¡ µû¶ó »óÅÂ º¯È­
-    instancing->PlayClip(index, (int)action); //ÀÎ½ºÅÏ½Ì ³» ÀÚ±â Æ®·£½ºÆû¿¡¼­ µ¿ÀÛ ¼öÇà ½ÃÀÛ
+    this->action = action; //ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­
+    instancing->PlayClip(index, (int)action); //ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ ï¿½Ú±ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     eventIters[(int)action] = totalEvent[(int)action].begin();
 }
 
 void Penguin::Move()
 {
-    // ¾È¿òÁ÷ÀÌ´Â Á¶°Çµé
-    if (action == ACTION::ATTACK) return; // °ø°ÝÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    if (action == ACTION::DAMAGE) return; // ¸ÂÀ» ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    if (action == ACTION::WORK) return; // ÀÛ¾÷ÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    //if (action == ACTION::) return; // Ãß°¡ °¡´É
+    // ï¿½È¿ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½Çµï¿½
+    if (action == ACTION::ATTACK) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (action == ACTION::DAMAGE) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (action == ACTION::WORK) return; // ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //if (action == ACTION::) return; // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     if (velocity.Length() < 5)
     {
@@ -411,7 +430,7 @@ void Penguin::Move()
         //speed = 0;
         //SetAction(ACTION::IDLE);
     }
-    else if (velocity.Length() < 15) // Ç¥Àû°ú °Å¸®°¡ °¡±î¿ï ¶§´Â
+    else if (velocity.Length() < 15) // Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         speed = 2;
         SetAction(ACTION::WALK);
@@ -419,7 +438,7 @@ void Penguin::Move()
     }
     else if (velocity.Length() < 50)
     {
-        speed = 4; //µÎ ¹è·Î »¡¶óÁø´Ù
+        speed = 4; //ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         SetAction(ACTION::RUN);
     }
     else
@@ -432,17 +451,17 @@ void Penguin::Move()
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // µÚ µ¹¸®±â(¸ðµ¨ Back()ÀÌ ½ÇÁ¦·Î ¾Õ
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ Back()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 }
 
 void Penguin::MoveP()
 {
-    // ¾È¿òÁ÷ÀÌ´Â Á¶°Çµé
-    if (action == ACTION::ATTACK) return; // °ø°ÝÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    if (action == ACTION::DAMAGE) return; // ¸ÂÀ» ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    if (action == ACTION::WORK) return; // ÀÛ¾÷ÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    //if (action == ACTION::) return; // Ãß°¡ °¡´É
+    // ï¿½È¿ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½Çµï¿½
+    if (action == ACTION::ATTACK) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (action == ACTION::DAMAGE) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (action == ACTION::WORK) return; // ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //if (action == ACTION::) return; // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
@@ -456,9 +475,9 @@ void Penguin::MoveP()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
-    else if (distance >= 8.0f) // Ç¥Àû°ú °Å¸®°¡ °¡±î¿ï ¶§´Â
+    else if (distance >= 8.0f) // Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        speed = 8; //µÎ ¹è·Î »¡¶óÁø´Ù
+        speed = 8; //ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         SetAction(ACTION::RUN);
     }
     else if (distance < 8.0f)
@@ -482,9 +501,9 @@ void Penguin::MoveP()
 
 void Penguin::MoveW()
 {
-    if (action == ACTION::ATTACK) return; // °ø°ÝÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    if (action == ACTION::DAMAGE) return; // ¸ÂÀ» ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
-    //if (action == ACTION::WORK) return; // ÀÛ¾÷ÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    if (action == ACTION::ATTACK) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (action == ACTION::DAMAGE) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //if (action == ACTION::WORK) return; // ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     if (velocity.Length() < 5)
     {
@@ -536,34 +555,25 @@ void Penguin::MoveWithOutTarget()
 
 void Penguin::UpdateUI()
 {
-    //(¸ðµ¨ÀÌ ¹Ù²î¸é ÀÌ ¼ýÀÚµµ ¹Ù²Ü °Í)
-    barPos = transform->Pos() + Vector3(0, 1.8f, 0);
+    //(ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½)
+    barPos = transform->Pos() + Vector3(0, 1.5f, 0);
 
     if (!CAM->ContainPoint(barPos))
     {
-        //hpBar->Scale() = {0, 0, 0};
-        hpBar->SetActive(false);
+        palQuad->SetActive(false);
+        palHpBar->SetActive(false);
         return;
     }
 
-    if (!hpBar->Active()) hpBar->SetActive(true);
+    if (!palQuad->Active()) palQuad->SetActive(true);
+    if (!palHpBar->Active()) palHpBar->SetActive(true);
 
-    // ºäÆ÷Æ®¿¡ ´ëÇÑ ÇÔ¼ö¸¦ È£ÃâÇÏ¿© 2D ÀÌ¹ÌÁöÀÇ À§Ä¡¸¦ ¼³Á¤
-    hpBar->Pos() = CAM->WorldToScreen(barPos); // Çà·Ä °ø°£»óÀÇ(=3DÀÇ) ¹°Ã¼¸¦ ºäÆ÷Æ®(=2D)¿¡ Åõ»ç
-                                               // ÀÌ·± Ãâ·ÂÀ» Äµ¹ö½ÌÀÌ¶ó°í ÇÑ´Ù
+    palQuad->Pos() = CAM->WorldToScreen(barPos);
+    palQuad->UpdateWorld(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    float scale = 100 / velocity.Length(); // ÀÓ½Ã Å©±â º¯¼ö¸¦ ÁöÁ¤ÇØ¼­, Ç¥Àû°ú Æ®·£½ºÆûÀÇ °Å¸®¿¡ µû¶ó
-                                           // UI Å©±â°¡ ÃÖ´ë 100ÇÈ¼¿±îÁö Á¶Àý °¡´É
+    palHpBar->Pos() = palQuad->Pos() + Vector3(0.0, -10.0f, 0.0f);
+    palHpBar->UpdateWorld(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    scale = Clamp(0.1f, 1.0f, scale); // ÃÖ´ë ÃÖ¼Ò ¹üÀ§¸¦ ´Ù½Ã ÁØ´Ù (ÃÖ´ë ¹üÀ§ °­Á¦ °¡´É)
-                                      // ÃÖÃÊ °è»êÀÇ Å©±â¸¦ »ì¸®°í ½Í´Ù¸é µÎ ¹øÂ° ¸Å°³º¯¼ö¸¦ ´õ ¸¹ÀÌ ÁÖ¸é µÈ´Ù
-
-
-    // *ÃßÈÄ Ã¼·Â¹Ù, ´Ù¸¥ UI ½ºÄÉÀÏ °íÁ¤ ÇÊ¿ä
-    //hpBar->Scale() = { scale, scale, scale };
-    hpBar->Scale() = { 0.3f, 0.3f, 0.3f };
-
-    hpBar->UpdateWorld(); // Á¶Á¤µÈ Á¤Á¡ ¾÷µ¥ÀÌÆ®
 }
 
 //void Penguin::ClipSync()

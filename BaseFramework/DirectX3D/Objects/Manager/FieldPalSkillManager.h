@@ -16,6 +16,8 @@ public:
 	// ex. 필드 "펭키"가 스킬 사용시, 'AddFieldSkill()'로 해당 스킬 여기에 추가해주고,
 	//     플레이어 혹은 마이팔매니저에서 IsCollision()을 불러와 충돌체크
 
+	vector<Skill*>& GetFieldSkills() { return fieldSkills; }
+
 private:
 	vector<Skill*> fieldSkills; // "현재" 존재하는 필드 팔의 스킬들
 };
