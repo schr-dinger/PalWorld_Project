@@ -17,7 +17,7 @@ Player::Player() : ModelAnimator("NPC")
     frontPoint->Pos() = { 0,0,-200 };
 
     Hand = new Transform();
-   
+
     /*
     Gun->Scale() *= 0.8f;
     Gun->Pos().y -= 0.05f;
@@ -70,7 +70,7 @@ Player::Player() : ModelAnimator("NPC")
 
     summonPalSpear = new Model("PalSpear");
     summonPalSpear->Scale() = { 0.02f, 0.02f, 0.02f };
-    summonPalSpear->Pos() = {-0.05f, 0.05f, -0.12f};
+    summonPalSpear->Pos() = { -0.05f, 0.05f, -0.12f };
     summonPalSpear->Rot().x = XM_PIDIV2;
     summonPalSpear->SetParent(Hand);
     summonPalSpear->SetActive(false);
@@ -91,15 +91,17 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    //GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
+    GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
 
-    //GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-    //GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
 
-    //GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    //GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    playerCollider = new CapsuleCollider(0.25f,0.7f);
+    playerCollider = new CapsuleCollider(0.25f, 1.2f);
+    playerLastPos = {};
+    isCollision = false;
 
     weapons.resize(4);
 }
@@ -119,6 +121,12 @@ Player::~Player()
 
 void Player::Update()
 {
+    //if (!isCollision) // 테스트
+    //{
+    //    playerLastPos = ModelAnimator::GlobalPos();
+    //}
+    playerLastPos = ModelAnimator::GlobalPos();
+
 
     if (isAiming)
     {
@@ -150,7 +158,7 @@ void Player::Update()
 
 
     //
-    playerCollider->Pos() = this->Pos() + Vector3(0,1.0f,0);
+    playerCollider->Pos() = this->Pos() + Vector3(0, 0.8f, 0);
 
     Hand->SetWorld(GetTransformByNode(68));
     FOR(weapons.size())
@@ -178,13 +186,15 @@ void Player::Update()
     summonPalSpear->UpdateWorld();
     summonPalSpearThrow->UpdateWorld();
     summonPalSpearCollider->UpdateWorld();
+
+    Collision();
 }
 
 void Player::Render()
 {
     testPalSpear->Render();
     testFrontSphere->Render();
-  
+
     ModelAnimator::Render();
     PalSpearManager::Get()->Render();
 
@@ -215,10 +225,10 @@ void Player::ShadowRender()
 
 void Player::GUIRender()
 {
-    //ModelAnimator::GUIRender();
+    ModelAnimator::GUIRender();
     //PalSpearManager::Get()->GUIRender();
     //ImGui::Text("selNum : %d", curState);
-    //ImGui::Text("mouseWheel : %d", mouseWheel);
+    //ImGui::Text("state : %d", curState);
 
 }
 
@@ -266,7 +276,7 @@ void Player::Control()
             select = 3;
         }
     }
-    
+
     if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr)
     {
         switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
@@ -276,7 +286,7 @@ void Player::Control()
             isBow = false;
             if (KEY_DOWN('R'))
             {
-                //SetState(R_RELOAD);
+                SetState(R_RELOAD);
             }
 
             break;
@@ -335,7 +345,7 @@ void Player::Control()
                 isBaim = false;
                 break;
             }
-            
+
         }
     }
     else if (KEY_UP(VK_RBUTTON))
@@ -347,36 +357,36 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        //if (curState != S_THROW)
-        //{
-        //    SetState(ACTION::S_AIM);
-        //    isAiming = true;
-        //    summonPalSpear->SetActive(true);
-        //}
+        if (curState != S_THROW)
+        {
+            SetState(ACTION::S_AIM);
+            isAiming = true;
+            summonPalSpear->SetActive(true);
+        }
     }
     else if (KEY_UP('Q'))
     {
-        //if (curState == S_AIM)
-        //{
-        //    CatchPal();
-        //    isAiming = false;
-        //    summonPalSpear->SetActive(false);
-        //}
+        if (curState == S_AIM)
+        {
+            CatchPal();
+            isAiming = false;
+            summonPalSpear->SetActive(false);
+        }
     }
     else if (KEY_UP('E'))
     {
-        //if (curState == S_AIM)
-        //{
-        //    SummonsPal();
-        //    isAiming = false;
-        //    summonPalSpear->SetActive(false);
-        //    summonPalSpearThrow->SetActive(true);
-        //    summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
-        //    summonPalSpearDIr = CAM->Forward();
-        //}
+        if (curState == S_AIM)
+        {
+            SummonsPal();
+            isAiming = false;
+            summonPalSpear->SetActive(false);
+            summonPalSpearThrow->SetActive(true);
+            summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
+            summonPalSpearDIr = CAM->Forward();
+        }
 
     }
-           
+
 
     if (KEY_DOWN('R'))
     {
@@ -394,10 +404,10 @@ void Player::Control()
 
 void Player::Move()
 {
-    //if (curState == S_THROW)
-    //{
-    //    return;
-    //}
+    if (curState == S_THROW)
+    {
+        return;
+    }
     bool isMoveZ = false;
     bool isMoveX = false;
 
@@ -541,7 +551,7 @@ void Player::Rotate()
     if (isAiming)   Rot().y = CamTransform->Rot().y;
 
 
-    
+
 }
 
 void Player::Jump(float _ground)
@@ -568,6 +578,103 @@ void Player::Jump(float _ground)
 
 }
 
+void Player::Collision()
+{
+    //isCollision = false; // 끼임 방지, 충돌하면 라스트 포스 갱신안함
+
+    // 필드 팰 충돌시
+    for (Pal* pal : PalsManager::Get()->GetPalsVector())
+    {
+        if (playerCollider->IsCollision(pal->GetCollider()))
+        {
+            Vector3 nol = GlobalPos() - pal->GetTransform()->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = GlobalPos() - playerLastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = pal->GetTransform()->GlobalPos() - GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            ModelAnimator::Pos() = playerLastPos + fDir;
+            ModelAnimator::UpdateWorld();
+            //isCollision = true;
+        }
+    }
+    // 장애물
+    for (Collider* obs : LandScapeManager::Get()->GetObstacles())
+    {
+        if (playerCollider->IsCollision(obs))
+        {
+            Vector3 nol = GlobalPos() - obs->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = GlobalPos() - playerLastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = obs->GlobalPos() - GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            ModelAnimator::Pos() = playerLastPos + fDir;
+            ModelAnimator::UpdateWorld();
+            //isCollision = true;
+        }
+    }
+
+
+    // 나무
+    //for (Tree* tree : LandScapeManager::Get()->GetTrees())
+    //{
+    //    if (playerCollider->IsCollision(tree->GetCollider()))
+    //    {
+    //        Vector3 nol = GlobalPos() - tree->GetTransform()->GlobalPos();
+    //        nol.y = 0;
+    //        nol = nol.GetNormalized();
+    //        Vector3 dir = GlobalPos() - playerLastPos;
+    //        dir.y = 0;
+    //        Vector3 tmpV1 = dir;
+    //        Vector3 tmpV2 = tree->GetTransform()->GlobalPos() - GlobalPos();
+    //        tmpV2.y = 0;
+    //        if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+    //        Vector3 mDir = dir * -1;
+    //        Vector3 tmp = nol * Dot(mDir, nol);
+    //        Vector3 fDir = dir + tmp;
+    //        ModelAnimator::Pos() = playerLastPos + fDir;
+    //        ModelAnimator::UpdateWorld();
+    //        //isCollision = true;
+    //
+    //    }
+    //}
+    //// 돌
+    //for (Rock* rock : LandScapeManager::Get()->GetRocks())
+    //{
+    //    if (playerCollider->IsCollision(rock->GetCollider()))
+    //    {
+    //        Vector3 nol = GlobalPos() - rock->GetTransform()->GlobalPos();
+    //        nol.y = 0;
+    //        nol = nol.GetNormalized();
+    //        Vector3 dir = GlobalPos() - playerLastPos;
+    //        dir.y = 0;
+    //        Vector3 tmpV1 = dir;
+    //        Vector3 tmpV2 = rock->GetTransform()->GlobalPos() - GlobalPos();
+    //        tmpV2.y = 0;
+    //        if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+    //        Vector3 mDir = dir * -1;
+    //        Vector3 tmp = nol * Dot(mDir, nol);
+    //        Vector3 fDir = dir + tmp;
+    //        ModelAnimator::Pos() = playerLastPos + fDir;
+    //        ModelAnimator::UpdateWorld();
+    //        //isCollision = true;
+    //    }
+    //}
+}
+
 void Player::AttackPal()
 {
     // *�ѼҸ� ��� �ʿ�
@@ -582,10 +689,10 @@ void Player::AttackPal()
 
         break;
     case 2:
-        //SetState(BW_FIRE);
+        SetState(BW_FIRE);
         break;
     case 3:
-        //SetState(M_ATTACK);
+        SetState(M_ATTACK);
 
         break;
     default:
@@ -603,22 +710,22 @@ void Player::AttackPal()
         // �÷��̾ �� �´� ����Ʈ �� �߰� �ʿ�
         // ����Ʈ�� ��Ʈ ����Ʈ���� ���
         particle->Play(hitPoint);
-        
+
 
     }
 
 
-   //  BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
+    //  BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
 
 }
 
 void Player::CatchPal()
 {
-    //if (curState == S_THROW)
-    //{
-    //    return;
-    //}
-    //SetState(S_THROW);
+    if (curState == S_THROW)
+    {
+        return;
+    }
+    SetState(S_THROW);
 
     //Ray ray = CAM->ScreenPointToRay(mousePos);
 
@@ -642,7 +749,7 @@ void Player::CatchPal()
 
 void Player::SummonsPal()
 {
-    //SetState(ACTION::S_THROW);
+    SetState(ACTION::S_THROW);
 }
 
 void Player::ThrowPalSpear()
@@ -671,40 +778,40 @@ void Player::UiMode()
 
 void Player::SetAnimation()
 {
-    
+
     if (curState == J_LOOP)
     {
         ClipOnce();
         return;
     }
-    //else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
-    //{
-    //    return;
-    //}
+    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    {
+        return;
+    }
 
     if (isBow)
     {
-        //if (isBaim) SetState(BW_AIM);
-        //else
-        //{
-        //    if (velocity.Length() > 0) SetState(RUN);
-        //    else  SetState(IDLE);
-        //}
+        if (isBaim) SetState(BW_AIM);
+        else
+        {
+            if (velocity.Length() > 0) SetState(RUN);
+            else  SetState(IDLE);
+        }
 
         return;
     }
     else if (isGun)
     {
-        //if (isGaim)
-        //{
-        //    if (velocity.Length() > 0) SetState(RA_FWD);
-        //    else SetState(R_Aim);
-        //}
-        //else
-        //{
-        //    if (velocity.Length() > 0) SetState(R_RUN);
-        //    else SetState(R_IDLE);
-        //}
+        if (isGaim)
+        {
+            if (velocity.Length() > 0) SetState(RA_FWD);
+            else SetState(R_Aim);
+        }
+        else
+        {
+            if (velocity.Length() > 0) SetState(R_RUN);
+            else SetState(R_IDLE);
+        }
         return;
     }
 

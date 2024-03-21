@@ -12,22 +12,22 @@ private:
         J_END,
         J_LOOP,
 
-        //R_IDLE,
-        //R_RUN,
-        //R_Aim,
-        //R_RELOAD,
-        //R_DRAW,
+        R_IDLE,
+        R_RUN,
+        R_Aim,
+        R_RELOAD,
+        R_DRAW,
 
-        //RA_FWD,
+        RA_FWD,
 
-        //BW_AIM,
-        //BW_FIRE,
+        BW_AIM,
+        BW_FIRE,
 
-        //M_MINING,
-        //M_ATTACK,
+        M_MINING,
+        M_ATTACK,
 
-        //S_AIM,
-        //S_THROW,
+        S_AIM,
+        S_THROW,
 
         // BW_AIM
 
@@ -55,13 +55,15 @@ private:
     void SetState(ACTION state);
     void Jump(float _ground);
 
+    void Collision();
+
     // 필드 팔 상호작용 함수
     void AttackPal();
     void CatchPal();
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
-    
+
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -141,11 +143,13 @@ private:
 
     bool W_Aiming = false;
     int select = 1;
-   
+
     vector<Model*> weapons;
 
     //player collider
 
+    // 충돌용
     CapsuleCollider* playerCollider;
+    Vector3 playerLastPos;
+    bool isCollision;
 };
-
