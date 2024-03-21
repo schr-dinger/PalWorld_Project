@@ -7,12 +7,13 @@ LandScapeManager::LandScapeManager()
 
 
     trees.reserve(treeN * treeN * 2);
+    trees.reserve(treeN * treeN);
 
-    tree1 = new ModelInstancing("Tree1");
-    PlaceTree(tree1, treeN,terrainF);
+    //tree1 = new ModelInstancing("Tree1");
+    //PlaceTree(tree1, treeN,terrainF,0);
 
     tree2 = new ModelInstancing("Tree2");
-    PlaceTree(tree2, treeN,terrainF);
+    PlaceTree(tree2, treeN,terrainF,0);
 
     rocks.reserve(rockN * rockN);
 
@@ -29,27 +30,27 @@ LandScapeManager::LandScapeManager()
 
     shadow = new Shadow();
     
-    walls[0] = new CapsuleCollider(5.0f,26.0f);
-    walls[0]->Pos() = { 42.3,32.6,332.1 };
-    walls[0]->Rot() = { 0,1.0f * (XM_2PI / 360.0f),90.0f * (XM_2PI / 360.0f) };
+    //walls[0] = new CapsuleCollider(5.0f,26.0f);
+    //walls[0]->Pos() = { 42.3,32.6,332.1 };
+    //walls[0]->Rot() = { 0,1.0f * (XM_2PI / 360.0f),90.0f * (XM_2PI / 360.0f) };
 
-    walls[1] = new CapsuleCollider(15.0f, 50.0f);
-    walls[1]->Pos() = { 126.1f,31.6f,311.0f };
-    walls[1]->Rot() = { 0,22.0f * (XM_2PI / 360.0f),99.9f * (XM_2PI / 360.0f) };
+    //walls[1] = new CapsuleCollider(15.0f, 50.0f);
+    //walls[1]->Pos() = { 126.1f,31.6f,311.0f };
+    //walls[1]->Rot() = { 0,22.0f * (XM_2PI / 360.0f),99.9f * (XM_2PI / 360.0f) };
 
 
-    walls[2] = new CapsuleCollider(15.0f, 70.0f);
-    walls[2]->Pos() = { 192.9f,28.8f,272.4f };
-    walls[2]->Rot() = { 0,39.0f * (XM_2PI / 360.0f),81.0f * (XM_2PI / 360.0f) };
+    //walls[2] = new CapsuleCollider(15.0f, 70.0f);
+    //walls[2]->Pos() = { 192.9f,28.8f,272.4f };
+    //walls[2]->Rot() = { 0,39.0f * (XM_2PI / 360.0f),81.0f * (XM_2PI / 360.0f) };
 
-    walls[0]->SetTag("wall0");
-    walls[1]->SetTag("wall1");
-    walls[2]->SetTag("wall2");
+    //walls[0]->SetTag("wall0");
+    //walls[1]->SetTag("wall1");
+    //walls[2]->SetTag("wall2");
 
 
     MakeObstacle();
 
-    for (Collider* collider : boxes) collider->UpdateWorld();
+    //for (Collider* collider : boxes) collider->UpdateWorld();
 
 }
 
@@ -63,7 +64,7 @@ LandScapeManager::~LandScapeManager()
 
     for (Grass* grass : grasses)delete grass;
 
-    delete tree1;
+    //delete tree1;
     delete tree2;
     delete rock1;
     delete grass1;
@@ -80,7 +81,7 @@ void LandScapeManager::Update()
 {
     for (Tree* tree : trees)
     {
-        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 30.0f)
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 150.0f)
         {
             tree->GetTransform()->SetActive(false);
         }
@@ -91,16 +92,16 @@ void LandScapeManager::Update()
         }
     }
 
-    tree1->Update();
+    //tree1->Update();
     tree2->Update();
     rock1->Update();
     grass1->Update();
     grass2->Update();
 
-    FOR(3)
-    {
-        walls[i]->UpdateWorld();
-    }
+    //FOR(3)
+    //{
+    //    walls[i]->UpdateWorld();
+    //}
 
 
     for (Tree* tree : trees) tree->Update();
@@ -111,22 +112,7 @@ void LandScapeManager::Update()
 
 void LandScapeManager::PreRender()
 {
-    shadow->SetRenderTarget();
-    tree1->SetShader(L"Light/DepthMap.hlsl");
 
-    //tree2->SetShader(L"Light/DepthMap.hlsl");
-
-    //rock1->SetShader(L"Light/DepthMap.hlsl");
-
-    //grass1->SetShader(L"Light/DepthMap.hlsl");
-
-    //grass2->SetShader(L"Light/DepthMap.hlsl");
-
-    tree1->Render();
-    //tree2->Render();
-    //rock1->Render();
-    //grass1->Render();
-    //grass2->Render();
 }
 
 void LandScapeManager::Render()
@@ -138,7 +124,7 @@ void LandScapeManager::Render()
     terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
 
-    tree1->Render();
+    //tree1->Render();
     tree2->Render();
     rock1->Render();
     grass1->Render();
@@ -149,7 +135,7 @@ void LandScapeManager::Render()
     for (Tree* tree : trees) tree->Render();
     for (Rock* rock : rocks) rock->Render();
     for (Grass* grass : grasses) grass->Render();
-    for (Collider* collider : boxes) collider->Render();
+    //for (Collider* collider : boxes) collider->Render();
 
     FOR(3)
     {
@@ -167,7 +153,7 @@ void LandScapeManager::GUIRender()
 
 }
 
-void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain)
+void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain, bool one)
 {
     for (float z = 0; z < size; ++z)
     {
@@ -175,7 +161,7 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
         {
             Transform* transform = tree->Add();
             transform->Rot().x += XM_PIDIV2;
-            transform->Rot().y = x;
+            transform->Rot().y = RANDOM->Float(0.0f, XM_2PI);
 
             transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
@@ -184,14 +170,17 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
             if (terrain->GetHeight(transform->Pos()) < 20.0f)
             {
                 transform->Pos().y = terrain->GetHeight(transform->Pos());
+                Tree* tree = new Tree(transform, one);
+                trees.push_back(tree);
+
             }
             else
             {
                 transform->SetActive(false);
             }
 
-            Tree* tree = new Tree(transform);
-            trees.push_back(tree);
+            //Tree* tree = new Tree(transform,one);
+            //trees.push_back(tree);
         }
     }
 
@@ -205,7 +194,7 @@ void LandScapeManager::PlaceRock(ModelInstancing* tree, int size, Terrain* terra
         {
             Transform* transform = tree->Add();
             transform->Rot().x += XM_PIDIV2;
-            transform->Rot().y = x;
+            transform->Rot().y = RANDOM->Float(0.0f,XM_2PI);
 
             transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
