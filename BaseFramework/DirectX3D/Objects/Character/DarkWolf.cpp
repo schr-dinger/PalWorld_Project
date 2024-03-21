@@ -247,7 +247,14 @@ void DarkWolf::Damage()
 
 //체력에 -
     //curHP -= 200 * DELTA;
-    curHP -= damage * DELTA;
+    if (skillType == 0)
+    {
+        curHP -= damage * DELTA;
+    }
+    else if (skillType == 1)
+    {
+        curHP -= damage;
+    }
 
     palHpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 

@@ -305,7 +305,8 @@ void FieldUI::Update()
 		//SetPalUI();
 	}
 	hpBar  ->Update();
-	hpBar  ->SetAmount(curHp / (float)maxHp);
+	//hpBar  ->SetAmount(curHp / (float)maxHp);
+	hpBar  ->SetAmount(PlayerManager::Get()->GetPlayer()->GetCurHP() / (float)PlayerManager::Get()->GetPlayer()->GetMaxHP());
 	hgyBar ->Update();
 	hgyBar ->SetAmount(curHp / (float)maxHp);
 	hpQuad ->Update();
@@ -403,7 +404,7 @@ void FieldUI::PostRender()
 	// 폰트
 	{
 		// 체력
-		string tmpString = to_string(curHp) + " / " + to_string(maxHp);
+		string tmpString = to_string(PlayerManager::Get()->GetPlayer()->GetCurHP()) + " / " + to_string(PlayerManager::Get()->GetPlayer()->GetMaxHP());
 		//tmpString = "99";
 		Font::Get()->SetStyle("HpUI");
 		Font::Get()->RenderText(tmpString, { HpFontPos.x, HpFontPos.y });

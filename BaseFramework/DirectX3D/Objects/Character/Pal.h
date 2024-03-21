@@ -15,7 +15,7 @@ public:
 	Pal();
 	~Pal();
 	
-	// �ڽĵ� ���� �Լ�
+	//
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void ShadowRender() = 0;
@@ -28,32 +28,33 @@ public:
 	virtual Texture* GetTextureC() = 0;
 	virtual float GetCurHp() = 0;
 
-	// ���� ���� ��� ���⼭ �ֱ�
+	// 
 	virtual void FieldAttack() = 0;
 	virtual void Attack() = 0;
 	virtual void Damage() = 0;
 	//virtual void Die() = 0;
-	// -> ��Ÿ ���...
-	// �ӽ÷� ���� �߰�
+	// -> 
+	// 
 	virtual void Spawn(Vector3 pos) = 0;
-	// ��ȯ
+	// 
 	virtual void Summons(Vector3 pos) = 0;
 
 	string GetModelName() { return modelName; }
 
 	virtual ModelAnimatorInstancing* GetInstancing() = 0;
 	Quad* GetEmote() { return emote; }
-public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� �ְ�) ���߿� ���Լ� ���� ��
-	// �ڽĵ� ����и� ���⼭
+public:  // 
+	// 
 	string name;
 	string modelName;
 	int level;
 	//ModelAnimatorInstancing* instancing;
 
-	// �� ���� ��ų��, ����ó�� 3��
+	// 
 	Skill* skill[3];
+	int skillType; // 0 스킬 관통, 1 맞으면 스킬 사라짐
 
-	// �� ������
+	// 
 	Texture* icon;
 	Texture* iconC;
 
@@ -63,14 +64,14 @@ public:  // ���߰�(protected, �ڽ��� �ٷ� �� �� ��
 
 	float damage;
 
-	// �� �������� : �� ���Ǿ �¾Ұų�, ��Ÿ ���
+	// 
 	bool isInvincible;
 
 	bool isSpawned = false;
-	// �� UI����
+	// 
 	bool isUIOn;
 	float onUITime;
-	float offUITime = 2.0f; // ������ �ð�
+	float offUITime = 2.0f; // 
 
 	Transform* target;
 

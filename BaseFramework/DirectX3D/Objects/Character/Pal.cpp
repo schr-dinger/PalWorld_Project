@@ -23,7 +23,7 @@ Pal::Pal()
 
 	damage = 0.0f;
 	
-	// �� UI
+	// UI
 	palQuad = new Quad(Vector2(1, 1));
 	palQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 	palQuad->Scale() = { 110.0f, 30.0f, 0.0f };
