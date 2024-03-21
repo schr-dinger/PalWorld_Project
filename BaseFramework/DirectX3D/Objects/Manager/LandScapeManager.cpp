@@ -146,7 +146,7 @@ void LandScapeManager::Render()
 
     blendState[1]->SetState();
     rasterizer[1]->SetState();
-    tree1->Render();
+    //tree1->Render();
     tree2->Render();
     rock1->Render();
     grass1->Render();

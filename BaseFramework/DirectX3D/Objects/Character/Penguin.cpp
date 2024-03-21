@@ -3,7 +3,7 @@
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
     : transform(transform),instancing(instancing), index(index)
 {
-    name = "��Ű";
+    name = "펭키";
     modelName = "PenGuin";
     level = 1;
     speed = 5; //�ӷ� : �⺻ ����

@@ -406,18 +406,18 @@ void BaseScene1::RenderShadowModel()
 	blendState[1]->SetState();
 	rasterizer[1]->SetState();
 
-	// 나무1
-	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
-	{
-		if (tree1->Active())
-		{
-			treeS1->Pos() = tree1->GlobalPos();
-			treeS1->Rot() = tree1->Rot();
-			treeS1->UpdateWorld();
-			treeS1->Render();
-		}
-		
-	}
+	//// 나무1
+	//for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
+	//{
+	//	if (tree1->Active())
+	//	{
+	//		treeS1->Pos() = tree1->GlobalPos();
+	//		treeS1->Rot() = tree1->Rot();
+	//		treeS1->UpdateWorld();
+	//		treeS1->Render();
+	//	}
+	//	
+	//}
 	// 나무2
 	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
 	{
