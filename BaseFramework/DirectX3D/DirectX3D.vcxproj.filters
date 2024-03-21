@@ -66,7 +66,6 @@
     <ClCompile Include="Objects\Landscape\QuadTreeTerrain.cpp" />
     <ClCompile Include="Framework\Environment\Reflection.cpp" />
     <ClCompile Include="Framework\Environment\Refraction.cpp" />
-    <ClCompile Include="Objects\Character\Penguin.cpp" />
     <ClCompile Include="Scenes\StudyScene\QuadTreeScene.cpp" />
     <ClCompile Include="Scenes\StudyScene\ParticleConfigScene.cpp" />
     <ClCompile Include="Scenes\StudyScene\HumanScene.cpp" />
@@ -191,6 +190,7 @@
     <ClCompile Include="Objects\UI\WorkSlot.cpp" />
     <ClCompile Include="Objects\Items\Consumable.cpp" />
     <ClCompile Include="Objects\Skill\IceSpear.cpp" />
+    <ClCompile Include="Objects\Character\Penguin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -374,6 +374,5 @@
   <ItemGroup>
     <None Include="Shaders\PixelHeader.hlsli" />
     <None Include="Shaders\VertexHeader.hlsli" />
-    <None Include=".editorconfig" />
   </ItemGroup>
 </Project>

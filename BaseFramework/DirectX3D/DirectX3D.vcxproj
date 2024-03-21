@@ -313,6 +313,7 @@
     <ClInclude Include="Objects\UI\WorkSlot.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Character\Penguin.cpp" />
     <ClCompile Include="Objects\Skill\IceSpear.cpp" />
     <ClCompile Include="Objects\Items\Consumable.cpp" />
     <ClCompile Include="Objects\UI\ItemClickQuad.cpp" />
@@ -358,7 +359,6 @@
     <ClCompile Include="Objects\Landscape\QuadTreeTerrain.cpp" />
     <ClCompile Include="Framework\Environment\Reflection.cpp" />
     <ClCompile Include="Framework\Environment\Refraction.cpp" />
-    <ClCompile Include="Objects\Character\Penguin.cpp" />
     <ClCompile Include="Scenes\StudyScene\QuadTreeScene.cpp" />
     <ClCompile Include="Scenes\StudyScene\ParticleConfigScene.cpp" />
     <ClCompile Include="Scenes\StudyScene\HumanScene.cpp" />
@@ -673,7 +673,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".editorconfig" />
     <None Include="Shaders\PixelHeader.hlsli" />
     <None Include="Shaders\VertexHeader.hlsli" />
   </ItemGroup>

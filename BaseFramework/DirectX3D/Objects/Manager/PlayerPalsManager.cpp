@@ -438,6 +438,11 @@ void PlayerPalsManager::Collision()
                     if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
                     {
                         FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                        pal->skillType = 1;
+                    }
+                    else
+                    {
+                        pal->skillType = 0;
                     }
                     //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                     pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();

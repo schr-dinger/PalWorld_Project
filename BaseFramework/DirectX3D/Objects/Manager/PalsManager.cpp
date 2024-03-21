@@ -344,6 +344,12 @@ void PalsManager::Collision()
                 if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "얼음창")
                 {
                     MyPalSkillManager::Get()->GetPlayerSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                    pal->skillType = 1;
+
+                }
+                else
+                {
+                    pal->skillType = 0;
                 }
                 //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                 pal->damage = MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetDamage();
@@ -356,7 +362,8 @@ void PalsManager::Collision()
     if (testIsHit) // 맞았으면 활성
     {
         // 맞기
-        pals[hitPalIndex]->damage = 600;
+        pals[hitPalIndex]->skillType = 1;
+        pals[hitPalIndex]->damage = 20;
         pals[hitPalIndex]->Damage();
         testIsHit = false;
     }

@@ -78,6 +78,9 @@ public:
 
     void SetModel(int num, Model* model) { weapons[num] = model; }
     // Model* GetModel() { return weapon; }
+
+    int GetCurHP() { return curHP; }
+    int GetMaxHP() { return maxHP; }
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -112,6 +115,10 @@ private:
 
     bool test = true;
     bool UiOn = false;
+
+    int curHP = 500;
+    int maxHP = 500;
+
 
 
     // 테스트 : 팰 스피어 던지기 관련

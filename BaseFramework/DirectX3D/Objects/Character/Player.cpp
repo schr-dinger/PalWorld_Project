@@ -62,7 +62,7 @@ Player::Player() : ModelAnimator("NPC")
 
     PlayClip(0);
 
-    // í…ŒìŠ¤íŠ¸ í¬íš
+    // Å×½ºÆ® Æ÷È¹
     testPalSpear = new SphereCollider(0.2f);
     testPalSpear->SetActive(false);
 
@@ -81,11 +81,11 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearThrow->SetActive(false);
     summonPalSpearCollider = new SphereCollider();
     summonPalSpearCollider->SetParent(summonPalSpear);
-    summonPalSpearCollider->Scale() = { 7, 7, 7 }; //í¬ê¸° ê¸°ë³¸ê°’ì€ 1.0
-    summonPalSpearCollider->Pos() = {};            //ìœ„ì¹˜ ê¸°ë³¸ê°’ : ë¶€ëª¨ ìœ„ì¹˜
+    summonPalSpearCollider->Scale() = { 7, 7, 7 }; //Å©±â ±âº»°ªÀº 1.0
+    summonPalSpearCollider->Pos() = {};            //À§Ä¡ ±âº»°ª : ºÎ¸ð À§Ä¡
     summonPalSpearDIr = {};
 
-    // ï¿½×½ï¿½Æ® : ï¿½ï¿½
+    // ???? : ??
     particle = new ParticleSystem("TextData/Particles/Star.fx");
 
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
@@ -121,7 +121,7 @@ Player::~Player()
 
 void Player::Update()
 {
-    //if (!isCollision) // í…ŒìŠ¤íŠ¸
+    //if (!isCollision) // Å×½ºÆ®
     //{
     //    playerLastPos = ModelAnimator::GlobalPos();
     //}
@@ -181,7 +181,7 @@ void Player::Update()
     particle->Update();
     playerCollider->UpdateWorld();
 
-    // íŒ° ìŠ¤í”¼ì–´ ë˜ì§€ê¸° ê´€ë ¨
+    // ÆÓ ½ºÇÇ¾î ´øÁö±â °ü·Ã
     ThrowPalSpear();
     summonPalSpear->UpdateWorld();
     summonPalSpearThrow->UpdateWorld();
@@ -244,7 +244,7 @@ void Player::Control()
 {
     Move();
 
-    // ï¿½×½ï¿½Æ® : ï¿½ï¿½ ï¿½ï¿½È¹, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È½ï¿½ï¿½Ç¾ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ È°ï¿½ï¿½È­
+    // ???? : ?? ???, ???? ?????? ???? ?????? ?????? ????
     testPalSpear->SetActive(false);
 
     if (KEY_PRESS(VK_LSHIFT))
@@ -329,7 +329,7 @@ void Player::Control()
             {
             case 1:
                 isGaim = true;
-                if (KEY_DOWN(VK_LBUTTON)) // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                if (KEY_DOWN(VK_LBUTTON)) // ?? ????
                 {
                     AttackPal();
                 }
@@ -449,7 +449,7 @@ void Player::Move()
 
 
         if (!isMoveZ)
-            velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            velocity.z = Lerp(velocity.z, 0, deceleration * DELTA); //???????? ????
 
         if (!isMoveX)
             velocity.x = Lerp(velocity.x, 0, deceleration * DELTA);
@@ -519,7 +519,7 @@ void Player::Move()
         velocity = w + a + s + d;
         velocity.Normalize();
 
-        //ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½Ãºï¿½ï¿½ï¿½
+        //???????? ??u???
         Vector3 forward = Forward();
         Vector3 cross = Cross(forward, velocity);
 
@@ -580,9 +580,38 @@ void Player::Jump(float _ground)
 
 void Player::Collision()
 {
-    //isCollision = false; // ë¼ìž„ ë°©ì§€, ì¶©ëŒí•˜ë©´ ë¼ìŠ¤íŠ¸ í¬ìŠ¤ ê°±ì‹ ì•ˆí•¨
+    //isCollision = false; // ³¢ÀÓ ¹æÁö, Ãæµ¹ÇÏ¸é ¶ó½ºÆ® Æ÷½º °»½Å¾ÈÇÔ
 
-    // í•„ë“œ íŒ° ì¶©ëŒì‹œ
+    // ÇÊµå ½ºÅ³¿¡ ¸ÂÀ¸¸é
+    if (FieldPalSkillManager::Get()->GetFieldSkills().size() != 0)
+    {
+        for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
+        {
+            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(playerCollider))
+                // ½ºÅ³ÀÌ ¸Å°³º¯¼ö 'collider'¿¡ Ãæµ¹Çß´Ù¸é
+            {
+                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "¾óÀ½Ã¢")
+                {
+                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+                    curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+
+                }
+                else
+                {
+                    curHP -= DELTA * FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+                }
+                //skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
+                if (curHP < 0)
+                {
+                    curHP = 0;
+                }
+                return;
+            }
+        }
+    }
+    
+
+    // ÇÊµå ÆÓ Ãæµ¹½Ã
     for (Pal* pal : PalsManager::Get()->GetPalsVector())
     {
         if (playerCollider->IsCollision(pal->GetCollider()))
@@ -604,7 +633,7 @@ void Player::Collision()
             //isCollision = true;
         }
     }
-    // ìž¥ì• ë¬¼
+    // Àå¾Ö¹°
     for (Collider* obs : LandScapeManager::Get()->GetObstacles())
     {
         if (playerCollider->IsCollision(obs) && obs->Active())
@@ -628,7 +657,7 @@ void Player::Collision()
     }
 
 
-    // ë‚˜ë¬´
+    // ³ª¹«
     //for (Tree* tree : LandScapeManager::Get()->GetTrees())
     //{
     //    if (playerCollider->IsCollision(tree->GetCollider()) && tree->GetTransform()->Active())
@@ -651,7 +680,7 @@ void Player::Collision()
     //
     //    }
     //}
-    //// ëŒ
+    //// µ¹
     //for (Rock* rock : LandScapeManager::Get()->GetRocks())
     //{
     //    if (playerCollider->IsCollision(rock->GetCollider()))
@@ -677,7 +706,7 @@ void Player::Collision()
 
 void Player::AttackPal()
 {
-    // *ï¿½Ñ¼Ò¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
+    // *???? ??? ???
     //Ray ray;
     //ray.pos = GlobalPos();
     //ray.dir = CamTransform->Forward();
@@ -705,10 +734,10 @@ void Player::AttackPal()
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
-        // ï¿½Â½ï¿½Æ® : ï¿½ï¿½Æ®
+        // ?¨ö?? : ???
 
-        // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ê¿ï¿½
-        // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        // ?¡À???? ?? ?¢¥? ????? ?? ??? ???
+        // ??????? ??? ????????? ???
         particle->Play(hitPoint);
 
 
@@ -734,10 +763,10 @@ void Player::CatchPal()
     //ray.dir = CAM->Forward();
     //Vector3 hitPoint;
 
-    // ï¿½ç½ºï¿½Ç¾ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®
+    // ????? ????? ????
     Vector3 tmpF = CAM->Forward();
     tmpF.y = 0.0f;
-    tmpF = tmpF.GetNormalized(); // ì•žì—ì„œ
+    tmpF = tmpF.GetNormalized(); // ¾Õ¿¡¼­
     Vector3 tmp = CAM->GlobalPos() + CAM->Left() * 0.4f + tmpF * 1.5f + Vector3(0.0f, 1.0f, 0.0f) * 0.2f;
     //tmp.x -= 0.3f;
     //tmp.y += 1.7f;
