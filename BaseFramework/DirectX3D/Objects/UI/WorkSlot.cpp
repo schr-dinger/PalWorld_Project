@@ -72,7 +72,7 @@ void WorkSlot::Update()
 	if (CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	else
 	{
-		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
+		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
 
 	}
 

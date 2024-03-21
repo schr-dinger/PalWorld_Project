@@ -103,8 +103,8 @@ bool WorkInFo::IsMakeOk(int P_Count)
 	}
 
 
-	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
-	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest3.png");
+	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
+	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass50.png");
 
 	return false;
 }
