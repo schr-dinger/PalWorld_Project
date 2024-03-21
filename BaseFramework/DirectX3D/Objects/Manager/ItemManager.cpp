@@ -8,10 +8,18 @@ ItemManager::ItemManager()
 	invEquip.resize(4);
 	
 
-	Item* test = new Equipment(1);
+	Item* test = new Ingredient(1);
+	Item* test2 = new Ingredient(2);
+	Item* test3 = new Equipment(1);
+	Item* test4 = new Ingredient(2);
 
-	weapons.push_back(test);
 
+	Mining(test);
+	Mining(test2);
+	Mining(test3);
+	Mining(test4);
+	Mining(test4);
+	// weapons.push_back(test);
 }
 
 ItemManager::~ItemManager()
@@ -153,7 +161,7 @@ void ItemManager::MakeItem(int EquipNum)
 		break;
 	}
 	
-	Mining(test);
+	StructureManager::Get()->GetBench()->SetItem(test);
 
 
 }

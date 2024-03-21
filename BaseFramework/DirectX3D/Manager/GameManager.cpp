@@ -35,7 +35,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
-    //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
+    SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
     //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
@@ -50,7 +50,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("QuadTree", new QuadTreeScene());
     //SceneManager::Get()->Create("LOD", new TerrainLODScene());
     //SceneManager::Get()->Create("WaterScene", new WaterScene());
-    SceneManager::Get()->Create("NewScene", new BaseScene1());
+    //SceneManager::Get()->Create("NewScene", new BaseScene1());
 
 
     SceneManager::Get()->Add("Grid");
@@ -62,7 +62,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
     //SceneManager::Get()->Add("ParticleConfig");
-    //SceneManager::Get()->Add("ModelRender");
+    SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("ShadowScene");
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");
@@ -72,7 +72,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("QuadTree");
     //SceneManager::Get()->Add("LOD");
     //SceneManager::Get()->Add("WaterScene");
-    SceneManager::Get()->Add("NewScene");
+    //SceneManager::Get()->Add("NewScene");
 
    
 

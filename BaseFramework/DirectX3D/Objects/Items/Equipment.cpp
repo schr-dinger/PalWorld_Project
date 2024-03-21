@@ -17,17 +17,17 @@ Equipment::Equipment(int num)
 		test->Rot().x += XM_PIDIV2;
 		test->Rot().y -= 0.02f;
 
+		MakeTime = 100;
 		break;
 	case 2:
 		test = new Model("Rifle");
 		icon = Texture::Add(L"Textures/UI/Inv/T_Bow.png");
 
 		test->Rot().x -= XM_PIDIV4 + XM_PIDIV4 - (XM_PIDIV4 * 10 / XM_PIDIV4);
-			test->Rot().y += XM_PIDIV4;
-
+		test->Rot().y += XM_PIDIV4;
 		//name = "Ȱ";
-
-		test->Rot().x -= XM_PIDIV2;
+		
+		MakeTime = 100;
 		break;
 	case 3:
 		test = new Model("PickExe");
@@ -36,9 +36,11 @@ Equipment::Equipment(int num)
 		test->Rot().x += XM_PIDIV2;
 		test->Rot().y -= XM_PIDIV4 + XM_PIDIV2;
 		//test->Rot().x -= XM_PIDIV2;
+		MakeTime = 100;
 		break;
 	default:
 
+		MakeTime = 100;
 		break;
 	}
 

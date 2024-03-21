@@ -86,7 +86,7 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // �׽�Ʈ : ��
-    particle = new Sprite(L"Textures/Effect/T_Thunder01.png", 5, 25, 4, 1, true);
+    particle = new ParticleSystem("TextData/Particles/test2.fx");
 
     //GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     //GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
@@ -183,7 +183,7 @@ void Player::Update()
 
     testFrontSphere->UpdateWorld();
 
-    particle->Update();
+    
     playerCollider->UpdateWorld();
     if(MiningCollider->Active()) MiningCollider->UpdateWorld();
 
@@ -203,7 +203,7 @@ void Player::Render()
     PalSpearManager::Get()->Render();
 
     //
-    particle->Render();
+    
     playerCollider->Render();
 
     summonPalSpear->Render();
@@ -217,6 +217,8 @@ void Player::Render()
 
     }
     if (MiningCollider->Active()) MiningCollider->Render();
+
+
 }
 
 void Player::ShadowRender()
@@ -550,11 +552,11 @@ void Player::Move()
         Vector3 cross = Cross(forward, velocity);
                
 
-        if (cross.y < -0.3f)
+        if (cross.y < -0.2f)
         {
             Rot().y += 5.0f * DELTA;
         }
-        else if (cross.y > 0.3f)
+        else if (cross.y > 0.2f)
         {
             Rot().y -= 5.0f * DELTA;
         }
@@ -652,7 +654,7 @@ void Player::AttackPal()
 
     if (PalsManager::Get()->IsCollision(ray, hitPoint))
     {
-        // �½�Ʈ : ��Ʈ
+        // �½�Ʈ : ��Ʈr
 
         // �÷��̾ �� �´� ����Ʈ �� �߰� �ʿ�
         // ����Ʈ�� ��Ʈ ����Ʈ���� ���

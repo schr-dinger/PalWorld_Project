@@ -102,6 +102,7 @@ void UiManager::GuiRender()
 	//if (palBoxUiOn)	palBoxUi->GuiRender();
 	//if (buildUiOn)	buildUi->GuiRender();
 	if (partyUiOn) partyUi->GuiRender();
+	WorkBenUI->GUIRender();
 }
 
 void UiManager::ControlOn()

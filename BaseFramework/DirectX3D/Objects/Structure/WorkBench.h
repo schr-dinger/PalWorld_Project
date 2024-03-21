@@ -16,6 +16,7 @@ public:
 	void Place(float x, float z);
 
 	void Interaction();
+	void SetItem(Item* item);
 
 private:
 	Model* building;
@@ -44,11 +45,10 @@ private:
 
 	bool testTime = false;
 	float time = 1;
-	float testComplete = 100;
+	float CompleteTime = 20;
 
-	Vector3 testPos;
-
-	// Item* ÇÏ³ª
+	Vector3 gaugePos;
+	Item* WorkItem;
 
 
 };

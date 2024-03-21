@@ -49,7 +49,6 @@ void WorkBenchUI::Update()
 	{
 		if (test[i]->CheckItem() && test[i]->MouseCollision() && KEY_DOWN('J'))
 		{
-			// 다른 곳으로 추가?
 			test[i]->MakeItem();
 		}
 		test[i]->Update();
@@ -95,6 +94,13 @@ void WorkBenchUI::PostRender()
 
 void WorkBenchUI::GUIRender()
 {
+
+
+	FOR(5)
+	{
+		test[i]->GUIRender();
+	}
+
 }
 
 

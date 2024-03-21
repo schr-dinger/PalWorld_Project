@@ -158,7 +158,7 @@ void Camera::FreeMode()
     prevMousePos = mousePos;
 
     if (KEY_PRESS(VK_RBUTTON))
-    // if (0)
+    //if (0)
     {
         if (KEY_PRESS('W'))
             Pos() += Forward() * moveSpeed * DELTA;

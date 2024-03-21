@@ -71,8 +71,8 @@ void WorkSlot::Update()
 	if(CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	else
 	{
-		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
-		MakeSlotBase->GetMaterial()->GetData().emissive = { 0.5,0.5,0.5,1 };
+		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
+		MakeSlotBase->GetMaterial()->GetData().emissive = { 0.5,0.5,0.5,0.5f };
 	}
 
 	MakeSlotBase->Update();
@@ -110,6 +110,10 @@ void WorkSlot::PostRender()
 
 void WorkSlot::GUIRender()
 {
+	
+	MakeSlotBase->GUIRender();
+	
+
 }
 
 bool WorkSlot::MouseCollision()

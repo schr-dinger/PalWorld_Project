@@ -20,10 +20,9 @@ public:
 
 private:
 
-
 	Transform* transform;
 	SphereCollider* collider;
-
+	
 
 };
 

@@ -53,6 +53,7 @@ WorkBench::~WorkBench()
 	delete shadow;
 	delete light;
 	delete produceBar;
+	delete WorkItem;
 }
 
 void WorkBench::Update()
@@ -107,7 +108,7 @@ void WorkBench::Update()
 	range->UpdateWorld();
 	mouseHit->UpdateWorld();
 
-	BarUpdate();
+	
 }
 
 void WorkBench::PreRender()
@@ -167,45 +168,24 @@ void WorkBench::GUIRender()
 
 void WorkBench::BarUpdate()
 {
-	
-	
+		
 	// 이 타임은 아이템고유의 제작 시간으로 할지는 생각
-	if (time > testComplete)
+	if (time > CompleteTime)
 	{
 		produceBar->SetActive(false);
 		
-		// 시간 초기화
-		// 아이템 추가
-		return;
+		time = 10;
+		CompleteTime = 20;
+		ItemManager::Get()->Mining(WorkItem);
+		WorkItem = nullptr;
+				
 	}
 	else
 	{
-		
-		// 충돌하고 있을 때 버튼 누르면 시간 넣기 
-		time += 1 * DELTA;
-	}
-
-
-	produceBar->SetAmount(time / testComplete);
-
-
-	testPos = building->Pos() + Vector3(0, 1.8f, 0);
-		
-	if (!CAM->ContainPoint(testPos))
-	{
-		
-		produceBar->SetActive(false);
-		return;
+		time += 10 * DELTA;
 	}
 
 	
-	// 아이템을 가지고 있을때 트루로 
-	if (!produceBar->Active()) produceBar->SetActive(true);
-
-	produceBar->Pos() = CAM->WorldToScreen(testPos);
-
-	produceBar->Scale() = { 0.3f,0.3f,0.3f };
-	produceBar->UpdateWorld();
 }
 
 void WorkBench::Place(float x, float z)
@@ -228,5 +208,43 @@ void WorkBench::Interaction()
 		}
 
 	}
+
+	if (WorkItem != nullptr)
+	{
+
+		if (!CAM->ContainPoint(gaugePos)) produceBar->SetActive(false);
+		else produceBar->SetActive(true);
+		
+		
+		produceBar->SetAmount(time / CompleteTime);
+			
+
+		gaugePos = building->Pos() + Vector3(0, 1.8f, 0);
+		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
+
+		produceBar->Scale() = { 1.0f,0.5f,0.3f };
+		
+		produceBar->UpdateWorld();
+		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))
+		{
+			BarUpdate();
+		}
+		
+
+	}
+
+
+}
+
+void WorkBench::SetItem(Item* item)
+{
+	if (WorkItem == nullptr)
+	{
+		time = 1;
+		WorkItem = item;
+		CompleteTime = WorkItem->MakeTime;
+	}
+	
+
 
 }
