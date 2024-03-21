@@ -42,6 +42,7 @@ public:
     void Load();
 
     void SetEul(float x, float y, float z, float w);
+    void SetEul(DirectX::XMFLOAT4 quaternion);
 
 protected:
     string tag;

@@ -38,7 +38,7 @@ void Transform::UpdateWorld()
     //    world = parent->world;
     
     //globalRotation = XMQuaternionToAxisAngle;
-    SetEul(tempRot.x, tempRot.y, tempRot.z, tempRot.w);
+    SetEul(tempRot);
 }
 
 void Transform::GUIRender()
@@ -161,4 +161,27 @@ void Transform::SetEul(float x, float y, float z, float w)
     float t3 = +2.0f * (w * z + x * y);
     float t4 = +1.0f - 2.0f * (y * y + z * z);
     globalRotation.z = atan2(t3, t4);
+}
+
+void Transform::SetEul(DirectX::XMFLOAT4 quaternion)
+{
+    DirectX::XMVECTOR q = DirectX::XMLoadFloat4(&quaternion);
+
+    // roll (x-axis rotation)
+    float sinr_cosp = +2.0f * (quaternion.w * quaternion.x + quaternion.y * quaternion.z);
+    float cosr_cosp = +1.0f - 2.0f * (quaternion.x * quaternion.x + quaternion.y * quaternion.y);
+    globalRotation.x = std::atan2(sinr_cosp, cosr_cosp);
+
+    // pitch (y-axis rotation)
+    float sinp = +2.0f * (quaternion.w * quaternion.y - quaternion.z * quaternion.x);
+    if (std::abs(sinp) >= 1)
+        globalRotation.y = std::copysign(DirectX::XM_PIDIV2, sinp); // use 90 degrees if out of range
+    else
+        globalRotation.y = std::asin(sinp);
+
+    // yaw (z-axis rotation)
+    float siny_cosp = +2.0f * (quaternion.w * quaternion.z + quaternion.x * quaternion.y);
+    float cosy_cosp = +1.0f - 2.0f * (quaternion.y * quaternion.y + quaternion.z * quaternion.z);
+    globalRotation.z = std::atan2(siny_cosp, cosy_cosp);
+
 }
