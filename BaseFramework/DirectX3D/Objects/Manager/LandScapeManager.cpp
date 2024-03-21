@@ -49,7 +49,7 @@ LandScapeManager::LandScapeManager()
 
     MakeObstacle();
 
-    for (Collider* collider : boxes) collider->UpdateWorld();
+    //for (Collider* collider : boxes) collider->UpdateWorld();
 
 
     FOR(2)
@@ -93,10 +93,10 @@ void LandScapeManager::Update()
     grass1->Update();
     grass2->Update();
 
-    FOR(3)
-    {
-        walls[i]->UpdateWorld();
-    }
+    //FOR(3)
+    //{
+    //    walls[i]->UpdateWorld();
+    //}
 
 
     for (Tree* tree : trees) tree->Update();
@@ -135,11 +135,11 @@ void LandScapeManager::Render()
 
     blendState[1]->SetState();
     rasterizer[1]->SetState();
-    //tree1->Render();
-    //tree2->Render();
-    //rock1->Render();
-    //grass1->Render();
-    //grass2->Render();
+    tree1->Render();
+    tree2->Render();
+    rock1->Render();
+    grass1->Render();
+    grass2->Render();
     blendState[0]->SetState();
     rasterizer[0]->SetState();
 
@@ -183,14 +183,16 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
             if (terrain->GetHeight(transform->Pos()) < 20.0f)
             {
                 transform->Pos().y = terrain->GetHeight(transform->Pos());
+                Tree* tree = new Tree(transform);
+                trees.push_back(tree);
             }
             else
             {
                 transform->SetActive(false);
             }
 
-            Tree* tree = new Tree(transform);
-            trees.push_back(tree);
+            //Tree* tree = new Tree(transform);
+            //trees.push_back(tree);
         }
     }
 

@@ -19,7 +19,7 @@ public:
 
     QuadTreeTerrain* terrain;
 
-    vector<Collider*> GetObstacles() { return obstacles; }
+    vector<Collider*>& GetObstacles() { return obstacles; }
 
     bool CheckPalCollision(Collider* collider,Vector3& pos);
 

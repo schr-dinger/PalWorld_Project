@@ -154,7 +154,7 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	//RenderShadowModel();
+	RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -409,18 +409,26 @@ void BaseScene1::RenderShadowModel()
 	// 나무1
 	for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
 	{
-		treeS1->Pos() = tree1->GlobalPos();
-		treeS1->Rot() = tree1->Rot();
-		treeS1->UpdateWorld();
-		treeS1->Render();
+		if (tree1->Active())
+		{
+			treeS1->Pos() = tree1->GlobalPos();
+			treeS1->Rot() = tree1->Rot();
+			treeS1->UpdateWorld();
+			treeS1->Render();
+		}
+		
 	}
 	// 나무2
 	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
 	{
-		treeS2->Pos() = tree2->GlobalPos();
-		treeS2->Rot() = tree2->Rot();
-		treeS2->UpdateWorld();
-		treeS2->Render();
+		if (tree2->Active())
+		{
+			treeS2->Pos() = tree2->GlobalPos();
+			treeS2->Rot() = tree2->Rot();
+			treeS2->UpdateWorld();
+			treeS2->Render();
+		}
+		
 	}
 	// 돌
 	//for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
