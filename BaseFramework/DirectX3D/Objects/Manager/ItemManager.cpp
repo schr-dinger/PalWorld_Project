@@ -153,7 +153,7 @@ void ItemManager::MakeItem(int EquipNum)
 		break;
 	}
 
-	Mining(test);
+	StructureManager::Get()->GetWorkBench()->SetItem(test);
 
 
 }

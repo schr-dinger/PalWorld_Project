@@ -68,7 +68,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("ShadowScene");
     //SceneManager::Get()->Add("Dijkstra");
     //SceneManager::Get()->Add("AStar");
-    SceneManager::Get()->Add("Particle");
+    //SceneManager::Get()->Add("Particle");
     //SceneManager::Get()->Add("ParticleConfig");
     //SceneManager::Get()->Add("HumanScene");
     //SceneManager::Get()->Add("QuadTree");

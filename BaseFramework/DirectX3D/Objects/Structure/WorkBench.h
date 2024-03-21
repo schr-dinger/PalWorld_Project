@@ -18,6 +18,13 @@ public:
 	Transform* GetBuilding() { return building; }
 	bool PalWorkCheck();
 
+	//
+	void SetCount(int count) { Count = count; }
+	void SetItem(Item* item);
+	Item* GetItem() { return WorkItem; }
+	void BarUpdate();
+
+
 private:
 	Model* building;
 	Model* finished;
@@ -40,5 +47,12 @@ private:
 
 	bool isPlaced = false;
 
+	float time = 1;
+	float CompleteTime = 20;
+	int Count = 0;
+
+	Vector3 gaugePos;
+	Item* WorkItem;
+	ProgressBar* produceBar;
 };
 

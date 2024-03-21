@@ -15,12 +15,13 @@ public:
 	bool MouseCollision();
 	bool CheckItem();
 
-	void MakeItem();
+	void MakeItem(int Count = 1);
+	void SetCount(int count) { Count = count; }
 
 	Quad* GetQuad() { return MakeSlot; }
 	Quad* GetBase() { return MakeSlotBase; }
 
-	int GetNum() { return test; }
+	int GetNum() { return NUM; }
 
 private:
 
@@ -30,8 +31,8 @@ private:
 
 	vector<WorkInFo*> matter;
 
-	int test;
-
+	int NUM;
+	int Count = 1;
 
 
 
