@@ -16,7 +16,11 @@ public:
 	void Place(float x, float z);
 
 	void Interaction();
+	
+	void SetCount(int count) { Count = count; }
 	void SetItem(Item* item);
+	Item* GetItem() { return WorkItem; }
+
 
 private:
 	Model* building;
@@ -46,6 +50,7 @@ private:
 	bool testTime = false;
 	float time = 1;
 	float CompleteTime = 20;
+	int Count = 0;
 
 	Vector3 gaugePos;
 	Item* WorkItem;

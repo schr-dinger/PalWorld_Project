@@ -8,11 +8,11 @@ public:
 	~WorkInFo();
 
 	void Update();
-	void Render();
+	void Render(int P_Count = 1);
 	void PostRender();
 	void GUIRender();
 			 
-	bool IsMakeOk();
+	bool IsMakeOk(int P_Count = 1);
 	
 	void SetPos(Vector3 Pos) { InFoPos = Pos; }
 

@@ -34,12 +34,12 @@ WorkBench::WorkBench()
 	mouseHit = new SphereCollider(2.5f);
 
 	produceBar = new ProgressBar(
-		L"Textures/UI/hp_bar.png",
+		L"Textures/UI/gauge_bar.png",
 		L"Textures/UI/hp_bar_BG.png"
 	);
 
 
-
+	WorkItem = nullptr;
 }
 
 WorkBench::~WorkBench()
@@ -176,7 +176,11 @@ void WorkBench::BarUpdate()
 		
 		time = 10;
 		CompleteTime = 20;
-		ItemManager::Get()->Mining(WorkItem);
+
+		FOR(Count)
+		{
+			ItemManager::Get()->Mining(WorkItem);
+		}
 		WorkItem = nullptr;
 				
 	}

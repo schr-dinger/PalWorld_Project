@@ -4,17 +4,17 @@
 IronSpike::IronSpike()
 {
 
-
 	name = "스파이크";
 	damage = 50;
 	startPos = Vector3();
-
 
 	FOR(3)
 	{
 		Spike[i] = new Model("Spike");
 		Spike[i]->Rot().x += XM_PIDIV2;
 		Spike[i]->Scale() *= 10.0f;
+
+		particle[i] = new ParticleSystem("TextData/Particles/test2.fx");
 
 	}
 
@@ -26,19 +26,19 @@ IronSpike::~IronSpike()
 	FOR(3)
 	{
 		delete Spike[i];
-		
+		delete particle[i];
 	}
 
 }
 
 void IronSpike::Update()
 {
-	if (!Spike[0]->Active()) return;
+	if (!Spike[2]->Active()) return;
 
 	
 	FOR(3)
 	{
-
+		
 
 		if (time > Life_Time)
 		{
@@ -48,8 +48,20 @@ void IronSpike::Update()
 
 		if (pal)
 		{
-			if (Spike[i]->Pos().y < 10)  Spike[i]->Pos().y += (i + 10) * DELTA;
+			if (Start)
+			{
+				particle[i]->Play(pal->GetTransform()->GlobalPos() + Vector3(0, -10, (i + 1) * 5));
+				danger += 3 * DELTA;
 
+			}
+			if (danger > 5)
+			{
+				if (Spike[i]->Pos().y < pal->GetTransform()->GlobalPos().y + 10)  Spike[i]->Pos().y += (i + 10) * DELTA;
+				Start = false;
+			}
+
+
+			
 			time += 1 * DELTA;
 
 		}
@@ -61,7 +73,7 @@ void IronSpike::Update()
 
 
 		}
-		
+		particle[i]->Update();
 		Spike[i]->UpdateWorld();
 	}
 
@@ -75,10 +87,11 @@ void IronSpike::Update()
 
 void IronSpike::Render()
 {
-	if (!Spike[0]->Active()) return;
+	if (!Spike[2]->Active()) return;
 
 	FOR(3)
 	{
+		particle[i]->Render();
 		Spike[i]->Render();
 
 	}
@@ -118,6 +131,8 @@ void IronSpike::SetSkill()
 {
 	if (pal)
 	{
+		Start = true;
+		danger = 0;
 		FOR(3)
 		{
 			Spike[i]->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -10, (i + 1) * 5);
@@ -140,7 +155,5 @@ void IronSpike::SetSkill()
 
 
 
-
-
-
 }
+

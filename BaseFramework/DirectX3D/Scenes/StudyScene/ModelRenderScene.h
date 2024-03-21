@@ -16,4 +16,7 @@ private:
     Model* Spike[3];
 
     Quad* test;
+
+    ParticleSystem* particle[3];
+
 };

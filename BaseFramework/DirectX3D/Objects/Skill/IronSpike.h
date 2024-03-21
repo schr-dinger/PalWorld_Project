@@ -20,15 +20,18 @@ public:
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;
 
+	
 private:
 
 	Vector3 startPos;
 	Vector3 dir;
 
 	Model* Spike[3];
+	ParticleSystem* particle[3];
 
-	float time;
-
+	float time = 0;
+	float danger = 0;
+	bool Start = false;
 
 };
 
