@@ -330,17 +330,33 @@ void PalsManager::Collision()
 
             return; //팔스피어(포획)에 맞았여기서 리턴
         }
-        else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
+        //else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
+        //{
+        //    pal->Damage();
+        //    return;
+        //}
+        if (MyPalSkillManager::Get()->GetPlayerSkills().size() == 0) continue;
+        for (int i = 0; i < MyPalSkillManager::Get()->GetPlayerSkills().size(); i++)
         {
-            pal->Damage();
-            return;
+            if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
+                // 스킬이 매개변수 'collider'에 충돌했다면
+            {
+                if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "얼음창")
+                {
+                    MyPalSkillManager::Get()->GetPlayerSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                }
+                //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                pal->damage = MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetDamage();
+                pal->Damage();
+                return;
+            }
         }
-
     }
 
     if (testIsHit) // 맞았으면 활성
     {
         // 맞기
+        pals[hitPalIndex]->damage = 600;
         pals[hitPalIndex]->Damage();
         testIsHit = false;
     }

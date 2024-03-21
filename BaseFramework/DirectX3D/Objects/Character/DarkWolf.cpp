@@ -222,7 +222,9 @@ void DarkWolf::Damage()
 //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
 
 //체력에 -
-    curHP -= 200 * DELTA;
+    //curHP -= 200 * DELTA;
+    curHP -= damage * DELTA;
+
     palHpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 
     // 체력이 완전히 바닥나면

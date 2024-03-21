@@ -604,18 +604,18 @@ void Player::Collision()
             //isCollision = true;
         }
     }
-    // 나무
-    for (Tree* tree : LandScapeManager::Get()->GetTrees())
+    // 장애물
+    for (Collider* obs : LandScapeManager::Get()->GetObstacles())
     {
-        if (playerCollider->IsCollision(tree->GetCollider()))
+        if (playerCollider->IsCollision(obs))
         {
-            Vector3 nol = GlobalPos() - tree->GetTransform()->GlobalPos();
+            Vector3 nol = GlobalPos() - obs->GlobalPos();
             nol.y = 0;
             nol = nol.GetNormalized();
             Vector3 dir = GlobalPos() - playerLastPos;
             dir.y = 0;
             Vector3 tmpV1 = dir;
-            Vector3 tmpV2 = tree->GetTransform()->GlobalPos() - GlobalPos();
+            Vector3 tmpV2 = obs->GlobalPos() - GlobalPos();
             tmpV2.y = 0;
             if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
             Vector3 mDir = dir * -1;
@@ -624,31 +624,55 @@ void Player::Collision()
             ModelAnimator::Pos() = playerLastPos + fDir;
             ModelAnimator::UpdateWorld();
             //isCollision = true;
+        }
+    }
 
-        }
-    }
-    // 돌
-    for (Rock* rock : LandScapeManager::Get()->GetRocks())
-    {
-        if (playerCollider->IsCollision(rock->GetCollider()))
-        {
-            Vector3 nol = GlobalPos() - rock->GetTransform()->GlobalPos();
-            nol.y = 0;
-            nol = nol.GetNormalized();
-            Vector3 dir = GlobalPos() - playerLastPos;
-            dir.y = 0;
-            Vector3 tmpV1 = dir;
-            Vector3 tmpV2 = rock->GetTransform()->GlobalPos() - GlobalPos();
-            tmpV2.y = 0;
-            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
-            Vector3 mDir = dir * -1;
-            Vector3 tmp = nol * Dot(mDir, nol);
-            Vector3 fDir = dir + tmp;
-            ModelAnimator::Pos() = playerLastPos + fDir;
-            ModelAnimator::UpdateWorld();
-            //isCollision = true;
-        }
-    }
+
+    // 나무
+    //for (Tree* tree : LandScapeManager::Get()->GetTrees())
+    //{
+    //    if (playerCollider->IsCollision(tree->GetCollider()))
+    //    {
+    //        Vector3 nol = GlobalPos() - tree->GetTransform()->GlobalPos();
+    //        nol.y = 0;
+    //        nol = nol.GetNormalized();
+    //        Vector3 dir = GlobalPos() - playerLastPos;
+    //        dir.y = 0;
+    //        Vector3 tmpV1 = dir;
+    //        Vector3 tmpV2 = tree->GetTransform()->GlobalPos() - GlobalPos();
+    //        tmpV2.y = 0;
+    //        if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+    //        Vector3 mDir = dir * -1;
+    //        Vector3 tmp = nol * Dot(mDir, nol);
+    //        Vector3 fDir = dir + tmp;
+    //        ModelAnimator::Pos() = playerLastPos + fDir;
+    //        ModelAnimator::UpdateWorld();
+    //        //isCollision = true;
+    //
+    //    }
+    //}
+    //// 돌
+    //for (Rock* rock : LandScapeManager::Get()->GetRocks())
+    //{
+    //    if (playerCollider->IsCollision(rock->GetCollider()))
+    //    {
+    //        Vector3 nol = GlobalPos() - rock->GetTransform()->GlobalPos();
+    //        nol.y = 0;
+    //        nol = nol.GetNormalized();
+    //        Vector3 dir = GlobalPos() - playerLastPos;
+    //        dir.y = 0;
+    //        Vector3 tmpV1 = dir;
+    //        Vector3 tmpV2 = rock->GetTransform()->GlobalPos() - GlobalPos();
+    //        tmpV2.y = 0;
+    //        if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+    //        Vector3 mDir = dir * -1;
+    //        Vector3 tmp = nol * Dot(mDir, nol);
+    //        Vector3 fDir = dir + tmp;
+    //        ModelAnimator::Pos() = playerLastPos + fDir;
+    //        ModelAnimator::UpdateWorld();
+    //        //isCollision = true;
+    //    }
+    //}
 }
 
 void Player::AttackPal()

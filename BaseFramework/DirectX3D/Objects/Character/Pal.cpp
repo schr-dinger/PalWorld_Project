@@ -11,6 +11,7 @@ Pal::Pal()
 	iconC = nullptr;
 	isUIOn = false;
 	onUITime = 0.0f;
+	damage = 0.0f;
 	
 	// ÆÓ UI
 	palQuad = new Quad(Vector2(1, 1));
