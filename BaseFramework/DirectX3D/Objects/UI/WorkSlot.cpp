@@ -72,7 +72,7 @@ void WorkSlot::Update()
 	else
 	{
 		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
-		MakeSlotBase->GetMaterial()->GetData().emissive = { 0.5,0.5,0.5,0.5f };
+		
 	}
 
 	MakeSlotBase->Update();

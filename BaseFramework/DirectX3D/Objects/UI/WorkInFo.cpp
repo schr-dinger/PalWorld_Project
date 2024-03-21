@@ -95,7 +95,7 @@ bool WorkInFo::IsMakeOk()
 	if (ItemManager::Get()->GetItemDV()[NUM].second != 0 &&
 		ItemManager::Get()->GetItemDV()[NUM].second >= Count)
 	{
-		MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
+		MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 		ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 
 		return true;
@@ -103,7 +103,7 @@ bool WorkInFo::IsMakeOk()
 
 
 	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
-	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest2.png");
+	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest3.png");
 
 	return false;
 }

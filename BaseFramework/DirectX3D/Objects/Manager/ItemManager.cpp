@@ -7,12 +7,10 @@ ItemManager::ItemManager()
 	weapons.resize(30);
 	invEquip.resize(4);
 	
-
 	Item* test = new Ingredient(1);
 	Item* test2 = new Ingredient(2);
 	Item* test3 = new Equipment(1);
 	Item* test4 = new Ingredient(2);
-
 
 	Mining(test);
 	Mining(test2);
@@ -42,7 +40,6 @@ ItemManager::~ItemManager()
 			delete item;
 		}
 		pair.second.clear();
-
 	}
 
 }
@@ -54,7 +51,6 @@ void ItemManager::Update()
 	{
 		if (invEquip[i] != nullptr) PlayerManager::Get()->GetPlayer()->SetModel(i, invEquip[i]->GetModel());
 		else PlayerManager::Get()->GetPlayer()->SetModel(i, nullptr);
-
 	}
 
 }
