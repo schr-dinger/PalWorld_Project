@@ -550,6 +550,16 @@ void Player::Move()
         Vector3 cross = Cross(forward, velocity);
                
 
+        if (cross.y < -0.3f)
+        {
+            Rot().y += 5.0f * DELTA;
+        }
+        else if (cross.y > 0.3f)
+        {
+            Rot().y -= 5.0f * DELTA;
+        }
+
+
         if (cross.y < -0.1f)
         {
             Rot().y += 3.0f * DELTA;

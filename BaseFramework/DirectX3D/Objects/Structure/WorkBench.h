@@ -48,5 +48,8 @@ private:
 
 	Vector3 testPos;
 
+	// Item* ÇÏ³ª
+
+
 };
 
