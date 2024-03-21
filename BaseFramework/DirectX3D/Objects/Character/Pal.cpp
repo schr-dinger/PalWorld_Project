@@ -11,9 +11,19 @@ Pal::Pal()
 	iconC = nullptr;
 	isUIOn = false;
 	onUITime = 0.0f;
+	shadowSphere = nullptr;
+
+	emote = new Quad(Vector2(0.5f, 0.5f));
+	emote->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_pal_work_2_1.png");
+
+	FOR(2)
+		blendState[i] = new BlendState();
+	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
+
 	damage = 0.0f;
 	
-	// ÆÓ UI
+	// ï¿½ï¿½ UI
 	palQuad = new Quad(Vector2(1, 1));
 	palQuad->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 	palQuad->Scale() = { 110.0f, 30.0f, 0.0f };

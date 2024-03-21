@@ -17,7 +17,7 @@ Player::Player() : ModelAnimator("NPC")
     frontPoint->Pos() = { 0,0,-200 };
 
     Hand = new Transform();
-   
+
     /*
     Gun->Scale() *= 0.8f;
     Gun->Pos().y -= 0.05f;
@@ -70,7 +70,7 @@ Player::Player() : ModelAnimator("NPC")
 
     summonPalSpear = new Model("PalSpear");
     summonPalSpear->Scale() = { 0.02f, 0.02f, 0.02f };
-    summonPalSpear->Pos() = {-0.05f, 0.05f, -0.12f};
+    summonPalSpear->Pos() = { -0.05f, 0.05f, -0.12f };
     summonPalSpear->Rot().x = XM_PIDIV2;
     summonPalSpear->SetParent(Hand);
     summonPalSpear->SetActive(false);
@@ -99,7 +99,7 @@ Player::Player() : ModelAnimator("NPC")
     GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
-    playerCollider = new CapsuleCollider(0.25f,1.2f);
+    playerCollider = new CapsuleCollider(0.25f, 1.2f);
     playerLastPos = {};
     isCollision = false;
 
@@ -158,7 +158,7 @@ void Player::Update()
 
 
     //
-    playerCollider->Pos() = this->Pos() + Vector3(0,0.8f,0);
+    playerCollider->Pos() = this->Pos() + Vector3(0, 0.8f, 0);
 
     Hand->SetWorld(GetTransformByNode(68));
     FOR(weapons.size())
@@ -194,7 +194,7 @@ void Player::Render()
 {
     testPalSpear->Render();
     testFrontSphere->Render();
-  
+
     ModelAnimator::Render();
     PalSpearManager::Get()->Render();
 
@@ -276,7 +276,7 @@ void Player::Control()
             select = 3;
         }
     }
-    
+
     if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr)
     {
         switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
@@ -345,7 +345,7 @@ void Player::Control()
                 isBaim = false;
                 break;
             }
-            
+
         }
     }
     else if (KEY_UP(VK_RBUTTON))
@@ -386,7 +386,7 @@ void Player::Control()
         }
 
     }
-           
+
 
     if (KEY_DOWN('R'))
     {
@@ -551,7 +551,7 @@ void Player::Rotate()
     if (isAiming)   Rot().y = CamTransform->Rot().y;
 
 
-    
+
 }
 
 void Player::Jump(float _ground)
@@ -710,12 +710,12 @@ void Player::AttackPal()
         // �÷��̾ �� �´� ����Ʈ �� �߰� �ʿ�
         // ����Ʈ�� ��Ʈ ����Ʈ���� ���
         particle->Play(hitPoint);
-        
+
 
     }
 
 
-   //  BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
+    //  BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
 
 }
 
@@ -778,7 +778,7 @@ void Player::UiMode()
 
 void Player::SetAnimation()
 {
-    
+
     if (curState == J_LOOP)
     {
         ClipOnce();

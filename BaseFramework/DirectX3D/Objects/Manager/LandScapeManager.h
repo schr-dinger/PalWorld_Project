@@ -10,7 +10,7 @@ public:
     void Render();
     void GUIRender();
 
-    void PlaceTree(ModelInstancing* tree,int size,Terrain* terrain);
+    void PlaceTree(ModelInstancing* tree,int size,Terrain* terrain,bool one);
     void PlaceRock(ModelInstancing* tree, int size, Terrain* terrain);
     void PlaceGrass(ModelInstancing* tree, int size, Terrain* terrain);
 
@@ -37,7 +37,7 @@ private:
 private:
     Terrain* terrainF;
 
-    ModelInstancing* tree1;
+    //ModelInstancing* tree1;
     ModelInstancing* tree2;
     ModelInstancing* rock1;
     ModelInstancing* grass1;
@@ -50,19 +50,19 @@ private:
 
     vector<Collider*> obstacles;
 
-    vector<Collider*> boxes;
+    //vector<Collider*> boxes;
 
-    CapsuleCollider* walls[3];
+    //CapsuleCollider* walls[3];
 
     Shadow* shadow;
 
     int treeN = 7;
 
-    int rockN = 3;
+    int rockN = 2;
 
-    int grassN1 = 5;
+    int grassN1 = 3;
 
-    int grassN2 = 30;
+    int grassN2 = 20;
 
 
     float WIDTH = 500;

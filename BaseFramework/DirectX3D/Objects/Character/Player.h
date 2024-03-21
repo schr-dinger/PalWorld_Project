@@ -63,7 +63,7 @@ private:
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
-    
+
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -143,7 +143,7 @@ private:
 
     bool W_Aiming = false;
     int select = 1;
-   
+
     vector<Model*> weapons;
 
     //player collider
@@ -153,4 +153,3 @@ private:
     Vector3 playerLastPos;
     bool isCollision;
 };
-

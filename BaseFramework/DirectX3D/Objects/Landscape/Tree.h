@@ -2,7 +2,7 @@
 class Tree
 {
 public:
-    Tree(Transform* transform);
+    Tree(Transform* transform, bool one);
     ~Tree();
 
     void Update();
@@ -15,6 +15,8 @@ public:
 
     //void Place(ModelInstancing* tree);
     void GetTem(Collider* collider);
+    
+    void SetImpostor();
 
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
@@ -23,6 +25,8 @@ public:
     Item* test2;
     Item* test3;
     Item* test4;
+        
+    bool isDead = false;
 
 private:
     Transform* transform;
@@ -37,6 +41,11 @@ private:
     // Å×½ºÆ®
 
     float Time = 0;
+    Quad* impostor;
+    Vector3 eyeDir;
+    float theta;
 
+    BlendState* blendState[2];
+    bool isOne = true;
 };
 
