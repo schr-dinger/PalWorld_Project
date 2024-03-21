@@ -13,6 +13,9 @@ public:
 private:
 
     Transform* transform;
+    Quad* impostor;
+    Vector3 eyeDir;
+    BlendState* blendState[2];
 
 };
 

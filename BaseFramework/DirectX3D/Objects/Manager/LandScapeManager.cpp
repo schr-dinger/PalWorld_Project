@@ -92,6 +92,19 @@ void LandScapeManager::Update()
         }
     }
 
+    for (Grass* tree : grasses)
+    {
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 150.0f)
+        {
+            tree->GetTransform()->SetActive(false);
+        }
+        else
+        {
+            tree->GetTransform()->SetActive(true);
+
+        }
+    }
+
     //tree1->Update();
     tree2->Update();
     rock1->Update();

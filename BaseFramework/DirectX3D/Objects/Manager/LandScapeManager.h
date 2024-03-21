@@ -51,9 +51,9 @@ private:
 
     int rockN = 2;
 
-    int grassN1 = 2;
+    int grassN1 = 3;
 
-    int grassN2 = 2;
+    int grassN2 = 20;
 
 
     float WIDTH = 500;
