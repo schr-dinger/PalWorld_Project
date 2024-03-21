@@ -76,7 +76,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("WaterScene");
     SceneManager::Get()->Add("NewScene");
 
-    // ÀÎº¥ u ÀåÂø h  ³ª¹«¿¡ ¼­ÀÖÀ¸¸é µå¶ø
+    
 
 
 }
@@ -148,8 +148,8 @@ void GameManager::Create()
         214.0f / 255.0f, 
         181.0f / 255.0f);
 
-    Font::Get()->AddStyle("Default", L"¹è´ÞÀÇ¹ÎÁ· ÁÖ¾Æ");
-    Font::Get()->AddStyle("Default2", L"¹è´ÞÀÇ¹ÎÁ· ÁÖ¾Æ", 20.0f,
+    Font::Get()->AddStyle("Default", L"ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„");
+    Font::Get()->AddStyle("Default2", L"ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", 20.0f,
         DWRITE_FONT_WEIGHT_NORMAL,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
