@@ -137,24 +137,24 @@ void BaseScene1::PreRender()
 {
 	//PalSpearManager::Get()->PreRender();
 
-	water->SetRefraction();
-
-	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
-	skyBox->Render();
-
-	// 반사
-	water->SetReflection();
-	// 반사 출력
-	skyBox->Render();
+	//water->SetRefraction();
+	//
+	//// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
+	//skyBox->Render();
+	//
+	//// 반사
+	//water->SetReflection();
+	//// 반사 출력
+	//skyBox->Render();
 
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	shadow->SetRenderTargetPos(CAM->GlobalPos());
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	RenderShadowModel();
+	//shadow->SetRenderTargetPos(CAM->GlobalPos());
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -174,7 +174,7 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	shadow->SetRender();
+	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();

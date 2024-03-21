@@ -191,6 +191,7 @@
     <ClCompile Include="Objects\UI\WorkSlot.cpp" />
     <ClCompile Include="Objects\Items\Consumable.cpp" />
     <ClCompile Include="Objects\Skill\IceSpear.cpp" />
+    <ClCompile Include="Objects\Skill\IronSpike.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -362,6 +363,7 @@
     <ClInclude Include="Objects\UI\WorkSlot.h" />
     <ClInclude Include="Objects\Items\Consumable.h" />
     <ClInclude Include="Objects\Skill\IceSpear.h" />
+    <ClInclude Include="Objects\Skill\IronSpike.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />
