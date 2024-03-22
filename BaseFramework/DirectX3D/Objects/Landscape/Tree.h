@@ -43,5 +43,7 @@ private:
 
     BlendState* blendState[2];
     bool isOne = true;
+
+    float height = 12.654f;
 };
 

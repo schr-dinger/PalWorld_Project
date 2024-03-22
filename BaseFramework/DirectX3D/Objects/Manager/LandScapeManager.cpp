@@ -90,7 +90,7 @@ void LandScapeManager::Update()
 {
     for (Tree* tree : trees)
     {
-        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 150.0f)
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 50.0f)
         {
             tree->GetTransform()->SetActive(false);
         }
@@ -144,15 +144,16 @@ void LandScapeManager::Render()
     //tree1->SetShader(L"Light/Shadow.hlsl");
     terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
-    blendState[1]->SetState();
-    rasterizer[1]->SetState();
+    //blendState[1]->SetState();
+    //rasterizer[1]->SetState();
     //tree1->Render();
-    //tree2->Render();
-    //rock1->Render();
-    //grass1->Render();
-    //grass2->Render();
+    tree2->Render();
     blendState[0]->SetState();
     rasterizer[0]->SetState();
+
+    rock1->Render();
+    grass1->Render();
+    grass2->Render();
 
     terrain->Render();
 
@@ -175,6 +176,10 @@ void LandScapeManager::GUIRender()
     //    walls[i]->GUIRender();
     //}
 
+    for (Tree* tree : trees)
+    {
+        tree->GUIRender();
+    }
 }
 
 void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain, bool one)
