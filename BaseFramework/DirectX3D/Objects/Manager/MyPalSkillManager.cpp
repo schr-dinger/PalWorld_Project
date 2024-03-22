@@ -35,9 +35,13 @@ bool MyPalSkillManager::IsCollision(Collider* collider)
         if (skill->GetCol()->IsCollision(collider))
             // 스킬이 매개변수 'collider'에 충돌했다면
         {
-            if (skill->GetName() == "얼음창")
+            if (skill->GetName() == "얼음창" )
             {
                 skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            }
+            if (skill->GetName() == "스파이크")
+            {
+                skill->GetCol()->SetActive(false);
             }
             //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
 

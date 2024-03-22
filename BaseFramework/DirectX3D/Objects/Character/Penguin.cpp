@@ -3,53 +3,55 @@
 Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
     : transform(transform),instancing(instancing), index(index)
 {
-    name = "펭키";
+
+    // �� ��� �׽�Ʈ
+    name = "��Ű";
     modelName = "PenGuin";
     level = 1;
-    speed = 5; //�ӷ� : �⺻ ����
+    speed = 5; //
     maxHP = 100;
     curHP = 100;
     isInvincible = false;
 
-    // �θ𿡼� ������ ��ų ����
+    // 
     skill[0] = new Tornado();
-    skill[0]->Setpal(this); // ��ų ���� ��ġ �޾ư��� �Լ�, �� ���� ��ġ����
-    skill[0]->SetSkill();   // ��ų ����(���� ��ġ), 
+    skill[0]->Setpal(this); // 
+    skill[0]->SetSkill();   // 
 
-    // ��ų ���� �Լ��� �ִٸ� �̷���
+    // 
     IceSpear* tmp = new IceSpear();
-    tmp->SetHeight(Vector3(0, 1.8f, 0)); //�� ���� ���̿��� ��ų ����
+    tmp->SetHeight(Vector3(0, 1.8f, 0)); //
     skill[1] = tmp;
-    skill[1]->Setpal(this); // ��ų ���� ��ġ �޾ư��� �Լ�, �� ���� ��ġ����
-    skill[1]->SetSkill();   // ��ų ����(���� ��ġ)
+    skill[1]->Setpal(this); // 
+    skill[1]->SetSkill();   // 
 
-    // ��� ������ �߰�
+    // 
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
 
-    root = new Transform(); // �ݶ��̴��� ��ġ�� ���(��ġ)
+    root = new Transform(); // 
 
-    //�浹ü
-    collider = new CapsuleCollider(35, 20); // ������
+    //
+    collider = new CapsuleCollider(35, 20); // 
     collider->SetParent(root);
     collider->Rot().z = XMConvertToRadians(90.0f);
     collider->Pos() = { 10, 0, 0 };
-    collider->SetActive(true); //�浹ü ���̱� ���� ���� �� �κ� false
+    collider->SetActive(true); //
 
     motion = instancing->GetMotion(index);
-    totalEvent.resize(instancing->GetClipSize()); //���� ���� ���� ���ڸ�ŭ �̺�Ʈ ������¡
+    totalEvent.resize(instancing->GetClipSize()); //
     eventIters.resize(instancing->GetClipSize());
 
-    //�̺�Ʈ ����
+    //
     SetEvent((int)ACTION::ATTACK, bind(&Penguin::EndAttack, this), 1.5f);
     SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.9f);
 
     FOR(totalEvent.size())
     {
-        eventIters[i] = totalEvent[i].begin(); // ��ϵǾ� ���� �̺�Ʈ�� ������������ �ݺ��� ����
+        eventIters[i] = totalEvent[i].begin(); // 
     }
 
-    //ĳ���� UI �߰�
+    //
     tmpN = 0;
 
     velocity = { 0, 0, 0 };
@@ -61,19 +63,22 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
 Penguin::~Penguin()
 {
-    // ��ü ����
+    // 
     delete collider;
     delete root;
 
-    // �ӽ� ����
+    // 
     delete transform;
 }
 
 void Penguin::Update()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
-    //if (!transform->Active()) return;
-
+    //
+    if (!transform->Active())
+    {
+        return;
+    }
+    
     Ray ray;
     ray.dir = CAM->Forward();
     ray.pos = CAM->GlobalPos();
@@ -94,7 +99,7 @@ void Penguin::Update()
 
 
     //ClipSync();
-    //������
+    //
     if (target == nullptr && !isSpawned)
     {
         MoveWithOutTarget();
@@ -108,13 +113,13 @@ void Penguin::Update()
     //if (target && !isSpawned)
     if (target && !isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // �ӷ±��� : ǥ���� �ڽ��� �Ÿ�
-        Move(); //�����̱�
+        velocity = target->GlobalPos() - transform->GlobalPos(); // 
+        Move(); //
     }
 
     if (target && isSpawned)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // �ӷ±��� : ǥ���� �ڽ��� �Ÿ�
+        velocity = target->GlobalPos() - transform->GlobalPos(); //
 
         if (PlayerPalsManager::Get()->GetMode() == PlayerPalsManager::MODE::WORK)
         {
@@ -122,7 +127,7 @@ void Penguin::Update()
         }
         else
         {
-            Move(); //�����̱�
+            Move(); //
         }
     }
 
@@ -135,8 +140,8 @@ void Penguin::Update()
         MoveP();
     }
 
-    ExecuteEvent(); // �̺�Ʈ�� ������ �ϸ� �����ϱ�
-    UpdateUI(); //UI ������Ʈ
+    ExecuteEvent(); //
+    UpdateUI(); //UI 
 
     if (!isSpawned && target)
     {
@@ -147,7 +152,7 @@ void Penguin::Update()
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
     //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
-    collider->UpdateWorld(); //�浹ü ������Ʈ
+    collider->UpdateWorld(); //
 
     //if (KEY_DOWN('Q'))
     //{
@@ -159,7 +164,7 @@ void Penguin::Update()
     //
     //}
 
-    // ��ų �׽�Ʈ
+    // 
     //if (KEY_DOWN('K') && !skill[0]->Active())
     //{
     //    Attack();
@@ -182,7 +187,7 @@ void Penguin::Update()
 
 void Penguin::Render()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active()) return;
     collider->Render();
 
@@ -210,7 +215,7 @@ void Penguin::ShadowRender()
 
 void Penguin::PostRender()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active()) return;
     if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() >= 15.0f) return;
     if (!isUIOn) return;
@@ -246,7 +251,7 @@ void Penguin::PostRender()
 
 void Penguin::GUIRender()
 {
-    //Ȱ��ȭ �ÿ��� ������Ʈ
+    //
     if (!transform->Active()) return;
     ///collider->GUIRender();
     //ImGui::Text("Node : %d", &tmpN);
@@ -257,12 +262,12 @@ void Penguin::GUIRender()
 
 void Penguin::Attack()
 {
-    // ��� ����
+    // ??? ????
     action = ACTION::ATTACK;
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ��ų ��Ƽ��
+    // ??? ?????
     ransSkill = RANDOM->Int(0, 1);
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetSkill();
@@ -273,12 +278,12 @@ void Penguin::Attack()
 
 void Penguin::FieldAttack()
 {
-    // ��� ����
+    // ??? ????
     action = ACTION::ATTACK;
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ��ų ��Ƽ��
+    // ??? ?????
     ransSkill = RANDOM->Int(0, 1);
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetSkill();
@@ -288,27 +293,34 @@ void Penguin::FieldAttack()
 
 void Penguin::Damage()
 {
-    // ������ �Ǵ� ���ǵ�
-    //if (action == ACTION::DAMAGE) return; // �°� ���� �� �� �´´�.
+    // 
+    //if (action == ACTION::DAMAGE) return; // 
 
-    //ü�¿� -
+    //
     //curHP -= 200 * DELTA;
-    curHP -= damage * DELTA;
-    palHpBar->SetAmount(curHP / maxHP); // ü�� ������ ���� ü�¹� ����
+    if (skillType == 0)
+    {
+        curHP -= damage * DELTA;
+    }
+    else if (skillType == 1)
+    {
+        curHP -= damage;
+    }
+    palHpBar->SetAmount(curHP / maxHP); // 
 
-    // ü���� ������ �ٴڳ���
+    // 
     if (curHP <= 0)
     {
-        // �״� ��� ������ ����
+        // 
         //SetAction(ACTION::DIE); 
 
-        // ����� �ٷ� ��Ȱ��ȭ
+        // 
         isDead = true;
         transform->SetActive(false);
-        return;//�� �Լ� ����
+        return;//
     }
 
-    // ���� �� �׾����� �� �κ���� �´� ���� ����
+    // 
     action = ACTION::DAMAGE;
     instancing->PlayClip(index, (int)ACTION::DAMAGE);
     eventIters[(int)ACTION::DAMAGE] = totalEvent[(int)ACTION::DAMAGE].begin();
@@ -316,11 +328,11 @@ void Penguin::Damage()
 
 void Penguin::Spawn(Vector3 pos)
 {
-    transform->SetActive(true); //��Ȱ��ȭ���ٸ� Ȱ��ȭ ����
+    transform->SetActive(true); //
     collider->SetActive(true);
 
-    SetAction(ACTION::IDLE); // ��ȯ ��� �ִٸ� ��ȯ��Ǻ���
-                             // ���⼱ �ٷ� ���̵�
+    SetAction(ACTION::IDLE); // 
+                             // 
 
     curHP = maxHP;
     //hpBar->SetAmount(curHP / maxHP);
@@ -330,7 +342,7 @@ void Penguin::Spawn(Vector3 pos)
 
 void Penguin::Summons(Vector3 pos)
 {
-    transform->SetActive(true); //��Ȱ��ȭ���ٸ� Ȱ��ȭ ����
+    transform->SetActive(true); //
     collider->SetActive(true);
 
     SetAction(ACTION::IDLE); // 
@@ -372,21 +384,21 @@ void Penguin::SetTarget(Transform* target)
 
 void Penguin::SetEvent(int clip, Event event, float timeRatio)
 {
-    if (totalEvent[clip].count(timeRatio) > 0) return; // ���� ����� �̺�Ʈ�� ������ ����
+    if (totalEvent[clip].count(timeRatio) > 0) return; // 
     totalEvent[clip][timeRatio] = event;
 }
 
 void Penguin::ExecuteEvent()
 {
-    int index = (int)action; //���� ���� �޾ƿ���
+    int index = (int)action; //
     if (totalEvent[index].empty()) return;
     if (eventIters[index] == totalEvent[index].end()) return;
 
-    float ratio = motion->runningTime / motion->duration; //����� �ð� ������ ��ü ����ð�
+    float ratio = motion->runningTime / motion->duration; //
 
-    if (eventIters[index]->first > ratio) return; // ���� �ð��� ������ ���ؿ� �� ��ġ�� ����(�����)
+    if (eventIters[index]->first > ratio) return; // 
 
-    eventIters[index]->second(); //��ϵ� �̺�Ʈ ����
+    eventIters[index]->second(); //
     eventIters[index]++;
 }
 
@@ -397,25 +409,25 @@ void Penguin::EndAttack()
 
 void Penguin::EndDamage()
 {
-    SetAction(ACTION::IDLE); //�¾Ұ�, �� �׾���, ���������� �������
+    SetAction(ACTION::IDLE); //
 }
 
 void Penguin::SetAction(ACTION action)
 {
     if (action == this->action) return;
 
-    this->action = action; //�Ű������� ���� ���� ��ȭ
-    instancing->PlayClip(index, (int)action); //�ν��Ͻ� �� �ڱ� Ʈ���������� ���� ���� ����
+    this->action = action; //
+    instancing->PlayClip(index, (int)action); //
     eventIters[(int)action] = totalEvent[(int)action].begin();
 }
 
 void Penguin::Move()
 {
-    // �ȿ����̴� ���ǵ�
-    if (action == ACTION::ATTACK) return; // ������ ���� �������� ����
-    if (action == ACTION::DAMAGE) return; // ���� ���� �������� ����
-    if (action == ACTION::WORK) return; // �۾��� ���� �������� ����
-    //if (action == ACTION::) return; // �߰� ����
+    // ???????? ?????
+    if (action == ACTION::ATTACK) return; // 
+    if (action == ACTION::DAMAGE) return; // 
+    if (action == ACTION::WORK) return; // 
+    //if (action == ACTION::) return; // 
 
     if (velocity.Length() < 5)
     {
@@ -430,7 +442,7 @@ void Penguin::Move()
         //speed = 0;
         //SetAction(ACTION::IDLE);
     }
-    else if (velocity.Length() < 15) // ǥ���� �Ÿ��� ����� ����
+    else if (velocity.Length() < 15) // 
     {
         speed = 2;
         SetAction(ACTION::WALK);
@@ -438,7 +450,7 @@ void Penguin::Move()
     }
     else if (velocity.Length() < 50)
     {
-        speed = 4; //�� ��� ��������
+        speed = 4; //
         SetAction(ACTION::RUN);
     }
     else
@@ -451,17 +463,17 @@ void Penguin::Move()
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // �� ������(�� Back()�� ������ ��
+    // 
 
 }
 
 void Penguin::MoveP()
 {
-    // �ȿ����̴� ���ǵ�
-    if (action == ACTION::ATTACK) return; // ������ ���� �������� ����
-    if (action == ACTION::DAMAGE) return; // ���� ���� �������� ����
-    if (action == ACTION::WORK) return; // �۾��� ���� �������� ����
-    //if (action == ACTION::) return; // �߰� ����
+    // 
+    if (action == ACTION::ATTACK) return; //
+    if (action == ACTION::DAMAGE) return; // 
+    if (action == ACTION::WORK) return; //
+    //if (action == ACTION::) return; // 
 
 
     Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
@@ -475,9 +487,9 @@ void Penguin::MoveP()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
-    else if (distance >= 8.0f) // ǥ���� �Ÿ��� ����� ����
+    else if (distance >= 8.0f) // 
     {
-        speed = 8; //�� ��� ��������
+        speed = 8; //
         SetAction(ACTION::RUN);
     }
     else if (distance < 8.0f)
@@ -501,9 +513,9 @@ void Penguin::MoveP()
 
 void Penguin::MoveW()
 {
-    if (action == ACTION::ATTACK) return; // ������ ���� �������� ����
-    if (action == ACTION::DAMAGE) return; // ���� ���� �������� ����
-    //if (action == ACTION::WORK) return; // �۾��� ���� �������� ����
+    if (action == ACTION::ATTACK) return; // 
+    if (action == ACTION::DAMAGE) return; // 
+    //if (action == ACTION::WORK) return; // 
 
     if (velocity.Length() < 5)
     {
@@ -555,7 +567,7 @@ void Penguin::MoveWithOutTarget()
 
 void Penguin::UpdateUI()
 {
-    //(���� �ٲ�� �� ���ڵ� �ٲ� ��)
+    //
     barPos = transform->Pos() + Vector3(0, 1.5f, 0);
 
     if (!CAM->ContainPoint(barPos))
@@ -569,10 +581,10 @@ void Penguin::UpdateUI()
     if (!palHpBar->Active()) palHpBar->SetActive(true);
 
     palQuad->Pos() = CAM->WorldToScreen(barPos);
-    palQuad->UpdateWorld(); // ������ ���� ������Ʈ
+    palQuad->UpdateWorld(); // 
 
     palHpBar->Pos() = palQuad->Pos() + Vector3(0.0, -10.0f, 0.0f);
-    palHpBar->UpdateWorld(); // ������ ���� ������Ʈ
+    palHpBar->UpdateWorld(); // 
 
 }
 

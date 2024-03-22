@@ -4,12 +4,12 @@
 WorkSlot::WorkSlot(int Number)
 {
 
-	test = Number;
+	NUM = Number;
 
 	MakeSlot = new Quad(Vector2(50, 50));
 	MakeSlotBase = new Quad(Vector2(50, 50));
 
-	wstring file = L"Textures/UI/Make/Work" + to_wstring(test) + L".png";
+	wstring file = L"Textures/UI/Make/Work" + to_wstring(NUM) + L".png";
 	MakeSlot->GetMaterial()->SetDiffuseMap(file);
 
 	MakeSlot->Update();
@@ -17,7 +17,7 @@ WorkSlot::WorkSlot(int Number)
 
 
 	// 스위치로 돌려서 필요한 아이템 수를 넣어서 돌려
-	switch (test)
+	switch (NUM)
 	{
 	case 0:
 		matter.resize(2);
@@ -68,11 +68,12 @@ WorkSlot::~WorkSlot()
 
 void WorkSlot::Update()
 {
+
 	if (CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	else
 	{
-		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
-		MakeSlotBase->GetMaterial()->GetData().emissive = { 0.5,0.5,0.5,1 };
+		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
+
 	}
 
 	MakeSlotBase->Update();
@@ -98,7 +99,7 @@ void WorkSlot::Render()
 	{
 		FOR(matter.size())
 		{
-			matter[i]->Render();
+			matter[i]->Render(Count);
 		}
 	}
 
@@ -110,6 +111,10 @@ void WorkSlot::PostRender()
 
 void WorkSlot::GUIRender()
 {
+
+	MakeSlotBase->GUIRender();
+
+
 }
 
 bool WorkSlot::MouseCollision()
@@ -138,7 +143,7 @@ bool WorkSlot::CheckItem()
 
 	FOR(matter.size())
 	{
-		if (matter[i]->IsMakeOk()) check++;
+		if (matter[i]->IsMakeOk(Count)) check++;
 	}
 
 
@@ -147,16 +152,17 @@ bool WorkSlot::CheckItem()
 	return false;
 }
 
-void WorkSlot::MakeItem()
+void WorkSlot::MakeItem(int Count)
 {
 
 	FOR(matter.size())
 	{
-		ItemManager::Get()->GetItemDV()[matter[i]->GetNUM()].second -= matter[i]->GetCount();
-
+		ItemManager::Get()->GetItemDV()[matter[i]->GetNUM()].second -= matter[i]->GetCount() * Count;
 
 	}
-	ItemManager::Get()->MakeItem(test);
+
+	StructureManager::Get()->GetWorkBench()->SetCount(Count);
+	ItemManager::Get()->MakeItem(NUM);
 
 
 

@@ -31,6 +31,7 @@ public:
 
 	Texture* icon;
 	Model* test;
+	float MakeTime;
 
 
 };

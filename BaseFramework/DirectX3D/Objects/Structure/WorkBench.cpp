@@ -1,4 +1,5 @@
 #include "Framework.h"
+#include "WorkBench.h"
 
 WorkBench::WorkBench()
 {
@@ -33,6 +34,11 @@ WorkBench::WorkBench()
 	range = new SphereCollider(5.0f);
 	mouseHit = new SphereCollider(2.5f);
 
+	produceBar = new ProgressBar(
+		L"Textures/UI/hp_bar_BG.png",
+		L"Textures/UI/hp_bar_BG.png"
+	);
+	WorkItem = nullptr;
 }
 
 WorkBench::~WorkBench()
@@ -45,6 +51,8 @@ WorkBench::~WorkBench()
 	delete cube;
 	delete shadow;
 	delete light;
+	delete produceBar;
+	delete WorkItem;
 }
 
 void WorkBench::Update()
@@ -146,6 +154,7 @@ void WorkBench::Render()
 
 void WorkBench::PostRender()
 {
+	produceBar->Render();
 }
 
 void WorkBench::GUIRender()
@@ -173,10 +182,66 @@ void WorkBench::Interaction()
 
 	}
 
+	if (WorkItem != nullptr)
+	{
+
+		if (!CAM->ContainPoint(gaugePos)) produceBar->SetActive(false);
+		else produceBar->SetActive(true);
+
+
+		produceBar->SetAmount(time / CompleteTime);
+
+
+		gaugePos = building->Pos() + Vector3(0, 1.8f, 0);
+		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
+
+		produceBar->Scale() = { 1.0f,0.5f,0.3f };
+
+		produceBar->UpdateWorld();
+		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))
+		{
+			BarUpdate();
+		}
+
+
+	}
 }
 
 bool WorkBench::PalWorkCheck()
 {
 	if (isPlaced && !Done) return true;
 	else	return false;
+}
+
+void WorkBench::SetItem(Item* item)
+{
+	if (WorkItem == nullptr)
+	{
+		time = 1;
+		WorkItem = item;
+		CompleteTime = WorkItem->MakeTime;
+	}
+}
+
+void WorkBench::BarUpdate()
+{
+	if (time > CompleteTime)
+	{
+		produceBar->SetActive(false);
+
+		time = 10;
+		CompleteTime = 20;
+
+		FOR(Count)
+		{
+			ItemManager::Get()->Mining(WorkItem);
+		}
+		WorkItem = nullptr;
+
+	}
+	else
+	{
+		time += 10 * DELTA;
+	}
+
 }

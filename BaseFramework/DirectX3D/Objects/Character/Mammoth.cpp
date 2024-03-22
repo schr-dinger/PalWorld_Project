@@ -63,7 +63,11 @@ Mammoth::~Mammoth()
 void Mammoth::Update()
 {
     //활성화 시에만 업데이트
-    //if (!transform->Active()) return;
+    if (!transform->Active())
+    {
+        return;
+    }
+
 
     Ray ray;
     ray.dir = CAM->Forward();
@@ -237,7 +241,14 @@ void Mammoth::Damage()
 
 //체력에 -
     //curHP -= 200 * DELTA;
-    curHP -= damage * DELTA;
+    if (skillType == 0)
+    {
+        curHP -= damage * DELTA;
+    }
+    else if (skillType == 1)
+    {
+        curHP -= damage;
+    }
 
     palHpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 

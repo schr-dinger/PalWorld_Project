@@ -53,7 +53,7 @@ void WorkInFo::Update()
 
 }
 
-void WorkInFo::Render()
+void WorkInFo::Render(int P_Count)
 {
 
 
@@ -75,7 +75,7 @@ void WorkInFo::Render()
 	}
 
 	int a = ItemManager::Get()->GetItemDV()[NUM].second;
-	string b = to_string(a) + " / " + to_string(Count);
+	string b = to_string(a) + " / " + to_string(Count * P_Count);
 	Font::Get()->RenderText(b, Vector2(InFoPos.x + 120, InFoPos.y + 10));
 
 
@@ -83,27 +83,28 @@ void WorkInFo::Render()
 
 void WorkInFo::PostRender()
 {
+
 }
 
 void WorkInFo::GUIRender()
 {
 }
 
-bool WorkInFo::IsMakeOk()
+bool WorkInFo::IsMakeOk(int P_Count)
 {
 
 	if (ItemManager::Get()->GetItemDV()[NUM].second != 0 &&
-		ItemManager::Get()->GetItemDV()[NUM].second >= Count)
+		ItemManager::Get()->GetItemDV()[NUM].second >= Count * P_Count)
 	{
-		MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
+		MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 		ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 
 		return true;
 	}
 
 
-	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
-	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedTest.png");
+	MakeInFo->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
+	ItemCount->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass50.png");
 
 	return false;
 }

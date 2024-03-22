@@ -3,7 +3,7 @@
 IceSpear::IceSpear()
 {
 	name = "¾óÀ½Ã¢";
-	damage = 4000;
+	damage = 100;
 	startPos = Vector3();
 
 	iceSpear = new Model("IceSpear");
@@ -90,7 +90,7 @@ void IceSpear::SetSkill()
 	{
 		iceSpear->UpdateWorld();
 		enemy->UpdateWorld();
-		dir = enemy->GlobalPos() - iceSpear->GlobalPos();
+		dir = (enemy->GlobalPos() + Vector3(0,1.0f,0)) - iceSpear->GlobalPos();
 		dir = dir.GetNormalized();
 		Vector3 tmpRot;
 		Vector3 c = dir;
