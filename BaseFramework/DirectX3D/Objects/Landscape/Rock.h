@@ -10,11 +10,15 @@ public:
     void GUIRender();
 
     void Hit();
+    void GetTem(Collider* Pcollider);
 
     Transform* GetTransform() { return transform; }
     SphereCollider* GetCollider() { return collider; }
 
     //BoxCollider* GetCollider() { return collider; }
+
+    Item* matter;
+    
 
 private:
     Transform* transform;

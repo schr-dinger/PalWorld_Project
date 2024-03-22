@@ -8,10 +8,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 	collider->Scale() *= 100.0f;
 	collider->Rot().x = XM_PIDIV2;
 
-	test = new Equipment(1);
-	test2 = new Equipment(2);
-	test3 = new Ingredient(2);
-	test4 = new Equipment(3);
+	matter = new Ingredient(1);
 
 	if (isOne)
 	{
@@ -35,10 +32,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 Tree::~Tree()
 {
 	delete collider;
-	delete test;
-	delete test2;
-	delete test3;
-	delete test4;
+	delete matter;
 
 	delete impostor;
 	FOR(2)
@@ -59,10 +53,9 @@ void Tree::Update()
 	if (Hp < 0.0f)
 	{
 		transform->SetActive(false);
+		ItemManager::Get()->Mining(matter);
 		isDead = true;
 	}
-
-
 
 	GetTem(PlayerManager::Get()->GetPlayer()->GetMiningCol());
 
@@ -98,29 +91,19 @@ void Tree::GUIRender()
 
 void Tree::Hit()
 {
-	Hp -= 20.0f;
+	Hp -= 50.0f;
 }
 
-void Tree::GetTem(Collider* collider)
+void Tree::GetTem(Collider* Pcollider)
 {
+	if (!Pcollider->Active()) return;
 
-	if (this->collider->IsCollision(collider))
+	if (this->collider->IsCollision(Pcollider))
 	{
-		Time += 3 * DELTA;
-
+		Hit();
+		PlayerManager::Get()->GetPlayer()->GetMiningCol()->SetActive(false);
 	}
-
-
-
-	if (Time > 5)
-	{
-		ItemManager::Get()->Mining(test);
-		ItemManager::Get()->Mining(test2);
-		ItemManager::Get()->Mining(test3);
-		ItemManager::Get()->Mining(test4);
-		//test2 = nullptr;
-		Time = 0;
-	}
+	
 
 }
 
