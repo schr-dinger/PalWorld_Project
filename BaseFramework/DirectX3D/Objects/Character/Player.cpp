@@ -287,9 +287,16 @@ void Player::Control()
         case 1:
             isGun = true;
             isBow = false;
-            if (KEY_DOWN('R'))
+            if (KEY_DOWN('R') && (0 <= ItemManager::Get()->GetBulletDV()[1].second < 30))
             {
                 SetState(R_RELOAD);
+
+                int bullet = 30 - ItemManager::Get()->GetBulletDV()[1].second;
+                int reload = min(bullet, ItemManager::Get()->GetConsumDV()[2].second);
+
+                ItemManager::Get()->GetConsumDV()[2].second -= reload;
+                ItemManager::Get()->GetBulletDV()[1].second += reload;
+
             }
 
             break;
@@ -738,10 +745,16 @@ void Player::AttackPal()
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
-        if (PalsManager::Get()->IsCollision(ray, hitPoint))
+         
+        if (0 < ItemManager::Get()->GetBulletDV()[1].second)
         {
-            particle->Play(hitPoint);
+            ItemManager::Get()->GetBulletDV()[1].second--;
+            if (PalsManager::Get()->IsCollision(ray, hitPoint))
+            {
+                particle->Play(hitPoint);
+            }
         }
+               
         break;
     case 2:
         SetState(BW_FIRE);
