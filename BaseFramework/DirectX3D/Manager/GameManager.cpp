@@ -36,7 +36,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
     //SceneManager::Get()->Create("Collision", new CollisionScene());
     //SceneManager::Get()->Create("ModelRender", new ModelRenderScene());
-    //SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
+    SceneManager::Get()->Create("ModelAnimationScene", new ModelAnimationScene());
     //SceneManager::Get()->Create("Instancing", new IntancingScene());
     //SceneManager::Get()->Create("Game", new GameScene());
     //SceneManager::Get()->Create("BillboardScene", new BillboardScene());
@@ -52,14 +52,14 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("WaterScene", new WaterScene());
 
 
-    SceneManager::Get()->Create("NewScene", new BaseScene1());
+    //SceneManager::Get()->Create("NewScene", new BaseScene1());
 
 
     SceneManager::Get()->Add("Grid");
     //SceneManager::Get()->Add("ModelExport");
 
     //SceneManager::Get()->Add("ModelRender");
-    //SceneManager::Get()->Add("ModelAnimationScene");
+    SceneManager::Get()->Add("ModelAnimationScene");
     //SceneManager::Get()->Add("Collision");
     //SceneManager::Get()->Add("Instancing");
     //SceneManager::Get()->Add("Game");
@@ -74,7 +74,7 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("QuadTree");
     //SceneManager::Get()->Add("LOD");
     //SceneManager::Get()->Add("WaterScene");
-    SceneManager::Get()->Add("NewScene");
+    //SceneManager::Get()->Add("NewScene");
 
     
 

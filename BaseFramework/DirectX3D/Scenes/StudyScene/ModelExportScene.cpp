@@ -3,21 +3,21 @@
 
 ModelExportScene::ModelExportScene()
 {
-    string name = "Spike";
+    string name = "NPC";
     string file = "Models/FBX/" + name + ".fbx";
     ModelExporter* exporter;
     string clipName;
 
-    exporter = new ModelExporter(name, file);
-    exporter->ExportMaterial();
-    exporter->ExportMesh();
-    delete exporter;    
-    
-    //clipName = "Dying";
-    //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
     //exporter = new ModelExporter(name, file);
-    //exporter->ExportClip(clipName);    
-    //delete exporter;
+    //exporter->ExportMaterial();
+    //exporter->ExportMesh();
+    //delete exporter;    
+    
+    clipName = "work";
+    file = "Models/Animations/" + name + "/" + clipName + ".fbx";
+    exporter = new ModelExporter(name, file);
+    exporter->ExportClip(clipName);    
+    delete exporter;
     //
     //clipName = "Run";
     //file = "Models/Animations/" + name + "/" + clipName + ".fbx";
