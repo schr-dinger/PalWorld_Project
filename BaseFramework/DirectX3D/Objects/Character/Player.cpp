@@ -23,6 +23,9 @@ Player::Player() : ModelAnimator("NPC")
     ReadClip("B_Idle");
     ReadClip("B_Walk");
     ReadClip("B_Run");
+    //ReadClip("B_Make");
+    //ReadClip("B_Build");
+
 
     ReadClip("J_Start");
     ReadClip("J_End");
@@ -79,7 +82,8 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // ???? : ??
-    particle = new ParticleSystem("TextData/Particles/Star.fx");
+    particle = new ParticleSystem("TextData/Particles/GunHit.fx");
+    
     MiningCollider = new SphereCollider(0.5f);
 
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
@@ -287,9 +291,16 @@ void Player::Control()
         case 1:
             isGun = true;
             isBow = false;
-            if (KEY_DOWN('R'))
+            if (KEY_DOWN('R') && (0 <= ItemManager::Get()->GetBulletDV()[1].second < 30))
             {
                 SetState(R_RELOAD);
+
+                int bullet = 30 - ItemManager::Get()->GetBulletDV()[1].second;
+                int reload = min(bullet, ItemManager::Get()->GetConsumDV()[2].second);
+
+                ItemManager::Get()->GetConsumDV()[2].second -= reload;
+                ItemManager::Get()->GetBulletDV()[1].second += reload;
+
             }
 
             break;
@@ -737,9 +748,13 @@ void Player::AttackPal()
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
-        if (PalsManager::Get()->IsCollision(ray, hitPoint))
+        if (0 < ItemManager::Get()->GetBulletDV()[1].second)
         {
-            particle->Play(hitPoint);
+            ItemManager::Get()->GetBulletDV()[1].second--;
+            if (PalsManager::Get()->IsCollision(ray, hitPoint))
+            {
+                particle->Play(hitPoint);
+            }
         }
         break;
     case 2:

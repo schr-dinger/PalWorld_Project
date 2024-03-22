@@ -33,6 +33,7 @@ public:
 	map<int, vector<Item*>>& GetConsumV() { return consumItems; }
 	map<int, pair<int, int>>& GetConsumDV() { return consumData; }
 
+	map<int, pair<int, int>>& GetBulletDV() { return BulletData; }
 
 	void SetInvEquip(int NUM, Item* item) { invEquip[NUM] = item; }
 	vector<Item*>& GetEquipV() { return invEquip; }
@@ -54,7 +55,7 @@ private:
 	vector<Item*> weapons;
 	vector<Item*> invEquip;
 
-
+	map<int, pair<int, int>> BulletData;
 
 	// int º±≈√ 
 
