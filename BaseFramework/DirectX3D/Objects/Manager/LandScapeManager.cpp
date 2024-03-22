@@ -145,7 +145,7 @@ void LandScapeManager::Render()
     terrain->GetMaterial()->SetShader(L"Light/Shadow.hlsl");
 
     //blendState[1]->SetState();
-    //rasterizer[1]->SetState();
+    rasterizer[1]->SetState();
     //tree1->Render();
     tree2->Render();
     blendState[0]->SetState();
