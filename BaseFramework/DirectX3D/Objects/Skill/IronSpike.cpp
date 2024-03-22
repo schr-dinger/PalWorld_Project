@@ -12,9 +12,9 @@ IronSpike::IronSpike()
 	Spike = new Model("Spike");
 	Spike->Rot().x += XM_PIDIV2;
 	Spike->Scale() *= 5.0f;
-	string a = "IR" + to_string(1);
-	Spike->SetTag(a);
+	Spike->SetTag("IR");
 	Spike->GetMaterial(0)->SetDiffuseMap(L"Textures/Model/Spike/T_DustCristal_02.png");
+	Spike->GetMaterial(0)->SetNormalMap(L"Textures/Model/Spike/T_Ice02_normal.png");
 
 	//particle = new ParticleSystem("TextData/Particles/Star.fx");
 
@@ -61,10 +61,10 @@ void IronSpike::Update()
 
 	//particle->Update();
 	Spike->UpdateWorld();
-	col->UpdateWorld();
+	if (col->Active()) col->UpdateWorld();
 
 	// 충돌체 추가 필요
-
+	
 
 
 
@@ -77,7 +77,7 @@ void IronSpike::Render()
 
 
 	Spike->Render();
-	col->Render();
+	if(col->Active()) col->Render();
 	//particle->Render();
 
 
@@ -101,11 +101,7 @@ bool IronSpike::Active()
 
 void IronSpike::SetActive(bool active)
 {
-
 	Spike->SetActive(active);
-
-
-
 }
 
 void IronSpike::SetSkill()

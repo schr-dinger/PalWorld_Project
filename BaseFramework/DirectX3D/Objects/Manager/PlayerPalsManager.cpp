@@ -440,6 +440,11 @@ void PlayerPalsManager::Collision()
                         FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                         pal->skillType = 1;
                     }
+                    else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                    {
+                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+                        pal->skillType = 1;
+                    }
                     else
                     {
                         pal->skillType = 0;
