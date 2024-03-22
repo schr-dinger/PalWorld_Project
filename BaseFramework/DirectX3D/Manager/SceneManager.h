@@ -21,6 +21,8 @@ public:
 
     Scene* ChangeScene(string key, float changingTime = 0.0f);
 
+    bool GetLoadingT() { return loadingT; }
+    void SetLoadingT(bool y) { loadingT = y; }
 
 private:
     map<string, Scene*> scenes;
@@ -32,4 +34,6 @@ private:
     Scene* currentScene = nullptr;
 
     float changingTime = 0.0f;
+
+    bool loadingT = false;
 };

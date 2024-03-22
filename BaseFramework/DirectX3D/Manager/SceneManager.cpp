@@ -13,27 +13,27 @@ SceneManager::~SceneManager()
 
 void SceneManager::Update()
 {
-    //for (Scene* scene : curScenes)
-    //    scene->Update();
-    if (changingTime > 0.0f)
-    {
-        changingTime -= DELTA;
+    for (Scene* scene : curScenes)
+        scene->Update();
+    //if (changingTime > 0.0f)
+    //{
+    //    changingTime -= DELTA;
 
-        if (changingTime <= 0.0f)
-        {
-            isChanging = true;
-            delete currentScene;
-            nextScene->Start();
-        }
-    }
+    //    if (changingTime <= 0.0f)
+    //    {
+    //        isChanging = true;
+    //        delete currentScene;
+    //        nextScene->Start();
+    //    }
+    //}
 
 
-    if (isChanging)
-    {
-        currentScene = nextScene;
-        isChanging = false;
-    }
-    currentScene->Update();
+    //if (isChanging)
+    //{
+    //    currentScene = nextScene;
+    //    isChanging = false;
+    //}
+    //currentScene->Update();
 
 
 }
@@ -93,7 +93,7 @@ Scene* SceneManager::Add(string key)
         return  scenes[key];
 
     curScenes.push_back(scenes[key]);
-    curScenes.back()->Start();
+    //curScenes.back()->Start();
 
     return scenes[key];
 }
@@ -126,19 +126,22 @@ Scene* SceneManager::GetScene(string key)
 
 Scene* SceneManager::ChangeScene(string key, float changingTime)
 {
-    Scene* temp = GetScene(key);
+    //Scene* temp = GetScene(key);
 
-    if (temp)
-    {
-        nextScene = temp;
-        this->changingTime = changingTime;
+    //if (temp)
+    //{
+    //    nextScene = temp;
+    //    this->changingTime = changingTime;
 
-        if (changingTime <= 0.0f)
-        {
-            isChanging = true;
-            delete currentScene;
-            nextScene->Start();
-        }
-    }
-    return temp;
+    //    if (changingTime <= 0.0f)
+    //    {
+    //        isChanging = true;
+    //        delete currentScene;
+    //        nextScene->Start();
+    //    }
+    //}
+    //return temp;
+
+    currentScene = GetScene(key);
+    return currentScene;
 }

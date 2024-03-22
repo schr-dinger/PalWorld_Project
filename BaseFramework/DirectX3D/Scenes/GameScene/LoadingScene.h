@@ -12,11 +12,9 @@ public:
 	virtual void PostRender() override;
 	virtual void GUIRender() override;
 
-	//void SceneLoading();
 public:
 	//thread* th;
 	float T;
-	bool Ini = true;
-
-	Quad* big;
+	//Particle* pika;
+	Quad* pika;
 };

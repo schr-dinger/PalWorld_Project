@@ -2,80 +2,71 @@
 #include "LoadingScene.h"
 #include "Scenes/GameScene/BaseScene1.h"
 
-//int initCount = 0;
-//mutex m;
+int initCount = 0;
+mutex m;
 
-//void SceneLoading()
-//{
-//	SceneManager::Get()->Create("NewScene", new BaseScene1());
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//}
+void SceneLoading()
+{
+
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+
+}
 
 
 LoadingScene::LoadingScene()
 {
-	//th = new thread(SceneLoading);
-	big = new Quad(Vector2(500, 500));
+	//pika = new Particle();
+	pika = new Quad(Vector2(100, 100));
 	SceneManager::Get()->Remove("Title");
+	//th = new thread(SceneLoading);
+
 }
 
 LoadingScene::~LoadingScene()
 {
 	//th->join();
 	//delete th;
-	delete big;
+	delete pika;
 }
 
 void LoadingScene::Update()
 {
-	//if (initCount == 6)
-	//{
-	//	SceneManager::Get()->Add("NewScene");
-	//	return;
-	//}
-	T += DELTA;
-	if (Ini)
-	{
-		SceneManager::Get()->Create("NewScene", new BaseScene1());
-		SceneManager::Get()->Add("NewScene");
-		Ini = false;
-	}
+	if (!SceneManager::Get()->GetLoadingT()) return;
 
-	if(T>10.0f)
+	pika->Rot().z += DELTA;
+
+	T += DELTA;
+
+	if (T > 10.0f)
 	{
 		SceneManager::Get()->ChangeScene("NewScene");
 		return;
 	}
+	pika->Update();
 }
 
 void LoadingScene::PreRender()
@@ -88,7 +79,7 @@ void LoadingScene::Render()
 
 void LoadingScene::PostRender()
 {
-	big->Render();
+	pika->Render();
 }
 
 void LoadingScene::GUIRender()
