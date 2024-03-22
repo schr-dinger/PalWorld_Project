@@ -13,7 +13,7 @@ public:
 	virtual void GUIRender() override;
 
 public:
-	//thread* th;
+	thread* th;
 	float T;
 	//Particle* pika;
 	Quad* pika;
