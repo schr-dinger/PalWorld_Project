@@ -21,20 +21,21 @@
 #include "Scenes/StudyScene/QuadTreeScene.h"
 #include "Scenes/StudyScene/TerrainLODScene.h"
 #include "Scenes/StudyScene/WaterScene.h"
-#include "Scenes/GameScene/LoadingScene.h"
-#include "Scenes/GameScene/BaseScene1.h"
 #include "Scenes/GameScene/TitleScene.h"
+//#include "Scenes/GameScene/LoadingScene.h"
+//#include "Scenes/GameScene/BaseScene1.h"
 
 GameManager::GameManager()
 {
     Create();
     SceneManager::Get()->Create("Title", new TitleScene());
-    SceneManager::Get()->Create("Loading", new LoadingScene());
-    SceneManager::Get()->Create("NewScene", new BaseScene1());
+    //SceneManager::Get()->Create("Loading", new LoadingScene());
+    SceneManager::Get()->Add("Title");
+    SceneManager::Get()->ChangeScene("Title");
 
-    SceneManager::Get()->Add("NewScene");
+    //SceneManager::Get()->Add("NewScene");
 
-
+    //SceneManager::Get()->Add("Loading");
 
     //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
     //SceneManager::Get()->Create("Grid", new GridScene());

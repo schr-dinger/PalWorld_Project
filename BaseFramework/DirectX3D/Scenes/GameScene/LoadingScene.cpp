@@ -1,20 +1,81 @@
 #include "Framework.h"
 #include "LoadingScene.h"
+#include "Scenes/GameScene/BaseScene1.h"
 
-int initCount = 0;
-mutex m;
+//int initCount = 0;
+//mutex m;
+
+//void SceneLoading()
+//{
+//	SceneManager::Get()->Create("NewScene", new BaseScene1());
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//	m.lock();
+//	initCount++;
+//	m.unlock();
+//	Sleep(1000);
+//
+//}
+
 
 LoadingScene::LoadingScene()
 {
-	th = new thread();
+	//th = new thread(SceneLoading);
+	big = new Quad(Vector2(500, 500));
+	SceneManager::Get()->Remove("Title");
 }
 
 LoadingScene::~LoadingScene()
 {
+	//th->join();
+	//delete th;
+	delete big;
 }
 
 void LoadingScene::Update()
 {
+	//if (initCount == 6)
+	//{
+	//	SceneManager::Get()->Add("NewScene");
+	//	return;
+	//}
+	T += DELTA;
+	if (Ini)
+	{
+		SceneManager::Get()->Create("NewScene", new BaseScene1());
+		SceneManager::Get()->Add("NewScene");
+		Ini = false;
+	}
+
+	if(T>10.0f)
+	{
+		SceneManager::Get()->ChangeScene("NewScene");
+		return;
+	}
 }
 
 void LoadingScene::PreRender()
@@ -27,43 +88,10 @@ void LoadingScene::Render()
 
 void LoadingScene::PostRender()
 {
+	big->Render();
 }
 
 void LoadingScene::GUIRender()
 {
 }
 
-void LoadingScene::SceneLoading()
-{
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-	m.lock();
-	initCount++;
-	m.unlock();
-	Sleep(1000);
-
-}

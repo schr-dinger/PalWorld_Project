@@ -12,7 +12,11 @@ public:
 	virtual void PostRender() override;
 	virtual void GUIRender() override;
 
-	void SceneLoading();
+	//void SceneLoading();
 public:
-	thread* th;
+	//thread* th;
+	float T;
+	bool Ini = true;
+
+	Quad* big;
 };

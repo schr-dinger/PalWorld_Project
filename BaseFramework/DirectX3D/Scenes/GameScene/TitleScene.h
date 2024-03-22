@@ -11,5 +11,10 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 	virtual void GUIRender() override;
+
+
+private:
+	Quad* title;
+	int initCount = 0;
 };
 
