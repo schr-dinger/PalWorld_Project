@@ -21,16 +21,23 @@
 #include "Scenes/StudyScene/QuadTreeScene.h"
 #include "Scenes/StudyScene/TerrainLODScene.h"
 #include "Scenes/StudyScene/WaterScene.h"
+#include "Scenes/GameScene/LoadingScene.h"
 #include "Scenes/GameScene/BaseScene1.h"
-
+#include "Scenes/GameScene/TitleScene.h"
 
 GameManager::GameManager()
 {
     Create();
+    SceneManager::Get()->Create("Title", new TitleScene());
+    SceneManager::Get()->Create("Loading", new LoadingScene());
+    SceneManager::Get()->Create("NewScene", new BaseScene1());
 
-    SceneManager::Get()->Create("Grid", new GridScene());
+    SceneManager::Get()->Add("NewScene");
+
+
+
     //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
-
+    //SceneManager::Get()->Create("Grid", new GridScene());
     //SceneManager::Get()->Create("Cube", new CubeScene());
     //SceneManager::Get()->Create("Sphere", new SphereScene());
     //SceneManager::Get()->Create("Terrain", new TerrainEditorScene());
@@ -51,13 +58,8 @@ GameManager::GameManager()
     //SceneManager::Get()->Create("LOD", new TerrainLODScene());
     //SceneManager::Get()->Create("WaterScene", new WaterScene());
 
-
-    SceneManager::Get()->Create("NewScene", new BaseScene1());
-
-
-    SceneManager::Get()->Add("Grid");
+    //SceneManager::Get()->Add("Grid");
     //SceneManager::Get()->Add("ModelExport");
-
     //SceneManager::Get()->Add("ModelRender");
     //SceneManager::Get()->Add("ModelAnimationScene");
     //SceneManager::Get()->Add("Collision");
@@ -74,7 +76,6 @@ GameManager::GameManager()
     //SceneManager::Get()->Add("QuadTree");
     //SceneManager::Get()->Add("LOD");
     //SceneManager::Get()->Add("WaterScene");
-    SceneManager::Get()->Add("NewScene");
 
     
 

@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	//SetShadowModel();
+	SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -403,7 +403,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-	blendState[1]->SetState();
+	//blendState[1]->SetState();
 	rasterizer[1]->SetState();
 	/*
 	// 나무1
