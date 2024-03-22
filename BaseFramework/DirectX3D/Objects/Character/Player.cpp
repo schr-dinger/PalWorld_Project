@@ -161,7 +161,7 @@ void Player::Update()
     {
         if (weapons[i] != nullptr)
         {
-            if (ItemManager::Get()->GetWeaponV()[i]->num == 3)
+            if (ItemManager::Get()->GetEquipV()[i]->num == 3)
             {
                 MiningCollider->SetParent(weapons[i]->GetParent());
                 MiningCollider->Pos() = Vector3(0.0f, 0.3f, 0.0f);
@@ -393,7 +393,7 @@ void Player::Control()
     }
     else if (KEY_UP('G'))
     {
-        if (ItemManager::Get()->GetWeaponV()[select]->num == 3)
+        if (ItemManager::Get()->GetEquipV()[select-1]->num == 3)
         {
             MiningCollider->SetActive(true);
             SetState(M_MINING);

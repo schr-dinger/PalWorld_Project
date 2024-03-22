@@ -14,18 +14,14 @@ public:
     void Hit();
 
     //void Place(ModelInstancing* tree);
-    void GetTem(Collider* collider);
+    void GetTem(Collider* Pcollider);
     
     void SetImpostor();
 
     Transform* GetTransform() { return transform; }
     CapsuleCollider* GetCollider() { return collider; }
 
-    Item* test;
-    Item* test2;
-    Item* test3;
-    Item* test4;
-        
+    Item* matter;
     bool isDead = false;
 
 private:
