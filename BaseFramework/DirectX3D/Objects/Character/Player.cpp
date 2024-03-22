@@ -18,13 +18,6 @@ Player::Player() : ModelAnimator("NPC")
 
     Hand = new Transform();
 
-    /*
-    Gun->Scale() *= 0.8f;
-    Gun->Pos().y -= 0.05f;
-    Gun->Rot().x += 1.5f;
-    Gun->Rot().y -= 0.10f;
-    */
-
     Pos() = { 100, 0, 100 };
 
     ReadClip("B_Idle");
@@ -87,6 +80,7 @@ Player::Player() : ModelAnimator("NPC")
 
     // ???? : ??
     particle = new ParticleSystem("TextData/Particles/Star.fx");
+    MiningCollider = new SphereCollider(0.5f);
 
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
@@ -98,6 +92,7 @@ Player::Player() : ModelAnimator("NPC")
 
     GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    GetClip(M_MINING)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f, 1.2f);
     playerLastPos = {};
@@ -115,6 +110,7 @@ Player::~Player()
     delete playerCollider;
     delete summonPalSpear;
     delete summonPalSpearCollider;
+    delete MiningCollider;
 
     weapons.clear();
 }
@@ -156,22 +152,28 @@ void Player::Update()
 
     SetAnimation();
 
-
     //
     playerCollider->Pos() = this->Pos() + Vector3(0, 0.8f, 0);
 
     Hand->SetWorld(GetTransformByNode(68));
+    if (curState == IDLE) MiningCollider->SetActive(false);
     FOR(weapons.size())
     {
         if (weapons[i] != nullptr)
         {
+            if (ItemManager::Get()->GetWeaponV()[i]->num == 3)
+            {
+                MiningCollider->SetParent(weapons[i]->GetParent());
+                MiningCollider->Pos() = Vector3(0.0f, 0.3f, 0.0f);
+            }
+
             weapons[i]->SetParent(Hand);
             weapons[i]->UpdateWorld();
         }
 
 
     }
-
+    
 
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
@@ -180,6 +182,7 @@ void Player::Update()
 
     particle->Update();
     playerCollider->UpdateWorld();
+    if (MiningCollider->Active()) MiningCollider->UpdateWorld();
 
     // 팰 스피어 던지기 관련
     ThrowPalSpear();
@@ -212,7 +215,7 @@ void Player::Render()
         if (weapons[select - 1] != nullptr)  weapons[select - 1]->Render();
 
     }
-
+    if (MiningCollider->Active()) MiningCollider->Render();
 }
 
 void Player::ShadowRender()
@@ -329,10 +332,6 @@ void Player::Control()
             {
             case 1:
                 isGaim = true;
-                if (KEY_DOWN(VK_LBUTTON)) // ?? ????
-                {
-                    AttackPal();
-                }
                 break;
             case 2:
                 isBaim = true;
@@ -345,6 +344,11 @@ void Player::Control()
                 isBaim = false;
                 break;
             }
+            if (KEY_DOWN(VK_LBUTTON)) // ?? ????
+            {
+                AttackPal();
+            }
+
 
         }
     }
@@ -387,7 +391,16 @@ void Player::Control()
         }
 
     }
+    else if (KEY_UP('G'))
+    {
+        if (ItemManager::Get()->GetWeaponV()[select]->num == 3)
+        {
+            MiningCollider->SetActive(true);
+            SetState(M_MINING);
+        }
+        else MiningCollider->SetActive(false);
 
+    }
 
     if (KEY_DOWN('R'))
     {
@@ -405,7 +418,7 @@ void Player::Control()
 
 void Player::Move()
 {
-    if (curState == S_THROW)
+    if (curState == S_THROW || curState == M_MINING)
     {
         return;
     }
@@ -713,10 +726,18 @@ void Player::AttackPal()
     //ray.dir = CamTransform->Forward();
     //Vector3 hitPoint;
 
+
+    Ray ray = CAM->ScreenPointToRay(mousePos);
+    Vector3 hitPoint;
+
+
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
-
+        if (PalsManager::Get()->IsCollision(ray, hitPoint))
+        {
+            particle->Play(hitPoint);
+        }
         break;
     case 2:
         SetState(BW_FIRE);
@@ -730,19 +751,6 @@ void Player::AttackPal()
         break;
     }
 
-    Ray ray = CAM->ScreenPointToRay(mousePos);
-    Vector3 hitPoint;
-
-    if (PalsManager::Get()->IsCollision(ray, hitPoint))
-    {
-        // ?½?? : ???
-
-        // ?÷???? ?? ?´? ????? ?? ??? ???
-        // ??????? ??? ????????? ???
-        particle->Play(hitPoint);
-
-
-    }
 
 
     //  BulletManager::Get()->Throw(Gun->GlobalPos(), ray.dir);
@@ -814,7 +822,7 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK)
+    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING)
     {
         return;
     }
