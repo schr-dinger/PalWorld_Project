@@ -64,7 +64,7 @@ void Tree::Update()
 
 
 
-	GetTem(PlayerManager::Get()->GetPlayer()->GetPlayerCol());
+	GetTem(PlayerManager::Get()->GetPlayer()->GetMiningCol());
 
 	transform->UpdateWorld();
 	collider->UpdateWorld();
