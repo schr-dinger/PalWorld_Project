@@ -9,10 +9,10 @@ ItemManager::ItemManager()
 
 
 	Item* test = new Equipment(3);
-	Item* test2 = new Ingredient(1);
+	Item* test3 = new Equipment(1);
 
 	weapons.push_back(test);
-	
+	weapons.push_back(test3);
 
 }
 

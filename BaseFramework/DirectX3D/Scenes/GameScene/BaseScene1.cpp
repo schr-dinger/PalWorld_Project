@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -152,8 +152,8 @@ void BaseScene1::PreRender()
 
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	shadow->SetRenderTargetPos(CAM->GlobalPos());
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//shadow->SetRenderTargetPos(CAM->GlobalPos());
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//RenderShadowModel();
 }
 
@@ -174,7 +174,7 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	shadow->SetRender();
+	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();

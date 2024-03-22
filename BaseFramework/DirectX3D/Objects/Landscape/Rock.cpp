@@ -56,7 +56,7 @@ void Rock::GetTem(Collider* Pcollider)
     if (this->collider->IsCollision(Pcollider))
     {
         Hit();
-        PlayerManager::Get()->GetPlayer()->GetMiningCol()->SetActive(false);
+        Pcollider->SetActive(false);
     }
 
 

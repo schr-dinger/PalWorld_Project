@@ -87,18 +87,49 @@ void ItemUI::Update()
 
 		if (Slot[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetItem() == nullptr)
 		{
+			
 			UiMouseManager::Get()->SetItem(Slot[i]->GetItem());
 			UiMouseManager::Get()->SetIndex(i);
 			//Slot[i]->SetTem(nullptr);
 
 			select = 1;
 
-		}
+			/*
+			switch (UiMouseManager::Get()->GetItem()->type)
+			{
+			case Item::Type::WEAPON:
+				select = 1;
+			case Item::Type::INGREDIENT:
+				select = 2;
+			case Item::Type::CONSUMABLE:
+				select = 2;
+			default:
+				break;
+			}
+			*/
 
-		// 
+		}
+				
+
+
+
+
+
+
+
 
 		for (int j = 0; j < 3; j++)
 		{
+
+			if (P_Equip[j]->MouseCollision() && KEY_DOWN(VK_LBUTTON && UiMouseManager::Get()->GetItem() == nullptr))
+			{
+				UiMouseManager::Get()->SetItem(P_Equip[j]->GetItem());
+				UiMouseManager::Get()->SetIndex(j);
+
+				select = 2;
+
+			}
+
 			if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
 			{
 				if (select == 1)
@@ -112,31 +143,24 @@ void ItemUI::Update()
 
 					UiMouseManager::Get()->SetItem(nullptr);
 				}
-				else if (select == 2)
+				else if (select == 2 )
 				{
-					int tmp = UiMouseManager::Get()->GetIndex();
-					Item* itemTmp = Slot[i]->GetItem();
-					Slot[i]->SetTem(P_Equip[tmp]->GetItem());
-					P_Equip[tmp]->SetTem(itemTmp);
+					if (Slot[i]->GetItem() == nullptr || Slot[i]->GetItem()->type == Item::Type::WEAPON)
+					{
+						int tmp = UiMouseManager::Get()->GetIndex();
+						Item* itemTmp = Slot[i]->GetItem();
+						Slot[i]->SetTem(P_Equip[tmp]->GetItem());
+						P_Equip[tmp]->SetTem(itemTmp);
 
-					UiMouseManager::Get()->SetItem(nullptr);
-
+						UiMouseManager::Get()->SetItem(nullptr);
+					}
+					
 				}
 
 			}
+					
 
-
-			if (P_Equip[j]->MouseCollision() && KEY_DOWN(VK_LBUTTON && UiMouseManager::Get()->GetItem() == nullptr))
-			{
-				UiMouseManager::Get()->SetItem(P_Equip[j]->GetItem());
-				UiMouseManager::Get()->SetIndex(j);
-
-				select = 2;
-
-			}
-
-
-			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON && P_Equip[j]->GetItem() == nullptr)
+			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON)
 			{
 
 				if (select == 1)

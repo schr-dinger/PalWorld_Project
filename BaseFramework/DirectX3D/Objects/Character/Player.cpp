@@ -79,7 +79,7 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // ???? : ??
-    particle = new ParticleSystem("TextData/Particles/Star.fx");
+    particle = new ParticleSystem("TextData/Particles/GunHit.fx");
     MiningCollider = new SphereCollider(0.5f);
 
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
@@ -393,7 +393,8 @@ void Player::Control()
     }
     else if (KEY_UP('G'))
     {
-        if (ItemManager::Get()->GetEquipV()[select-1]->num == 3)
+
+        if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr && ItemManager::Get()->GetEquipV()[select-1]->num == 3)
         {
             MiningCollider->SetActive(true);
             SetState(M_MINING);

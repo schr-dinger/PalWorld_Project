@@ -103,7 +103,7 @@ private:
 
     Vector3 z = { 0,0,0 };
 
-    float moveSpeed = 100;
+    float moveSpeed = 10;
     float rotSpeed = 1;
     float deceleration = 5;
 
