@@ -2,51 +2,55 @@
 #include "LoadingScene.h"
 #include "Scenes/GameScene/BaseScene1.h"
 
-//int initCount = 0;
-//mutex m;
+int initCount = 0;
+mutex m;
 
-//void SceneLoading()
-//{
-//	SceneManager::Get()->Create("NewScene", new BaseScene1());
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//	m.lock();
-//	initCount++;
-//	m.unlock();
-//	Sleep(1000);
-//
-//}
+void SceneLoading()
+{
+	m.lock();
+	Device::Get()->GetDeviceContext()->FinishCommandList(false, nullptr);
+	SceneManager::Get()->Create("NewScene", new BaseScene1());
+
+	m.unlock();
+
+	m.lock();
+	initCount++;
+	m.unlock();
+	//Sleep(1000);
+	//
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+	//
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+	//
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+	//
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+	//
+	//m.lock();
+	//initCount++;
+	//m.unlock();
+	//Sleep(1000);
+
+}
 
 
 LoadingScene::LoadingScene()
 {
-	//th = new thread(SceneLoading);
+	th = new thread(SceneLoading);
 	big = new Quad(Vector2(500, 500));
-	SceneManager::Get()->Remove("Title");
+	//SceneManager::Get()->Remove("Title");
 }
 
 LoadingScene::~LoadingScene()
@@ -64,15 +68,16 @@ void LoadingScene::Update()
 	//	return;
 	//}
 	T += DELTA;
-	if (Ini)
-	{
-		SceneManager::Get()->Create("NewScene", new BaseScene1());
-		SceneManager::Get()->Add("NewScene");
-		Ini = false;
-	}
+	//if (Ini)
+	//{
+	//	SceneManager::Get()->Create("NewScene", new BaseScene1());
+	//	SceneManager::Get()->Add("NewScene");
+	//	Ini = false;
+	//}
 
-	if(T>10.0f)
+	if(T>10.0f && initCount == 1)
 	{
+		th->join();
 		SceneManager::Get()->ChangeScene("NewScene");
 		return;
 	}

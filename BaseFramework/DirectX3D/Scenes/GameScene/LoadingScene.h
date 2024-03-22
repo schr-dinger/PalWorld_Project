@@ -14,7 +14,7 @@ public:
 
 	//void SceneLoading();
 public:
-	//thread* th;
+	thread* th;
 	float T;
 	bool Ini = true;
 
