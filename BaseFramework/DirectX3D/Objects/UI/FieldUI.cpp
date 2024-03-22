@@ -430,7 +430,7 @@ void FieldUI::PostRender()
 
 		// 팰 스피어 개수
 		Font::Get()->SetStyle("FieldNum1");
-		int tmpT = tmpPalSpear; // *팰 스피어 개수 가져와야 함
+		int tmpT = ItemManager::Get()->GetConsumDV()[1].second; // *팰 스피어 개수 가져와야 함
 		//int tmpT = PalSpearManager::Get()->GetSize(); // 팰스피어 매니저 말고 아이템 ui에서 가져와야 함
 		if(tmpPalSpear >= 100) Font::Get()->SetColor("White");
 		else Font::Get()->SetColor("Gray");
@@ -459,13 +459,13 @@ void FieldUI::PostRender()
 			Font::Get()->SetStyle("FieldNum3");
 			Font::Get()->SetColor("Gray");
 
-			tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
+			tmpBow = ItemManager::Get()->GetConsumDV()[2].second; // *투사체 개수 가져와야 함
 			tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
 			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
 
 			Font::Get()->SetStyle("FieldNum2");
 			Font::Get()->SetColor("White");
-			tmpBow = 8; //장전되어 있는 개수
+			tmpBow = ItemManager::Get()->GetBulletDV()[1].second; //장전되어 있는 개수
 			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
 			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
 			break;
@@ -476,12 +476,12 @@ void FieldUI::PostRender()
 			Font::Get()->SetColor("Gray");
 
 			tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
-			tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
+			tmpBow = ItemManager::Get()->GetConsumDV()[3].second; // 투사체 총 개수, 아래에
 			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
 
 			Font::Get()->SetStyle("FieldNum2");
 			Font::Get()->SetColor("White");
-			tmpBow = 8; //장전되어 있는 개수
+			tmpBow = ItemManager::Get()->GetBulletDV()[2].second; //장전되어 있는 개수
 			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
 			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
 		}
