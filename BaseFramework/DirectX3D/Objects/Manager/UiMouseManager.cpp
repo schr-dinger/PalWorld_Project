@@ -35,7 +35,7 @@ void UiMouseManager::Update()
 
 void UiMouseManager::Render()
 {
-	if (tempPal == nullptr)
+	if (tempPal == nullptr &&tempItem == nullptr)
 	{
 		return;
 	}

@@ -70,6 +70,8 @@ public:
 
     CapsuleCollider* GetPlayerCol() { return playerCollider; }
 
+    SphereCollider* GetMiningCol() { return MiningCollider; }
+
     Transform* GetFrontPoint() { return frontPoint; }
 
     Transform* GetHand() { return Hand; }
@@ -150,9 +152,9 @@ private:
 
     bool W_Aiming = false;
     int select = 1;
-
     vector<Model*> weapons;
 
+    SphereCollider* MiningCollider;
     //player collider
 
     // Ãæµ¹¿ë

@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -216,7 +216,7 @@ void BaseScene1::GUIRender()
 	// UI테스트
 	//testUI->GUIRender();
 	UiManager::Get()->GuiRender();
-	//LandScapeManager::Get()->GUIRender();
+	LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
 	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
