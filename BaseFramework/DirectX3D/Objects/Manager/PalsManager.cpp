@@ -354,6 +354,15 @@ void PalsManager::Collision()
                 //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                 pal->damage = MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetDamage();
                 pal->Damage();
+                if (pal->target == nullptr)
+                {
+                    pal->SetTarget(MyPalSkillManager::Get()->GetPlayerSkills()[i]->Getpal()->GetTransform());
+                }
+                else if (Distance(pal->GetTransform()->Pos(), pal->target->Pos()) > 
+                    Distance(pal->GetTransform()->Pos(), (MyPalSkillManager::Get()->GetPlayerSkills()[i]->Getpal()->GetTransform()->Pos())))
+                {
+                    pal->SetTarget(MyPalSkillManager::Get()->GetPlayerSkills()[i]->Getpal()->GetTransform());
+                }
                 return;
             }
         }
@@ -366,6 +375,17 @@ void PalsManager::Collision()
         pals[hitPalIndex]->damage = 20;
         pals[hitPalIndex]->Damage();
         testIsHit = false;
+        if (pals[hitPalIndex]->target == nullptr)
+        {
+            pals[hitPalIndex]->SetTarget(PlayerManager::Get()->GetPlayer());
+
+        }
+        else if (Distance(pals[hitPalIndex]->GetTransform()->Pos(), pals[hitPalIndex]->target->Pos()) >
+            Distance(pals[hitPalIndex]->GetTransform()->Pos(), PlayerManager::Get()->GetPlayer()->Pos()))
+        {
+            pals[hitPalIndex]->SetTarget(PlayerManager::Get()->GetPlayer());
+        }
+
     }
     
     

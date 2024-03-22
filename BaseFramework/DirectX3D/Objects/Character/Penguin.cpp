@@ -43,7 +43,7 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     //
     SetEvent((int)ACTION::ATTACK, bind(&Penguin::EndAttack, this), 1.5f);
-    SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.9f);
+    SetEvent((int)ACTION::DAMAGE, bind(&Penguin::EndDamage, this), 0.3f);
 
     FOR(totalEvent.size())
     {
@@ -103,6 +103,14 @@ void Penguin::Update()
     {
         MoveWithOutTarget();
 
+        if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() < 15.0f)
+        {
+            target = PlayerManager::Get()->GetPlayer();
+        }
+    }
+    else if (target != nullptr && !target->Active() && !isSpawned)
+    {
+        target = nullptr;
         if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() < 15.0f)
         {
             target = PlayerManager::Get()->GetPlayer();
@@ -267,10 +275,10 @@ void Penguin::Attack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(0, 1);
+    ransSkill = RANDOM->Int(1, 1);
     skill[ransSkill]->SetActive(true);
-    skill[ransSkill]->SetSkill();
     skill[ransSkill]->SetEnemy(target);
+    skill[ransSkill]->SetSkill();
     MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }

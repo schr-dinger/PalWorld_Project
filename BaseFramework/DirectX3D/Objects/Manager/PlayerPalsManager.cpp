@@ -115,10 +115,7 @@ void PlayerPalsManager::Update()
     //    }
     //    pal->Update();
     //}
-    if (selPal != -1)
-    {
-        pals[selPal]->Update();
-    }
+    
 
 
 
@@ -148,7 +145,10 @@ void PlayerPalsManager::Update()
     }
     
     palStateIcon->Update();
-
+    if (selPal != -1)
+    {
+        pals[selPal]->Update();
+    }
     // 충돌 판정 진행
     Collision();
 }
