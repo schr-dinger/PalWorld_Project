@@ -35,7 +35,7 @@ WorkBench::WorkBench()
 	mouseHit = new SphereCollider(2.5f);
 
 	produceBar = new ProgressBar(
-		L"Textures/UI/hp_bar_BG.png",
+		L"Textures/UI/gauge_bar.png",
 		L"Textures/UI/hp_bar_BG.png"
 	);
 	WorkItem = nullptr;

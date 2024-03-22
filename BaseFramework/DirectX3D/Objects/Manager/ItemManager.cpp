@@ -131,8 +131,6 @@ void ItemManager::MakeItem(int EquipNum)
 {
 	Item* test = nullptr;
 
-
-
 	switch (EquipNum)
 	{
 	case 0:
