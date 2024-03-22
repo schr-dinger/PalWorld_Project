@@ -22,7 +22,7 @@ public:
 
 private:
 
-	
+
 	Model* Spike;
 	ParticleSystem* particle;
 

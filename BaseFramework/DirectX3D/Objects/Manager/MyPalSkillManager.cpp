@@ -3,7 +3,7 @@
 
 MyPalSkillManager::MyPalSkillManager()
 {
-    playerPalSkills.reserve(100); // ëŒ€ì¶© 100ê°œ ë“¤ì–´ê°ˆ ìˆ˜ ìˆê²Œ ì˜ˆì•½í•´ë‘ê¸°
+    playerPalSkills.reserve(100); // ´ëÃæ 100°³ µé¾î°¥ ¼ö ÀÖ°Ô ¿¹¾àÇØµÎ±â
 
 }
 
@@ -13,33 +13,37 @@ MyPalSkillManager::~MyPalSkillManager()
 
 void MyPalSkillManager::Update()
 {
-    if (playerPalSkills.size() == 0) return; // í•„ë“œì— í™œì„±í™”ë¼ìˆëŠ” ìŠ¤í‚¬ ì—†ìœ¼ë©´ ë¦¬í„´
+    if (playerPalSkills.size() == 0) return; // ÇÊµå¿¡ È°¼ºÈ­µÅÀÖ´Â ½ºÅ³ ¾øÀ¸¸é ¸®ÅÏ
 
     for (int i = 0; i < playerPalSkills.size(); i++)
     {
         if (!playerPalSkills[i]->Active())
         {
             playerPalSkills.erase(playerPalSkills.begin() + i);
-            // ìŠ¤í‚¬ì´ ë¹„í™œì„±í™”ë˜ë©´ vectorì—ì„œ ì—†ì• ì£¼ê¸°
-            // ì—…ë°ì´íŠ¸ ì•ˆí•´ì£¼ê¸° ìš©ë„, ìµœì í™”,
+            // ½ºÅ³ÀÌ ºñÈ°¼ºÈ­µÇ¸é vector¿¡¼­ ¾ø¾ÖÁÖ±â
+            // ¾÷µ¥ÀÌÆ® ¾ÈÇØÁÖ±â ¿ëµµ, ÃÖÀûÈ­,
         }
     }
 }
 
 bool MyPalSkillManager::IsCollision(Collider* collider)
 {
-    if (playerPalSkills.size() == 0) return false; // í•„ë“œì— í™œì„±í™”ë¼ìˆëŠ” ìŠ¤í‚¬ ì—†ìœ¼ë©´ ë¦¬í„´
+    if (playerPalSkills.size() == 0) return false; // ÇÊµå¿¡ È°¼ºÈ­µÅÀÖ´Â ½ºÅ³ ¾øÀ¸¸é ¸®ÅÏ
 
     for (Skill* skill : playerPalSkills)
     {
         if (skill->GetCol()->IsCollision(collider))
-            // ìŠ¤í‚¬ì´ ë§¤ê°œë³€ìˆ˜ 'collider'ì— ì¶©ëŒí–ˆë‹¤ë©´
+            // ½ºÅ³ÀÌ ¸Å°³º¯¼ö 'collider'¿¡ Ãæµ¹Çß´Ù¸é
         {
-            if (skill->GetName() == "test")
+            if (skill->GetName() == "¾óÀ½Ã¢" )
             {
-                skill->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
+                skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
             }
-            //skill->SetActive(false); // <-ì´ ì¤„ì´ ì—†ìœ¼ë©´ ê´€í†µíƒ„ì´ ëœë‹¤
+            if (skill->GetName() == "½ºÆÄÀÌÅ©")
+            {
+                skill->GetCol()->SetActive(false);
+            }
+            //skill->SetActive(false); // <-ÀÌ ÁÙÀÌ ¾øÀ¸¸é °üÅëÅºÀÌ µÈ´Ù
 
             return true;
         }

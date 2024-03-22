@@ -4,7 +4,7 @@
 ParticleConfigScene::ParticleConfigScene()
 {
     // 구성할 파티클의 파일 이름 정하기 (여기서 값을 수정하고 파티클 만들기)
-    wstring FILENAME = L"Textures/Effect/star.png";
+    wstring FILENAME = L"Textures/Effect/T_Hit01.png";
 
     quad = new Quad(Vector2(1, 1));
 

@@ -4,17 +4,17 @@
 IronSpike::IronSpike()
 {
 
-	name = "ìŠ¤íŒŒì´í¬";
+	name = "½ºÆÄÀÌÅ©";
 	damage = 50;
 	// startPos = Vector3();
 
-	
+
 	Spike = new Model("Spike");
 	Spike->Rot().x += XM_PIDIV2;
 	Spike->Scale() *= 5.0f;
-	string a = "IR" + to_string(1);
-	Spike->SetTag(a);
+	Spike->SetTag("IR");
 	Spike->GetMaterial(0)->SetDiffuseMap(L"Textures/Model/Spike/T_DustCristal_02.png");
+	Spike->GetMaterial(0)->SetNormalMap(L"Textures/Model/Spike/T_Ice02_normal.png");
 
 	//particle = new ParticleSystem("TextData/Particles/Star.fx");
 
@@ -22,7 +22,7 @@ IronSpike::IronSpike()
 	col->SetParent(Spike);
 	col->Rot().x += XM_PIDIV2;
 	col->Scale() *= 0.4f;
-	
+
 }
 
 IronSpike::~IronSpike()
@@ -47,8 +47,8 @@ void IronSpike::Update()
 
 	if (pal)
 	{
-		
-		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y +=  3 * DELTA;
+
+		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 3 * DELTA;
 		else time += 3 * DELTA;
 
 	}
@@ -61,10 +61,10 @@ void IronSpike::Update()
 
 	//particle->Update();
 	Spike->UpdateWorld();
-	col->UpdateWorld();
+	if (col->Active()) col->UpdateWorld();
 
-	// ì¶©ëŒì²´ ì¶”ê°€ í•„ìš”
-
+	// Ãæµ¹Ã¼ Ãß°¡ ÇÊ¿ä
+	
 
 
 
@@ -74,10 +74,10 @@ void IronSpike::Render()
 {
 	if (!Spike->Active()) return;
 
-	
-		
+
+
 	Spike->Render();
-	col->Render();
+	if(col->Active()) col->Render();
 	//particle->Render();
 
 
@@ -85,11 +85,11 @@ void IronSpike::Render()
 
 void IronSpike::GUIRender()
 {
-	
-		
+
+
 	Spike->GUIRender();
-	
-	
+
+
 }
 
 
@@ -101,11 +101,7 @@ bool IronSpike::Active()
 
 void IronSpike::SetActive(bool active)
 {
-	
 	Spike->SetActive(active);
-	
-
-
 }
 
 void IronSpike::SetSkill()
@@ -115,15 +111,15 @@ void IronSpike::SetSkill()
 		Spike->UpdateWorld();
 		enemy->UpdateWorld();
 
-		
-		Spike->Pos() = enemy->GlobalPos() + Vector3(0,-5,0);
+
+		Spike->Pos() = enemy->GlobalPos() + Vector3(0, -5, 0);
 		Spike->UpdateWorld();
 		//particle->Play(enemy->GlobalPos() + Vector3(0, 1, 0));
 
 	}
 	else
 	{
-		
+
 		Spike->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -5, 0) + pal->GetTransform()->Back() * 5;
 		Spike->UpdateWorld();
 		//particle->Play(pal->GetTransform()->GlobalPos() + pal->GetTransform()->Back() * 10);

@@ -2,8 +2,8 @@
 
 IceSpear::IceSpear()
 {
-	name = "test";
-	damage = 4000;
+	name = "¾óÀ½Ã¢";
+	damage = 100;
 	startPos = Vector3();
 
 	iceSpear = new Model("IceSpear");
@@ -17,7 +17,7 @@ IceSpear::IceSpear()
 	//iceSpear->Rot().y = XM_PIDIV2;
 	//iceSpear->Rot().z = XM_PIDIV2;
 	iceSpear->Rot().x = XM_PIDIV2;
-	SetActive(false); // ì¼ë‹¨ ëª¨ë“  ëª¨ë¸ ë¹„í™œì„±í™”
+	SetActive(false); // ÀÏ´Ü ¸ðµç ¸ðµ¨ ºñÈ°¼ºÈ­
 
 	col = new CapsuleCollider();
 	col->SetParent(iceSpear);
@@ -86,11 +86,11 @@ void IceSpear::SetSkill()
 {
 	iceSpear->Pos() = pal->GetTransform()->GlobalPos() + height;
 	startPos = pal->GetTransform()->GlobalPos() + height;
-	if (enemy != nullptr) // ì  íƒ€ê²Ÿ
+	if (enemy != nullptr) // Àû Å¸°Ù
 	{
 		iceSpear->UpdateWorld();
 		enemy->UpdateWorld();
-		dir = enemy->GlobalPos() - iceSpear->GlobalPos();
+		dir = (enemy->GlobalPos() + Vector3(0,1.0f,0)) - iceSpear->GlobalPos();
 		dir = dir.GetNormalized();
 		Vector3 tmpRot;
 		Vector3 c = dir;
@@ -104,7 +104,7 @@ void IceSpear::SetSkill()
 
 		iceSpear->UpdateWorld();
 	}
-	else // ì  íƒ€ê²Ÿ ì—†ìœ¼ë©´ ëŒ€ì¶© ì•žì—ë‹¤ê°€
+	else // Àû Å¸°Ù ¾øÀ¸¸é ´ëÃæ ¾Õ¿¡´Ù°¡
 	{
 		iceSpear->UpdateWorld();
 

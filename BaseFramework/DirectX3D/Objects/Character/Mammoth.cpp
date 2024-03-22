@@ -33,7 +33,7 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
     //이벤트 세팅
     SetEvent((int)ACTION::ATTACK, bind(&Mammoth::EndAttack, this), 1.5f);
-    SetEvent((int)ACTION::DAMAGE, bind(&Mammoth::EndDamage, this), 0.9f);
+    SetEvent((int)ACTION::DAMAGE, bind(&Mammoth::EndDamage, this), 0.3f);
 
     FOR(totalEvent.size())
     {
@@ -99,7 +99,14 @@ void Mammoth::Update()
         }
 
     }
-
+    else if (target != nullptr && !target->Active() && !isSpawned)
+    {
+        target = nullptr;
+        if ((PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos()).Length() < 15.0f)
+        {
+            target = PlayerManager::Get()->GetPlayer();
+        }
+    }
     if (target)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
@@ -243,7 +250,14 @@ void Mammoth::Damage()
 
 //체력에 -
     //curHP -= 200 * DELTA;
-    curHP -= damage * DELTA;
+    if (skillType == 0)
+    {
+        curHP -= damage * DELTA;
+    }
+    else if (skillType == 1)
+    {
+        curHP -= damage;
+    }
 
     palHpBar->SetAmount(curHP / maxHP); // 체력 비율에 따라 체력바 설정
 

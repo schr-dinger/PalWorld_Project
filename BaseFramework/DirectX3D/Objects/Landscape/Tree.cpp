@@ -8,10 +8,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 	collider->Scale() *= 100.0f;
 	collider->Rot().x = XM_PIDIV2;
 
-	test = new Equipment(1);
-	test2 = new Equipment(2);
-	test3 = new Ingredient(2);
-	test4 = new Equipment(3);
+	matter = new Ingredient(1);
 
 	if (isOne)
 	{
@@ -19,7 +16,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 	}
 	else
 	{
-		impostor = new Quad(Vector2(1920.0f, 1080.0f)*0.03f);
+		impostor = new Quad(Vector2(1920.0f, 1080.0f)*0.0275f);
 	}
 
 	FOR(2)
@@ -35,10 +32,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 Tree::~Tree()
 {
 	delete collider;
-	delete test;
-	delete test2;
-	delete test3;
-	delete test4;
+	delete matter;
 
 	delete impostor;
 	FOR(2)
@@ -59,12 +53,11 @@ void Tree::Update()
 	if (Hp < 0.0f)
 	{
 		transform->SetActive(false);
+		ItemManager::Get()->Mining(matter);
 		isDead = true;
 	}
 
-
-
-	GetTem(PlayerManager::Get()->GetPlayer()->GetPlayerCol());
+	GetTem(PlayerManager::Get()->GetPlayer()->GetMiningCol());
 
 	transform->UpdateWorld();
 	collider->UpdateWorld();
@@ -89,10 +82,7 @@ void Tree::Render()
 
 void Tree::GUIRender()
 {
-
-
-
-
+	//ImGui::SliderFloat("height", &height, 0.0f, 14.0f);
 }
 
 //void Tree::Place(Transform* transform)
@@ -101,29 +91,19 @@ void Tree::GUIRender()
 
 void Tree::Hit()
 {
-	Hp -= 20.0f;
+	Hp -= 50.0f;
 }
 
-void Tree::GetTem(Collider* collider)
+void Tree::GetTem(Collider* Pcollider)
 {
+	if (!Pcollider->Active()) return;
 
-	if (this->collider->IsCollision(collider))
+	if (this->collider->IsCollision(Pcollider))
 	{
-		Time += 3 * DELTA;
-
+		Hit();
+		PlayerManager::Get()->GetPlayer()->GetMiningCol()->SetActive(false);
 	}
-
-
-
-	if (Time > 5)
-	{
-		ItemManager::Get()->Mining(test);
-		ItemManager::Get()->Mining(test2);
-		ItemManager::Get()->Mining(test3);
-		ItemManager::Get()->Mining(test4);
-		//test2 = nullptr;
-		Time = 0;
-	}
+	
 
 }
 
@@ -131,15 +111,16 @@ void Tree::SetImpostor()
 {
 	impostor->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
 	eyeDir = PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos();
-	theta = atanf(eyeDir.z / eyeDir.x) + transform->Rot().y + XM_PI;
+	//theta = atanf(eyeDir.z / eyeDir.x) + transform->Rot().y + XM_PI;
 	//theta = atan2(eyeDir.z , eyeDir.x) + transform->Rot().y + XM_PI;
-	
-	if (theta >= 360.0f * (XM_2PI / 360.0f))
+	theta = atan2(eyeDir.z, eyeDir.x) + transform->Rot().y;
+
+	if (theta > XM_2PI)
 	{
 		theta -= XM_2PI;
 	}
 
-	if (theta < 0.0f * (XM_2PI / 360.0f))
+	if (theta < 0.0f)
 	{
 		theta += XM_2PI;
 	}
@@ -190,7 +171,7 @@ void Tree::SetImpostor()
 	}
 	else
 	{
-		impostor->Pos() = transform->Pos() + Vector3(0.0f, 14.0f, 0.0f);
+		impostor->Pos() = transform->Pos() + Vector3(0.0f, height, 0.0f);
 
 
 		if (theta >= 0.0f * (XM_2PI / 360.0f) && theta < 22.5f * (XM_2PI / 360.0f))

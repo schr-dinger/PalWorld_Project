@@ -37,6 +37,7 @@ public:
     void SetSelPal(int selPal) { this->selPal = selPal; }
 
     void Summons(Vector3 summonPos);     // ¼ÒÈ¯
+    void SUmmonedPalActiveFalse();
     void SetTerrain(Terrain* terrain) { this->terrain = terrain; }
 
     Pal* GetPal(int num) { return pals[num]; }
@@ -65,6 +66,7 @@ private:
     map<string, ModelAnimatorInstancing*> palsMAI;
     vector<Pal*> pals;
     int selPal;
+    int isSummonedSelPal;
     map<string, int> palsMAIIndex;
     
     //Transform* target;

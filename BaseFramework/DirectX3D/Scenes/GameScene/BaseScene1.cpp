@@ -137,23 +137,23 @@ void BaseScene1::PreRender()
 {
 	//PalSpearManager::Get()->PreRender();
 
-	//water->SetRefraction();
-	//
-	//// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
-	//skyBox->Render();
-	//
-	//// 반사
-	//water->SetReflection();
-	//// 반사 출력
-	//skyBox->Render();
+	water->SetRefraction();
+
+	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
+	skyBox->Render();
+
+	// 반사
+	water->SetReflection();
+	// 반사 출력
+	skyBox->Render();
 
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	//shadow->SetRenderTargetPos(CAM->GlobalPos());
-	//PlayerManager::Get()->GetPlayer()->ShadowRender();
+	shadow->SetRenderTargetPos(CAM->GlobalPos());
+	PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//RenderShadowModel();
 }
 
@@ -174,7 +174,7 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	//shadow->SetRender();
+	shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
@@ -216,7 +216,7 @@ void BaseScene1::GUIRender()
 	// UI테스트
 	//testUI->GUIRender();
 	UiManager::Get()->GuiRender();
-	//LandScapeManager::Get()->GUIRender();
+	LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
 	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
@@ -403,7 +403,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-	blendState[1]->SetState();
+	//blendState[1]->SetState();
 	rasterizer[1]->SetState();
 	/*
 	// 나무1
