@@ -383,6 +383,7 @@ void Player::Control()
             summonPalSpearThrow->SetActive(true);
             summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
             summonPalSpearDIr = CAM->Forward();
+            PlayerPalsManager::Get()->SUmmonedPalActiveFalse();
         }
 
     }
