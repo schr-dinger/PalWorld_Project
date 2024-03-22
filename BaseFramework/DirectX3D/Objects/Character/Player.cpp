@@ -22,25 +22,25 @@ Player::Player() : ModelAnimator("NPC")
 
     ReadClip("B_Idle");
     ReadClip("B_Walk");
-    ReadClip("B_Run");
-
-    ReadClip("J_Start");
-    ReadClip("J_End");
-    ReadClip("J_Loop");
-
-    ReadClip("R_Idle");
-    ReadClip("R_Run");
-    ReadClip("R_Aim");
-    ReadClip("R_Reload");
-    ReadClip("R_Draw");
-
-    ReadClip("RA_Run");
-
-    ReadClip("BW_Aim");
-    ReadClip("BW_Fire");
+    //ReadClip("B_Run");
+    //
+    //ReadClip("J_Start");
+    //ReadClip("J_End");
+    //ReadClip("J_Loop");
+    //
+    //ReadClip("R_Idle");
+    //ReadClip("R_Run");
+    //ReadClip("R_Aim");
+    //ReadClip("R_Reload");
+    //ReadClip("R_Draw");
+    //
+    //ReadClip("RA_Run");
+    //
+    //ReadClip("BW_Aim");
+    //ReadClip("BW_Fire");
 
     ReadClip("M_Mining");
-    ReadClip("M_Attack");
+    //ReadClip("M_Attack");
 
     ReadClip("S_Aim");
     ReadClip("S_Throw");
@@ -82,16 +82,16 @@ Player::Player() : ModelAnimator("NPC")
     particle = new ParticleSystem("TextData/Particles/Star.fx");
     MiningCollider = new SphereCollider(0.5f);
 
-    GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
-    GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-
+    //GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
+    //GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //
     GetClip(S_THROW)->SetEvent(bind(&Player::SetState, this, IDLE), 0.55f);
-
-    GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-    GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
-
-    GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
-    GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //
+    //GetClip(R_DRAW)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //GetClip(R_RELOAD)->SetEvent(bind(&Player::SetState, this, R_IDLE), 0.3f);
+    //
+    //GetClip(BW_FIRE)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
+    //GetClip(M_ATTACK)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
     GetClip(M_MINING)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
     playerCollider = new CapsuleCollider(0.25f, 1.2f);
@@ -161,7 +161,7 @@ void Player::Update()
     {
         if (weapons[i] != nullptr)
         {
-            if (ItemManager::Get()->GetWeaponV()[i]->num == 3)
+            if (ItemManager::Get()->GetEquipV()[i]->num == 3)
             {
                 MiningCollider->SetParent(weapons[i]->GetParent());
                 MiningCollider->Pos() = Vector3(0.0f, 0.3f, 0.0f);
@@ -289,7 +289,7 @@ void Player::Control()
             isBow = false;
             if (KEY_DOWN('R'))
             {
-                SetState(R_RELOAD);
+                //SetState(R_RELOAD);
             }
 
             break;
@@ -524,7 +524,7 @@ void Player::Move()
 
         if (KEY_DOWN(VK_SPACE))
         {
-            action = J_START;
+            //action = J_START;
             jumpVelocity = jumpForce;
             isJump = true;
             isSpace = true;
@@ -575,7 +575,7 @@ void Player::Jump(float _ground)
 
     if (Pos().y > _ground + 0.5f)
     {
-        if (action != J_LOOP) action = J_LOOP;
+        //if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
     }
@@ -585,7 +585,7 @@ void Player::Jump(float _ground)
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10 * DELTA);
         jumpVelocity = 0;
-        if (curState == J_LOOP) SetState(J_END);
+        //if (curState == J_LOOP) SetState(J_END);
         isJump = false;
         isSpace = false;
     }
@@ -740,10 +740,10 @@ void Player::AttackPal()
         }
         break;
     case 2:
-        SetState(BW_FIRE);
+        //SetState(BW_FIRE);
         break;
     case 3:
-        SetState(M_ATTACK);
+        //SetState(M_ATTACK);
 
         break;
     default:
@@ -816,7 +816,7 @@ void Player::UiMode()
 
 void Player::SetAnimation()
 {
-
+    /*
     if (curState == J_LOOP)
     {
         ClipOnce();
@@ -870,7 +870,7 @@ void Player::SetAnimation()
             SetState(IDLE);
         }
     }
-
+    */
 }
 
 void Player::SetState(ACTION state)

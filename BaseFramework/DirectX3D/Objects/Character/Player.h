@@ -6,25 +6,25 @@ private:
     {
         IDLE,
         WALK,
-        RUN,
-
-        J_START,
-        J_END,
-        J_LOOP,
-
-        R_IDLE,
-        R_RUN,
-        R_Aim,
-        R_RELOAD,
-        R_DRAW,
-
-        RA_FWD,
-
-        BW_AIM,
-        BW_FIRE,
+        //RUN,
+        //
+        //J_START,
+        //J_END,
+        //J_LOOP,
+        //
+        //R_IDLE,
+        //R_RUN,
+        //R_Aim,
+        //R_RELOAD,
+        //R_DRAW,
+        //
+        //RA_FWD,
+        //
+        //BW_AIM,
+        //BW_FIRE,
 
         M_MINING,
-        M_ATTACK,
+        //M_ATTACK,
 
         S_AIM,
         S_THROW,
@@ -103,7 +103,7 @@ private:
 
     Vector3 z = { 0,0,0 };
 
-    float moveSpeed = 10;
+    float moveSpeed = 50;
     float rotSpeed = 1;
     float deceleration = 5;
 

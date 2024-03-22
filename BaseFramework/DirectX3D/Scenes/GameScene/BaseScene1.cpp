@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -87,8 +87,8 @@ BaseScene1::~BaseScene1()
 
 void BaseScene1::Update()
 {
-	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
-	light1->pos = CAM->GlobalPos();
+	//LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
+	//light1->pos = CAM->GlobalPos();
 
 	StructureManager::Get()->Update();
 	UiManager::Get()->Update(); // UI 관련 업데이트가 먼저
@@ -137,32 +137,32 @@ void BaseScene1::PreRender()
 {
 	//PalSpearManager::Get()->PreRender();
 
-	water->SetRefraction();
-
-	// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
-	skyBox->Render();
-
-	// 반사
-	water->SetReflection();
-	// 반사 출력
-	skyBox->Render();
+	//water->SetRefraction();
+	//
+	//// 일렁인 쪽 클래스의 쿼드에 일렁임의 결과 출력
+	//skyBox->Render();
+	//
+	//// 반사
+	//water->SetReflection();
+	//// 반사 출력
+	//skyBox->Render();
 
 	StructureManager::Get()->PreRender();
 	//LandScapeManager::Get()->PreRender();
 
 	// 그림자
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	shadow->SetRenderTargetPos(CAM->GlobalPos());
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//shadow->SetRenderTargetPos(CAM->GlobalPos());
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
 {
 
-	skyBox->Render();
+	//skyBox->Render();
 	//terrain->Render();
-	water->Render();
+	//water->Render();
 	
 	//mam->Render();
 
@@ -174,7 +174,7 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	shadow->SetRender();
+	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	//AStarManager::Get()->Render();
 	UiManager::Get()->Render();
