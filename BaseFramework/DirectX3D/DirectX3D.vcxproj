@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\GameScene\LoadingScene.h" />
     <ClInclude Include="Objects\Skill\IronSpike.h" />
     <ClInclude Include="Objects\Skill\IceSpear.h" />
     <ClInclude Include="Objects\Items\Consumable.h" />
@@ -312,8 +313,10 @@
     <ClInclude Include="Objects\UI\WorkBenchUI.h" />
     <ClInclude Include="Objects\UI\WorkInFo.h" />
     <ClInclude Include="Objects\UI\WorkSlot.h" />
+    <ClInclude Include="Scenes\GameScene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\GameScene\LoadingScene.cpp" />
     <ClCompile Include="Objects\Skill\IronSpike.cpp" />
     <ClCompile Include="Objects\Character\Penguin.cpp" />
     <ClCompile Include="Objects\Skill\IceSpear.cpp" />
@@ -476,6 +479,7 @@
     <ClCompile Include="Objects\UI\WorkBenchUI.cpp" />
     <ClCompile Include="Objects\UI\WorkInFo.cpp" />
     <ClCompile Include="Objects\UI\WorkSlot.cpp" />
+    <ClCompile Include="Scenes\GameScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />
