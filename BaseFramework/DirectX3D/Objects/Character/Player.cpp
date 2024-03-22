@@ -23,6 +23,9 @@ Player::Player() : ModelAnimator("NPC")
     ReadClip("B_Idle");
     ReadClip("B_Walk");
     ReadClip("B_Run");
+    //ReadClip("B_Make");
+    //ReadClip("B_Build");
+
 
     ReadClip("J_Start");
     ReadClip("J_End");
