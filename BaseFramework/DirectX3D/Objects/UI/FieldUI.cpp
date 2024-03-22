@@ -432,13 +432,14 @@ void FieldUI::PostRender()
 		Font::Get()->SetStyle("FieldNum1");
 		int tmpT = ItemManager::Get()->GetConsumDV()[1].second; // *팰 스피어 개수 가져와야 함
 		//int tmpT = PalSpearManager::Get()->GetSize(); // 팰스피어 매니저 말고 아이템 ui에서 가져와야 함
-		if(tmpPalSpear >= 100) Font::Get()->SetColor("White");
+		if (tmpT > 999) tmpT = 999;
+		if(tmpT >= 100) Font::Get()->SetColor("White");
 		else Font::Get()->SetColor("Gray");
 		tmpString = to_string(tmpT /100); // 백의 자리
 		Font::Get()->RenderText(tmpString, { parSpear100FontPos.x, parSpear100FontPos.y },1);
 		tmpT %= 100;
 
-		if (tmpPalSpear >= 10) Font::Get()->SetColor("White");
+		if (tmpT >= 10) Font::Get()->SetColor("White");
 		else Font::Get()->SetColor("Gray");
 		tmpString = to_string(tmpT /10); // 십의 자리
 		Font::Get()->RenderText(tmpString, { parSpear010FontPos.x, parSpear010FontPos.y },1);
