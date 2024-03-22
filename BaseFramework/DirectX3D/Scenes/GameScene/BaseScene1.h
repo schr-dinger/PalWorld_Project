@@ -15,9 +15,9 @@ public:
 private:
 	void SetLights();
 
-	void SetShadowModel();
+	//void SetShadowModel();
 
-	void RenderShadowModel();
+	//void RenderShadowModel();
 
 	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;

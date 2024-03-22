@@ -19,7 +19,7 @@ Tree::Tree(Transform* transform, bool one) :transform(transform) ,isOne(one)
 	}
 	else
 	{
-		impostor = new Quad(Vector2(1920.0f, 1080.0f)*0.03f);
+		impostor = new Quad(Vector2(1920.0f, 1080.0f)*0.0275f);
 	}
 
 	FOR(2)
@@ -89,10 +89,7 @@ void Tree::Render()
 
 void Tree::GUIRender()
 {
-
-
-
-
+	//ImGui::SliderFloat("height", &height, 0.0f, 14.0f);
 }
 
 //void Tree::Place(Transform* transform)
@@ -131,15 +128,16 @@ void Tree::SetImpostor()
 {
 	impostor->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
 	eyeDir = PlayerManager::Get()->GetPlayer()->Pos() - transform->Pos();
-	theta = atanf(eyeDir.z / eyeDir.x) + transform->Rot().y + XM_PI;
+	//theta = atanf(eyeDir.z / eyeDir.x) + transform->Rot().y + XM_PI;
 	//theta = atan2(eyeDir.z , eyeDir.x) + transform->Rot().y + XM_PI;
-	
-	if (theta >= 360.0f * (XM_2PI / 360.0f))
+	theta = atan2(eyeDir.z, eyeDir.x) + transform->Rot().y;
+
+	if (theta > XM_2PI)
 	{
 		theta -= XM_2PI;
 	}
 
-	if (theta < 0.0f * (XM_2PI / 360.0f))
+	if (theta < 0.0f)
 	{
 		theta += XM_2PI;
 	}
@@ -190,7 +188,7 @@ void Tree::SetImpostor()
 	}
 	else
 	{
-		impostor->Pos() = transform->Pos() + Vector3(0.0f, 14.0f, 0.0f);
+		impostor->Pos() = transform->Pos() + Vector3(0.0f, height, 0.0f);
 
 
 		if (theta >= 0.0f * (XM_2PI / 360.0f) && theta < 22.5f * (XM_2PI / 360.0f))

@@ -523,13 +523,16 @@ void Player::Move()
         Vector3 forward = Forward();
         Vector3 cross = Cross(forward, velocity);
 
-        if (cross.y < 0)
+        if (cross.y < -0.01f)
         {
-            Rot().y += 5 * DELTA;
+            Rot().y = Lerp(Rot().y, Rot().y + 5 * DELTA, 0.5f);
+            //Rot().y += 5 * DELTA;
         }
-        else if (cross.y > 0)
+        else if (cross.y > 0.01f)
         {
-            Rot().y -= 5 * DELTA;
+            Rot().y = Lerp(Rot().y, Rot().y - 5 * DELTA, 0.5f);
+
+            //Rot().y -= 5 * DELTA;
         }
 
 

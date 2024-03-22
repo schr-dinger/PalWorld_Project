@@ -7,7 +7,7 @@ BaseScene1::BaseScene1()
 	SetLights();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -154,7 +154,7 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	RenderShadowModel();
+	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -216,7 +216,7 @@ void BaseScene1::GUIRender()
 	// UI테스트
 	//testUI->GUIRender();
 	UiManager::Get()->GuiRender();
-	//LandScapeManager::Get()->GUIRender();
+	LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
 	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
@@ -252,210 +252,210 @@ void BaseScene1::SetLights()
 	light2->active = 1;
 }
 
-void BaseScene1::SetShadowModel()
-{
-	ModelP = new ModelAnimatorInstancing("PenGuin");
-	ModelP->ReadClip("Idle");
-	ModelP->ReadClip("Walk");
-	ModelP->ReadClip("Run");
-	ModelP->ReadClip("Attack");
-	ModelP->ReadClip("Damage");
-	ModelP->ReadClip("Work");
-	ModelP->SetTag("Penguin");
-	ModelP->SetShader(L"Light/DepthMap.hlsl");
-	ModelP->Scale() *= 0.01f;
-	ModelP->Render();
-
-	ModelM = new ModelAnimatorInstancing("Mammoth");
-	ModelM->ReadClip("Idle");
-	ModelM->ReadClip("Walk");
-	ModelM->ReadClip("Run");
-	ModelM->ReadClip("Attack");
-	ModelM->ReadClip("Damage");
-	ModelM->SetTag("mammoth");
-	ModelM->SetShader(L"Light/DepthMap.hlsl");
-	ModelM->Scale() *= 0.01f;
-	ModelM->Update();
-	ModelM->Render();
-
-	ModelD = new ModelAnimatorInstancing("DarkWolf");
-	ModelD->ReadClip("Idle");
-	ModelD->ReadClip("Walk");
-	ModelD->ReadClip("Run");
-	ModelD->ReadClip("Attack");
-	ModelD->ReadClip("Damage");
-	ModelD->SetTag("wolf");
-	ModelD->SetShader(L"Light/DepthMap.hlsl");
-	ModelD->Scale() *= 0.01f;
-	ModelD->Render();
-
-
-	treeS1 = new Model("Tree1");
-	treeS1->Scale() *= 0.01f;
-	//treeS1->SetShader(L"Light/DepthMap.hlsl");
-
-	treeS2 = new Model("Tree2");
-	treeS2->Scale() *= 0.01f;
-	//treeS2->SetShader(L"Light/DepthMap.hlsl");
-
-	//rockS  = new Model("Rock1");
-	//rockS->Scale() *= 0.01f;
-	//rockS->SetShader(L"Light/DepthMap.hlsl");
-
-	//grassS1= new Model("Grass1");
-	////grassS1->Scale() *= 0.01f;
-	////grassS1->Scale() *= 5.0f;
-	//grassS1->SetShader(L"Light/DepthMap.hlsl");
-	//
-	//grassS2= new Model("Grass2");
-	////grassS2->Scale() *= 0.01f;
-	////grassS2->Scale().z *= 3.0f;
-	//grassS2->SetShader(L"Light/DepthMap.hlsl");
-
-
-}
-
-
-void BaseScene1::RenderShadowModel()
-{
-	// 필드 팰즈 매니저
-	for (int i = 0; i < PalsManager::Get()->GetPalsInstancing().size(); i++)
-	{
-		int tmpIII = 0;
-		for (Transform* pal : PalsManager::Get()->GetPalsInstancing()[i]->GetInstancingTransform())
-		{
-			if (pal->Active())
-			{
-				if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "PenGuin")
-				{
-					ModelP->Pos() = pal->Pos();
-					ModelP->Rot() = pal->Rot();
-					//ModelP->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelP->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelP->UpdateWorld();
-					ModelP->Render();
-				}
-				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "Mammoth")
-				{
-					ModelM->Pos() = pal->Pos();
-					ModelM->Rot() = pal->Rot();
-					//ModelM->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelM->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelM->UpdateWorld();
-					ModelM->Render();
-				}
-				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "DarkWolf")
-				{
-					ModelD->Pos() = pal->Pos();
-					ModelD->Rot() = pal->Rot();
-					//ModelD->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelD->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelD->UpdateWorld();
-					ModelD->Render();
-				}
-			}
-			tmpIII++;
-		}
-	}
-
-	// 플레이어 팰즈 매니저
-	for (auto iter = PlayerPalsManager::Get()->GetPalsMAI().begin(); iter != PlayerPalsManager::Get()->GetPalsMAI().end(); iter++)
-	{
-		int tmpIII = 0;
-		for (Transform* pal : iter->second->GetInstancingTransform())
-		{
-			if (pal->Active())
-			{
-				if (iter->second->ModelName == "PenGuin")
-				{
-					ModelP->Pos() = pal->Pos();
-					ModelP->Rot() = pal->Rot();
-					//ModelP->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelP->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelP->UpdateWorld();
-					ModelP->Render();
-				}
-				else if (iter->second->ModelName == "Mammoth")
-				{
-					ModelM->Pos() = pal->Pos();
-					ModelM->Rot() = pal->Rot();
-					//ModelM->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelM->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelM->UpdateWorld();
-					ModelM->Render();
-				}
-				else if (iter->second->ModelName == "DarkWolf")
-				{
-					ModelD->Pos() = pal->Pos();
-					ModelD->Rot() = pal->Rot();
-					//ModelD->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
-					ModelD->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
-
-					ModelD->UpdateWorld();
-					ModelD->Render();
-				}
-			}
-			tmpIII++;
-		}
-	}
-	blendState[1]->SetState();
-	rasterizer[1]->SetState();
-
-	// 나무1
-	//for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
-	//{
-	//	if (tree1->Active())
-	//	{
-	//		treeS1->Pos() = tree1->GlobalPos();
-	//		treeS1->Rot() = tree1->Rot();
-	//		treeS1->UpdateWorld();
-	//		treeS1->Render();
-	//	}
-	//	
-	//}
-	// 나무2
-	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
-	{
-		if (tree2->Active())
-		{
-			treeS2->Pos() = tree2->GlobalPos();
-			treeS2->Rot() = tree2->Rot();
-			treeS2->UpdateWorld();
-			treeS2->Render();
-		}
-		
-	}
-	// 돌
-	//for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
-	//{
-	//	rockS->Pos() = rock->GlobalPos();
-	//	rockS->Rot() = rock->Rot();
-	//	rockS->UpdateWorld();
-	//	rockS->Render();
-	//}
-	// 풀1
-	//for (Transform* grass1 : LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms())
-	//{
-	//	grassS1->Pos() = grass1->GlobalPos();
-	//	grassS1->Rot() = grass1->Rot();
-	//	grassS1->Scale() = grass1->Scale();
-	//	grassS1->UpdateWorld();
-	//	grassS1->Render();
-	//}
-	//// 풀2
-	//for (Transform* grass2 : LandScapeManager::Get()->GetGrass2Instancing()->GetTransforms())
-	//{
-	//	grassS2->Pos() = grass2->GlobalPos();
-	//	grassS2->Rot() = grass2->Rot();
-	//	grassS2->Scale() = grass2->Scale();
-	//	grassS2->UpdateWorld();
-	//	grassS2->Render();
-	//}
-	blendState[0]->SetState();
-	rasterizer[0]->SetState();
-}
+//void BaseScene1::SetShadowModel()
+//{
+//	ModelP = new ModelAnimatorInstancing("PenGuin");
+//	ModelP->ReadClip("Idle");
+//	ModelP->ReadClip("Walk");
+//	ModelP->ReadClip("Run");
+//	ModelP->ReadClip("Attack");
+//	ModelP->ReadClip("Damage");
+//	ModelP->ReadClip("Work");
+//	ModelP->SetTag("Penguin");
+//	ModelP->SetShader(L"Light/DepthMap.hlsl");
+//	ModelP->Scale() *= 0.01f;
+//	ModelP->Render();
+//
+//	ModelM = new ModelAnimatorInstancing("Mammoth");
+//	ModelM->ReadClip("Idle");
+//	ModelM->ReadClip("Walk");
+//	ModelM->ReadClip("Run");
+//	ModelM->ReadClip("Attack");
+//	ModelM->ReadClip("Damage");
+//	ModelM->SetTag("mammoth");
+//	ModelM->SetShader(L"Light/DepthMap.hlsl");
+//	ModelM->Scale() *= 0.01f;
+//	ModelM->Update();
+//	ModelM->Render();
+//
+//	ModelD = new ModelAnimatorInstancing("DarkWolf");
+//	ModelD->ReadClip("Idle");
+//	ModelD->ReadClip("Walk");
+//	ModelD->ReadClip("Run");
+//	ModelD->ReadClip("Attack");
+//	ModelD->ReadClip("Damage");
+//	ModelD->SetTag("wolf");
+//	ModelD->SetShader(L"Light/DepthMap.hlsl");
+//	ModelD->Scale() *= 0.01f;
+//	ModelD->Render();
+//
+//
+//	treeS1 = new Model("Tree1");
+//	treeS1->Scale() *= 0.01f;
+//	//treeS1->SetShader(L"Light/DepthMap.hlsl");
+//
+//	treeS2 = new Model("Tree2");
+//	treeS2->Scale() *= 0.01f;
+//	//treeS2->SetShader(L"Light/DepthMap.hlsl");
+//
+//	//rockS  = new Model("Rock1");
+//	//rockS->Scale() *= 0.01f;
+//	//rockS->SetShader(L"Light/DepthMap.hlsl");
+//
+//	//grassS1= new Model("Grass1");
+//	////grassS1->Scale() *= 0.01f;
+//	////grassS1->Scale() *= 5.0f;
+//	//grassS1->SetShader(L"Light/DepthMap.hlsl");
+//	//
+//	//grassS2= new Model("Grass2");
+//	////grassS2->Scale() *= 0.01f;
+//	////grassS2->Scale().z *= 3.0f;
+//	//grassS2->SetShader(L"Light/DepthMap.hlsl");
+//
+//
+//}
+//
+//
+//void BaseScene1::RenderShadowModel()
+//{
+//	// 필드 팰즈 매니저
+//	for (int i = 0; i < PalsManager::Get()->GetPalsInstancing().size(); i++)
+//	{
+//		int tmpIII = 0;
+//		for (Transform* pal : PalsManager::Get()->GetPalsInstancing()[i]->GetInstancingTransform())
+//		{
+//			if (pal->Active())
+//			{
+//				if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "PenGuin")
+//				{
+//					ModelP->Pos() = pal->Pos();
+//					ModelP->Rot() = pal->Rot();
+//					//ModelP->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelP->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelP->UpdateWorld();
+//					ModelP->Render();
+//				}
+//				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "Mammoth")
+//				{
+//					ModelM->Pos() = pal->Pos();
+//					ModelM->Rot() = pal->Rot();
+//					//ModelM->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelM->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelM->UpdateWorld();
+//					ModelM->Render();
+//				}
+//				else if (PalsManager::Get()->GetPalsInstancing()[i]->ModelName == "DarkWolf")
+//				{
+//					ModelD->Pos() = pal->Pos();
+//					ModelD->Rot() = pal->Rot();
+//					//ModelD->GetFrameB()->Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelD->GetFrameB().Get().cur = PalsManager::Get()->GetPalsInstancing()[i]->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelD->UpdateWorld();
+//					ModelD->Render();
+//				}
+//			}
+//			tmpIII++;
+//		}
+//	}
+//
+//	// 플레이어 팰즈 매니저
+//	for (auto iter = PlayerPalsManager::Get()->GetPalsMAI().begin(); iter != PlayerPalsManager::Get()->GetPalsMAI().end(); iter++)
+//	{
+//		int tmpIII = 0;
+//		for (Transform* pal : iter->second->GetInstancingTransform())
+//		{
+//			if (pal->Active())
+//			{
+//				if (iter->second->ModelName == "PenGuin")
+//				{
+//					ModelP->Pos() = pal->Pos();
+//					ModelP->Rot() = pal->Rot();
+//					//ModelP->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelP->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelP->UpdateWorld();
+//					ModelP->Render();
+//				}
+//				else if (iter->second->ModelName == "Mammoth")
+//				{
+//					ModelM->Pos() = pal->Pos();
+//					ModelM->Rot() = pal->Rot();
+//					//ModelM->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelM->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelM->UpdateWorld();
+//					ModelM->Render();
+//				}
+//				else if (iter->second->ModelName == "DarkWolf")
+//				{
+//					ModelD->Pos() = pal->Pos();
+//					ModelD->Rot() = pal->Rot();
+//					//ModelD->GetFrameB()->Get().cur = iter->second->GetFrameIB()->Get().motions[tmpIII].cur;
+//					ModelD->GetFrameB().Get().cur = iter->second->GetFrameIB().Get().motions[tmpIII].cur;
+//
+//					ModelD->UpdateWorld();
+//					ModelD->Render();
+//				}
+//			}
+//			tmpIII++;
+//		}
+//	}
+//	blendState[1]->SetState();
+//	rasterizer[1]->SetState();
+//
+//	// 나무1
+//	//for (Transform* tree1 : LandScapeManager::Get()->GetTree1Instancing()->GetTransforms())
+//	//{
+//	//	if (tree1->Active())
+//	//	{
+//	//		treeS1->Pos() = tree1->GlobalPos();
+//	//		treeS1->Rot() = tree1->Rot();
+//	//		treeS1->UpdateWorld();
+//	//		treeS1->Render();
+//	//	}
+//	//	
+//	//}
+//	// 나무2
+//	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
+//	{
+//		if (tree2->Active())
+//		{
+//			treeS2->Pos() = tree2->GlobalPos();
+//			treeS2->Rot() = tree2->Rot();
+//			treeS2->UpdateWorld();
+//			treeS2->Render();
+//		}
+//		
+//	}
+//	// 돌
+//	//for (Transform* rock : LandScapeManager::Get()->GetRock1Instancing()->GetTransforms())
+//	//{
+//	//	rockS->Pos() = rock->GlobalPos();
+//	//	rockS->Rot() = rock->Rot();
+//	//	rockS->UpdateWorld();
+//	//	rockS->Render();
+//	//}
+//	// 풀1
+//	//for (Transform* grass1 : LandScapeManager::Get()->GetGrass1Instancing()->GetTransforms())
+//	//{
+//	//	grassS1->Pos() = grass1->GlobalPos();
+//	//	grassS1->Rot() = grass1->Rot();
+//	//	grassS1->Scale() = grass1->Scale();
+//	//	grassS1->UpdateWorld();
+//	//	grassS1->Render();
+//	//}
+//	//// 풀2
+//	//for (Transform* grass2 : LandScapeManager::Get()->GetGrass2Instancing()->GetTransforms())
+//	//{
+//	//	grassS2->Pos() = grass2->GlobalPos();
+//	//	grassS2->Rot() = grass2->Rot();
+//	//	grassS2->Scale() = grass2->Scale();
+//	//	grassS2->UpdateWorld();
+//	//	grassS2->Render();
+//	//}
+//	blendState[0]->SetState();
+//	rasterizer[0]->SetState();
+//}

@@ -90,7 +90,7 @@ void LandScapeManager::Update()
 {
     for (Tree* tree : trees)
     {
-        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 150.0f)
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() > 50.0f)
         {
             tree->GetTransform()->SetActive(false);
         }
@@ -175,6 +175,10 @@ void LandScapeManager::GUIRender()
     //    walls[i]->GUIRender();
     //}
 
+    for (Tree* tree : trees)
+    {
+        tree->GUIRender();
+    }
 }
 
 void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terrain, bool one)
