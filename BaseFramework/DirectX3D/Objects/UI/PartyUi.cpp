@@ -60,6 +60,7 @@ PartyUi::PartyUi()
 	depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);  // 다 가리기
 	//depthState[1]->DepthFunc(D3D11_COMPARISON_ALWAYS);
 
+	FOR(5) isPlayed[i] = false;
 }
 
 PartyUi::~PartyUi()
@@ -78,12 +79,28 @@ void PartyUi::Update()
 {
 	FOR(5)
 	{
-		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->partyUiOn && partyIcon[i]->GetPal() != nullptr)
+		if (partyIcon[i]->MouseCollision() && UiManager::Get()->partyUiOn)
 		{
-			name = partyIcon[i]->GetPal()->name;
-			models[name]->SetActive(true);
-			models[name]->PlayClip(0);;
+			if (!isPlayed[i])
+			{
+				SOUND->Stop("UI_2");
+				SOUND->Play("UI_2");
+				isPlayed[i] = true;
+			}
+			if (KEY_DOWN(VK_LBUTTON) && partyIcon[i]->GetPal() != nullptr)
+			{
+				name = partyIcon[i]->GetPal()->name;
+				models[name]->SetActive(true);
+				models[name]->PlayClip(0);
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
+			}
 		}
+		else
+		{
+			isPlayed[i] = false;
+		}
+		
 		partyIcon[i]->Update();
 	}
 

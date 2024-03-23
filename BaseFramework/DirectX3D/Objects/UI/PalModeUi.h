@@ -29,5 +29,8 @@ private:
 
 	Vector3 center = { 640.0f,360.0f,0.0f };
 
+	// UI Sound Once
+	bool isPlayed = false;
+
 };
 
