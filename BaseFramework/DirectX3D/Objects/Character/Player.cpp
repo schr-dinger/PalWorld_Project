@@ -577,6 +577,8 @@ void Player::Move()
             jumpVelocity = jumpForce;
             isJump = true;
             isSpace = true;
+            SOUND->Stop("Walk");
+            SOUND->Stop("Run");
         }
 
         velocity = w + a + s + d;
@@ -603,8 +605,7 @@ void Player::Move()
         Pos() += velocity * moveSpeed * DELTA;
     }
 
-    if (velocity.Length() > 0 && !SOUND->IsPlaySound("Run")) SOUND->Play("Run");
-    else if (velocity.Length() <= 0) SOUND->Stop("Run");
+    
    
 
 
@@ -888,12 +889,14 @@ void Player::SetAnimation()
 
     if (curState == J_LOOP)
     {
+        
         ClipOnce();
         return;
     }
     else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING
        || curState == WORK || curState == BUILD)
     {
+       
         return;
     }
 
@@ -931,13 +934,32 @@ void Player::SetAnimation()
     {
         if (velocity.Length() > 0)
         {
-            if (isRun) SetState(RUN);
-            else SetState(WALK);
+            test1 += 1 * DELTA;
 
+
+            if (isRun)
+            {
+                SetState(RUN); 
+                SOUND->Stop("Walk");
+                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+                
+            }
+            else
+            {
+                SetState(WALK);
+                SOUND->Stop("Run");
+                if (test1 > 1) SOUND->Stop("Walk"),SOUND->Play("Walk"), test1 = 0;
+                if(!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
+                
+
+            }
+                
         }
         else 
         {
             SetState(IDLE);
+            SOUND->Stop("Walk");
+            SOUND->Stop("Run");
         }
     }
 

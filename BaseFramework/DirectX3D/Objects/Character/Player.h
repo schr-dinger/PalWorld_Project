@@ -163,7 +163,7 @@ private:
 
     SphereCollider* MiningCollider;
 
-    
+    float test1;
 
     //
 

@@ -31,6 +31,8 @@ public:
 
     void Play(string key, float valume = 1.0f);
     void Play(string key, float valume , int count);
+    void PlayDelay(string key, float valume = 1.0f, int delay = 0.0f);
+
     void Play(string key, Float3 position, float valume = 1.0f);
 
     void Stop(string key);

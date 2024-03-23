@@ -13,7 +13,7 @@ public:
     virtual void GUIRender() override;
 
 private:
-    Model* Spike[3];
+    Model* Spike;
 
     Quad* test;
 
