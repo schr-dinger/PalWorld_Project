@@ -158,6 +158,12 @@ private:
     vector<Model*> weapons;
 
     SphereCollider* MiningCollider;
+
+    //
+
+    
+    
+
     //player collider
 
     // Ãæµ¹¿ë

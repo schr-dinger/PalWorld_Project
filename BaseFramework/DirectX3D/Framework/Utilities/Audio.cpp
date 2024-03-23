@@ -68,13 +68,17 @@ void Audio::Add(string key, string file, bool bgm, bool loop, bool is3D)
     sounds[key] = info;
 }
 
-void Audio::Play(string key, float valume)
+void Audio::Play(string key, float valume, int count)
 {
     if (sounds.count(key) == 0) return;
 
+    
     soundSystem->playSound(sounds[key]->sound,
         nullptr, false, &sounds[key]->channel);
     sounds[key]->channel->setVolume(valume);
+    sounds[key]->channel->setLoopCount(count);
+
+    
 }
 
 void Audio::Play(string key, Float3 position, float valume)
@@ -110,6 +114,8 @@ void Audio::Resume(string key)
     if (sounds.count(key) == 0) return;
 
     sounds[key]->channel->setPaused(false);
+    
+
 }
 
 bool Audio::IsPlaySound(string key)
