@@ -103,9 +103,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    RECT rc = { 0, 0, WIN_WIDTH, WIN_HEIGHT };
 
    AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, false);
-
+   int xPosition = (GetSystemMetrics(SM_CXSCREEN) - WIN_WIDTH) / 2;
+   int yPosition = (GetSystemMetrics(SM_CYSCREEN) - WIN_HEIGHT) / 2;
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0,
+       xPosition, yPosition,
        rc.right - rc.left,
        rc.bottom - rc.top,
        nullptr, nullptr, hInstance, nullptr);
