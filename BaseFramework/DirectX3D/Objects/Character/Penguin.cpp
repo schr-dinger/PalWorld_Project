@@ -284,7 +284,7 @@ void Penguin::Attack()
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetEnemy(target);
     skill[ransSkill]->SetSkill();
-    skill[ransSkill]->SkillSound();
+    skill[ransSkill]->SkillSound(transform->GlobalPos());
     MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }
@@ -301,7 +301,7 @@ void Penguin::FieldAttack()
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetSkill();
     skill[ransSkill]->SetEnemy(target);
-    skill[ransSkill]->SkillSound();
+    skill[ransSkill]->SkillSound(transform->GlobalPos());
     FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 }
 

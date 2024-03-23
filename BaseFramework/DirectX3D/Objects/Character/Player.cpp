@@ -419,8 +419,9 @@ void Player::Control()
             CatchPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
+            Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
-            SOUND->Play("Sphere_Flash");
+            SOUND->Play("Sphere_Flash", tmpPos);
         }
     }
     else if (KEY_UP('E'))
@@ -435,8 +436,9 @@ void Player::Control()
             CAM->UpdateWorld();
             summonPalSpearDIr = CAM->Forward();
             PlayerPalsManager::Get()->SUmmonedPalActiveFalse();
+            Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
-            SOUND->Play("Sphere_Flash");
+            SOUND->Play("Sphere_Flash", tmpPos);
         }
 
     }
@@ -676,7 +678,7 @@ void Player::Collision()
                 {
                     curHP = 0;
                 }
-                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound();
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(GlobalPos());
                 return;
             }
         }

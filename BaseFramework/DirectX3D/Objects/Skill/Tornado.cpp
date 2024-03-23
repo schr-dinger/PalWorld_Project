@@ -190,7 +190,15 @@ void Tornado::SetSkill()
 		Tornado1->Pos() = pal->GetTransform()->GlobalPos();
 		Tornado2->Pos() = pal->GetTransform()->GlobalPos();
 		startPos = pal->GetTransform()->GlobalPos();
-		dir = pal->GetTransform()->Back();
+		if (enemy != nullptr)
+		{
+			dir = (enemy->GlobalPos() - pal->GetTransform()->GlobalPos()).GetNormalized();
+			dir.y = 0;
+		}
+		else
+		{
+			dir = pal->GetTransform()->Back();
+		}
 		
 	}
 	else
@@ -203,17 +211,17 @@ void Tornado::SetSkill()
 	}
 }
 
-void Tornado::SkillSound()
+void Tornado::SkillSound(Float3 pos)
 {
 	SOUND->Stop("Sphere_Flash");
-	SOUND->Play("Sphere_Flash");
+	SOUND->Play("Sphere_Flash", pos);
 }
 
-void Tornado::SkillHitSound()
+void Tornado::SkillHitSound(Float3 pos)
 {
 	//SOUND->Stop("WindCutterHit");
 	if (!SOUND->IsPlaySound("WindCutterHit"))
 	{
-		SOUND->Play("WindCutterHit");
+		SOUND->Play("WindCutterHit", pos);
 	}
 }

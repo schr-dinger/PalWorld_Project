@@ -130,15 +130,15 @@ void IronSpike::SetSkill()
 
 }
 
-void IronSpike::SkillSound()
+void IronSpike::SkillSound(Float3 pos)
 {
 	SOUND->Stop("EarthQuaSet");
-	SOUND->Play("EarthQuaSet");
+	SOUND->Play("EarthQuaSet", pos);
 }
 
-void IronSpike::SkillHitSound()
+void IronSpike::SkillHitSound(Float3 pos)
 {
 	SOUND->Stop("EarthQuakeHit");
-	SOUND->Play("EarthQuakeHit");
+	SOUND->Play("EarthQuakeHit", pos);
 }
 

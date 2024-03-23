@@ -225,7 +225,7 @@ void Mammoth::Attack()
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
     skill[0]->SetEnemy(target);
-    skill[0]->SkillSound();
+    skill[0]->SkillSound(transform->GlobalPos());
     MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
 }
 
@@ -240,7 +240,7 @@ void Mammoth::FieldAttack()
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
     skill[0]->SetEnemy(target);
-    skill[0]->SkillSound();
+    skill[0]->SkillSound(transform->GlobalPos());
     FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
 }

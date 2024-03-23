@@ -454,7 +454,7 @@ void PlayerPalsManager::Collision()
                     {
                         pal->skillType = 0;
                     }
-                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound();
+                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
                     //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                     pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
                     pal->Damage();

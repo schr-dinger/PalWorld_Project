@@ -508,10 +508,10 @@ void BaseScene1::SetSound()
 
 	
 	// sphere
-	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav");
-	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav");
-	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav");
-	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav");
+	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav",false, false, true);
+	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav", false, false, true);
+	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav", false, false, true);
+	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav", false, false, true);
 
 
 }
