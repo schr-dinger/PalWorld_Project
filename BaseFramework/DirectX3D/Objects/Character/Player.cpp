@@ -23,8 +23,8 @@ Player::Player() : ModelAnimator("NPC")
     ReadClip("B_Idle");
     ReadClip("B_Walk");
     ReadClip("B_Run");
-    //ReadClip("B_Make");
-    //ReadClip("B_Build");
+    ReadClip("B_Make");
+    ReadClip("B_Build");
 
 
     ReadClip("J_Start");
@@ -84,7 +84,7 @@ Player::Player() : ModelAnimator("NPC")
     // ???? : ??
     particle = new ParticleSystem("TextData/Particles/GunHit.fx");
     
-    MiningCollider = new SphereCollider(0.5f);
+    MiningCollider = new SphereCollider(0.3f);
 
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
@@ -103,14 +103,8 @@ Player::Player() : ModelAnimator("NPC")
     isCollision = false;
 
     weapons.resize(4);
+       
 
-
-   
-    Audio::Get()->Add("Gun_Fire", "Sounds/pal/Gun_Fire.wav");
-    Audio::Get()->Add("Gun_Draw", "Sounds/pal/Gun_Draw.wav");
-    Audio::Get()->Add("Gun_Reload", "Sounds/pal/Gun_Reload.wav");
-    Audio::Get()->Add("Gun_Aim", "Sounds/pal/Gun_Aim.wav");
-    Audio::Get()->Add("Pick_Attack", "Sounds/pal/Pick_Attack.wav",false,true);
 
 }
 
@@ -147,10 +141,35 @@ void Player::Update()
         //CAM->Pos() = ogCam;
         CAM->Pos() = Lerp(foCam, ogCam, 0.8f);
 
-
     }
-
-
+    if (isBuild)
+    {
+        SetState(BUILD);
+        if (!SOUND->IsPlaySound("Build"))
+        {
+            SOUND->Play("Build");
+        }
+        
+    }
+    else
+    {
+        if (curState == BUILD) SetState(IDLE);
+        SOUND->Stop("Build");
+    }
+    if (isWork)
+    {
+        SetState(WORK);
+        if (!SOUND->IsPlaySound("Work"))
+        {
+            SOUND->Play("Work");
+        }
+       
+    }
+    else
+    {
+        if (curState == WORK) SetState(IDLE);
+        SOUND->Stop("Work");
+    }
 
     CamTransform->Pos() = this->Pos();
 
@@ -308,7 +327,7 @@ void Player::Control()
             if (KEY_DOWN('R') && (0 <= ItemManager::Get()->GetBulletDV()[1].second < 30))
             {
                 SetState(R_RELOAD);
-                Audio::Get()->Play("Gun_Reload");
+                SOUND->Play("Gun_Reload");
                 int bullet = 30 - ItemManager::Get()->GetBulletDV()[1].second;
                 int reload = min(bullet, ItemManager::Get()->GetConsumDV()[2].second);
 
@@ -443,7 +462,7 @@ void Player::Control()
 
 void Player::Move()
 {
-    if (curState == S_THROW || curState == M_MINING)
+    if (curState == S_THROW || curState == M_MINING || curState == WORK || curState == BUILD)
     {
         return;
     }
@@ -574,10 +593,15 @@ void Player::Move()
             //Rot().y -= 5 * DELTA;
         }
 
-
+       
 
         Pos() += velocity * moveSpeed * DELTA;
     }
+
+    if (velocity.Length() > 0 && !SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+    else if (velocity.Length() <= 0) SOUND->Stop("Run");
+   
+
 
 
 }
@@ -766,7 +790,7 @@ void Player::AttackPal()
     case 1:
         if (0 < ItemManager::Get()->GetBulletDV()[1].second)
         {
-            Audio::Get()->Play("Gun_Fire");
+            SOUND->Play("Gun_Fire");
             ItemManager::Get()->GetBulletDV()[1].second--;
             
             if (PalsManager::Get()->IsCollision(ray, hitPoint))
@@ -780,7 +804,7 @@ void Player::AttackPal()
         break;
     case 3:
         SetState(M_ATTACK);
-        Audio::Get()->Play("Pick_Attack",1,1);
+        SOUND->Play("Pick_Attack",1,1);
              
 
         break;
@@ -860,7 +884,8 @@ void Player::SetAnimation()
         ClipOnce();
         return;
     }
-    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING)
+    else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING
+       || curState == WORK || curState == BUILD)
     {
         return;
     }

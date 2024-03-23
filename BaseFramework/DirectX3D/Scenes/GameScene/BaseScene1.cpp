@@ -468,34 +468,46 @@ void BaseScene1::RenderShadowModel()
 
 void BaseScene1::SetSound()
 {
-	SOUND->Add("BGM_Battle", "Sounds/pal/BGM_Battle.wav",true, true);
-	SOUND->Add("BGM_Title", "Sounds/pal/Title.wav",true, true);
-	SOUND->Add("WalkGrass", "Sounds/pal/WalkGrass.wav",false, true);
-	SOUND->Add("RunGrass", "Sounds/pal/RunGrass.wav",false, true);
-	SOUND->Add("JumpLanding", "Sounds/pal/JumpLanding.wav");
-	SOUND->Add("LevelUp", "Sounds/pal/LevelUp.wav");
-	SOUND->Add("WorkBenchWork", "Sounds/pal/WorkBenchWork.wav",false, true);
-	SOUND->Add("Work", "Sounds/pal/Hammer.wav",false, true);
-	SOUND->Add("UI_1", "Sounds/pal/UI_1.wav");
-	SOUND->Add("UI_2", "Sounds/pal/UI_2.wav");
-	SOUND->Add("UI_3", "Sounds/pal/UI_3.wav");
-	SOUND->Add("Gunaim", "Sounds/pal/Gunaim.wav");
-	SOUND->Add("Gunaimend", "Sounds/pal/Gunaimend.wav");
-	SOUND->Add("Gundraw", "Sounds/pal/Gundraw.wav");
-	SOUND->Add("Gunfire", "Sounds/pal/Gunfire.wav");
-	SOUND->Add("Gunreload", "Sounds/pal/Gunfire.wav");
-	SOUND->Add("IceMissileHit_1", "Sounds/pal/IceMissileHit_1.wav");
-	SOUND->Add("IceMissileHit_2", "Sounds/pal/IceMissileHit_2.wav");
-	SOUND->Add("IceMissileShoot", "Sounds/pal/IceMissileShoot.wav");
-	SOUND->Add("Pickaxedraw", "Sounds/pal/Pickaxedraw.wav");
-	SOUND->Add("Pickdraw", "Sounds/pal/pickdraw.wav");
-	SOUND->Add("Pickhit1", "Sounds/pal/pickhit1.wav");
-	SOUND->Add("Pickhit2", "Sounds/pal/pickhit2.wav");
-	SOUND->Add("Pickhit3", "Sounds/pal/pickhit3.wav");
+
+
+	// action
+	SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav", false, true);
+	SOUND->Add("Run", "Sounds/Action/RunGrass.wav", false, true);
+	SOUND->Add("JumpLanding", "Sounds/Action/JumpLanding.wav");
+	SOUND->Add("Work", "Sounds/Action/WorkBenchWork.wav", false, true);
+	SOUND->Add("Build", "Sounds/Action/Hammer.wav", false, true);
+	SOUND->Add("Gun_Aim", "Sounds/Action/Gun_Aim.wav");
+	SOUND->Add("Gun_Draw", "Sounds/Action/Gun_Draw.wav");
+	SOUND->Add("Gun_Fire", "Sounds/Action/Gun_Fire.wav");
+	SOUND->Add("Gun_Reload", "Sounds/Action/Gun_Reload.wav");
+	SOUND->Add("Pick_Attack", "Sounds/Action/Pick_Attack.wav",false,true);
+	//SOUND->Add("Pickdraw", "Sounds/Action/pickdraw.wav");
+	SOUND->Add("Pick_HitWood", "Sounds/Action/pickhit1.wav");
+	//SOUND->Add("Pickhit2", "Sounds/Action/pickhit2.wav");
+	SOUND->Add("Pick_HitRock", "Sounds/Action/pickhit3.wav");
+
+
+	// skill
+	SOUND->Add("IceMissileHit_1", "Sounds/Skill/IceMissileHit_1.wav");
+	SOUND->Add("IceMissileHit_2", "Sounds/Skill/IceMissileHit_2.wav");
+	SOUND->Add("IceMissileShoot", "Sounds/Skill/IceMissileShoot.wav");
+	SOUND->Add("WindCutterHit", "Sounds/Skill/WindCutterHit.wav");
+	SOUND->Add("WindCutterShoot", "Sounds/Skill/WindCutterShoot.wav");
+
+	// ui
+	SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
+	SOUND->Add("BGM_Title", "Sounds/UI/Title.wav", true, true);
+	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
+	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
+	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");
+	SOUND->Add("UI_3", "Sounds/UI/UI_3.wav");
+
+	
+	// sphere
 	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav");
 	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav");
 	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav");
 	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav");
-	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.wav");
-	SOUND->Add("WindCutterShoot", "Sounds/pal/WindCutterShoot.wav");
+
+
 }

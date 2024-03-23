@@ -11,7 +11,7 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     curHP = 1000;
 
     // 부모에서 가져온 스킬 세팅
-    skill[0] = new Tornado();
+    skill[0] = new IronSpike();
     skill[0]->Setpal(this); // 스킬 시작 위치 받아가는 함수, 이 팔의 위치에서
     skill[0]->SetSkill();   // 스킬 세팅(시작 위치), 
 
