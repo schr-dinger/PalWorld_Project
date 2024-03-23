@@ -5,6 +5,8 @@ BaseScene1::BaseScene1()
 {
 	//Let there be light
 	SetLights();
+	// 소리 추가
+	SetSound();
 
 	// 그림자용 모델
 	SetShadowModel();
@@ -63,6 +65,9 @@ BaseScene1::BaseScene1()
 
 	//paTest = new ParticleSystem("TextData/Particles/PalSpear.fx");
 
+
+	// 소리 실행
+	SOUND->Play("BGM_Battle");
 }
 
 BaseScene1::~BaseScene1()
@@ -459,4 +464,38 @@ void BaseScene1::RenderShadowModel()
 	//}
 	blendState[0]->SetState();
 	rasterizer[0]->SetState();
+}
+
+void BaseScene1::SetSound()
+{
+	SOUND->Add("BGM_Battle", "Sounds/pal/BGM_Battle.wav",true, true);
+	SOUND->Add("BGM_Title", "Sounds/pal/Title.wav",true, true);
+	SOUND->Add("WalkGrass", "Sounds/pal/WalkGrass.wav",false, true);
+	SOUND->Add("RunGrass", "Sounds/pal/RunGrass.wav",false, true);
+	SOUND->Add("JumpLanding", "Sounds/pal/JumpLanding.wav");
+	SOUND->Add("LevelUp", "Sounds/pal/LevelUp.wav");
+	SOUND->Add("WorkBenchWork", "Sounds/pal/WorkBenchWork.wav",false, true);
+	SOUND->Add("Work", "Sounds/pal/Hammer.wav",false, true);
+	SOUND->Add("UI_1", "Sounds/pal/UI_1.wav");
+	SOUND->Add("UI_2", "Sounds/pal/UI_2.wav");
+	SOUND->Add("UI_3", "Sounds/pal/UI_3.wav");
+	SOUND->Add("Gunaim", "Sounds/pal/Gunaim.wav");
+	SOUND->Add("Gunaimend", "Sounds/pal/Gunaimend.wav");
+	SOUND->Add("Gundraw", "Sounds/pal/Gundraw.wav");
+	SOUND->Add("Gunfire", "Sounds/pal/Gunfire.wav");
+	SOUND->Add("Gunreload", "Sounds/pal/Gunfire.wav");
+	SOUND->Add("IceMissileHit_1", "Sounds/pal/IceMissileHit_1.wav");
+	SOUND->Add("IceMissileHit_2", "Sounds/pal/IceMissileHit_2.wav");
+	SOUND->Add("IceMissileShoot", "Sounds/pal/IceMissileShoot.wav");
+	SOUND->Add("Pickaxedraw", "Sounds/pal/Pickaxedraw.wav");
+	SOUND->Add("Pickdraw", "Sounds/pal/pickdraw.wav");
+	SOUND->Add("Pickhit1", "Sounds/pal/pickhit1.wav");
+	SOUND->Add("Pickhit2", "Sounds/pal/pickhit2.wav");
+	SOUND->Add("Pickhit3", "Sounds/pal/pickhit3.wav");
+	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav");
+	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav");
+	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav");
+	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav");
+	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.wav");
+	SOUND->Add("WindCutterShoot", "Sounds/pal/WindCutterShoot.wav");
 }

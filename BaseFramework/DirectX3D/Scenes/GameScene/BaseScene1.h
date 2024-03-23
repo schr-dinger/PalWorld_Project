@@ -19,6 +19,8 @@ private:
 
 	void RenderShadowModel();
 
+	void SetSound();
+
 	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;
 	SkyBox* skyBox;
