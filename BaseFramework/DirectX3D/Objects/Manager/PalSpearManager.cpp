@@ -86,7 +86,8 @@ bool PalSpearManager::IsCollision(Collider* collider, class Pal* pal)
             palSpear->SetState(PalSpear::State::HITPAL);
             palSpear->SetPal(pal);
             palSpear->GetCollider()->SetActive(false);
-
+            SOUND->Stop("Sphere_Hit");
+            SOUND->Play("Sphere_Hit");
             return true;
         }
     }

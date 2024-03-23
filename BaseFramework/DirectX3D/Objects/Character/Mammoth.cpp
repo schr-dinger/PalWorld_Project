@@ -3,44 +3,44 @@
 Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT index)
 	:transform(transform), instancing(instancing), index(index)
 {
-    name = "ê·¸ë¦°ëª¨ìŠ¤";
+    name = "±×¸°¸ğ½º";
     modelName = "Mammoth";
     level = 30;
-    speed = 5; //ì†ë ¥ : ê¸°ë³¸ ìŠ¤íƒ¯
+    speed = 5; //¼Ó·Â : ±âº» ½ºÅÈ
     maxHP = 1000;
     curHP = 1000;
 
-    // ë¶€ëª¨ì—ì„œ ê°€ì ¸ì˜¨ ìŠ¤í‚¬ ì„¸íŒ…
+    // ºÎ¸ğ¿¡¼­ °¡Á®¿Â ½ºÅ³ ¼¼ÆÃ
     skill[0] = new IronSpike();
-    skill[0]->Setpal(this); // ìŠ¤í‚¬ ì‹œì‘ ìœ„ì¹˜ ë°›ì•„ê°€ëŠ” í•¨ìˆ˜, ì´ íŒ”ì˜ ìœ„ì¹˜ì—ì„œ
-    skill[0]->SetSkill();   // ìŠ¤í‚¬ ì„¸íŒ…(ì‹œì‘ ìœ„ì¹˜), 
+    skill[0]->Setpal(this); // ½ºÅ³ ½ÃÀÛ À§Ä¡ ¹Ş¾Æ°¡´Â ÇÔ¼ö, ÀÌ ÆÈÀÇ À§Ä¡¿¡¼­
+    skill[0]->SetSkill();   // ½ºÅ³ ¼¼ÆÃ(½ÃÀÛ À§Ä¡), 
 
-    // í­ê·„ ì•„ì´ì½˜ ì¶”ê°€
+    // Æë±Ï ¾ÆÀÌÄÜ Ãß°¡
     icon = Texture::Add(L"Textures/Model/Mammoth/T_GrassMammoth_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/Mammoth/T_GrassMammoth_icon_normal_C.png");
 
-    root = new Transform(); // ì½œë¼ì´ë”ê°€ ìœ„ì¹˜í•  ì¥ì†Œ(ìœ„ì¹˜)
+    root = new Transform(); // Äİ¶óÀÌ´õ°¡ À§Ä¡ÇÒ Àå¼Ò(À§Ä¡)
 
-    //ì¶©ëŒì²´
-    collider = new CapsuleCollider(200, 200); // ì‚¬ì´ì¦ˆ
+    //Ãæµ¹Ã¼
+    collider = new CapsuleCollider(200, 200); // »çÀÌÁî
     collider->SetParent(root);
     collider->Pos() = { 0, -20, -180 };
-    collider->SetActive(true); //ì¶©ëŒì²´ ë³´ì´ê¸° ì‹«ì„ ë•ŒëŠ” ì´ ë¶€ë¶„ false
+    collider->SetActive(true); //Ãæµ¹Ã¼ º¸ÀÌ±â ½ÈÀ» ¶§´Â ÀÌ ºÎºĞ false
 
     motion = instancing->GetMotion(index);
-    totalEvent.resize(instancing->GetClipSize()); //ëª¨ë¸ì´ ê°€ì§„ ë™ì‘ ìˆ«ìë§Œí¼ ì´ë²¤íŠ¸ ë¦¬ì‚¬ì´ì§•
+    totalEvent.resize(instancing->GetClipSize()); //¸ğµ¨ÀÌ °¡Áø µ¿ÀÛ ¼ıÀÚ¸¸Å­ ÀÌº¥Æ® ¸®»çÀÌÂ¡
     eventIters.resize(instancing->GetClipSize());
 
-    //ì´ë²¤íŠ¸ ì„¸íŒ…
+    //ÀÌº¥Æ® ¼¼ÆÃ
     SetEvent((int)ACTION::ATTACK, bind(&Mammoth::EndAttack, this), 1.5f);
     SetEvent((int)ACTION::DAMAGE, bind(&Mammoth::EndDamage, this), 0.3f);
 
     FOR(totalEvent.size())
     {
-        eventIters[i] = totalEvent[i].begin(); // ë“±ë¡ë˜ì–´ ìˆì„ ì´ë²¤íŠ¸ì˜ ì‹œì‘ì§€ì ìœ¼ë¡œ ë°˜ë³µì ì„¤ì •
+        eventIters[i] = totalEvent[i].begin(); // µî·ÏµÇ¾î ÀÖÀ» ÀÌº¥Æ®ÀÇ ½ÃÀÛÁöÁ¡À¸·Î ¹İº¹ÀÚ ¼³Á¤
     }
 
-    //ìºë¦­í„° UI ì¶”ê°€
+    //Ä³¸¯ÅÍ UI Ãß°¡
     tmpN = 0;
 
     velocity = { 0, 0, 0 };
@@ -52,17 +52,17 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
 
 Mammoth::~Mammoth()
 {
-    // ê°ì²´ ì‚­ì œ
+    // °´Ã¼ »èÁ¦
     delete collider;
     delete root;
 
-    // ì„ì‹œ ì‚­ì œ
+    // ÀÓ½Ã »èÁ¦
     delete transform;
 }
 
 void Mammoth::Update()
 {
-    //í™œì„±í™” ì‹œì—ë§Œ ì—…ë°ì´íŠ¸
+    //È°¼ºÈ­ ½Ã¿¡¸¸ ¾÷µ¥ÀÌÆ®
     if (!transform->Active())
     {
         return;
@@ -88,7 +88,7 @@ void Mammoth::Update()
     }
 
     //ClipSync();
-    //ì›€ì§ì„
+    //¿òÁ÷ÀÓ
     if (target == nullptr && !isSpawned)
     {
         MoveWithOutTarget();
@@ -109,8 +109,8 @@ void Mammoth::Update()
     }
     if (target)
     {
-        velocity = target->GlobalPos() - transform->GlobalPos(); // ì†ë ¥ê¸°ì¤€ : í‘œì ê³¼ ìì‹ ì˜ ê±°ë¦¬
-        Move(); //ì›€ì§ì´ê¸°
+        velocity = target->GlobalPos() - transform->GlobalPos(); // ¼Ó·Â±âÁØ : Ç¥Àû°ú ÀÚ½ÅÀÇ °Å¸®
+        Move(); //¿òÁ÷ÀÌ±â
     }
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
@@ -120,8 +120,8 @@ void Mammoth::Update()
         MoveP();
     }
 
-    ExecuteEvent(); // ì´ë²¤íŠ¸ê°€ í„°ì ¸ì•¼ í•˜ë©´ ìˆ˜í–‰í•˜ê¸°
-    UpdateUI(); //UI ì—…ë°ì´íŠ¸
+    ExecuteEvent(); // ÀÌº¥Æ®°¡ ÅÍÁ®¾ß ÇÏ¸é ¼öÇàÇÏ±â
+    UpdateUI(); //UI ¾÷µ¥ÀÌÆ®
 
     if (!isSpawned && target)
     {
@@ -133,7 +133,7 @@ void Mammoth::Update()
 
     root->SetWorld(instancing->GetTransformByNode(index, 4));
     //root->SetWorld(instancing->GetTransformByNode(index, tmpN));
-    collider->UpdateWorld(); //ì¶©ëŒì²´ ì—…ë°ì´íŠ¸
+    collider->UpdateWorld(); //Ãæµ¹Ã¼ ¾÷µ¥ÀÌÆ®
 
     //if (KEY_DOWN('Q'))
     //{
@@ -145,7 +145,7 @@ void Mammoth::Update()
     //
     //}
 
-    // ìŠ¤í‚¬ í…ŒìŠ¤íŠ¸
+    // ½ºÅ³ Å×½ºÆ®
     //if (KEY_DOWN('K') && !skill[0]->Active())
     //{
     //    Attack();
@@ -221,34 +221,36 @@ void Mammoth::Attack()
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ìŠ¤í‚¬ ì•¡í‹°ë¸Œ
+    // ½ºÅ³ ¾×Æ¼ºê
     skill[0]->SetActive(true);
-    skill[0]->SetEnemy(target);
     skill[0]->SetSkill();
+    skill[0]->SetEnemy(target);
+    skill[0]->SkillSound();
     MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
 }
 
 void Mammoth::FieldAttack()
 {
-    // ëª¨ì…˜ ì„¤ì •
+    // ¸ğ¼Ç ¼³Á¤
     action = ACTION::ATTACK;
     instancing->PlayClip(index, (int)ACTION::ATTACK);
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
-    // ìŠ¤í‚¬ ì•¡í‹°ë¸Œ
+    // ½ºÅ³ ¾×Æ¼ºê
     skill[0]->SetActive(true);
-    skill[0]->SetEnemy(target);
     skill[0]->SetSkill();
+    skill[0]->SetEnemy(target);
+    skill[0]->SkillSound();
     FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
 }
 
 void Mammoth::Damage()
 {
-    // ë¬´ì ì´ ë˜ëŠ” ì¡°ê±´ë“¤
-//if (action == ACTION::DAMAGE) return; // ë§ê³  ìˆì„ ë• ì•ˆ ë§ëŠ”ë‹¤.
+    // ¹«ÀûÀÌ µÇ´Â Á¶°Çµé
+//if (action == ACTION::DAMAGE) return; // ¸Â°í ÀÖÀ» ¶© ¾È ¸Â´Â´Ù.
 
-//ì²´ë ¥ì— -
+//Ã¼·Â¿¡ -
     //curHP -= 200 * DELTA;
     if (skillType == 0)
     {
@@ -259,21 +261,21 @@ void Mammoth::Damage()
         curHP -= damage;
     }
 
-    palHpBar->SetAmount(curHP / maxHP); // ì²´ë ¥ ë¹„ìœ¨ì— ë”°ë¼ ì²´ë ¥ë°” ì„¤ì •
+    palHpBar->SetAmount(curHP / maxHP); // Ã¼·Â ºñÀ²¿¡ µû¶ó Ã¼·Â¹Ù ¼³Á¤
 
-    // ì²´ë ¥ì´ ì™„ì „íˆ ë°”ë‹¥ë‚˜ë©´
+    // Ã¼·ÂÀÌ ¿ÏÀüÈ÷ ¹Ù´Ú³ª¸é
     if (curHP <= 0)
     {
-        // ì£½ëŠ” ëª¨ì…˜ ìˆìœ¼ë©´ ì„¸íŒ…
+        // Á×´Â ¸ğ¼Ç ÀÖÀ¸¸é ¼¼ÆÃ
         //SetAction(ACTION::DIE); 
 
-        // í˜„ì¬ëŠ” ë°”ë¡œ ë¹„í™œì„±í™”
+        // ÇöÀç´Â ¹Ù·Î ºñÈ°¼ºÈ­
         isDead = true;
         transform->SetActive(false);
-        return;//ì´ í•¨ìˆ˜ ì¢…ë£Œ
+        return;//ÀÌ ÇÔ¼ö Á¾·á
     }
 
-    // ì•„ì§ ì•ˆ ì£½ì—ˆìœ¼ë©´ ì‚° ë¡œë´‡ë‹µê²Œ ë§ëŠ” ë™ì‘ ìˆ˜í–‰
+    // ¾ÆÁ÷ ¾È Á×¾úÀ¸¸é »ê ·Îº¿´ä°Ô ¸Â´Â µ¿ÀÛ ¼öÇà
     action = ACTION::DAMAGE;
     instancing->PlayClip(index, (int)ACTION::DAMAGE);
     eventIters[(int)ACTION::DAMAGE] = totalEvent[(int)ACTION::DAMAGE].begin();
@@ -282,11 +284,11 @@ void Mammoth::Damage()
 
 void Mammoth::Spawn(Vector3 pos)
 {
-    transform->SetActive(true); //ë¹„í™œì„±í™”ì˜€ë‹¤ë©´ í™œì„±í™” ì‹œì‘
+    transform->SetActive(true); //ºñÈ°¼ºÈ­¿´´Ù¸é È°¼ºÈ­ ½ÃÀÛ
     collider->SetActive(true);
 
-    SetAction(ACTION::IDLE); // ì†Œí™˜ ëª¨ì…˜ ìˆë‹¤ë©´ ì†Œí™˜ëª¨ì…˜ë¶€í„°
-                             // ì—¬ê¸°ì„  ë°”ë¡œ ì•„ì´ë“¤
+    SetAction(ACTION::IDLE); // ¼ÒÈ¯ ¸ğ¼Ç ÀÖ´Ù¸é ¼ÒÈ¯¸ğ¼ÇºÎÅÍ
+                             // ¿©±â¼± ¹Ù·Î ¾ÆÀÌµé
 
     curHP = maxHP;
     //hpBar->SetAmount(curHP / maxHP);
@@ -297,7 +299,7 @@ void Mammoth::Spawn(Vector3 pos)
 
 void Mammoth::Summons(Vector3 pos)
 {
-    transform->SetActive(true); //ë¹„í™œì„±í™”ì˜€ë‹¤ë©´ í™œì„±í™” ì‹œì‘
+    transform->SetActive(true); //ºñÈ°¼ºÈ­¿´´Ù¸é È°¼ºÈ­ ½ÃÀÛ
     collider->SetActive(true);
 
     SetAction(ACTION::IDLE); // 
@@ -314,22 +316,22 @@ void Mammoth::SetTarget(Transform* target)
 
 void Mammoth::SetEvent(int clip, Event event, float timeRatio)
 {
-    if (totalEvent[clip].count(timeRatio) > 0) return; // ì„ í–‰ ì˜ˆì•½ëœ ì´ë²¤íŠ¸ê°€ ìˆìœ¼ë©´ ì¢…ë£Œ
+    if (totalEvent[clip].count(timeRatio) > 0) return; // ¼±Çà ¿¹¾àµÈ ÀÌº¥Æ®°¡ ÀÖÀ¸¸é Á¾·á
     totalEvent[clip][timeRatio] = event;
 
 }
 
 void Mammoth::ExecuteEvent()
 {
-    int index = (int)action; //í˜„ì¬ ìƒíƒœ ë°›ì•„ì˜¤ê¸°
+    int index = (int)action; //ÇöÀç »óÅÂ ¹Ş¾Æ¿À±â
     if (totalEvent[index].empty()) return;
     if (eventIters[index] == totalEvent[index].end()) return;
 
-    float ratio = motion->runningTime / motion->duration; //ì§„í–‰ëœ ì‹œê°„ ë‚˜ëˆ„ê¸° ì „ì²´ ì§„í–‰ì‹œê°„
+    float ratio = motion->runningTime / motion->duration; //ÁøÇàµÈ ½Ã°£ ³ª´©±â ÀüÃ¼ ÁøÇà½Ã°£
 
-    if (eventIters[index]->first > ratio) return; // ì§„í–‰ ì‹œê°„ì´ ì •í•´ì§„ ê¸°ì¤€ì— ëª» ë¯¸ì¹˜ë©´ ì¢…ë£Œ(ì¬ì‹œì‘)
+    if (eventIters[index]->first > ratio) return; // ÁøÇà ½Ã°£ÀÌ Á¤ÇØÁø ±âÁØ¿¡ ¸ø ¹ÌÄ¡¸é Á¾·á(Àç½ÃÀÛ)
 
-    eventIters[index]->second(); //ë“±ë¡ëœ ì´ë²¤íŠ¸ ìˆ˜í–‰
+    eventIters[index]->second(); //µî·ÏµÈ ÀÌº¥Æ® ¼öÇà
     eventIters[index]++;
 
 }
@@ -342,44 +344,41 @@ void Mammoth::EndAttack()
 
 void Mammoth::EndDamage()
 {
-    SetAction(ACTION::IDLE); //ë§ì•˜ê³ , ì•ˆ ì£½ì—ˆê³ , ì›€ì°”í–ˆìœ¼ë‹ˆ ì›ë˜ëŒ€ë¡œ
+    SetAction(ACTION::IDLE); //¸Â¾Ò°í, ¾È Á×¾ú°í, ¿òÂñÇßÀ¸´Ï ¿ø·¡´ë·Î
 }
 
 void Mammoth::SetAction(ACTION action)
 {
     if (action == this->action) return;
 
-    this->action = action; //ë§¤ê°œë³€ìˆ˜ì— ë”°ë¼ ìƒíƒœ ë³€í™”
-    instancing->PlayClip(index, (int)action); //ì¸ìŠ¤í„´ì‹± ë‚´ ìê¸° íŠ¸ëœìŠ¤í¼ì—ì„œ ë™ì‘ ìˆ˜í–‰ ì‹œì‘
+    this->action = action; //¸Å°³º¯¼ö¿¡ µû¶ó »óÅÂ º¯È­
+    instancing->PlayClip(index, (int)action); //ÀÎ½ºÅÏ½Ì ³» ÀÚ±â Æ®·£½ºÆû¿¡¼­ µ¿ÀÛ ¼öÇà ½ÃÀÛ
     eventIters[(int)action] = totalEvent[(int)action].begin();
 
 }
 
 void Mammoth::Move()
 {
-    // ì•ˆì›€ì§ì´ëŠ” ì¡°ê±´ë“¤
-    if (action == ACTION::ATTACK) return; // ê³µê²©í•  ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    if (action == ACTION::DAMAGE) return; // ë§ì„ ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    //if (action == ACTION::WORK) return; // ì‘ì—…í•  ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    //if (action == ACTION::) return; // ì¶”ê°€ ê°€ëŠ¥
+    // ¾È¿òÁ÷ÀÌ´Â Á¶°Çµé
+    if (action == ACTION::ATTACK) return; // °ø°İÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    if (action == ACTION::DAMAGE) return; // ¸ÂÀ» ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    //if (action == ACTION::WORK) return; // ÀÛ¾÷ÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    //if (action == ACTION::) return; // Ãß°¡ °¡´É
 
-    if (velocity.Length() < 20)
+    if (velocity.Length() < 5)
     {
-        if (isSpawned )
+        if (isSpawned)
         {
             Attack();
-            
         }
-        else 
+        else
         {
             FieldAttack();
-           
         }
         //speed = 0;
         //SetAction(ACTION::IDLE);
-        
     }
-    else if (velocity.Length() < 35) // í‘œì ê³¼ ê±°ë¦¬ê°€ ê°€ê¹Œìš¸ ë•ŒëŠ”
+    else if (velocity.Length() < 15) // Ç¥Àû°ú °Å¸®°¡ °¡±î¿ï ¶§´Â
     {
         speed = 2;
         SetAction(ACTION::WALK);
@@ -387,7 +386,7 @@ void Mammoth::Move()
     }
     else if (velocity.Length() < 50)
     {
-        speed = 4; //ë‘ ë°°ë¡œ ë¹¨ë¼ì§„ë‹¤
+        speed = 4; //µÎ ¹è·Î »¡¶óÁø´Ù
         SetAction(ACTION::RUN);
     }
     else
@@ -400,16 +399,16 @@ void Mammoth::Move()
     velocity.y = 0.0f;
     transform->Pos() += velocity.GetNormalized() * speed * DELTA;
     transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // ë’¤ ëŒë¦¬ê¸°(ëª¨ë¸ Back()ì´ ì‹¤ì œë¡œ ì•
+    // µÚ µ¹¸®±â(¸ğµ¨ Back()ÀÌ ½ÇÁ¦·Î ¾Õ
 }
 
 void Mammoth::MoveP()
 {
-    // ì•ˆì›€ì§ì´ëŠ” ì¡°ê±´ë“¤
-    if (action == ACTION::ATTACK) return; // ê³µê²©í•  ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    if (action == ACTION::DAMAGE) return; // ë§ì„ ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    //if (action == ACTION::WORK) return; // ì‘ì—…í•  ë•ŒëŠ” ì›€ì§ì´ì§€ ì•ŠìŒ
-    //if (action == ACTION::) return; // ì¶”ê°€ ê°€ëŠ¥
+    // ¾È¿òÁ÷ÀÌ´Â Á¶°Çµé
+    if (action == ACTION::ATTACK) return; // °ø°İÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    if (action == ACTION::DAMAGE) return; // ¸ÂÀ» ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    //if (action == ACTION::WORK) return; // ÀÛ¾÷ÇÒ ¶§´Â ¿òÁ÷ÀÌÁö ¾ÊÀ½
+    //if (action == ACTION::) return; // Ãß°¡ °¡´É
 
 
     Vector3 temp = (CAM->GlobalPos() + CAM->Right() * 0.8f + CAM->Forward() * 6.5f);
@@ -423,9 +422,9 @@ void Mammoth::MoveP()
         speed = 0;
         SetAction(ACTION::IDLE);
     }
-    else if (distance >= 8.0f) // í‘œì ê³¼ ê±°ë¦¬ê°€ ê°€ê¹Œìš¸ ë•ŒëŠ”
+    else if (distance >= 8.0f) // Ç¥Àû°ú °Å¸®°¡ °¡±î¿ï ¶§´Â
     {
-        speed = 8; //ë‘ ë°°ë¡œ ë¹¨ë¼ì§„ë‹¤
+        speed = 8; //µÎ ¹è·Î »¡¶óÁø´Ù
         SetAction(ACTION::RUN);
     }
     else if (distance < 8.0f)
@@ -470,7 +469,7 @@ void Mammoth::MoveWithOutTarget()
 
 void Mammoth::UpdateUI()
 {
-    //(ëª¨ë¸ì´ ë°”ë€Œë©´ ì´ ìˆ«ìë„ ë°”ê¿€ ê²ƒ)
+    //(¸ğµ¨ÀÌ ¹Ù²î¸é ÀÌ ¼ıÀÚµµ ¹Ù²Ü °Í)
     barPos = transform->Pos() + Vector3(0, 4.5f, 0);
 
     if (!CAM->ContainPoint(barPos))
@@ -484,10 +483,10 @@ void Mammoth::UpdateUI()
     if (!palHpBar->Active()) palHpBar->SetActive(true);
 
     palQuad->Pos() = CAM->WorldToScreen(barPos);
-    palQuad->UpdateWorld(); // ì¡°ì •ëœ ì •ì  ì—…ë°ì´íŠ¸
+    palQuad->UpdateWorld(); // Á¶Á¤µÈ Á¤Á¡ ¾÷µ¥ÀÌÆ®
 
     palHpBar->Pos() = palQuad->Pos() + Vector3(0.0, -10.0f, 0.0f);
-    palHpBar->UpdateWorld(); // ì¡°ì •ëœ ì •ì  ì—…ë°ì´íŠ¸
+    palHpBar->UpdateWorld(); // Á¶Á¤µÈ Á¤Á¡ ¾÷µ¥ÀÌÆ®
 
 }
 

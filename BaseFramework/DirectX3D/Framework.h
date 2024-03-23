@@ -31,6 +31,8 @@
 
 #define RANDOM		RandomNum::Get()
 
+#define SOUND		Audio::Get()
+
 
 #include <windows.h>
 #include <string>

@@ -8,18 +8,12 @@ ItemManager::ItemManager()
 	invEquip.resize(4);
 
 
-	Item* test = new Equipment(3);
-	Item* test2 = new Ingredient(2);
-	Item* test3 = new Equipment(1);
+	Item* test = new Equipment(1);
+	Item* test2 = new Equipment(3);
+	
 
 	weapons.push_back(test);
-	weapons.push_back(test3);
-
-	FOR(20)
-	{
-		Mining(test2);
-	}
-
+	weapons.push_back(test2);
 
 }
 

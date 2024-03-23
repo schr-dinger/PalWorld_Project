@@ -46,6 +46,7 @@ void Rock::GUIRender()
 
 void Rock::Hit()
 {
+    SOUND->Play("Pick_HitRock");
     Hp -= 20.0f;
 }
 

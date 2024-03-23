@@ -28,8 +28,8 @@
 GameManager::GameManager()
 {
     Create();
-    SceneManager::Get()->Create("Title", new TitleScene());
-    SceneManager::Get()->Create("Loading", new LoadingScene());
+    //SceneManager::Get()->Create("Title", new TitleScene());
+    //SceneManager::Get()->Create("Loading", new LoadingScene());
     SceneManager::Get()->Create("NewScene", new BaseScene1());
 
     SceneManager::Get()->Add("NewScene");
@@ -142,6 +142,7 @@ void GameManager::Create()
     Device::Get();
     Environment::Get();
     Observer::Get();
+    Audio::Get();
     
     Font::Get()->AddColor("White", 1, 1, 1);
     Font::Get()->AddColor("Gray", 

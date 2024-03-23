@@ -56,7 +56,7 @@ private:
     Transform* transform;
     SphereCollider* collider;
 
-    float speed = 20;
+    float speed = 25;
     float time = 0; //생성된 시간
 
     Vector3 direction;

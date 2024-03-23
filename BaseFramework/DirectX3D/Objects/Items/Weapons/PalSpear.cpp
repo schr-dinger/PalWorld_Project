@@ -130,19 +130,22 @@ void PalSpear::Throw(Vector3 pos, Vector3 dir)
     direction = dir;
 
     //방향에 맞게 모델(=트랜스폼) 회전 적용
-    transform->Rot().y = atan2(dir.z, dir.x); //방향 적용 + 모델 정면에 따른 보정
+    transform->Rot().y = atan2(dir.x, dir.z); //방향 적용 + 모델 정면에 따른 보정
     //transform->Rot().y = CAM->Rot().y; //방향 적용 + 모델 정면에 따른 보정
                                                           //쿠나이 모델은 90도 돌아가 있었음
     //transform->Rot().y = atan2(dir.x, dir.z) - XMConvertToRadians(90);
     //                                           ↑ 각도를 호도로 바꿔주는 함수
 
     time = 0; //경과시간 리셋
-    shakeNum = 0;
     downForce = 0.0f;
-    
-    //whitePalTexture.clear();
-    //whitePalEmissive.clear();
+    state = State::THROW;
+    // StateHitPal용
+    hitPalTime = 0.0f;
+    // StateCatching용
+    catchingTime = 0.0f;
+    shakeNum = 0;
 
+    
 }
 
 void PalSpear::StateThrow()
@@ -216,6 +219,8 @@ void PalSpear::StateAbsorb()
     {
         particleTime = 0.0f;
         state = State::CATCHING;
+        SOUND->Stop("Sphere_Shake");
+        SOUND->Play("Sphere_Shake");
     }
 
 
@@ -229,12 +234,13 @@ void PalSpear::StateCatching()
         transform->Rot().x = XM_PIDIV2;
         transform->Rot().y = 0;
         transform->Rot().z = 0;
+
         if (catchingTime > 1.0f)
         {
             catchingTime = 0.0f;
             shakeNum++;
 
-            if (shakeNum >= 4)
+            if (shakeNum >= 3)
             {
                 shakeNum = 0;
                 if (RANDOM->Int(0,1) == 0)
@@ -245,6 +251,11 @@ void PalSpear::StateCatching()
                 {
                     state = State::FAIL;
                 }
+            }
+            else
+            {
+                SOUND->Stop("Sphere_Shake");
+                SOUND->Play("Sphere_Shake");
             }
         }
         
@@ -274,6 +285,8 @@ void PalSpear::StateSuccess()
     collider->SetActive(false);
     state = State::THROW;
     pal->isInvincible = false;
+    SOUND->Stop("Sphere_Success");
+    SOUND->Play("Sphere_Success");
 }
 
 void PalSpear::StateFail()

@@ -25,6 +25,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     skill[1]->Setpal(this); // 
     skill[1]->SetSkill();   // 
 
+    skill[2] = new IronSpike();
+    skill[2]->Setpal(this); // 
+    skill[2]->SetSkill();   // 
+
     // 
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
@@ -276,10 +280,11 @@ void Penguin::Attack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(1, 1);
+    ransSkill = RANDOM->Int(0, 1);
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetEnemy(target);
     skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SkillSound();
     MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }
@@ -292,10 +297,11 @@ void Penguin::FieldAttack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(0, 1);
+    ransSkill = RANDOM->Int(0, 2);
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetSkill();
     skill[ransSkill]->SetEnemy(target);
+    skill[ransSkill]->SkillSound();
     FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 }
 

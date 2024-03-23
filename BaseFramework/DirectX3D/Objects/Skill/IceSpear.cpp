@@ -121,3 +121,31 @@ void IceSpear::SetSkill()
 		iceSpear->UpdateWorld();
 	}
 }
+
+void IceSpear::SkillSound()
+{
+	SOUND->Stop("IceMissileShoot");
+	SOUND->Play("IceMissileShoot");
+}
+
+void IceSpear::SkillHitSound()
+{
+	int tmp = RANDOM->Int(0, 1);
+	switch (tmp)
+	{
+	case 0:
+		SOUND->Stop("IceMissileHit_1");
+		SOUND->Stop("IceMissileHit_2");
+		SOUND->Play("IceMissileHit_1");
+		break;
+	case 1:
+		SOUND->Stop("IceMissileHit_1");
+		SOUND->Stop("IceMissileHit_2");
+		SOUND->Play("IceMissileHit_2");
+		break;
+	default:
+		break;
+	}
+	
+	
+}

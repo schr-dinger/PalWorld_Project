@@ -7,8 +7,8 @@ private:
         IDLE,
         WALK,
         RUN,
-        //Make,
-        //Build,
+        WORK,
+        BUILD,
 
 
         J_START,
@@ -45,7 +45,7 @@ public:
     void ShadowRender();
     void GUIRender();
 
-    // ì¥ë¹„ì°½ ë„˜ë²„ ê°€ì ¸ì˜¤ê¸°
+    // ÀåºñÃ¢ ³Ñ¹ö °¡Á®¿À±â
     int GetWepSel() { return select; }
 
 private:
@@ -60,11 +60,11 @@ private:
 
     void Collision();
 
-    // í•„ë“œ íŒ” ìƒí˜¸ì‘ìš© í•¨ìˆ˜
+    // ÇÊµå ÆÈ »óÈ£ÀÛ¿ë ÇÔ¼ö
     void AttackPal();
     void CatchPal();
     void SummonsPal();
-    void ThrowPalSpear(); // íŒ° ì†Œí™˜í• ë•Œ ë˜ì§€ê¸°
+    void ThrowPalSpear(); // ÆÓ ¼ÒÈ¯ÇÒ¶§ ´øÁö±â
 
 
 
@@ -86,6 +86,10 @@ public:
 
     int GetCurHP() { return curHP; }
     int GetMaxHP() { return maxHP; }
+
+    bool isWork = false;
+    bool isBuild = false;
+
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -126,15 +130,15 @@ private:
 
 
 
-    // í…ŒìŠ¤íŠ¸ : íŒ° ìŠ¤í”¼ì–´ ë˜ì§€ê¸° ê´€ë ¨
+    // Å×½ºÆ® : ÆÓ ½ºÇÇ¾î ´øÁö±â °ü·Ã
     SphereCollider* testPalSpear;
     SphereCollider* testFrontSphere;
     Model* summonPalSpear;
     Model* summonPalSpearThrow;
     SphereCollider* summonPalSpearCollider;
     Vector3 summonPalSpearDIr;
-    float speed = 20;
-    // íŒ°ìŠ¤í”¼ì–´ ì¤‘ë ¥
+    float speed = 25;
+    // ÆÓ½ºÇÇ¾î Áß·Â
     float gravi = 9.8f;
     float downForce = 0;
     Vector3 down = { 0, -1, 0 };
@@ -144,7 +148,7 @@ private:
     Vector3 foCam = { -0.3,1.35,1.0 };
 
 
-    // ë¬´ê¸° ì¡°ì¤€
+    // ¹«±â Á¶ÁØ
 
     ParticleSystem* particle;
     bool isGun = false;
@@ -158,9 +162,17 @@ private:
     vector<Model*> weapons;
 
     SphereCollider* MiningCollider;
+
+    
+
+    //
+
+    
+    
+
     //player collider
 
-    // ì¶©ëŒìš©
+    // Ãæµ¹¿ë
     CapsuleCollider* playerCollider;
     Vector3 playerLastPos;
     bool isCollision;
