@@ -103,6 +103,15 @@ Player::Player() : ModelAnimator("NPC")
     isCollision = false;
 
     weapons.resize(4);
+
+
+   
+    Audio::Get()->Add("Gun_Fire", "Sounds/pal/Gun_Fire.wav");
+    Audio::Get()->Add("Gun_Draw", "Sounds/pal/Gun_Draw.wav");
+    Audio::Get()->Add("Gun_Reload", "Sounds/pal/Gun_Reload.wav");
+    Audio::Get()->Add("Gun_Aim", "Sounds/pal/Gun_Aim.wav");
+    Audio::Get()->Add("Pick_Attack", "Sounds/pal/Pick_Attack.wav",false,true);
+
 }
 
 Player::~Player()
@@ -127,7 +136,7 @@ void Player::Update()
     //}
     playerLastPos = ModelAnimator::GlobalPos();
 
-
+    
     if (isAiming)
     {
         //CAM->Pos() = foCam;
@@ -140,6 +149,8 @@ void Player::Update()
 
 
     }
+
+
 
     CamTransform->Pos() = this->Pos();
 
@@ -195,6 +206,8 @@ void Player::Update()
     summonPalSpearCollider->UpdateWorld();
 
     Collision();
+
+    Audio::Get()->Update();
 }
 
 void Player::Render()
@@ -271,6 +284,7 @@ void Player::Control()
         if (select > 4)
         {
             select = 1;
+
         }
     }
     else if (mouseWheel == 2)
@@ -294,7 +308,7 @@ void Player::Control()
             if (KEY_DOWN('R') && (0 <= ItemManager::Get()->GetBulletDV()[1].second < 30))
             {
                 SetState(R_RELOAD);
-
+                Audio::Get()->Play("Gun_Reload");
                 int bullet = 30 - ItemManager::Get()->GetBulletDV()[1].second;
                 int reload = min(bullet, ItemManager::Get()->GetConsumDV()[2].second);
 
@@ -743,14 +757,18 @@ void Player::AttackPal()
 
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
-
+            
+    
+    
 
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
         if (0 < ItemManager::Get()->GetBulletDV()[1].second)
         {
+            Audio::Get()->Play("Gun_Fire");
             ItemManager::Get()->GetBulletDV()[1].second--;
+            
             if (PalsManager::Get()->IsCollision(ray, hitPoint))
             {
                 particle->Play(hitPoint);
@@ -762,6 +780,8 @@ void Player::AttackPal()
         break;
     case 3:
         SetState(M_ATTACK);
+        Audio::Get()->Play("Pick_Attack",1,1);
+             
 
         break;
     default:
