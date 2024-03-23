@@ -5,7 +5,7 @@ IronSpike::IronSpike()
 {
 
 	name = "스파이크";
-	damage = 50;
+	damage = 300;
 	// startPos = Vector3();
 
 
@@ -106,6 +106,9 @@ void IronSpike::SetActive(bool active)
 
 void IronSpike::SetSkill()
 {
+	if (!GetCol()->Active()) GetCol()->SetActive(true);
+
+
 	if (enemy != nullptr)
 	{
 		Spike->UpdateWorld();

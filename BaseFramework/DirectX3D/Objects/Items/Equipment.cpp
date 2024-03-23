@@ -11,7 +11,7 @@ Equipment::Equipment(int num)
 	case 1:
 		test = new Model("Rifle");
 		icon = Texture::Add(L"Textures/UI/Inv/T_Rifle.png");
-		//name = "라이플";
+		name = "라이플";
 
 		test->Scale() *= 0.8f;
 		test->Rot().x += XM_PIDIV2;
@@ -25,7 +25,7 @@ Equipment::Equipment(int num)
 
 		test->Rot().x -= XM_PIDIV4 + XM_PIDIV4 - (XM_PIDIV4 * 10 / XM_PIDIV4);
 		test->Rot().y += XM_PIDIV4;
-		//name = "활";
+		name = "활";
 
 		MakeTime = 100;
 		break;
@@ -35,7 +35,8 @@ Equipment::Equipment(int num)
 
 		test->Rot().x += XM_PIDIV2;
 		test->Rot().y -= XM_PIDIV4 + XM_PIDIV2;
-		//test->Rot().x -= XM_PIDIV2;
+		name = "곡괭이";
+
 		MakeTime = 100;
 		break;
 	default:

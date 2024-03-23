@@ -426,7 +426,8 @@ void FieldUI::PostRender()
 		tmpString = "팰 스피어";
 		Font::Get()->SetStyle("FieldEquibName");
 		Font::Get()->RenderText(tmpString, { palSpearTextFontPos.x, palSpearTextFontPos.y }, 1);
-		tmpString = "장비 뭐시기"; // *플레이어에서 가져와야 함 --------------------------------------------
+
+		tmpString = ItemManager::Get()->GetEquipVN(PlayerManager::Get()->GetPlayer()->GetWepSel()); // *플레이어에서 가져와야 함 --------------------------------------------
 		Font::Get()->SetStyle("FieldEquibName");
 		Font::Get()->RenderText(tmpString, { equipTextFontPos.x, equipTextFontPos.y }, 1);
 

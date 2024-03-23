@@ -347,6 +347,12 @@ void PalsManager::Collision()
                     pal->skillType = 1;
 
                 }
+                if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "스파이크")
+                {
+                    MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetCol()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                    pal->skillType = 1;
+
+                }
                 else
                 {
                     pal->skillType = 0;
