@@ -443,6 +443,7 @@ void Player::Control()
             Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
             SOUND->Play("Sphere_Flash", tmpPos);
+            ItemManager::Get()->GetConsumDV()[1].second--;
         }
 
     }
