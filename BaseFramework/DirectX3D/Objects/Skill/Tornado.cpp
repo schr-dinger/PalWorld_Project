@@ -192,6 +192,7 @@ void Tornado::SetSkill()
 		startPos = pal->GetTransform()->GlobalPos();
 		if (enemy != nullptr)
 		{
+			enemy->UpdateWorld();
 			dir = (enemy->GlobalPos() - pal->GetTransform()->GlobalPos()).GetNormalized();
 			dir.y = 0;
 		}

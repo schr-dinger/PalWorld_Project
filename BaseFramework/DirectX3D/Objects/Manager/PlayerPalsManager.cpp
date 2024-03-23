@@ -123,7 +123,7 @@ void PlayerPalsManager::Update()
     if (selPal != -1)
     {
         SetTarget();
-        if (!pals[selPal]->target)
+        if (!pals[selPal]->target || !pals[selPal]->target->Active())
         {
             PathFinding();
             Move();
@@ -287,6 +287,7 @@ void PlayerPalsManager::SetTarget()
 
             if (!closePal)
             {
+                pals[selPal]->SetTarget(nullptr);
                 mode = MODE::PASSIVE;
             }
             else

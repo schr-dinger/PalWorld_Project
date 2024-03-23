@@ -107,11 +107,23 @@ void Mammoth::Update()
             target = PlayerManager::Get()->GetPlayer();
         }
     }
-    if (target)
+
+    if (target && !isSpawned)
     {
         velocity = target->GlobalPos() - transform->GlobalPos(); // 속력기준 : 표적과 자신의 거리
         Move(); //움직이기
     }
+
+    if (target && isSpawned)
+    {
+        velocity = target->GlobalPos() - transform->GlobalPos(); //
+        Move(); //
+    }
+    else if (target != nullptr && !target->Active() && isSpawned)
+    {
+        target = nullptr;
+    }
+
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
     {
@@ -223,8 +235,8 @@ void Mammoth::Attack()
 
     // 스킬 액티브
     skill[0]->SetActive(true);
-    skill[0]->SetSkill();
     skill[0]->SetEnemy(target);
+    skill[0]->SetSkill();
     skill[0]->SkillSound(transform->GlobalPos());
     MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
 }
@@ -238,8 +250,8 @@ void Mammoth::FieldAttack()
 
     // 스킬 액티브
     skill[0]->SetActive(true);
-    skill[0]->SetSkill();
     skill[0]->SetEnemy(target);
+    skill[0]->SetSkill();
     skill[0]->SkillSound(transform->GlobalPos());
     FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
