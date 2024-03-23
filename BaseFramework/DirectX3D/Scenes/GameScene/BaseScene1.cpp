@@ -67,7 +67,7 @@ BaseScene1::BaseScene1()
 
 
 	// 소리 실행
-	//SOUND->Play("BGM_Battle");
+	SOUND->Play("BGM_Battle");
 }
 
 BaseScene1::~BaseScene1()
@@ -162,7 +162,7 @@ void BaseScene1::PreRender()
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	//RenderShadowModel();
+	RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -411,7 +411,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-	//blendState[1]->SetState();
+	blendState[1]->SetState();
 	rasterizer[1]->SetState();
 	/*
 	// 나무1
