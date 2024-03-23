@@ -442,7 +442,8 @@ void Player::Control()
     }
     else if (KEY_UP('G'))
     {
-        if (ItemManager::Get()->GetEquipV()[select-1]->num == 3)
+        if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr &&
+            ItemManager::Get()->GetEquipV()[select-1]->num == 3)
         {
             MiningCollider->SetActive(true);
             SetState(M_MINING);
@@ -934,7 +935,7 @@ void Player::SetAnimation()
     {
         if (velocity.Length() > 0)
         {
-            test1 += 1 * DELTA;
+            
 
 
             if (isRun)
@@ -948,7 +949,6 @@ void Player::SetAnimation()
             {
                 SetState(WALK);
                 SOUND->Stop("Run");
-                if (test1 > 1) SOUND->Stop("Walk"),SOUND->Play("Walk"), test1 = 0;
                 if(!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
                 
 
