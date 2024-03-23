@@ -352,6 +352,7 @@ void PalsManager::Collision()
                     pal->skillType = 0;
                 }
                 //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                MyPalSkillManager::Get()->GetPlayerSkills()[i]->SkillHitSound();
                 pal->damage = MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetDamage();
                 pal->Damage();
                 if (pal->target == nullptr)
