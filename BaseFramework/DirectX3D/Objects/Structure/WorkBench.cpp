@@ -208,11 +208,13 @@ void WorkBench::Interaction()
 			BarUpdate();
 			PlayerManager::Get()->GetPlayer()->isWork = true;
 		}
-		else PlayerManager::Get()->GetPlayer()->isWork = false;
-
+		else if ((KEY_UP('Y'))) PlayerManager::Get()->GetPlayer()->isWork = false;
 
 
 	}
+	else PlayerManager::Get()->GetPlayer()->isWork = false;
+
+
 }
 
 bool WorkBench::PalWorkCheck()

@@ -10,10 +10,19 @@ ItemManager::ItemManager()
 
 	Item* test = new Equipment(1);
 	Item* test2 = new Equipment(3);
-	
+	Item* test3 = new Ingredient(1);
+	Item* test4 = new Ingredient(2);
 
 	weapons.push_back(test);
 	weapons.push_back(test2);
+
+	FOR(30)
+	{
+		Mining(test3);
+		Mining(test4);
+	}
+
+
 
 }
 

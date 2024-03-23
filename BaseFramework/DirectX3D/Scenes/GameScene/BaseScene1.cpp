@@ -67,7 +67,7 @@ BaseScene1::BaseScene1()
 
 
 	// 소리 실행
-	SOUND->Play("BGM_Battle");
+	//SOUND->Play("BGM_Battle");
 }
 
 BaseScene1::~BaseScene1()

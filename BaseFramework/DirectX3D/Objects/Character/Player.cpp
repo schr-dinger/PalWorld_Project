@@ -82,7 +82,7 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // ???? : ??
-    particle = new ParticleSystem("TextData/Particles/GunHit.fx");
+    particle = new ParticleSystem("TextData/Particles/GunH.fx");
     
     MiningCollider = new SphereCollider(0.3f);
 
@@ -188,8 +188,10 @@ void Player::Update()
 
     //
     playerCollider->Pos() = this->Pos() + Vector3(0, 0.8f, 0);
-
+        
+    
     Hand->SetWorld(GetTransformByNode(68));
+
     if (curState == IDLE) MiningCollider->SetActive(false);
     FOR(weapons.size())
     {
@@ -211,11 +213,11 @@ void Player::Update()
 
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
+    playerCollider->UpdateWorld();
 
     testFrontSphere->UpdateWorld();
 
     particle->Update();
-    playerCollider->UpdateWorld();
     if (MiningCollider->Active()) MiningCollider->UpdateWorld();
 
     // 팰 스피어 던지기 관련
@@ -231,6 +233,8 @@ void Player::Update()
 
 void Player::Render()
 {
+    particle->Render();
+
     testPalSpear->Render();
     testFrontSphere->Render();
 
@@ -238,7 +242,7 @@ void Player::Render()
     PalSpearManager::Get()->Render();
 
     //
-    particle->Render();
+    
     playerCollider->Render();
 
     summonPalSpear->Render();
@@ -444,7 +448,8 @@ void Player::Control()
     }
     else if (KEY_UP('G'))
     {
-        if (ItemManager::Get()->GetEquipV()[select-1]->num == 3)
+        if (ItemManager::Get()->GetEquipV()[select - 1] != nullptr &&
+            ItemManager::Get()->GetEquipV()[select-1]->num == 3)
         {
             MiningCollider->SetActive(true);
             SetState(M_MINING);
@@ -648,7 +653,11 @@ void Player::Jump(float _ground)
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10 * DELTA);
         jumpVelocity = 0;
-        if (curState == J_LOOP) SetState(J_END);
+        if (curState == J_LOOP)
+        {
+            SetState(J_END);
+            SOUND->Play("JumpLanding");
+        }
         isJump = false;
         isSpace = false;
 
@@ -792,13 +801,9 @@ void Player::AttackPal()
     //ray.dir = CamTransform->Forward();
     //Vector3 hitPoint;
 
-
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
             
-    
-    
-
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
@@ -806,7 +811,7 @@ void Player::AttackPal()
         {
             SOUND->Play("Gun_Fire");
             ItemManager::Get()->GetBulletDV()[1].second--;
-            
+          
             if (PalsManager::Get()->IsCollision(ray, hitPoint))
             {
                 particle->Play(hitPoint);
