@@ -236,6 +236,7 @@ FieldUI::FieldUI()
 	ProjLoadNumFontPos = { 1225.0f, 96.0f };
 	ProjTotalNumFontPos = { 1225.0f, 65.0f};
 
+	selPal = 0;
 
 	// 플레이어 팔 매니저에 따라 세팅
 	SetPalUI();
@@ -245,6 +246,7 @@ FieldUI::FieldUI()
 	maxHp = 500;
 	curHp = 500;
 	tmpPalSpear = 123;
+
 }
 
 FieldUI::~FieldUI()

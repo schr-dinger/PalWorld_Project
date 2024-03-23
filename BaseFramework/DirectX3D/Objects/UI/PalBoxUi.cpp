@@ -34,16 +34,17 @@ PalBoxUi::PalBoxUi()
 		boxIcon[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0)*60.0f;
 		boxIconBase[i] = new PalClickQuad();
 		boxIconBase[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0) * 60.0f;
+		boxIconSound[i] = false;
 	}
 
 	FOR(5)
 	{
 		partyIcon[i] = new PartyBox();
 		partyIcon[i]->GetQuad()->Pos() = partyIconP + Vector3(0, -i * 75.0f, 0);
+		partyIconSound[i] = false;
 	}
 
 	SetPal();
-
 }
 
 PalBoxUi::~PalBoxUi()
@@ -71,71 +72,85 @@ void PalBoxUi::Update()
 	FOR(30)
 	{
 		boxIcon[i]->SetTexture();
-
-		if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
-		{
-			int tmp = UiMouseManager::Get()->GetIndex();
-			Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i+5];
-			PlayerPalsManager::Get()->GetPalvector()[i+5] = PlayerPalsManager::Get()->GetPalvector()[tmp];
-			PlayerPalsManager::Get()->GetPalvector()[tmp] = palTmp;
-			SetPal();
-
-			UiMouseManager::Get()->SetPal(nullptr);
-
-		}
-		else if (boxIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr )
-		{
-			UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
-			UiMouseManager::Get()->SetIndex(i+5);
-		}
-
-		
-
-
-
-		if (boxIconBase[i]->MouseCollision())
+		if (boxIcon[i]->MouseCollision())
 		{
 			boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+			if (!boxIconSound[i])
+			{
+				SOUND->Stop("UI_2");
+				SOUND->Play("UI_2");
+				boxIconSound[i] = true;
+			}
+			if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
+			{
+				int tmp = UiMouseManager::Get()->GetIndex();
+				Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i + 5];
+				PlayerPalsManager::Get()->GetPalvector()[i + 5] = PlayerPalsManager::Get()->GetPalvector()[tmp];
+				PlayerPalsManager::Get()->GetPalvector()[tmp] = palTmp;
+				SetPal();
+
+				UiMouseManager::Get()->SetPal(nullptr);
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
+			}
+			else if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr)
+			{
+				UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
+				UiMouseManager::Get()->SetIndex(i + 5);
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
+			}
 		}
 		else
 		{
-			//boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 			boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-
+			boxIconSound[i] = false;
 		}
-
-
 
 		boxIcon[i]->Update();
 		boxIconBase[i]->Update();
-
 	}
 
 	FOR(5)
 	{
-		if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
+		if (partyIcon[i]->MouseCollision())
 		{
-			int tmp = UiMouseManager::Get()->GetIndex();
-			Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i];
-			PlayerPalsManager::Get()->GetPalvector()[i] = PlayerPalsManager::Get()->GetPalvector()[tmp];
-			PlayerPalsManager::Get()->GetPalvector()[tmp] = palTmp;
-			SetPal();
+			if (!partyIconSound[i])
+			{
+				SOUND->Stop("UI_2");
+				SOUND->Play("UI_2");
+				partyIconSound[i] = true;
+			}
+			if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
+			{
+				int tmp = UiMouseManager::Get()->GetIndex();
+				Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i];
+				PlayerPalsManager::Get()->GetPalvector()[i] = PlayerPalsManager::Get()->GetPalvector()[tmp];
+				PlayerPalsManager::Get()->GetPalvector()[tmp] = palTmp;
+				SetPal();
 
-			UiMouseManager::Get()->SetPal(nullptr);
+				UiMouseManager::Get()->SetPal(nullptr);
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
+			}
+			else if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr)
+			{
+				UiMouseManager::Get()->SetPal(partyIcon[i]->GetPal());
+				UiMouseManager::Get()->SetIndex(i);
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
+			}
+
 
 		}
-		else if (partyIcon[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr)
+		else
 		{
-			UiMouseManager::Get()->SetPal(partyIcon[i]->GetPal());
-			UiMouseManager::Get()->SetIndex(i);
+			partyIconSound[i] = false;
 		}
 
-
+		
 		partyIcon[i]->Update();
 	}
-
-
-
 	UiMouseManager::Get()->Update();
 
 }

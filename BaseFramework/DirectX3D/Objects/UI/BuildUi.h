@@ -26,5 +26,10 @@ private:
 	Vector2 selectSize = {150.0f,150.0f};
 
 	Vector3 center = { 640.0f,360.0f,0.0f };
+
+	// UI sound
+	bool isPalBox = false;
+	bool isWorkBench = false;
+
 };
 

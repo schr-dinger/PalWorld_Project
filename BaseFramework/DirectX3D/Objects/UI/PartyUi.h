@@ -35,5 +35,8 @@ private:
 	BlendState* blendState[2];
 	DepthStencilState* depthState[2];
 
+	// UI Sound
+	bool isPlayed[5];
+
 };
 
