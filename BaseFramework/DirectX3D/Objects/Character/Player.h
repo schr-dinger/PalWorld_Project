@@ -7,6 +7,9 @@ private:
         IDLE,
         WALK,
         RUN,
+        //Make,
+        //Build,
+
 
         J_START,
         J_END,

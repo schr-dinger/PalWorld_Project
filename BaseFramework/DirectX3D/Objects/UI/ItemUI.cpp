@@ -87,7 +87,7 @@ void ItemUI::Update()
 
 		if (Slot[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetItem() == nullptr)
 		{
-			
+
 			UiMouseManager::Get()->SetItem(Slot[i]->GetItem());
 			UiMouseManager::Get()->SetIndex(i);
 			//Slot[i]->SetTem(nullptr);
@@ -109,7 +109,7 @@ void ItemUI::Update()
 			*/
 
 		}
-				
+
 
 
 
@@ -143,7 +143,7 @@ void ItemUI::Update()
 
 					UiMouseManager::Get()->SetItem(nullptr);
 				}
-				else if (select == 2 )
+				else if (select == 2)
 				{
 					if (Slot[i]->GetItem() == nullptr || Slot[i]->GetItem()->type == Item::Type::WEAPON)
 					{
@@ -154,11 +154,11 @@ void ItemUI::Update()
 
 						UiMouseManager::Get()->SetItem(nullptr);
 					}
-					
+
 				}
 
 			}
-					
+
 
 			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON)
 			{
@@ -259,6 +259,7 @@ void ItemUI::Update()
 
 
 }
+
 
 void ItemUI::Render()
 {

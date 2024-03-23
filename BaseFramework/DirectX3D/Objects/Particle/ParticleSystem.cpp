@@ -11,7 +11,7 @@ ParticleSystem::ParticleSystem(string file)
     FOR(2) blendState[i] = new BlendState();
     FOR(2) depthState[i] = new DepthStencilState();
 
-    blendState[1]->Alpha(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
+    blendState[1]->Alpha(false); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
     depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ZERO); // 안 가려짐
     //depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);
 
@@ -30,7 +30,7 @@ ParticleSystem::ParticleSystem(wstring file)
     FOR(2) blendState[i] = new BlendState();
     FOR(2) depthState[i] = new DepthStencilState();
 
-    blendState[1]->Alpha(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
+    blendState[1]->Alpha(false); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
     blendState[1]->AlphaToCoverage(true); // 배경색 일단 적용 (혼합 투명은 옵션 봐서 따로 적용)
     depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ZERO); // 안 가려짐
     //depthState[1]->DepthWriteMask(D3D11_DEPTH_WRITE_MASK_ALL);

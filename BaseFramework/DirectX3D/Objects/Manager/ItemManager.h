@@ -57,7 +57,6 @@ private:
 
 	map<int, pair<int, int>> BulletData;
 
-
 	// int 선택 
 
 	// first 무슨 아이템인지 
