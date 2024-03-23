@@ -13,8 +13,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::Update()
 {
-    for (Scene* scene : curScenes)
-        scene->Update();
+    //for (Scene* scene : curScenes)
+    //    scene->Update();
     //if (changingTime > 0.0f)
     //{
     //    changingTime -= DELTA;
@@ -35,6 +35,7 @@ void SceneManager::Update()
     //}
     //currentScene->Update();
 
+    currentScene->Update();
 
 }
 

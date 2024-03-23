@@ -24,8 +24,11 @@ void TitleScene::Update()
 {
 	if (KEY_DOWN('M'))
 	{
-		SceneManager::Get()->SetLoadingT(true);
-		SceneManager::Get()->ChangeScene("NewScene");
+		//SceneManager::Get()->SetLoadingT(true);
+		SceneManager::Get()->ChangeScene("Loading");
+		SceneManager::Get()->Remove("Title");
+
+		//SceneManager::Get()->ChangeScene("NewScene");
 		return;
 	}
 }

@@ -8,15 +8,16 @@ mutex m;
 void SceneLoading()
 {
 
-	//m.lock();
-	//initCount++;
-	//m.unlock();
-	//Sleep(1000);
-
-	//m.lock();
-	//initCount++;
-	//m.unlock();
-	//Sleep(1000);
+	m.lock();
+	Scene* tmp = new BaseScene1();
+	SceneManager::Get()->Create("NewScene", tmp);
+	SceneManager::Get()->Add("NewScene");
+	tmp->Update();
+	tmp->PreRender();
+	tmp->Render();
+	tmp->PostRender();
+	initCount++;
+	m.unlock();
 
 	//m.lock();
 	//initCount++;
@@ -41,8 +42,6 @@ LoadingScene::LoadingScene()
 {
 	//pika = new Particle();
 	pika = new Quad(Vector2(100, 100));
-	SceneManager::Get()->Remove("Title");
-	//th = new thread(SceneLoading);
 
 }
 
@@ -55,18 +54,29 @@ LoadingScene::~LoadingScene()
 
 void LoadingScene::Update()
 {
-	if (!SceneManager::Get()->GetLoadingT()) return;
+	//if (!SceneManager::Get()->GetLoadingT()) return;
 
-	pika->Rot().z += DELTA;
+	if (!first)
+	{
+		th = new thread(SceneLoading);
+		first = true;
+	}
+
+
+	pika->Rot().z += 10* DELTA;
+	pika->Pos().x += 10* DELTA;
+	pika->UpdateWorld();
 
 	T += DELTA;
 
-	if (T > 10.0f)
+	//if (T > 10.0f)
+	if(initCount == 1)
 	{
 		SceneManager::Get()->ChangeScene("NewScene");
+		SceneManager::Get()->Remove("Loading");
+
 		return;
 	}
-	pika->Update();
 }
 
 void LoadingScene::PreRender()
@@ -84,5 +94,7 @@ void LoadingScene::PostRender()
 
 void LoadingScene::GUIRender()
 {
+	ImGui::Text("Rot.z : %d", pika->Rot().z);
+	ImGui::Text("Pos.x : %d", pika->Pos().x);
 }
 

@@ -17,4 +17,6 @@ public:
 	float T;
 	//Particle* pika;
 	Quad* pika;
+
+	bool first = false;
 };
