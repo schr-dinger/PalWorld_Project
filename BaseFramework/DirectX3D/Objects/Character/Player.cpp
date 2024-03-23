@@ -605,9 +605,11 @@ void Player::Move()
         Pos() += velocity * moveSpeed * DELTA;
     }
 
-    if (velocity.Length() > 0 && !SOUND->IsPlaySound("Run")) SOUND->Play("Run");
-    else if (velocity.Length() <= 0) SOUND->Stop("Run");
-   
+    if (velocity.Length() <= 0)
+    {
+        SOUND->Stop("Run");
+        SOUND->Stop("Walk");
+    }
 
 
 
@@ -637,6 +639,8 @@ void Player::Jump(float _ground)
         if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
+        if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
+        if (SOUND->IsPlaySound("Walk")) SOUND->Stop("Walk");
     }
     else if (Pos().y < _ground)
     {
@@ -647,7 +651,9 @@ void Player::Jump(float _ground)
         if (curState == J_LOOP) SetState(J_END);
         isJump = false;
         isSpace = false;
+
     }
+    
 
 }
 
@@ -914,12 +920,19 @@ void Player::SetAnimation()
     {
         if (isGaim)
         {
+            if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
+
             if (velocity.Length() > 0) SetState(RA_FWD);
             else SetState(R_Aim);
         }
         else
         {
-            if (velocity.Length() > 0) SetState(R_RUN);
+            if (velocity.Length() > 0)
+            {
+                SetState(R_RUN);
+                if (SOUND->IsPlaySound("Walk"))SOUND->Stop("Walk");
+                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+            }
             else SetState(R_IDLE);
         }
         return;
@@ -933,13 +946,26 @@ void Player::SetAnimation()
     {
         if (velocity.Length() > 0)
         {
-            if (isRun) SetState(RUN);
-            else SetState(WALK);
+           
+            if (isRun)
+            {
+                SetState(RUN);
+                SOUND->Stop("Walk");
+                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+
+            }
+            else
+            {
+                SetState(WALK);
+                SOUND->Stop("Run");
+                if (!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
+            }
 
         }
-        else 
+        else
         {
             SetState(IDLE);
+            
         }
     }
 
