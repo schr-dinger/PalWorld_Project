@@ -73,15 +73,20 @@ void WorkBench::Update()
 	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
+		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
+	else if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 
 	if (KEY_PRESS('T'))
 	{
 		Progressing = true;
+		
 	}
 	else
 	{
 		Progressing = false;
+		
+		
 	}
 
 	if (off2 > 12.0f)
@@ -201,7 +206,10 @@ void WorkBench::Interaction()
 		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))
 		{
 			BarUpdate();
+			PlayerManager::Get()->GetPlayer()->isWork = true;
 		}
+		else PlayerManager::Get()->GetPlayer()->isWork = false;
+
 
 
 	}
@@ -238,9 +246,11 @@ void WorkBench::BarUpdate()
 		}
 		WorkItem = nullptr;
 
+		PlayerManager::Get()->GetPlayer()->isWork = false;
 	}
 	else
 	{
+		
 		time += 10 * DELTA;
 	}
 

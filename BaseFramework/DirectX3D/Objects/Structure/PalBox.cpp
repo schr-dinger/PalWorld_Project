@@ -64,15 +64,19 @@ void PalBox::Update()
 	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
+		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
+	else if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 
 	if (KEY_PRESS('P'))
 	{
 		Progressing = true;
+		
 	}
 	else
 	{
 		Progressing = false;
+		
 	}
 
 	if (off2 > 13.0f)

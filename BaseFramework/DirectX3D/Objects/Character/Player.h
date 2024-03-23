@@ -7,8 +7,8 @@ private:
         IDLE,
         WALK,
         RUN,
-        //Make,
-        //Build,
+        WORK,
+        BUILD,
 
 
         J_START,
@@ -86,6 +86,10 @@ public:
 
     int GetCurHP() { return curHP; }
     int GetMaxHP() { return maxHP; }
+
+    bool isWork = false;
+    bool isBuild = false;
+
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -158,6 +162,8 @@ private:
     vector<Model*> weapons;
 
     SphereCollider* MiningCollider;
+
+    
 
     //
 
