@@ -168,5 +168,11 @@ void ItemManager::MakeItem(int EquipNum)
 
 }
 
+string ItemManager::GetEquipVN(int NUM)
+{
+	if (invEquip[NUM-1] != nullptr) return invEquip[NUM-1]->name;
+	return "비어있음";
+}
+
 
 

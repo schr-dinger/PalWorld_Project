@@ -409,7 +409,7 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        if (curState != S_THROW)
+        if (curState != S_THROW )//&& ItemManager::Get()->GetConsumDV()[1].second != 0)
         {
             SetState(ACTION::S_AIM);
             isAiming = true;
@@ -432,6 +432,7 @@ void Player::Control()
     {
         if (curState == S_AIM)
         {
+
             SummonsPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
@@ -683,6 +684,12 @@ void Player::Collision()
                 {
                     FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+
+                }
+                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                {
+                    curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
 
                 }
                 else

@@ -192,7 +192,7 @@ void WorkBench::Interaction()
 	{
 
 		if (!CAM->ContainPoint(gaugePos) || (building->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos())
-			.Length() < 50) produceBar->SetActive(false);
+			.Length() > 50) produceBar->SetActive(false);
 		else produceBar->SetActive(true);
 
 
