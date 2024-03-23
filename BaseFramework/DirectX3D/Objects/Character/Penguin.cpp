@@ -276,10 +276,11 @@ void Penguin::Attack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(1, 1);
+    ransSkill = RANDOM->Int(0, 1);
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetEnemy(target);
     skill[ransSkill]->SetSkill();
+    skill[ransSkill]->SkillSound();
     MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 
 }
@@ -296,6 +297,7 @@ void Penguin::FieldAttack()
     skill[ransSkill]->SetActive(true);
     skill[ransSkill]->SetSkill();
     skill[ransSkill]->SetEnemy(target);
+    skill[ransSkill]->SkillSound();
     FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
 }
 

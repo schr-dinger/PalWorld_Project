@@ -14,7 +14,8 @@ public:
 	virtual bool Active() override;
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;
-
+	virtual void SkillSound() override;
+	virtual void SkillHitSound() override;
 private:
 	float speed = 20; // 나아가는 속도
 	float dis = 20; // 도달하면 사라지는 거리

@@ -228,6 +228,8 @@ void DarkWolf::Attack()
     // 스킬 액티브
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
+    skill[0]->SetEnemy(target);
+    skill[0]->SkillSound();
     MyPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
 }
@@ -242,6 +244,8 @@ void DarkWolf::FieldAttack()
     // 스킬 액티브
     skill[0]->SetActive(true);
     skill[0]->SetSkill();
+    skill[0]->SetEnemy(target);
+    skill[0]->SkillSound();
     FieldPalSkillManager::Get()->AddFieldSkill(skill[0]);
 
 

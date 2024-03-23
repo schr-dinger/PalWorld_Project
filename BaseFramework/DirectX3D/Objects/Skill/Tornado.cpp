@@ -202,3 +202,18 @@ void Tornado::SetSkill()
 
 	}
 }
+
+void Tornado::SkillSound()
+{
+	SOUND->Stop("Sphere_Flash");
+	SOUND->Play("Sphere_Flash");
+}
+
+void Tornado::SkillHitSound()
+{
+	//SOUND->Stop("WindCutterHit");
+	if (!SOUND->IsPlaySound("WindCutterHit"))
+	{
+		SOUND->Play("WindCutterHit");
+	}
+}

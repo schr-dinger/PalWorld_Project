@@ -18,7 +18,8 @@ public:
 	virtual bool Active() override;
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;
-
+	virtual void SkillSound() override;
+	virtual void SkillHitSound() override;
 
 private:
 

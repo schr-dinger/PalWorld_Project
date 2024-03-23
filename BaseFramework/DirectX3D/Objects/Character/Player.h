@@ -133,7 +133,7 @@ private:
     Model* summonPalSpearThrow;
     SphereCollider* summonPalSpearCollider;
     Vector3 summonPalSpearDIr;
-    float speed = 20;
+    float speed = 25;
     // 팰스피어 중력
     float gravi = 9.8f;
     float downForce = 0;

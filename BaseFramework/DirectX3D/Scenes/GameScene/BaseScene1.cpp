@@ -95,6 +95,9 @@ void BaseScene1::Update()
 	LightBuffer::Light* light1 = Environment::Get()->GetLight(1);
 	light1->pos = CAM->GlobalPos();
 
+	// 사운드 업데이트
+	SOUND->Update();
+
 	StructureManager::Get()->Update();
 	UiManager::Get()->Update(); // UI 관련 업데이트가 먼저
 
@@ -492,10 +495,13 @@ void BaseScene1::SetSound()
 	SOUND->Add("Pickhit1", "Sounds/pal/pickhit1.wav");
 	SOUND->Add("Pickhit2", "Sounds/pal/pickhit2.wav");
 	SOUND->Add("Pickhit3", "Sounds/pal/pickhit3.wav");
-	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav");
-	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav");
-	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav");
-	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav");
-	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.wav");
+	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav",false,false,true);
+	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav", false, false, true);
+	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav", false, false, true);
+	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav", false, false, true);
+	//SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.wav");
+	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.mp3");
 	SOUND->Add("WindCutterShoot", "Sounds/pal/WindCutterShoot.wav");
+	SOUND->Add("EarthQuakeHit", "Sounds/pal/EarthQuakeHit.mp3");
+	SOUND->Add("EarthQuaSet", "Sounds/pal/earthQuaSet.wav");
 }

@@ -400,6 +400,8 @@ void Player::Control()
             CatchPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
+            SOUND->Stop("Sphere_Flash");
+            SOUND->Play("Sphere_Flash");
         }
     }
     else if (KEY_UP('E'))
@@ -411,8 +413,11 @@ void Player::Control()
             summonPalSpear->SetActive(false);
             summonPalSpearThrow->SetActive(true);
             summonPalSpearThrow->Pos() = summonPalSpear->GlobalPos();
+            CAM->UpdateWorld();
             summonPalSpearDIr = CAM->Forward();
             PlayerPalsManager::Get()->SUmmonedPalActiveFalse();
+            SOUND->Stop("Sphere_Flash");
+            SOUND->Play("Sphere_Flash");
         }
 
     }
@@ -647,6 +652,7 @@ void Player::Collision()
                 {
                     curHP = 0;
                 }
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound();
                 return;
             }
         }
@@ -811,6 +817,7 @@ void Player::CatchPal()
     //Vector3 hitPoint;
 
     // ????? ????? ????
+    CAM->UpdateWorld();
     Vector3 tmpF = CAM->Forward();
     tmpF.y = 0.0f;
     tmpF = tmpF.GetNormalized(); // ¾Õ¿¡¼­
