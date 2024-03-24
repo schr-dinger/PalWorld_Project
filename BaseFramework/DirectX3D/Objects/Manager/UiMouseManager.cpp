@@ -40,6 +40,10 @@ void UiMouseManager::SetRender()
 	{
 		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
 	}
+	else if (tempItem == nullptr && tempPal == nullptr)
+	{
+		quad->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	}
 }
 
 void UiMouseManager::Update()
