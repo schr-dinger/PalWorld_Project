@@ -79,7 +79,7 @@ void ParticleSystem::Render()
 
     //출력 상태 준비
     blendState[1]->SetState();
-    //depthState[1]->SetState();
+    depthState[1]->SetState();
 
     DC->DrawIndexedInstanced(6, drawCount, 0, 0, 0); // 마지막 매개변수 3개는 다른 곳에서 설정을 해두고
                                                      // 여기선 0, 0, 0 하면 가장 속이 편하다

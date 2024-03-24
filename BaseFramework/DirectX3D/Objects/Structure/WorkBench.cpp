@@ -73,19 +73,20 @@ void WorkBench::Update()
 	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
-		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
+		
 	}
-	else if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+	
+	 
 
-	if (KEY_PRESS('T'))
+	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit))
 	{
 		Progressing = true;
-		
+		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
 	else
 	{
 		Progressing = false;
-		
+		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 		
 	}
 
@@ -190,7 +191,8 @@ void WorkBench::Interaction()
 	if (WorkItem != nullptr)
 	{
 
-		if (!CAM->ContainPoint(gaugePos)) produceBar->SetActive(false);
+		if (!CAM->ContainPoint(gaugePos) || abs((building->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos())
+			.Length()) > 20) produceBar->SetActive(false);
 		else produceBar->SetActive(true);
 
 
@@ -208,11 +210,13 @@ void WorkBench::Interaction()
 			BarUpdate();
 			PlayerManager::Get()->GetPlayer()->isWork = true;
 		}
-		else PlayerManager::Get()->GetPlayer()->isWork = false;
-
+		else if ((KEY_UP('Y'))) PlayerManager::Get()->GetPlayer()->isWork = false;
 
 
 	}
+	else PlayerManager::Get()->GetPlayer()->isWork = false;
+
+
 }
 
 bool WorkBench::PalWorkCheck()

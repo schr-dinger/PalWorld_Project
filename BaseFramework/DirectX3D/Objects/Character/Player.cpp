@@ -82,7 +82,7 @@ Player::Player() : ModelAnimator("NPC")
     summonPalSpearDIr = {};
 
     // ???? : ??
-    particle = new ParticleSystem("TextData/Particles/GunHit.fx");
+    particle = new ParticleSystem("TextData/Particles/GunH.fx");
     
     MiningCollider = new SphereCollider(0.3f);
 
@@ -188,8 +188,10 @@ void Player::Update()
 
     //
     playerCollider->Pos() = this->Pos() + Vector3(0, 0.8f, 0);
-
+        
+    
     Hand->SetWorld(GetTransformByNode(68));
+
     if (curState == IDLE) MiningCollider->SetActive(false);
     FOR(weapons.size())
     {
@@ -211,11 +213,11 @@ void Player::Update()
 
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
+    playerCollider->UpdateWorld();
 
     testFrontSphere->UpdateWorld();
 
     particle->Update();
-    playerCollider->UpdateWorld();
     if (MiningCollider->Active()) MiningCollider->UpdateWorld();
 
     // 팰 스피어 던지기 관련
@@ -231,6 +233,8 @@ void Player::Update()
 
 void Player::Render()
 {
+    particle->Render();
+
     testPalSpear->Render();
     testFrontSphere->Render();
 
@@ -238,7 +242,7 @@ void Player::Render()
     PalSpearManager::Get()->Render();
 
     //
-    particle->Render();
+    
     playerCollider->Render();
 
     summonPalSpear->Render();
@@ -405,7 +409,7 @@ void Player::Control()
     }
     else if (KEY_PRESS('Q') || KEY_PRESS('E'))
     {
-        if (curState != S_THROW)
+        if (curState != S_THROW )//&& ItemManager::Get()->GetConsumDV()[1].second != 0)
         {
             SetState(ACTION::S_AIM);
             isAiming = true;
@@ -419,14 +423,16 @@ void Player::Control()
             CatchPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
+            Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
-            SOUND->Play("Sphere_Flash");
+            SOUND->Play("Sphere_Flash", tmpPos);
         }
     }
     else if (KEY_UP('E'))
     {
         if (curState == S_AIM)
         {
+
             SummonsPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
@@ -435,8 +441,10 @@ void Player::Control()
             CAM->UpdateWorld();
             summonPalSpearDIr = CAM->Forward();
             PlayerPalsManager::Get()->SUmmonedPalActiveFalse();
+            Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
-            SOUND->Play("Sphere_Flash");
+            SOUND->Play("Sphere_Flash", tmpPos);
+            ItemManager::Get()->GetConsumDV()[1].second--;
         }
 
     }
@@ -578,8 +586,6 @@ void Player::Move()
             jumpVelocity = jumpForce;
             isJump = true;
             isSpace = true;
-            SOUND->Stop("Walk");
-            SOUND->Stop("Run");
         }
 
         velocity = w + a + s + d;
@@ -606,8 +612,11 @@ void Player::Move()
         Pos() += velocity * moveSpeed * DELTA;
     }
 
-    
-   
+    if (velocity.Length() <= 0)
+    {
+        SOUND->Stop("Run");
+        SOUND->Stop("Walk");
+    }
 
 
 
@@ -637,6 +646,8 @@ void Player::Jump(float _ground)
         if (action != J_LOOP) action = J_LOOP;
 
         isJump = true;
+        if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
+        if (SOUND->IsPlaySound("Walk")) SOUND->Stop("Walk");
     }
     else if (Pos().y < _ground)
     {
@@ -644,10 +655,16 @@ void Player::Jump(float _ground)
         //Pos().y = _ground;
         Pos().y = Lerp(Pos().y, _ground, 10 * DELTA);
         jumpVelocity = 0;
-        if (curState == J_LOOP) SetState(J_END);
+        if (curState == J_LOOP)
+        {
+            SetState(J_END);
+            SOUND->Play("JumpLanding");
+        }
         isJump = false;
         isSpace = false;
+
     }
+    
 
 }
 
@@ -669,6 +686,12 @@ void Player::Collision()
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
 
                 }
+                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                {
+                    curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+
+                }
                 else
                 {
                     curHP -= DELTA * FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
@@ -678,7 +701,7 @@ void Player::Collision()
                 {
                     curHP = 0;
                 }
-                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound();
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(GlobalPos());
                 return;
             }
         }
@@ -786,13 +809,9 @@ void Player::AttackPal()
     //ray.dir = CamTransform->Forward();
     //Vector3 hitPoint;
 
-
     Ray ray = CAM->ScreenPointToRay(mousePos);
     Vector3 hitPoint;
             
-    
-    
-
     switch (ItemManager::Get()->GetEquipV()[select - 1]->num)
     {
     case 1:
@@ -800,7 +819,7 @@ void Player::AttackPal()
         {
             SOUND->Play("Gun_Fire");
             ItemManager::Get()->GetBulletDV()[1].second--;
-            
+          
             if (PalsManager::Get()->IsCollision(ray, hitPoint))
             {
                 particle->Play(hitPoint);
@@ -890,14 +909,12 @@ void Player::SetAnimation()
 
     if (curState == J_LOOP)
     {
-        
         ClipOnce();
         return;
     }
     else if (curState == S_THROW || curState == S_AIM || curState == R_RELOAD || curState == BW_FIRE || curState == M_ATTACK || curState == M_MINING
        || curState == WORK || curState == BUILD)
     {
-       
         return;
     }
 
@@ -916,12 +933,19 @@ void Player::SetAnimation()
     {
         if (isGaim)
         {
+            if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
+
             if (velocity.Length() > 0) SetState(RA_FWD);
             else SetState(R_Aim);
         }
         else
         {
-            if (velocity.Length() > 0) SetState(R_RUN);
+            if (velocity.Length() > 0)
+            {
+                SetState(R_RUN);
+                if (SOUND->IsPlaySound("Walk"))SOUND->Stop("Walk");
+                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+            }
             else SetState(R_IDLE);
         }
         return;
@@ -935,31 +959,26 @@ void Player::SetAnimation()
     {
         if (velocity.Length() > 0)
         {
-            
-
-
+           
             if (isRun)
             {
-                SetState(RUN); 
+                SetState(RUN);
                 SOUND->Stop("Walk");
                 if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
-                
+
             }
             else
             {
                 SetState(WALK);
                 SOUND->Stop("Run");
-                if(!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
-                
-
+                if (!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
             }
-                
+
         }
-        else 
+        else
         {
             SetState(IDLE);
-            SOUND->Stop("Walk");
-            SOUND->Stop("Run");
+            
         }
     }
 

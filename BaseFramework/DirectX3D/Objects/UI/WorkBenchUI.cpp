@@ -29,7 +29,7 @@ WorkBenchUI::WorkBenchUI()
 	{
 		test[i] = new WorkSlot(i);
 		test[i]->GetQuad()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
-		test[i]->GetBase()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
+		test[i]->GetBase()->GetQuad()->Pos() = Vector3(WorkIconP.x + i * 60 - 120, WorkIconP.y + 100, 0);
 
 	}
 
@@ -64,10 +64,14 @@ void WorkBenchUI::Update()
 	if (SetButton1->MouseCollision() && KEY_UP(VK_LBUTTON))
 	{
 		Count++;
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 	else if (SetButton2->MouseCollision() && KEY_UP(VK_LBUTTON))
 	{
 		if (Count != 1) Count--;
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 
 	FOR(5)
@@ -76,7 +80,7 @@ void WorkBenchUI::Update()
 
 		if (test[i]->CheckItem() && StructureManager::Get()->GetWorkBench()->GetItem() == nullptr && test[i]->MouseCollision() && KEY_DOWN('J'))
 		{
-
+			SOUND->Play("UI_3");
 			test[i]->MakeItem(Count);
 		}
 		test[i]->Update();
@@ -111,7 +115,9 @@ void WorkBenchUI::PostRender()
 
 	Font::Get()->RenderText(" ÀÛ¾÷´ë ", { WorkIconP.x - 30,WorkIconP.y + 160 });
 	string a = to_string(Count);
-	Font::Get()->RenderText(a, { SetIconP.x ,SetIconP.y + 50 });
+
+	Font::Get()->RenderText("Count : ", {SetIconP.x - 50 ,SetIconP.y + 50});
+	Font::Get()->RenderText(a, { SetIconP.x + 20 ,SetIconP.y + 50 });
 
 
 

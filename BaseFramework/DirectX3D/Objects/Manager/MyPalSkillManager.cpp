@@ -39,10 +39,7 @@ bool MyPalSkillManager::IsCollision(Collider* collider)
             {
                 skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
             }
-            if (skill->GetName() == "스파이크")
-            {
-                skill->GetCol()->SetActive(false);
-            }
+            
             //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
 
             return true;

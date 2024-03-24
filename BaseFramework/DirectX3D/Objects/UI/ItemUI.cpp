@@ -34,7 +34,7 @@ ItemUI::ItemUI()
 		P_EquipBase[i] = new ItemClickQuad();
 		P_EquipBase[i]->GetQuad()->Pos() = EquipIconP + Vector3(0, -i * 60.0f, 0);
 
-
+		P_EquipSound[i] = false;
 	}
 
 	FOR(30)
@@ -43,7 +43,7 @@ ItemUI::ItemUI()
 		Slot[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0) * 60.0f;
 		SlotBase[i] = new ItemClickQuad();
 		SlotBase[i]->GetQuad()->Pos() = boxIconP + Vector3(i % 6, -i / 6, 0) * 60.0f;
-
+		slotSound[i] = false;
 	}
 
 
@@ -75,19 +75,14 @@ ItemUI::~ItemUI()
 
 void ItemUI::Update()
 {
-
-
-
-
 	FOR(30)
 	{
 		Slot[i]->SetTexture();
 
-
-
 		if (Slot[i]->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetItem() == nullptr)
 		{
-
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
 			UiMouseManager::Get()->SetItem(Slot[i]->GetItem());
 			UiMouseManager::Get()->SetIndex(i);
 			//Slot[i]->SetTem(nullptr);
@@ -110,14 +105,6 @@ void ItemUI::Update()
 
 		}
 
-
-
-
-
-
-
-
-
 		for (int j = 0; j < 3; j++)
 		{
 
@@ -127,11 +114,14 @@ void ItemUI::Update()
 				UiMouseManager::Get()->SetIndex(j);
 
 				select = 2;
-
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
 			}
 
 			if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
 			{
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
 				if (select == 1)
 				{
 
@@ -162,7 +152,8 @@ void ItemUI::Update()
 
 			if (P_Equip[j]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr && UiMouseManager::Get()->GetItem()->type == Item::Type::WEAPON)
 			{
-
+				SOUND->Stop("UI_1");
+				SOUND->Play("UI_1");
 				if (select == 1)
 				{
 					int test = UiMouseManager::Get()->GetIndex();
@@ -191,15 +182,21 @@ void ItemUI::Update()
 		}
 
 
-
 		if (SlotBase[i]->MouseCollision())
 		{
 			SlotBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+			if (!slotSound[i])
+			{
+				SOUND->Stop("UI_2");
+				SOUND->Play("UI_2");
+				slotSound[i] = true;
+			}
 		}
 		else
 		{
 			//boxIconBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Black.png");
 			SlotBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+			slotSound[i] = false;
 
 		}
 
@@ -231,10 +228,18 @@ void ItemUI::Update()
 		if (P_EquipBase[i]->MouseCollision())
 		{
 			P_EquipBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+			if (!P_EquipSound[i])
+			{
+				SOUND->Stop("UI_2");
+				SOUND->Play("UI_2");
+				P_EquipSound[i] = true;
+			}
 		}
 		else
 		{
 			P_EquipBase[i]->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+			P_EquipSound[i] = false;
+
 		}
 
 

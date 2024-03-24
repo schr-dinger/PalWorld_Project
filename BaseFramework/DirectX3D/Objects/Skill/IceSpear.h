@@ -12,8 +12,8 @@ public:
 	virtual bool Active() override;
 	virtual void SetActive(bool active) override;
 	virtual void SetSkill() override;
-	virtual void SkillSound() override;
-	virtual void SkillHitSound() override;
+	virtual void SkillSound(Float3 pos) override;
+	virtual void SkillHitSound(Float3 pos) override;
 
 	void SetHeight(Vector3 height) { this->height = height; }; // 팰마다 시작 높이 설정해주기
 

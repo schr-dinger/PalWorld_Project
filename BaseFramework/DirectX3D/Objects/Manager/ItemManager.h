@@ -37,7 +37,8 @@ public:
 
 	void SetInvEquip(int NUM, Item* item) { invEquip[NUM] = item; }
 	vector<Item*>& GetEquipV() { return invEquip; }
-
+	string GetEquipVN(int NUM);
+	
 	// vector<Item*>& GetItemV() { return items; }
 
 

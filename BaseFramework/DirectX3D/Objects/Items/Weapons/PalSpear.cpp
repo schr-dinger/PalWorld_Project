@@ -219,8 +219,9 @@ void PalSpear::StateAbsorb()
     {
         particleTime = 0.0f;
         state = State::CATCHING;
+        Float3 tmpPos = transform->GlobalPos();
         SOUND->Stop("Sphere_Shake");
-        SOUND->Play("Sphere_Shake");
+        SOUND->Play("Sphere_Shake", tmpPos);
     }
 
 
@@ -254,8 +255,9 @@ void PalSpear::StateCatching()
             }
             else
             {
+                Float3 tmpPos = transform->GlobalPos();
                 SOUND->Stop("Sphere_Shake");
-                SOUND->Play("Sphere_Shake");
+                SOUND->Play("Sphere_Shake", tmpPos);
             }
         }
         
@@ -285,8 +287,9 @@ void PalSpear::StateSuccess()
     collider->SetActive(false);
     state = State::THROW;
     pal->isInvincible = false;
+    Float3 tmpPos = transform->GlobalPos();
     SOUND->Stop("Sphere_Success");
-    SOUND->Play("Sphere_Success");
+    SOUND->Play("Sphere_Success", tmpPos);
 }
 
 void PalSpear::StateFail()

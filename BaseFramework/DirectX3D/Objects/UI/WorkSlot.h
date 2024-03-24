@@ -19,7 +19,7 @@ public:
 	void SetCount(int count) { Count = count; }
 
 	Quad* GetQuad() { return MakeSlot; }
-	Quad* GetBase() { return MakeSlotBase; }
+	ClickQuad* GetBase() { return MakeSlotBase; }
 
 	int GetNum() { return NUM; }
 
@@ -27,13 +27,13 @@ private:
 
 
 	Quad* MakeSlot;
-	Quad* MakeSlotBase;
+	ClickQuad* MakeSlotBase;
 
 	vector<WorkInFo*> matter;
 
 	int NUM;
 	int Count = 1;
 
-
+	bool Sound_C = false;
 
 };

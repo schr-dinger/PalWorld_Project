@@ -5,7 +5,7 @@ IronSpike::IronSpike()
 {
 
 	name = "스파이크";
-	damage = 50;
+	damage = 300;
 	// startPos = Vector3();
 
 
@@ -106,6 +106,9 @@ void IronSpike::SetActive(bool active)
 
 void IronSpike::SetSkill()
 {
+	if (!GetCol()->Active()) GetCol()->SetActive(true);
+
+
 	if (enemy != nullptr)
 	{
 		Spike->UpdateWorld();
@@ -130,15 +133,15 @@ void IronSpike::SetSkill()
 
 }
 
-void IronSpike::SkillSound()
+void IronSpike::SkillSound(Float3 pos)
 {
 	SOUND->Stop("EarthQuaSet");
-	SOUND->Play("EarthQuaSet");
+	SOUND->Play("EarthQuaSet", pos);
 }
 
-void IronSpike::SkillHitSound()
+void IronSpike::SkillHitSound(Float3 pos)
 {
 	SOUND->Stop("EarthQuakeHit");
-	SOUND->Play("EarthQuakeHit");
+	SOUND->Play("EarthQuakeHit", pos);
 }
 

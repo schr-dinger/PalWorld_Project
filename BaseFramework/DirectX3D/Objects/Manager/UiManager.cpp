@@ -29,6 +29,8 @@ void UiManager::Update()
 	if (KEY_DOWN('B') && !palBoxUiOn && !partyUiOn && !palModeUiOn && !InvenIsOn)
 	{
 		buildUiOn = !buildUiOn;
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 
 	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn && !palModeUiOn && !InvenIsOn)
@@ -39,18 +41,23 @@ void UiManager::Update()
 		}
 		partyUiOn = !partyUiOn;
 		partyUi->SetPal();
-		
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 
 	if (KEY_DOWN('U') &&!buildUiOn && !palBoxUiOn && !partyUiOn && !palModeUiOn)
 	{
 		InvenIsOn = !InvenIsOn;
 		itemUi->SetItem();
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 
 	if (KEY_DOWN('4') && !buildUiOn && !palBoxUiOn && !partyUiOn && !InvenIsOn)
 	{
 		palModeUiOn = !palModeUiOn;
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
 	}
 
 
