@@ -64,9 +64,9 @@ void PalBox::Update()
 	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
-		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
+		
 	}
-	else if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+	
 
 	//if (KEY_PRESS('P'))
 	//{
@@ -85,7 +85,7 @@ void PalBox::Update()
 		Progressing = true;
 		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
-	else
+	else if(KEY_UP('F'))
 	{
 		Progressing = false;
 		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
@@ -93,10 +93,14 @@ void PalBox::Update()
 	}
 
 
+
+
+
 	if (off2 > 13.0f)
 	{
 		Done = true;
 		UiManager::Get()->buildPalBox = false;
+		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 	}
 
 
