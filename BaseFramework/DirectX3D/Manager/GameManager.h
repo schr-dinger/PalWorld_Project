@@ -12,4 +12,6 @@ public:
 private:
     void Create();
     void Delete();
+
+    void SetSound();
 };

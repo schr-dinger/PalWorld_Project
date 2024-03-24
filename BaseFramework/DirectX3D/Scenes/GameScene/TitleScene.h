@@ -18,7 +18,13 @@ private:
 	Quad* titleBg;
 	Quad* title;
 	Quad* titleShadow;
+
+	ClickQuad* gameStart;
+	ClickQuad* gameExit;
+	Vector2 clickSize = { 300.0f,50.0f };
+
 	int initCount = 0;
 	bool isGrowing = true;
+	bool keySound[2];
 	//BlendState* blendState[2];
 };

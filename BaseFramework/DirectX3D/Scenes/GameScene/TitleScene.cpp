@@ -5,7 +5,6 @@
 
 TitleScene::TitleScene()
 {
-	SOUND->Add("BGM_Title", "Sounds/UI/Title.wav", true, true);
 	SOUND->Play("BGM_Title");
 
 	//title = new Quad(Vector2(3840,2160)*0.4f);
@@ -25,18 +24,19 @@ TitleScene::TitleScene()
 	titleShadow->Pos() = middle + Vector3(0.0f, 200.0f, 0.0f);
 	titleShadow->Rot().y = XM_PIDIV2;
 
-	//FOR(2)
-	//{
-	//	blendState[i] = new BlendState();
-	//}
-
-	//blendState[1]->Alpha(true);
-	//blendState[1]->AlphaToCoverage(true);
-
-
 	titleBg->UpdateWorld();
 	title->UpdateWorld();
 	titleShadow->UpdateWorld();
+
+	gameStart = new ClickQuad(clickSize);
+	gameStart->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	gameStart->GetQuad()->Pos() = middle + Vector3(0.0f, -50.0f, 0.0f);
+	keySound[0] = true;
+
+	gameExit = new ClickQuad(clickSize);
+	gameExit->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+	gameExit->GetQuad()->Pos() = middle + Vector3(0.0f, -150.0f, 0.0f);
+	keySound[1] = true;
 
 }
 
@@ -45,7 +45,8 @@ TitleScene::~TitleScene()
 	delete titleBg;
 	delete title;
 	delete titleShadow;
-
+	delete gameStart;
+	delete gameExit;
 	//FOR(2) delete blendState[i];
 }
 
@@ -64,7 +65,7 @@ void TitleScene::Update()
 	}
 
 
-	if (!isGrowing && KEY_DOWN(VK_LBUTTON))
+	if (!isGrowing && gameStart->MouseCollision() && KEY_DOWN(VK_LBUTTON))
 	{
 		SOUND->Stop("BGM_Title");
 		SceneManager::Get()->Create("Loading", new LoadingScene());
@@ -74,9 +75,46 @@ void TitleScene::Update()
 		return;
 	}
 
+
+	if (gameStart->MouseCollision() && !isGrowing)
+	{
+		if (keySound[0])
+		{
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2", 0.7f);
+		}
+		gameStart->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+		keySound[0] = false;
+	}
+	else
+	{
+		gameStart->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+		keySound[0] = true;
+	}
+
+	if (gameExit->MouseCollision() && !isGrowing)
+	{
+		if (keySound[1])
+		{
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2", 0.7f);
+		}
+		gameExit->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/Cyan.png");
+		keySound[1] = false;
+	}
+	else
+	{
+		gameExit->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
+		keySound[1] = true;
+	}
+
+
+	UiMouseManager::Get()->Update();
+
 	title->Update();
 	titleShadow->Update();
-
+	gameStart->Update();
+	gameExit->Update();
 }
 
 void TitleScene::PreRender()
@@ -99,7 +137,25 @@ void TitleScene::PostRender()
 	else
 	{
 		title->Render();
+		gameStart->Render();
+		gameExit->Render();
+
+		{
+			Font::Get()->SetStyle("FieldNum2");
+			Font::Get()->RenderText("GAME START", { middle.x, middle.y - 30.0f }, 1);
+
+			Font::Get()->SetStyle("FieldNum2");
+			Font::Get()->RenderText("EXIT", { middle.x, middle.y -130.0f},1);
+
+			Font::Get()->SetStyle("Default");
+			Font::Get()->GetDC()->EndDraw();
+			Font::Get()->GetDC()->BeginDraw();
+		}
+
 	}
+
+	UiMouseManager::Get()->GetMouse()->Render();
+
 	//blendState[0]->SetState();
 }
 

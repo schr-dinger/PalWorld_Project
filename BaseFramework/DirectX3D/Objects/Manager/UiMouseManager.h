@@ -25,7 +25,7 @@ public:
 
 	void SetItem(Item* item) { this->tempItem = item; }
 	Item* GetItem() { return tempItem; }
-
+	Quad* GetMouse() { return mouse; }
 private:
 	Quad* mouse;
 	Mstate mstate = Mstate::D;

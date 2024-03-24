@@ -66,7 +66,7 @@ void LoadingScene::Update()
 		initCount++;
 		fakeT = 0.0f;
 	}
-	else if(fakeT > RANDOM->Float(5.0f, 7.0f))
+	else if(fakeT > RANDOM->Float(1.0f, 4.0f))
 	{
 		initCount++;
 		fakeT = 0.0f;
