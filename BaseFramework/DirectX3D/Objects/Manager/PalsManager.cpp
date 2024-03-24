@@ -270,6 +270,7 @@ void PalsManager::Collision()
 
     for (int i = 0; i < pals.size(); i++)
     {
+        if (!pals[i]->GetTransform()->Active()) continue;
         for (int j = 0; j < pals.size(); j++)
         {
             if (i == j) continue;
@@ -310,7 +311,27 @@ void PalsManager::Collision()
             pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
             pals[i]->GetTransform()->UpdateWorld();
         }
-
+        for (Collider* obs : LandScapeManager::Get()->GetObstacles())
+        {
+            if (pals[i]->GetCollider()->IsCollision(obs) && obs->Active())
+            {
+                Vector3 nol = pals[i]->GetTransform()->GlobalPos() - obs->GlobalPos();
+                nol.y = 0;
+                nol = nol.GetNormalized();
+                Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
+                dir.y = 0;
+                Vector3 tmpV1 = dir;
+                Vector3 tmpV2 = obs->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
+                tmpV2.y = 0;
+                if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 mDir = dir * -1;
+                Vector3 tmp = nol * Dot(mDir, nol);
+                Vector3 fDir = dir + tmp;
+                pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                pals[i]->GetTransform()->UpdateWorld();
+                //isCollision = true;
+            }
+        }
     }
 
 

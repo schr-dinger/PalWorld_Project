@@ -76,6 +76,9 @@ PlayerPalsManager::PlayerPalsManager()
             pal->GetTransform()->SetActive(false);
         }
     }
+
+    // 충돌용
+    lastPos = {};
 }
 
 PlayerPalsManager::~PlayerPalsManager()
@@ -98,15 +101,11 @@ void PlayerPalsManager::Update()
 {
     OnGround(terrain);
 
-    
-
-
-
-    // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
-    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    if (selPal != -1 && pals[selPal] != nullptr && pals[selPal]->GetTransform()->Active())
     {
-        iter->second->Update();
+        lastPos = pals[selPal]->GetTransform()->GlobalPos();
     }
+
     //for (Pal* pal : pals)
     //{
     //    if (pal == nullptr)
@@ -123,6 +122,9 @@ void PlayerPalsManager::Update()
         {
             return;
         }
+        if (!pals[selPal]->GetTransform()->Active()) return;
+        lastPos = pals[selPal]->GetTransform()->GlobalPos();
+
         SetTarget();
         if (!pals[selPal]->target || !pals[selPal]->target->Active())
         {
@@ -131,27 +133,34 @@ void PlayerPalsManager::Update()
         }
         //palsMAI[pals[selPal]->name]->Update();
         //pals[selPal]->Update();
-        if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
+        //if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
+        //{
+        //    Vector3 tmpDIr = pals[selPal]->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos();
+        //    tmpDIr.y = 0;
+        //    tmpDIr = tmpDIr.GetNormalized();
+        //    pals[selPal]->GetTransform()->Rot().y = atan2(tmpDIr.x, tmpDIr.z);
+        //    pals[selPal]->GetTransform()->UpdateWorld();
+        //    pals[selPal]->Attack();
+        //}
+        // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
+        for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
         {
-            Vector3 tmpDIr = pals[selPal]->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos();
-            tmpDIr.y = 0;
-            tmpDIr = tmpDIr.GetNormalized();
-            pals[selPal]->GetTransform()->Rot().y = atan2(tmpDIr.x, tmpDIr.z);
-            pals[selPal]->GetTransform()->UpdateWorld();
-            pals[selPal]->Attack();
+            iter->second->Update();
         }
+        pals[selPal]->Update();
+        // 충돌 판정 진행
+        Collision();
 
         palStateIcon->Pos() = pals[selPal]->GetTransform()->Pos() + Vector3(0.0f, 2.0f, 0.0f);
         palStateIcon->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
     }
     
     palStateIcon->Update();
-    if (selPal != -1)
-    {
-        pals[selPal]->Update();
-    }
-    // 충돌 판정 진행
-    Collision();
+    //if (selPal != -1)
+    //{
+    //    
+    //}
+    
 }
 
 void PlayerPalsManager::Render()
@@ -453,6 +462,30 @@ void PlayerPalsManager::Collision()
     if (selPal == -1) return;
     if (!pals[selPal]->GetTransform()->Active()) return;
     // 소환한 한마리만 판정하기
+
+    for (Collider* obs : LandScapeManager::Get()->GetObstacles())
+    {
+        if (pals[selPal]->GetCollider()->IsCollision(obs) && obs->Active())
+        {
+            Vector3 nol = pals[selPal]->GetTransform()->GlobalPos() - obs->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = pals[selPal]->GetTransform()->GlobalPos() - lastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = obs->GlobalPos() - pals[selPal]->GetTransform()->GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            pals[selPal]->GetTransform()->Pos() = lastPos + fDir;
+            pals[selPal]->GetTransform()->UpdateWorld();
+            //isCollision = true;
+        }
+    }
+
+
     if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) return;
     for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
     {

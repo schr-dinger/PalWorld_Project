@@ -434,7 +434,7 @@ void BaseScene1::RenderShadowModel()
 	// 나무2
 	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
 	{
-		if (tree2->Active() && Distance(PlayerManager::Get()->GetPlayer()->GlobalPos(), tree2->GlobalPos()) < 60.0f)
+		if (tree2->Active() && Distance(PlayerManager::Get()->GetPlayer()->GlobalPos(), tree2->GlobalPos()) < 100.0f)
 			//&& CAM->ContainPoint(tree2->GlobalPos(), 7.0f // 넣으면 어색해짐, 프레임은 잘 나옴
 		{
 			treeS2->Pos() = tree2->GlobalPos();
