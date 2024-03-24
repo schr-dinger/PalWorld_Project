@@ -448,7 +448,7 @@ void PalsManager::Spawn()
     for (Pal* pal : pals)
     {
         Vector3 randomPos1;
-        randomPos1 = Vector3(150.0f, 0.0f, 150.0f) + Vector3(RANDOM->Float(-100.0f, 100.0f), 0, RANDOM->Float(-100.0f, 100.0f));
+        randomPos1 = Vector3(250.0f, 0.0f, 250.0f) + Vector3(RANDOM->Float(-100.0f, 100.0f), 0, RANDOM->Float(-100.0f, 100.0f));
         Vector3 randomPos2;
         randomPos2 = Vector3(150.0f, 0.0f, 250.0f) + Vector3(RANDOM->Float(-20.0f, 20.0f), 0, RANDOM->Float(-20.0f, 20.0f));
         Vector3 randomPos3;
