@@ -578,21 +578,19 @@ void PlayerPalsManager::PathFinding()
     }
 
 
-    if (pathTime > 0.1f)
+    if (pathTime > 1.0f)
     {
-        //destPos = CAM->GlobalPos();
+        //if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(pals[selPal]->GetTransform()->GlobalPos(), destPos))
+        //{
+        //    SetPath();
+        //}
+        //else
+        //{
+        //    path.clear();
+        //    path.push_back(destPos);
+        //}
 
-        //destPos = player->GlobalPos();
-
-        if (AStarManager::Get()->GetAStar()->IsCollisionObstacle(pals[selPal]->GetTransform()->GlobalPos(), destPos))
-        {
-            SetPath();
-        }
-        else
-        {
-            path.clear();
-            path.push_back(destPos);
-        }
+        SetPath();
 
         pathTime = 0.0f;
     }
