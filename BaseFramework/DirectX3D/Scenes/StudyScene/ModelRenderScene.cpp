@@ -3,8 +3,8 @@
 
 ModelRenderScene::ModelRenderScene()
 {
-    model = new Model("Player");
-    Audio::Get()->Add("test", "Sounds/pal/Gunfire.wav");
+    model = new Model("Bow");
+    
 }
 
 ModelRenderScene::~ModelRenderScene()
@@ -14,7 +14,7 @@ ModelRenderScene::~ModelRenderScene()
 
 void ModelRenderScene::Update()
 {
-    if(KEY_DOWN('1')) Audio::Get()->Play("test");
+    
     
     
     
