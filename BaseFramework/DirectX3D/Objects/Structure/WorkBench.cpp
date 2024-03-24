@@ -39,6 +39,7 @@ WorkBench::WorkBench()
 		L"Textures/UI/hp_bar_BG.png"
 	);
 	WorkItem = nullptr;
+	WorkImage = new Quad(Vector2(0.3, 0.3));
 }
 
 WorkBench::~WorkBench()
@@ -53,6 +54,7 @@ WorkBench::~WorkBench()
 	delete light;
 	delete produceBar;
 	delete WorkItem;
+	delete WorkImage;
 }
 
 void WorkBench::Update()
@@ -78,7 +80,8 @@ void WorkBench::Update()
 	
 	 
 
-	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit))
+	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+		&& !Done)
 	{
 		Progressing = true;
 		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
@@ -153,9 +156,10 @@ void WorkBench::Render()
 		blendState[0]->SetState();
 	}
 
+	if (WorkItem != nullptr) WorkImage->Render();
 	range->Render();
 	mouseHit->Render();
-
+	
 }
 
 void WorkBench::PostRender()
@@ -192,18 +196,28 @@ void WorkBench::Interaction()
 	{
 
 		if (!CAM->ContainPoint(gaugePos) || abs((building->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos())
-			.Length()) > 20) produceBar->SetActive(false);
-		else produceBar->SetActive(true);
+			.Length()) > 20)
+		{
+			WorkImage->SetActive(false);
+			produceBar->SetActive(false);
+		}
+		else
+		{
+			WorkImage->SetActive(true);
+			produceBar->SetActive(true);
+		}
 
+		WorkImage->GetMaterial()->SetDiffuseMap(WorkItem->icon);
+
+		gaugePos = building->Pos() + Vector3(0, 1.2f, 0);
+		WorkImage->Pos() = building->Pos() + Vector3(0, 1.4f, 0);
 
 		produceBar->SetAmount(time / CompleteTime);
-
-
-		gaugePos = building->Pos() + Vector3(0, 1.8f, 0);
 		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
-
 		produceBar->Scale() = { 1.0f,0.5f,0.3f };
 
+		WorkImage->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+		WorkImage->Update();
 		produceBar->UpdateWorld();
 		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))
 		{
