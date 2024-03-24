@@ -12,12 +12,17 @@ void SceneLoading()
 	Scene* tmp = new BaseScene1();
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
+	initCount++;
 	tmp->Update();
+	initCount++;
 	tmp->PreRender();
+	initCount++;
 	tmp->Render();
+	initCount++;
 	tmp->PostRender();
 	initCount++;
 	m.unlock();
+
 
 	//m.lock();
 	//initCount++;
@@ -42,13 +47,12 @@ LoadingScene::LoadingScene()
 {
 	//pika = new Particle();
 	pika = new Quad(Vector2(100, 100));
-
 }
 
 LoadingScene::~LoadingScene()
 {
-	//th->join();
-	//delete th;
+	th->join();
+	delete th;
 	delete pika;
 }
 
@@ -63,14 +67,15 @@ void LoadingScene::Update()
 	}
 
 
-	pika->Rot().z += 10* DELTA;
-	pika->Pos().x += 10* DELTA;
+	//pika->Rot().z += 10* DELTA;
+	//pika->Pos().x += 10* DELTA;
+	pika->Scale().x *= initCount;
 	pika->UpdateWorld();
 
-	T += DELTA;
+	//T += DELTA;
 
 	//if (T > 10.0f)
-	if(initCount == 1)
+	if(initCount == 5)
 	{
 		SceneManager::Get()->ChangeScene("NewScene");
 		SceneManager::Get()->Remove("Loading");

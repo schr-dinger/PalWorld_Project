@@ -14,7 +14,8 @@ public:
 
 public:
 	thread* th;
-	float T;
+	//float T;
+	int t = 0;
 	//Particle* pika;
 	Quad* pika;
 
