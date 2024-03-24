@@ -71,6 +71,8 @@ void UiManager::Update()
 	if (WorkBenchUiOn) WorkBenUI->Update();
 
 	fieldUI->Update();
+
+	UiMouseManager::Get()->Update();
 }
 
 void UiManager::Render()
@@ -93,6 +95,9 @@ void UiManager::PostRender()
 	if (InvenIsOn) itemUi->PostRender();
 	if (palModeUiOn) palModeUi->PostRender();
 	if (WorkBenchUiOn) WorkBenUI->PostRender();
+
+	UiMouseManager::Get()->Render();
+
 }
 
 void UiManager::GuiRender()

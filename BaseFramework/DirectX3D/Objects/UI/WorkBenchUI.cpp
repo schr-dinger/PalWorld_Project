@@ -115,12 +115,13 @@ void WorkBenchUI::PostRender()
 
 	Font::Get()->SetStyle("FieldEquibName");
 	Font::Get()->RenderText(" ÀÛ¾÷´ë ", { WorkIconP.x - 40,WorkIconP.y + 160 });
+	
 	string a = to_string(Count);
-
 	Font::Get()->RenderText("Count : ", {SetIconP.x - 50 ,SetIconP.y + 50});
 	Font::Get()->RenderText(a, { SetIconP.x + 20 ,SetIconP.y + 50 });
 
-
+	Font::Get()->GetDC()->EndDraw();
+	Font::Get()->GetDC()->BeginDraw();
 
 	//string a = to_string(ItemManager::Get()->GetConsumV()[0].size());
 	//string b = to_string(ItemManager::Get()->GetConsumV()[1].size());

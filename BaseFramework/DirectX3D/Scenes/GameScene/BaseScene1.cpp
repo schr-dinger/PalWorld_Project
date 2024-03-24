@@ -301,10 +301,12 @@ void BaseScene1::SetShadowModel()
 	treeS1 = new Model("Tree1");
 	treeS1->Scale() *= 0.01f;
 	//treeS1->SetShader(L"Light/DepthMap.hlsl");
+	treeS1->SetShader(L"Basic/Texture.hlsl");
 
 	treeS2 = new Model("Tree2");
 	treeS2->Scale() *= 0.01f;
 	//treeS2->SetShader(L"Light/DepthMap.hlsl");
+	treeS2->SetShader(L"Basic/Texture.hlsl");
 
 	//rockS  = new Model("Rock1");
 	//rockS->Scale() *= 0.01f;
@@ -430,7 +432,8 @@ void BaseScene1::RenderShadowModel()
 	// 나무2
 	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
 	{
-		if (tree2->Active())
+		if (tree2->Active() && Distance(PlayerManager::Get()->GetPlayer()->GlobalPos(), tree2->GlobalPos()) < 60.0f)
+			//&& CAM->ContainPoint(tree2->GlobalPos(), 7.0f // 넣으면 어색해짐, 프레임은 잘 나옴
 		{
 			treeS2->Pos() = tree2->GlobalPos();
 			treeS2->Rot() = tree2->Rot();
@@ -500,7 +503,6 @@ void BaseScene1::SetSound()
 
 	// ui
 	SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
-	SOUND->Add("BGM_Title", "Sounds/UI/Title.wav", true, true);
 	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
 	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
 	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");

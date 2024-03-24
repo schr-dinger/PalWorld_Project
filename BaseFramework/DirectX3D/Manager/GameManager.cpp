@@ -21,20 +21,28 @@
 #include "Scenes/StudyScene/QuadTreeScene.h"
 #include "Scenes/StudyScene/TerrainLODScene.h"
 #include "Scenes/StudyScene/WaterScene.h"
+#include "Scenes/GameScene/TitleScene.h"
 #include "Scenes/GameScene/LoadingScene.h"
 #include "Scenes/GameScene/BaseScene1.h"
-#include "Scenes/GameScene/TitleScene.h"
 
 GameManager::GameManager()
 {
     Create();
-    //SceneManager::Get()->Create("Title", new TitleScene());
-    //SceneManager::Get()->Create("Loading", new LoadingScene());
+
     SceneManager::Get()->Create("NewScene", new BaseScene1());
-    
+    //SceneManager::Get()->Create("Loading", new LoadingScene());
+    //SceneManager::Get()->Create("Title", new TitleScene());
+
     SceneManager::Get()->Add("NewScene");
+    //SceneManager::Get()->Add("Loading");
+    //SceneManager::Get()->Add("Title");
 
+    //SceneManager::Get()->ChangeScene("Title");
 
+    //SceneManager::Get()->Add("NewScene");
+    SceneManager::Get()->ChangeScene("NewScene");
+
+    //SceneManager::Get()->Add("Loading");
 
     //SceneManager::Get()->Create("ModelExport", new ModelExportScene());
     //SceneManager::Get()->Create("Grid", new GridScene());
@@ -89,16 +97,21 @@ GameManager::~GameManager()
 
 void GameManager::Update()
 {
+    m.lock();
+
     Keyboard::Get()->Update();
     Timer::Get()->Update();    
 
     SceneManager::Get()->Update();
 
     Environment::Get()->Update();
+    m.unlock();
+
 }
 
 void GameManager::Render()
 {
+
     SceneManager::Get()->PreRender();
     
     Device::Get()->Clear();
@@ -109,6 +122,8 @@ void GameManager::Render()
     
     Environment::Get()->PostSet();
     SceneManager::Get()->PostRender();
+
+    m.lock();
 
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
@@ -130,9 +145,12 @@ void GameManager::Render()
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
     
+
     Font::Get()->GetDC()->EndDraw();
 
     Device::Get()->Present();
+    m.unlock();
+
 }
 
 void GameManager::Create()

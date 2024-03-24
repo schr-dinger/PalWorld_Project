@@ -190,7 +190,7 @@ void PalBoxUi::PostRender()
 		Font::Get()->GetDC()->BeginDraw();
 	}
 
-	UiMouseManager::Get()->Render();
+	//UiMouseManager::Get()->Render();
 
 }
 

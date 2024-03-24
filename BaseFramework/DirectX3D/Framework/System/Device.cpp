@@ -1,4 +1,5 @@
 #include "Framework.h"
+float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };    
 
 Device::Device()
 {
@@ -17,7 +18,7 @@ Device::Device()
     swapChainDesc.BufferCount = 1;
     swapChainDesc.OutputWindow = hWnd;
     swapChainDesc.Windowed = true;//창모드 유무
-
+    ShowCursor(false);
     D3D11CreateDeviceAndSwapChain(
         nullptr,
         D3D_DRIVER_TYPE_HARDWARE,
@@ -73,8 +74,9 @@ void Device::Clear()
 {
     deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-    float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };    
+    //float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };    
     deviceContext->ClearRenderTargetView(renderTargetView, clearColor);
+
     deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
