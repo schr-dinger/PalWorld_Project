@@ -409,7 +409,10 @@ void Player::Control()
         isGaim = false;
         isBaim = false;
     }
-    else if (KEY_PRESS('Q') || KEY_PRESS('E'))
+    else if (KEY_PRESS('Q') || 
+        (KEY_PRESS('E') && PlayerPalsManager::Get()->GetSelPal() != -1 &&
+            selPal != -1 &&
+!PlayerPalsManager::Get()->GetPal(selPal)->isDead )) // 소환은 소환할 팰이 죽지 않았을 때만
     {
         if (curState != S_THROW )//&& ItemManager::Get()->GetConsumDV()[1].second != 0)
         {
@@ -434,7 +437,7 @@ void Player::Control()
     {
         if (curState == S_AIM)
         {
-
+            PlayerPalsManager::Get()->SetSelPal(selPal);
             SummonsPal();
             isAiming = false;
             summonPalSpear->SetActive(false);

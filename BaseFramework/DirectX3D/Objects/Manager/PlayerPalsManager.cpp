@@ -5,7 +5,7 @@ PlayerPalsManager::PlayerPalsManager()
     terrain = nullptr;
     //target = nullptr;
 
-    selPal = -1;
+    selPal = 0;
     isSummonedSelPal = -1;
     pals.resize(100);
 
@@ -622,4 +622,9 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
     }
 
 
+}
+
+void PlayerPalsManager::SetSelPal(int selPal)
+{
+    this->selPal = selPal;
 }
