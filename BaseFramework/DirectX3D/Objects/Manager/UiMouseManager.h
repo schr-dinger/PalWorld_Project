@@ -41,5 +41,7 @@ private:
 	Vector2 size = { 70.0f,70.0f };
 	int index;
 
+
+	BlendState* blendState[2];
 };
 
