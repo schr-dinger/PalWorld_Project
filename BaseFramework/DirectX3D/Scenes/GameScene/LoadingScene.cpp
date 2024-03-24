@@ -12,9 +12,9 @@ void SceneLoading()
 	Scene* tmp = new BaseScene1();
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
-	initCount++;
+	//initCount++;
 	tmp->Update();
-	initCount++;
+	//initCount++;
 	tmp->PreRender();
 	initCount++;
 	tmp->Render();
@@ -23,59 +23,66 @@ void SceneLoading()
 	initCount++;
 	m.unlock();
 
-
-	//m.lock();
-	//initCount++;
-	//m.unlock();
-	//Sleep(1000);
-
-	//m.lock();
-	//initCount++;
-	//m.unlock();
-	//Sleep(1000);
-
-	//m.lock();
-	//initCount++;
-	//m.unlock();
-	//Sleep(1000);
-
-
 }
 
 
 LoadingScene::LoadingScene()
 {
-	//pika = new Particle();
-	pika = new Quad(Vector2(100, 100));
+	//titleBg = new Quad(Vector2(3840,2160));
+	titleBg = new Quad(Vector2(1280, 720));
+
+	titleBg->Pos() = middle;
+	titleBg->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_title_BG.png");
+	titleBg->UpdateWorld();
+
+	title = new Quad(L"Textures/UI/T_Palworld_Logo_Small_White.png");
+	title->Scale() *= 0.5f;
+	title->Pos() = middle + Vector3(0.0f, 200.0f, 0.0f);
+
+	loadingBar = new ProgressBar(L"Textures/Color/White.png",L"Textures/Color/WhiteGlass30.png");
+	loadingBar->Pos() = middle + Vector3(0.0f,-300.0f,0.0f);
+	loadingBar->Scale().x *= 4.0f;
+	loadingBar->Scale().y *= 0.2f;
+
+	title->UpdateWorld();
+
 }
 
 LoadingScene::~LoadingScene()
 {
 	th->join();
 	delete th;
-	delete pika;
+	delete titleBg;
+	delete title;
+	delete loadingBar;
 }
 
 void LoadingScene::Update()
 {
-	//if (!SceneManager::Get()->GetLoadingT()) return;
+	fakeT += DELTA;
 
-	if (!first)
+	if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 5)
+	{
+		initCount++;
+		fakeT = 0.0f;
+	}
+	else if(fakeT > RANDOM->Float(5.0f, 7.0f))
+	{
+		initCount++;
+		fakeT = 0.0f;
+	}
+
+
+	if (!first && initCount == 4)
 	{
 		th = new thread(SceneLoading);
 		first = true;
 	}
 
+	loadingBar->SetAmount((float)initCount/10.0f);
+	loadingBar->Update();
 
-	//pika->Rot().z += 10* DELTA;
-	//pika->Pos().x += 10* DELTA;
-	pika->Scale().x *= initCount;
-	pika->UpdateWorld();
-
-	//T += DELTA;
-
-	//if (T > 10.0f)
-	if(initCount == 5)
+	if(initCount == 10)
 	{
 		SceneManager::Get()->ChangeScene("NewScene");
 		SceneManager::Get()->Remove("Loading");
@@ -94,12 +101,13 @@ void LoadingScene::Render()
 
 void LoadingScene::PostRender()
 {
-	pika->Render();
+	titleBg->Render();
+	title->Render();
+	loadingBar->Render();
 }
 
 void LoadingScene::GUIRender()
 {
-	ImGui::Text("Rot.z : %d", pika->Rot().z);
-	ImGui::Text("Pos.x : %d", pika->Pos().x);
+	loadingBar->GUIRender();
 }
 

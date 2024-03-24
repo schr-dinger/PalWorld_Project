@@ -30,7 +30,7 @@ GameManager::GameManager()
     Create();
 
     //SceneManager::Get()->Create("NewScene", new BaseScene1());
-    SceneManager::Get()->Create("Loading", new LoadingScene());
+    //SceneManager::Get()->Create("Loading", new LoadingScene());
     SceneManager::Get()->Create("Title", new TitleScene());
 
     //SceneManager::Get()->Add("NewScene");
