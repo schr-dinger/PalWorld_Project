@@ -54,6 +54,7 @@ void Water::GUIRender()
 {
     Transform::GUIRender();
     refraction->GUIRender(); // 물결 옵션 출력하고 활용
+    reflection->GUIRender(); // 물결 옵션 출력하고 활용
 }
 
 void Water::SetRefraction()
