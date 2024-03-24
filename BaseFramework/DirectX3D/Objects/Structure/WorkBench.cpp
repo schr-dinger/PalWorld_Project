@@ -80,7 +80,7 @@ void WorkBench::Update()
 		
 	}
 	
-	 
+	
 
 	if (KEY_PRESS('F') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
 		&& !Done && UiManager::Get()->buildWorkBench)
