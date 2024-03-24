@@ -102,7 +102,7 @@ void ItemUI::Update()
 				break;
 			}
 			*/
-			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+			
 		}
 
 		for (int j = 0; j < 3; j++)
@@ -116,7 +116,7 @@ void ItemUI::Update()
 				select = 2;
 				SOUND->Stop("UI_1");
 				SOUND->Play("UI_1");
-				mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+				
 			}
 
 			if (Slot[i]->MouseCollision() && KEY_UP(VK_LBUTTON) && UiMouseManager::Get()->GetItem() != nullptr)
