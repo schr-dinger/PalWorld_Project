@@ -84,7 +84,7 @@ void PartyUi::Update()
 			if (!isPlayed[i])
 			{
 				SOUND->Stop("UI_2");
-				SOUND->Play("UI_2");
+				SOUND->Play("UI_2", 0.7f);
 				isPlayed[i] = true;
 			}
 			if (KEY_DOWN(VK_LBUTTON) && partyIcon[i]->GetPal() != nullptr)

@@ -78,7 +78,7 @@ void PalBoxUi::Update()
 			if (!boxIconSound[i])
 			{
 				SOUND->Stop("UI_2");
-				SOUND->Play("UI_2");
+				SOUND->Play("UI_2", 0.7f);
 				boxIconSound[i] = true;
 			}
 			if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
@@ -118,7 +118,7 @@ void PalBoxUi::Update()
 			if (!partyIconSound[i])
 			{
 				SOUND->Stop("UI_2");
-				SOUND->Play("UI_2");
+				SOUND->Play("UI_2", 0.7f);
 				partyIconSound[i] = true;
 			}
 			if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)

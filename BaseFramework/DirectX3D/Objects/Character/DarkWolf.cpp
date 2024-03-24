@@ -35,7 +35,7 @@ DarkWolf::DarkWolf(Transform* transform, ModelAnimatorInstancing* instancing, UI
     eventIters.resize(instancing->GetClipSize());
 
     //이벤트 세팅
-    SetEvent((int)ACTION::ATTACK, bind(&DarkWolf::EndAttack, this), 1.5f);
+    SetEvent((int)ACTION::ATTACK, bind(&DarkWolf::EndAttack, this), 0.8f);
     SetEvent((int)ACTION::DAMAGE, bind(&DarkWolf::EndDamage, this), 0.3f);
 
     FOR(totalEvent.size())
@@ -127,10 +127,7 @@ void DarkWolf::Update()
 
         Move(); //
     }
-    else if (target != nullptr && !target->Active() && isSpawned)
-    {
-        target = nullptr;
-    }
+    
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
     {
@@ -274,7 +271,7 @@ void DarkWolf::Damage()
 {
     // 무적이 되는 조건들
 //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
-
+    if (isInvincible) return;
 //체력에 -
     //curHP -= 200 * DELTA;
     if (skillType == 0)
@@ -297,6 +294,8 @@ void DarkWolf::Damage()
         // 현재는 바로 비활성화
         isDead = true;
         transform->SetActive(false);
+        action = ACTION::IDLE;
+        SetAction(ACTION::IDLE);
         return;//이 함수 종료
     }
 
@@ -392,15 +391,24 @@ void DarkWolf::Move()
     //if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
     //if (action == ACTION::) return; // 추가 가능
 
-    if (velocity.Length() < 5)
+    if (velocity.Length() < 9)
     {
-        if (isSpawned)
+        SetAction(ACTION::IDLE);
+        skillTime += DELTA;
+        if (skillTime > 0.8f)
         {
-            Attack();
-        }
-        else
-        {
-            FieldAttack();
+            skillTime = 0.0f;
+            if (isSpawned)
+            {
+                if (target->Active())
+                {
+                    Attack();
+                }
+            }
+            else
+            {
+                FieldAttack();
+            }
         }
         //speed = 0;
         //SetAction(ACTION::IDLE);
@@ -422,10 +430,19 @@ void DarkWolf::Move()
         target = nullptr;
         SetAction(ACTION::IDLE);
     }
-
-    velocity.y = 0.0f;
-    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
-    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+    if (velocity.Length() < 9)
+    {
+        velocity.y = 0.0f;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        velocity = {};
+    }
+    else
+    {
+        velocity.y = 0.0f;
+        transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        // 
+    }
 
 }
 

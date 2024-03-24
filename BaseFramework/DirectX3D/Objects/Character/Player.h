@@ -66,7 +66,7 @@ private:
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
-
+    void MoveSound();
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -86,6 +86,8 @@ public:
 
     int GetCurHP() { return curHP; }
     int GetMaxHP() { return maxHP; }
+
+    void SetSelPal(int selPal) { this->selPal = selPal; }
 
     bool isWork = false;
     bool isBuild = false;
@@ -142,7 +144,7 @@ private:
     float gravi = 9.8f;
     float downForce = 0;
     Vector3 down = { 0, -1, 0 };
-
+    int selPal = -1;
 
     Vector3 ogCam = { -0.05,1.7,2.5 };
     Vector3 foCam = { -0.3,1.35,1.0 };
@@ -165,7 +167,9 @@ private:
 
     
 
-    //
+    // UI 소리용
+    float walkTime = 0.0f;
+    float runTime = 0.0f;
 
     
     

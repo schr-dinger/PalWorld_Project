@@ -142,10 +142,6 @@ void Penguin::Update()
             Move(); //
         }
     }
-    else if (target != nullptr && !target->Active() && isSpawned)
-    {
-        target = nullptr;
-    }
 
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
@@ -325,7 +321,7 @@ void Penguin::Damage()
 {
     // 
     //if (action == ACTION::DAMAGE) return; // 
-
+    if (isInvincible) return;
     //
     //curHP -= 200 * DELTA;
     if (skillType == 0)
@@ -347,6 +343,8 @@ void Penguin::Damage()
         // 
         isDead = true;
         transform->SetActive(false);
+        action = ACTION::IDLE;
+        SetAction(ACTION::IDLE);
         return;//
     }
 
@@ -459,16 +457,26 @@ void Penguin::Move()
     if (action == ACTION::WORK) return; // 
     //if (action == ACTION::) return; // 
 
-    if (velocity.Length() < 5)
+    if (velocity.Length() < 8)
     {
-        if (isSpawned)
+        SetAction(ACTION::IDLE);
+        skillTime += DELTA;
+        if (skillTime > 0.8f)
         {
-            Attack();
+            skillTime = 0.0f;
+            if (isSpawned)
+            {
+                if (target->Active())
+                {
+                    Attack();
+                }
+            }
+            else
+            {
+                FieldAttack();
+            }
         }
-        else
-        {
-            FieldAttack();
-        }
+        
         //speed = 0;
         //SetAction(ACTION::IDLE);
     }
@@ -490,10 +498,21 @@ void Penguin::Move()
         SetAction(ACTION::IDLE);
     }
 
-    velocity.y = 0.0f;
-    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
-    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // 
+    if (velocity.Length() < 8)
+    {
+        velocity.y = 0.0f;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        velocity = {};
+
+    }
+    else
+    {
+        velocity.y = 0.0f;
+        transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        // 
+    }
+    
 
 }
 

@@ -29,17 +29,18 @@ GameManager::GameManager()
 {
     Create();
 
-    //SceneManager::Get()->Create("NewScene", new BaseScene1());
+    SceneManager::Get()->Create("NewScene", new BaseScene1());
     //SceneManager::Get()->Create("Loading", new LoadingScene());
-    SceneManager::Get()->Create("Title", new TitleScene());
+    //SceneManager::Get()->Create("Title", new TitleScene());
 
-    //SceneManager::Get()->Add("NewScene");
+    SceneManager::Get()->Add("NewScene");
     //SceneManager::Get()->Add("Loading");
-    SceneManager::Get()->Add("Title");
+    //SceneManager::Get()->Add("Title");
 
-    SceneManager::Get()->ChangeScene("Title");
+    //SceneManager::Get()->ChangeScene("Title");
 
     //SceneManager::Get()->Add("NewScene");
+    SceneManager::Get()->ChangeScene("NewScene");
 
     //SceneManager::Get()->Add("Loading");
 

@@ -287,13 +287,12 @@ FieldUI::~FieldUI()
 void FieldUI::Update()
 {
 	// 팔 선택
-	if (KEY_UP('E')) // 선택 팰 소환
+	if (KEY_DOWN('E')) // 선택 팰 소환
 	{
 		if (PlayerPalsManager::Get()->GetPal(selPal) != nullptr)
 		{
-			
-			PlayerPalsManager::Get()->SetSelPal(selPal);
-			//PlayerPalsManager::Get()->Summons();
+			//PlayerPalsManager::Get()->SetSelPal(selPal);
+			PlayerManager::Get()->GetPlayer()->SetSelPal(selPal);
 		}
 	}
 	else if (KEY_DOWN('3')) // 오른쪽 팰 선택
@@ -340,25 +339,31 @@ void FieldUI::Update()
 	{
 		
 	}
-	switch (PlayerManager::Get()->GetPlayer()->GetWepSel())
+	if (ItemManager::Get()->GetEquipV()[PlayerManager::Get()->GetPlayer()->GetWepSel()-1] != nullptr)
 	{
-	case 0:
-		break;
-	case 1:
-		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_assault_rifle_UI.png");
-		break;
-	case 2:
-		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_Bow_UI.png");
-		break;
-	case 3:
-		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_pixaxe_UI.png");
-		break;
-	case 4:
-		equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
-		break;
-	default:
-		break;
+		switch (ItemManager::Get()->GetEquipV()[PlayerManager::Get()->GetPlayer()->GetWepSel()-1]->num)
+		{
+		case 0:
+			break;
+		case 1:
+			equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_assault_rifle_UI.png");
+			break;
+		case 2:
+			equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_icon_Bow_UI.png");
+			break;
+		case 3:
+			equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/UI/T_Icon_pixaxe_UI.png");
+			break;
+		case 4:
+			equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+			break;
+		default:
+			break;
+		}
+	
 	}
+	else equipIcon->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
+	
 	equipIcon->Update();
 	equipSlash->Update();
 	pressBQuad->Update();
@@ -454,48 +459,52 @@ void FieldUI::PostRender()
 
 		// 장비아이템용, 투사체 출력 유무 ----------------------------------
 		int tmpBow = 0;
-		switch (PlayerManager::Get()->GetPlayer()->GetWepSel())
+		if (ItemManager::Get()->GetEquipV()[PlayerManager::Get()->GetPlayer()->GetWepSel() - 1] != nullptr)
 		{
-		case 0:
-			break;
-		case 1:
-			// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
-			Font::Get()->SetStyle("FieldNum3");
-			Font::Get()->SetColor("Gray");
+			switch (ItemManager::Get()->GetEquipV()[PlayerManager::Get()->GetPlayer()->GetWepSel() - 1]->num)
+			{
+			case 0:
+				break;
+			case 1:
+				// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
+				Font::Get()->SetStyle("FieldNum3");
+				Font::Get()->SetColor("Gray");
 
-			tmpBow = ItemManager::Get()->GetConsumDV()[2].second; // *투사체 개수 가져와야 함
-			tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
-			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
+				tmpBow = ItemManager::Get()->GetConsumDV()[2].second; // *투사체 개수 가져와야 함
+				tmpString = to_string(tmpBow); // 투사체 총 개수, 아래에
+				Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
 
-			Font::Get()->SetStyle("FieldNum2");
-			Font::Get()->SetColor("White");
-			tmpBow = ItemManager::Get()->GetBulletDV()[1].second; //장전되어 있는 개수
-			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
-			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
-			break;
-		case 2:
-		{
-			// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
-			Font::Get()->SetStyle("FieldNum3");
-			Font::Get()->SetColor("Gray");
+				Font::Get()->SetStyle("FieldNum2");
+				Font::Get()->SetColor("White");
+				tmpBow = ItemManager::Get()->GetBulletDV()[1].second; //장전되어 있는 개수
+				tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
+				Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+				break;
+			case 2:
+			{
+				// *장비가 투사체가 있다면 출력, 무기에 투사체 유무 있어야 함
+				Font::Get()->SetStyle("FieldNum3");
+				Font::Get()->SetColor("Gray");
 
-			tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
-			tmpBow = ItemManager::Get()->GetConsumDV()[3].second; // 투사체 총 개수, 아래에
-			Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
+				tmpBow = tmpPalSpear; // *투사체 개수 가져와야 함
+				tmpBow = ItemManager::Get()->GetConsumDV()[3].second; // 투사체 총 개수, 아래에
+				Font::Get()->RenderText(tmpString, { ProjTotalNumFontPos.x, ProjTotalNumFontPos.y }, 1);
 
-			Font::Get()->SetStyle("FieldNum2");
-			Font::Get()->SetColor("White");
-			tmpBow = ItemManager::Get()->GetBulletDV()[2].second; //장전되어 있는 개수
-			tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
-			Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
-		}
+				Font::Get()->SetStyle("FieldNum2");
+				Font::Get()->SetColor("White");
+				tmpBow = ItemManager::Get()->GetBulletDV()[2].second; //장전되어 있는 개수
+				tmpString = to_string(tmpBow); // 투사체 장전되어있는 개수, 위에
+				Font::Get()->RenderText(tmpString, { ProjLoadNumFontPos.x, ProjLoadNumFontPos.y }, 1);
+			}
 			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		default:
-			break;
+			case 3:
+				break;
+			case 4:
+				break;
+			default:
+				break;
+			}
+
 		}
 		
 

@@ -53,6 +53,7 @@ public:  //
 	// 
 	Skill* skill[3];
 	int skillType; // 0 스킬 관통, 1 맞으면 스킬 사라짐
+	float skillTime; // 공격 주기
 
 	// 
 	Texture* icon;
