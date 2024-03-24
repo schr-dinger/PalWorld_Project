@@ -50,7 +50,7 @@ void PalModeUi::Update()
 		{
 			isPlayed = true;
 			SOUND->Stop("UI_2");
-			SOUND->Play("UI_2");
+			SOUND->Play("UI_2", 0.7f);
 		}
 		pieceRot = XM_2PI * (11.0f / 12.0f);
 		donutPiece->SetActive(true);
@@ -69,7 +69,7 @@ void PalModeUi::Update()
 		{
 			isPlayed = true;
 			SOUND->Stop("UI_2");
-			SOUND->Play("UI_2");
+			SOUND->Play("UI_2", 0.7f);
 		}
 		pieceRot = XM_2PI * (7.0f / 12.0f);
 		donutPiece->SetActive(true);
@@ -90,7 +90,7 @@ void PalModeUi::Update()
 		{
 			isPlayed = true;
 			SOUND->Stop("UI_2");
-			SOUND->Play("UI_2");
+			SOUND->Play("UI_2", 0.7f);
 		}
 		pieceRot = XM_2PI * (3.0f / 12.0f);
 		donutPiece->SetActive(true);

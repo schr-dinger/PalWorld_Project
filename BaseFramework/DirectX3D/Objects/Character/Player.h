@@ -66,7 +66,7 @@ private:
     void SummonsPal();
     void ThrowPalSpear(); // 팰 소환할때 던지기
 
-
+    void MoveSound();
 
 public:
     SphereCollider* GetPalSpearCol() { return testPalSpear; }
@@ -165,7 +165,9 @@ private:
 
     
 
-    //
+    // UI 소리용
+    float walkTime = 0.0f;
+    float runTime = 0.0f;
 
     
     

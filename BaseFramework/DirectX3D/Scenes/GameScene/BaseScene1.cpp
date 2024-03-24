@@ -67,7 +67,7 @@ BaseScene1::BaseScene1()
 
 
 	// 소리 실행
-	SOUND->Play("BGM_Battle");
+	//SOUND->Play("BGM_Battle");
 }
 
 BaseScene1::~BaseScene1()
@@ -216,15 +216,15 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	PlayerPalsManager::Get()->GUIRender();
+	//PlayerPalsManager::Get()->GUIRender();
 
-	//PlayerManager::Get()->GUIRender();
+	PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
 	//testUI->GUIRender();
 	UiManager::Get()->GuiRender();
-	LandScapeManager::Get()->GUIRender();
+	//LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
 	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
@@ -475,8 +475,10 @@ void BaseScene1::RenderShadowModel()
 void BaseScene1::SetSound()
 {
 	// action
-	SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav", false, true);
-	SOUND->Add("Run", "Sounds/Action/RunGrass.wav", false, true);
+	//SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav", false, true);
+	//SOUND->Add("Run", "Sounds/Action/RunGrass.wav", false, true);
+	SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav");
+	SOUND->Add("Run", "Sounds/Action/RunGrass.wav");
 	SOUND->Add("JumpLanding", "Sounds/Action/JumpLanding.wav");
 	SOUND->Add("Work", "Sounds/Action/WorkBenchWork.wav", false, true);
 	SOUND->Add("Build", "Sounds/Action/Hammer.wav", false, true);

@@ -75,7 +75,7 @@ void WorkSlot::Update()
 		MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlueGlass.png");
 		if (!Sound_C)
 		{
-			SOUND->Stop("UI_2"), SOUND->Play("UI_2");
+			SOUND->Stop("UI_2"), SOUND->Play("UI_2", 0.7f);
 			Sound_C = true;
 		}
 	}
