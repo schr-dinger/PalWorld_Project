@@ -1,6 +1,13 @@
 #pragma once
 class UiMouseManager :public Singleton<UiMouseManager>
 {
+	enum class Mstate
+	{
+		D,
+		G,
+		L
+	};
+
 public:
 	UiMouseManager();
 	~UiMouseManager();
@@ -20,6 +27,10 @@ public:
 	Item* GetItem() { return tempItem; }
 
 private:
+	Quad* mouse;
+	Mstate mstate = Mstate::D;
+	float grabTimer = 0.0f;
+
 	Quad* quad;
 	Quad* quadBack;
 	Pal* tempPal;
