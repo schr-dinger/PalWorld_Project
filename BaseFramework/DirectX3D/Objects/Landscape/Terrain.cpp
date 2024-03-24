@@ -7,7 +7,7 @@ Terrain::Terrain()
     //material->SetSpecularMap(L"Textures/Landscape/Fieldstone_SM.tga");
     //material->SetNormalMap(L"Textures/Landscape/Fieldstone_NM.tga");
       
-    heightMap = Texture::Add(L"Textures/HeightMaps/AWallTerrainH3.png");
+    heightMap = Texture::Add(L"Textures/HeightMaps/AWallTerrainH4.png");
     //heightMap = Texture::Add(L"Textures/Color/Black.png"); // <- 가장 낮은 평지(높이 0)
     //alphaMap = Texture::Add(L"Textures/AlphaMaps/TestAlphaMap.png");
     //secondMap = Texture::Add(L"Textures/Landscape/Dirt.png");

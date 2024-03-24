@@ -3,7 +3,7 @@
 LandScapeManager::LandScapeManager()
 {
     terrainF = new Terrain();
-    terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH3.png");
+    terrain = new QuadTreeTerrain(L"Textures/HeightMaps/AWallTerrainH4.png");
 
 
     trees.reserve(treeN * treeN * 2);
@@ -224,7 +224,8 @@ void LandScapeManager::PlaceRock(ModelInstancing* tree, int size, Terrain* terra
         for (float x = 1; x <= size; ++x)
         {
             Transform* transform = tree->Add();
-            transform->Rot().x += XM_PIDIV2;
+            //transform->Rot().x += XM_PIDIV2;
+            transform->Rot().x = RANDOM->Float(0.0f, XM_2PI);
             transform->Rot().y = RANDOM->Float(0.0f,XM_2PI);
 
             transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
