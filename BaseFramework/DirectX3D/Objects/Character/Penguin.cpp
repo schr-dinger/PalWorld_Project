@@ -347,6 +347,8 @@ void Penguin::Damage()
         // 
         isDead = true;
         transform->SetActive(false);
+        action = ACTION::IDLE;
+        SetAction(ACTION::IDLE);
         return;//
     }
 

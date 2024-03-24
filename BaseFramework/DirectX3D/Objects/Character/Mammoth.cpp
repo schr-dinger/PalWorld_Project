@@ -284,6 +284,8 @@ void Mammoth::Damage()
         // 현재는 바로 비활성화
         isDead = true;
         transform->SetActive(false);
+        action = ACTION::IDLE;
+        SetAction(ACTION::IDLE);
         return;//이 함수 종료
     }
 
