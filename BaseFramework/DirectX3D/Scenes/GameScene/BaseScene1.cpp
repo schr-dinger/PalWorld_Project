@@ -500,7 +500,6 @@ void BaseScene1::SetSound()
 
 	// ui
 	SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
-	SOUND->Add("BGM_Title", "Sounds/UI/Title.wav", true, true);
 	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
 	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
 	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");

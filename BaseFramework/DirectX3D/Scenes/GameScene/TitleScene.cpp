@@ -5,6 +5,9 @@
 
 TitleScene::TitleScene()
 {
+	SOUND->Add("BGM_Title", "Sounds/UI/Title.wav", true, true);
+	SOUND->Play("BGM_Title");
+
 	//title = new Quad(Vector2(3840,2160)*0.4f);
 	titleBg = new Quad(Vector2(1280,720));
 
@@ -63,6 +66,7 @@ void TitleScene::Update()
 
 	if (!isGrowing && KEY_DOWN(VK_LBUTTON))
 	{
+		SOUND->Stop("BGM_Title");
 		SceneManager::Get()->Create("Loading", new LoadingScene());
 		SceneManager::Get()->ChangeScene("Loading");
 		SceneManager::Get()->Remove("Title");
