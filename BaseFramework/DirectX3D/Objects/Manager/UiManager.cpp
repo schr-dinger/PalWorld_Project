@@ -26,14 +26,14 @@ void UiManager::Update()
 {
 	ControlOn();
 
-	if (KEY_DOWN('B') && !palBoxUiOn && !partyUiOn && !palModeUiOn && !InvenIsOn)
+	if (KEY_DOWN('B') && !palBoxUiOn && !InvenIsOn && !partyUiOn && !palModeUiOn && !WorkBenchUiOn)
 	{
 		buildUiOn = !buildUiOn;
 		SOUND->Stop("UI_3");
 		SOUND->Play("UI_3");
 	}
 
-	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn && !palModeUiOn && !InvenIsOn)
+	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn && !InvenIsOn && !palModeUiOn && !WorkBenchUiOn)
 	{
 		if (partyUiOn)
 		{
@@ -45,16 +45,7 @@ void UiManager::Update()
 		SOUND->Play("UI_3");
 	}
 
-	if (KEY_DOWN('U') &&!buildUiOn && !palBoxUiOn && !partyUiOn && !palModeUiOn)
-	{
-		InvenIsOn = !InvenIsOn;
-		itemUi->SetItem();
-		SOUND->Stop("UI_3");
-		SOUND->Play("UI_3");
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
-	}
-
-	if (KEY_DOWN('4') && !buildUiOn && !palBoxUiOn && !partyUiOn && !InvenIsOn)
+	if (KEY_DOWN('4') && !palBoxUiOn && !buildUiOn && !partyUiOn && !InvenIsOn && !WorkBenchUiOn)
 	{
 		palModeUiOn = !palModeUiOn;
 		SOUND->Stop("UI_3");
@@ -62,7 +53,14 @@ void UiManager::Update()
 	}
 
 
-
+	if (KEY_DOWN('U') && !palBoxUiOn && !buildUiOn && !partyUiOn && !palModeUiOn && !WorkBenchUiOn)
+	{
+		InvenIsOn = !InvenIsOn;
+		itemUi->SetItem();
+		SOUND->Stop("UI_3");
+		SOUND->Play("UI_3");
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+	}
 
 	if (palBoxUiOn)	palBoxUi->Update();
 	if (buildUiOn) buildUi->Update();

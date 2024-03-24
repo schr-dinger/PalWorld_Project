@@ -190,7 +190,7 @@ void PalBox::Interaction()
 		Ray ray = CAM->ScreenPointToRay(mousePos);
 		Contact contact;
 
-		if (mouseHit->IsRayCollision(ray, &contact) && KEY_DOWN('F') && !UiManager::Get()->buildUiOn)
+		if (mouseHit->IsRayCollision(ray, &contact) && KEY_DOWN('F') && !UiManager::Get()->GetUiOn())
 		{
 			UiManager::Get()->palBoxUiOn = true;
 			UiManager::Get()->SetPalBoxUI();
