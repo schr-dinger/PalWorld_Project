@@ -19,7 +19,7 @@ public:
 
 private:
 	float speed = 10; // 나아가는 속도
-	float dis = 30; // 도달하면 사라지는 거리
+	float dis = 20; // 도달하면 사라지는 거리
 
 	Vector3 startPos;
 	Vector3 dir;

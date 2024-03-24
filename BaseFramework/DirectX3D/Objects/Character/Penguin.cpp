@@ -637,6 +637,11 @@ void Penguin::UpdateUI()
 
 }
 
+void Penguin::SetFullHp()
+{
+    curHP = maxHP;
+}
+
 //void Penguin::ClipSync()
 //{
 //    if ((ACTION)frameBuffer->Get().cur.clip != action)

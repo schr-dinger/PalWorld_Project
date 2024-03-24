@@ -101,8 +101,6 @@ void IceSpear::SetSkill()
 		iceSpear->Rot().y = tmpRot.y;
 
 		iceSpear->UpdateWorld();
-
-		iceSpear->UpdateWorld();
 	}
 	else // 적 타겟 없으면 대충 앞에다가
 	{

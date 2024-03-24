@@ -235,6 +235,11 @@ void DarkWolf::GUIRender()
 {
 }
 
+void DarkWolf::SetFullHp()
+{
+    curHP = maxHP;
+}
+
 void DarkWolf::Attack()
 {
     action = ACTION::ATTACK;

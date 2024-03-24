@@ -224,6 +224,11 @@ void Mammoth::GUIRender()
     //ImGui::Text("Time : %f", onUITime);
 }
 
+void Mammoth::SetFullHp()
+{
+    curHP = maxHP;
+}
+
 void Mammoth::Attack()
 {
     action = ACTION::ATTACK;

@@ -27,6 +27,7 @@ public:
 	virtual Texture* GetTexture() = 0;
 	virtual Texture* GetTextureC() = 0;
 	virtual float GetCurHp() = 0;
+	virtual void SetFullHp() = 0;
 
 	// 
 	virtual void FieldAttack() = 0;
