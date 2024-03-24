@@ -19,7 +19,7 @@ private:
 
 	void RenderShadowModel();
 
-	void SetSound();
+	//void SetSound();
 
 	//QuadTreeTerrain* terrain;
 	//Terrain* terrainF;

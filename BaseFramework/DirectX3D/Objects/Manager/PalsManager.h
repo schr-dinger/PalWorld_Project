@@ -3,9 +3,9 @@ class PalsManager : public Singleton<PalsManager>
 {
 private:     
 	//UINT SIZE = 10; // 매니저 안에서 굴릴 수
-	UINT penguinN = 10;
+	UINT penguinN = 15;
 	UINT mammothN = 3;
-	UINT wolfN = 5;
+	UINT wolfN = 7;
 
 	float SPAWN_TIME = 1.0f; // 생성, 혹은 재생성에 필요한 시간  
 
