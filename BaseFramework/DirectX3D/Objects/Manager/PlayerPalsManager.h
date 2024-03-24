@@ -91,5 +91,8 @@ private:
 
     Quad* palStateIcon;
     Vector2 stateIconSize = { 0.5f,0.5f };
+
+    // Ãæµ¹
+    Vector3 lastPos;
 };
 
