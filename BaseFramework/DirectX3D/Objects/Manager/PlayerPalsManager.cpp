@@ -100,7 +100,10 @@ PlayerPalsManager::~PlayerPalsManager()
 void PlayerPalsManager::Update()
 {
     OnGround(terrain);
-
+    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    {
+        iter->second->Update();
+    }
     if (selPal != -1 && pals[selPal] != nullptr && pals[selPal]->GetTransform()->Active())
     {
         lastPos = pals[selPal]->GetTransform()->GlobalPos();
@@ -143,10 +146,8 @@ void PlayerPalsManager::Update()
         //    pals[selPal]->Attack();
         //}
         // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
-        for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
-        {
-            iter->second->Update();
-        }
+        
+        palsMAI[pals[selPal]->name]->Update();
         pals[selPal]->Update();
         // 충돌 판정 진행
         Collision();
