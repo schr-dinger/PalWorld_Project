@@ -19,7 +19,7 @@ private:
 
 	Vector2 Screen = { 1280.0f,720.0f };
 	Vector3 WorkIconP = { 400.0f, 400.0f,0.0f };
-	Vector3 SetIconP = { 670.0f,325.0f,0.0f };
+	Vector3 SetIconP = { 400,325.0f,0.0f };
 
 	Quad* WorkBase;
 	Quad* WorkBaseName;

@@ -93,14 +93,13 @@ void PalBox::Update()
 	}
 
 
-
-
-
 	if (off2 > 13.0f)
 	{
 		Done = true;
+		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildPalBox)
+			PlayerManager::Get()->GetPlayer()->isBuild = false;
 		UiManager::Get()->buildPalBox = false;
-		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+		
 	}
 
 

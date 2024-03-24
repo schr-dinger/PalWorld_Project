@@ -93,11 +93,15 @@ void WorkBench::Update()
 		
 	}
 
+
 	if (off2 > 12.0f)
 	{
 		Done = true;
+		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildWorkBench)
+			PlayerManager::Get()->GetPlayer()->isBuild = false;
 		UiManager::Get()->buildWorkBench = false;
-		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+		
+
 	}
 
 
