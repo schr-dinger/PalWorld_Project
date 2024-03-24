@@ -86,7 +86,7 @@ void WorkBench::Update()
 		Progressing = true;
 		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
-	else
+	else if(KEY_UP('F'))
 	{
 		Progressing = false;
 		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
@@ -97,6 +97,7 @@ void WorkBench::Update()
 	{
 		Done = true;
 		UiManager::Get()->buildWorkBench = false;
+		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 	}
 
 
