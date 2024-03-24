@@ -68,16 +68,30 @@ void PalBox::Update()
 	}
 	else if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
 
-	if (KEY_PRESS('P'))
+	//if (KEY_PRESS('P'))
+	//{
+	//	Progressing = true;
+	//	
+	//}
+	//else
+	//{
+	//	Progressing = false;
+	//	
+	//}
+
+	if (KEY_PRESS('F') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+		&& !Done)
 	{
 		Progressing = true;
-		
+		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
 	else
 	{
 		Progressing = false;
-		
+		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+
 	}
+
 
 	if (off2 > 13.0f)
 	{

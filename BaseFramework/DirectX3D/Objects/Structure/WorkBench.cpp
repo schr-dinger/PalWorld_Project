@@ -80,7 +80,7 @@ void WorkBench::Update()
 	
 	 
 
-	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+	if (KEY_PRESS('F') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
 		&& !Done)
 	{
 		Progressing = true;
@@ -164,7 +164,7 @@ void WorkBench::Render()
 
 void WorkBench::PostRender()
 {
-	produceBar->Render();
+	if (WorkItem != nullptr) produceBar->Render();
 }
 
 void WorkBench::GUIRender()
