@@ -72,7 +72,8 @@ void WorkSlot::Update()
 	if (CheckItem() && !MakeSlotBase->MouseCollision()) MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png"), Sound_C = false;
 	else if (MakeSlotBase->MouseCollision())
 	{
-		MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlueGlass.png");
+		if(CheckItem()) MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlueGlass.png");
+		else MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
 		if (!Sound_C)
 		{
 			SOUND->Stop("UI_2"), SOUND->Play("UI_2", 0.7f);
