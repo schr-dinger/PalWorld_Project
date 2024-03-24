@@ -85,7 +85,7 @@ Player::Player() : ModelAnimator("NPC")
     particle = new ParticleSystem("TextData/Particles/GunH.fx");
     
     MiningCollider = new SphereCollider(0.3f);
-
+    MiningCollider->SetActive(false);
     GetClip(J_START)->SetEvent(bind(&Player::SetState, this, J_LOOP), 0.3f);
     GetClip(J_END)->SetEvent(bind(&Player::SetState, this, IDLE), 0.7f);
 
