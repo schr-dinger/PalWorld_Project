@@ -15,7 +15,7 @@ IronSpike::IronSpike()
 	Spike->SetTag("IR");
 	Spike->GetMaterial(0)->SetDiffuseMap(L"Textures/Model/Spike/T_DustCristal_02.png");
 	Spike->GetMaterial(0)->SetNormalMap(L"Textures/Model/Spike/T_Ice02_normal.png");
-
+	Spike->SetActive(false);
 	//particle = new ParticleSystem("TextData/Particles/Star.fx");
 
 	col = new CapsuleCollider();
