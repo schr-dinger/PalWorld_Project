@@ -65,6 +65,10 @@ void DepthStencilState::DepthFunc(D3D11_COMPARISON_FUNC value)
     Changed();
 }
 
+void DepthStencilState::StencilEnable(bool value)
+{
+}
+
 void DepthStencilState::Changed()
 {
     if (state != nullptr)

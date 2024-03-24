@@ -11,6 +11,7 @@ public:
     void DepthEnable(bool value);
     void DepthWriteMask(D3D11_DEPTH_WRITE_MASK value);
     void DepthFunc(D3D11_COMPARISON_FUNC value);
+    void StencilEnable(bool value);
 
     void Changed();
 
