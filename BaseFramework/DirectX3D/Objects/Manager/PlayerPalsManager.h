@@ -34,7 +34,8 @@ public:
     void Caught(Pal* CaughtPal); // 포획
 
     // 소환 테스트용
-    void SetSelPal(int selPal) { this->selPal = selPal; }
+    void SetSelPal(int selPal); 
+    int GetSelPal() { return selPal; }
 
     void Summons(Vector3 summonPos);     // 소환
     void SUmmonedPalActiveFalse();
@@ -90,5 +91,8 @@ private:
 
     Quad* palStateIcon;
     Vector2 stateIconSize = { 0.5f,0.5f };
+
+    // 충돌
+    Vector3 lastPos;
 };
 

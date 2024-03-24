@@ -270,6 +270,7 @@ void PalsManager::Collision()
 
     for (int i = 0; i < pals.size(); i++)
     {
+        if (!pals[i]->GetTransform()->Active()) continue;
         for (int j = 0; j < pals.size(); j++)
         {
             if (i == j) continue;
@@ -310,8 +311,27 @@ void PalsManager::Collision()
             pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
             pals[i]->GetTransform()->UpdateWorld();
         }
-        
-
+        for (Collider* obs : LandScapeManager::Get()->GetObstacles())
+        {
+            if (pals[i]->GetCollider()->IsCollision(obs) && obs->Active())
+            {
+                Vector3 nol = pals[i]->GetTransform()->GlobalPos() - obs->GlobalPos();
+                nol.y = 0;
+                nol = nol.GetNormalized();
+                Vector3 dir = pals[i]->GetTransform()->GlobalPos() - lastPos[i];
+                dir.y = 0;
+                Vector3 tmpV1 = dir;
+                Vector3 tmpV2 = obs->GlobalPos() - pals[i]->GetTransform()->GlobalPos();
+                tmpV2.y = 0;
+                if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+                Vector3 mDir = dir * -1;
+                Vector3 tmp = nol * Dot(mDir, nol);
+                Vector3 fDir = dir + tmp;
+                pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
+                pals[i]->GetTransform()->UpdateWorld();
+                //isCollision = true;
+            }
+        }
     }
 
 
@@ -328,7 +348,6 @@ void PalsManager::Collision()
             //pal->GetCollider()->SetActive(false); 
             // 팰스피어에 맞는 순간 공격 안당하게 하기
             pal->isInvincible = true;
-
             return; //팔스피어(포획)에 맞았여기서 리턴
         }
         //else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기
@@ -348,7 +367,7 @@ void PalsManager::Collision()
                     pal->skillType = 1;
 
                 }
-                if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "스파이크")
+                else if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "스파이크")
                 {
                     MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetCol()->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                     pal->skillType = 1;

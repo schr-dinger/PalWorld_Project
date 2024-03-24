@@ -7,6 +7,7 @@ Pal::Pal()
 	skill[0] = nullptr;
 	skill[1] = nullptr;
 	skill[2] = nullptr;
+	skillTime = 0.5f;
 	icon = nullptr;
 	iconC = nullptr;
 	isUIOn = false;

@@ -188,7 +188,7 @@ void ItemUI::Update()
 			if (!slotSound[i])
 			{
 				SOUND->Stop("UI_2");
-				SOUND->Play("UI_2");
+				SOUND->Play("UI_2", 0.7f);
 				slotSound[i] = true;
 			}
 		}
@@ -231,7 +231,7 @@ void ItemUI::Update()
 			if (!P_EquipSound[i])
 			{
 				SOUND->Stop("UI_2");
-				SOUND->Play("UI_2");
+				SOUND->Play("UI_2", 0.7f);
 				P_EquipSound[i] = true;
 			}
 		}

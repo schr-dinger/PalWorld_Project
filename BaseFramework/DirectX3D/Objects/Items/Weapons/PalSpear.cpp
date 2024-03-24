@@ -281,7 +281,8 @@ void PalSpear::StateCatching()
 void PalSpear::StateSuccess()
 {
     PlayerPalsManager::Get()->Caught(pal);
-    // 이후 죽음처리(지금은 단순 트랜스폼 비활성화), 나중에 다시 스폰될 것
+    // 이후 죽음처리, 나중에 다시 스폰될 것
+    pal->isDead = true;
 
     transform->SetActive(false);
     collider->SetActive(false);

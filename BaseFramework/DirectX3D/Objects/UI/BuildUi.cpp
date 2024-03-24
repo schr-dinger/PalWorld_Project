@@ -36,7 +36,6 @@ BuildUi::~BuildUi()
 void BuildUi::Update()
 {
 	SetTexture();
-	donutPiece->Rot().z = pieceRot;
 
 	
 
@@ -46,7 +45,7 @@ void BuildUi::Update()
 		{
 			isPalBox = true;
 			SOUND->Stop("UI_2");
-			SOUND->Play("UI_2");
+			SOUND->Play("UI_2", 0.7f);
 		}
 		pieceRot = XM_2PI * (0.0f / 6.0f);
 		donutPiece->SetActive(true);
@@ -71,7 +70,7 @@ void BuildUi::Update()
 		{
 			isWorkBench = true;
 			SOUND->Stop("UI_2");
-			SOUND->Play("UI_2");
+			SOUND->Play("UI_2", 0.7f);
 		}
 		pieceRot = XM_2PI * (1.0f / 6.0f);
 		donutPiece->SetActive(true);
@@ -93,6 +92,7 @@ void BuildUi::Update()
 		isWorkBench = false;
 	}
 	
+	donutPiece->Rot().z = pieceRot;
 
 	baseDonut->Update();
 	selectPalBox->Update();

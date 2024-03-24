@@ -105,7 +105,7 @@ Player::Player() : ModelAnimator("NPC")
     weapons.resize(4);
        
 
-
+    //ItemManager::Get()->GetConsumDV()[1].second = 3;
 }
 
 Player::~Player()
@@ -210,6 +210,7 @@ void Player::Update()
 
     }
     
+    MoveSound();
 
     ModelAnimator::Update();
     PalSpearManager::Get()->Update();
@@ -268,10 +269,11 @@ void Player::ShadowRender()
 
 void Player::GUIRender()
 {
-    ModelAnimator::GUIRender();
+    //ModelAnimator::GUIRender();
+    
     //PalSpearManager::Get()->GUIRender();
     //ImGui::Text("selNum : %d", curState);
-    //ImGui::Text("state : %d", curState);
+    ImGui::Text("runTime : %f", runTime);
 
 }
 
@@ -407,7 +409,12 @@ void Player::Control()
         isGaim = false;
         isBaim = false;
     }
-    else if (KEY_PRESS('Q') || KEY_PRESS('E'))
+    else if ((KEY_PRESS('Q') && ItemManager::Get()->GetConsumDV()[1].second > 0)
+        || 
+        (KEY_PRESS('E') && PlayerPalsManager::Get()->GetSelPal() != -1 &&
+            selPal != -1 &&
+            PlayerPalsManager::Get()->GetPal(selPal) != nullptr &&
+!PlayerPalsManager::Get()->GetPal(selPal)->isDead )) // 소환은 소환할 팰이 죽지 않았을 때만
     {
         if (curState != S_THROW )//&& ItemManager::Get()->GetConsumDV()[1].second != 0)
         {
@@ -426,13 +433,15 @@ void Player::Control()
             Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
             SOUND->Play("Sphere_Flash", tmpPos);
+            ItemManager::Get()->GetConsumDV()[1].second--;
+
         }
     }
     else if (KEY_UP('E'))
     {
         if (curState == S_AIM)
         {
-
+            PlayerPalsManager::Get()->SetSelPal(selPal);
             SummonsPal();
             isAiming = false;
             summonPalSpear->SetActive(false);
@@ -444,7 +453,6 @@ void Player::Control()
             Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
             SOUND->Play("Sphere_Flash", tmpPos);
-            ItemManager::Get()->GetConsumDV()[1].second--;
         }
 
     }
@@ -686,11 +694,10 @@ void Player::Collision()
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
 
                 }
-                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
                 {
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
                     FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-
                 }
                 else
                 {
@@ -905,6 +912,39 @@ void Player::ThrowPalSpear()
     }
 }
 
+void Player::MoveSound()
+{
+    if (curState == RUN || curState == R_RUN)
+    {
+        walkTime = 0.0f;
+        runTime += DELTA;
+        if (runTime > 0.45f)
+        {
+            //if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+            SOUND->Stop("Run"), SOUND->Play("Run");
+            runTime = 0.0f;
+        }
+    }
+    else if (curState == WALK || curState == S_AIM || curState == BW_AIM || curState == R_Aim || curState == RA_FWD)
+    {
+        runTime = 0.0f;
+        walkTime += DELTA;
+        if (walkTime > 0.47f)
+        {
+            //if (!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
+            SOUND->Stop("Walk"), SOUND->Play("Walk");
+            walkTime = 0.0f;
+        }
+    }
+    else
+    {
+        SOUND->Stop("Walk"), SOUND->Stop("Run");
+        walkTime = 0.0f;
+        runTime = 0.0f;
+    }
+
+}
+
 void Player::UiMode()
 {
     UiOn = !UiOn;
@@ -939,7 +979,7 @@ void Player::SetAnimation()
     {
         if (isGaim)
         {
-            if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
+            //if (SOUND->IsPlaySound("Run")) SOUND->Stop("Run");
 
             if (velocity.Length() > 0) SetState(RA_FWD);
             else SetState(R_Aim);
@@ -949,8 +989,8 @@ void Player::SetAnimation()
             if (velocity.Length() > 0)
             {
                 SetState(R_RUN);
-                if (SOUND->IsPlaySound("Walk"))SOUND->Stop("Walk");
-                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+                //if (SOUND->IsPlaySound("Walk"))SOUND->Stop("Walk");
+                //if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
             }
             else SetState(R_IDLE);
         }
@@ -969,22 +1009,38 @@ void Player::SetAnimation()
             if (isRun)
             {
                 SetState(RUN);
-                SOUND->Stop("Walk");
-                if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+                //SOUND->Stop("Walk");
+                //walkTime = 0.0f;
+                //runTime += DELTA;
+                //if (runTime > 0.45f)
+                //{
+                //    //if (!SOUND->IsPlaySound("Run")) SOUND->Play("Run");
+                //    SOUND->Stop("Run"), SOUND->Play("Run");
+                //    runTime = 0.0f;
+                //}
 
             }
             else
             {
                 SetState(WALK);
-                SOUND->Stop("Run");
-                if (!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
+                //SOUND->Stop("Run");
+                //runTime = 0.0f;
+                //walkTime += DELTA;
+                //if (walkTime > 0.47f)
+                //{
+                //    //if (!SOUND->IsPlaySound("Walk")) SOUND->Play("Walk");
+                //    SOUND->Stop("Walk"), SOUND->Play("Walk");
+                //    walkTime = 0.0f;
+                //}
             }
 
         }
         else
         {
             SetState(IDLE);
-            
+            walkTime = 0.0f;
+            runTime = 0.0f;
+
         }
     }
 

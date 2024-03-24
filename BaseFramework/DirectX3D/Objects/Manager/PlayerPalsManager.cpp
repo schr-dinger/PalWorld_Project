@@ -5,7 +5,7 @@ PlayerPalsManager::PlayerPalsManager()
     terrain = nullptr;
     //target = nullptr;
 
-    selPal = -1;
+    selPal = 0;
     isSummonedSelPal = -1;
     pals.resize(100);
 
@@ -76,6 +76,9 @@ PlayerPalsManager::PlayerPalsManager()
             pal->GetTransform()->SetActive(false);
         }
     }
+
+    // 충돌용
+    lastPos = {};
 }
 
 PlayerPalsManager::~PlayerPalsManager()
@@ -98,15 +101,11 @@ void PlayerPalsManager::Update()
 {
     OnGround(terrain);
 
-    
-
-
-
-    // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
-    for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
+    if (selPal != -1 && pals[selPal] != nullptr && pals[selPal]->GetTransform()->Active())
     {
-        iter->second->Update();
+        lastPos = pals[selPal]->GetTransform()->GlobalPos();
     }
+
     //for (Pal* pal : pals)
     //{
     //    if (pal == nullptr)
@@ -115,13 +114,17 @@ void PlayerPalsManager::Update()
     //    }
     //    pal->Update();
     //}
+
     
-
-
-
-
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return;
+        }
+        if (!pals[selPal]->GetTransform()->Active()) return;
+        lastPos = pals[selPal]->GetTransform()->GlobalPos();
+
         SetTarget();
         if (!pals[selPal]->target || !pals[selPal]->target->Active())
         {
@@ -130,27 +133,34 @@ void PlayerPalsManager::Update()
         }
         //palsMAI[pals[selPal]->name]->Update();
         //pals[selPal]->Update();
-        if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
+        //if (KEY_DOWN('L') && !pals[selPal]->skill[0]->Active())
+        //{
+        //    Vector3 tmpDIr = pals[selPal]->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos();
+        //    tmpDIr.y = 0;
+        //    tmpDIr = tmpDIr.GetNormalized();
+        //    pals[selPal]->GetTransform()->Rot().y = atan2(tmpDIr.x, tmpDIr.z);
+        //    pals[selPal]->GetTransform()->UpdateWorld();
+        //    pals[selPal]->Attack();
+        //}
+        // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
+        for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
         {
-            Vector3 tmpDIr = pals[selPal]->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos();
-            tmpDIr.y = 0;
-            tmpDIr = tmpDIr.GetNormalized();
-            pals[selPal]->GetTransform()->Rot().y = atan2(tmpDIr.x, tmpDIr.z);
-            pals[selPal]->GetTransform()->UpdateWorld();
-            pals[selPal]->Attack();
+            iter->second->Update();
         }
+        pals[selPal]->Update();
+        // 충돌 판정 진행
+        Collision();
 
         palStateIcon->Pos() = pals[selPal]->GetTransform()->Pos() + Vector3(0.0f, 2.0f, 0.0f);
         palStateIcon->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
     }
     
     palStateIcon->Update();
-    if (selPal != -1)
-    {
-        pals[selPal]->Update();
-    }
-    // 충돌 판정 진행
-    Collision();
+    //if (selPal != -1)
+    //{
+    //    
+    //}
+    
 }
 
 void PlayerPalsManager::Render()
@@ -182,6 +192,10 @@ void PlayerPalsManager::Render()
 
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return;
+        }
         blendState[1]->SetState(); // 투명도 적용
         palsMAI[pals[selPal]->name]->Render();
         if (pals[selPal]->GetTransform()->Active())
@@ -196,32 +210,48 @@ void PlayerPalsManager::Render()
 
 void PlayerPalsManager::PostRender()
 {
-    //if (selPal != -1)
-    //{
-    //    pals[selPal]->PostRender();
-    //}
-    for (Pal* pal : pals)
+    if (selPal != -1)
     {
-        if (pal != nullptr)
+        if (pals[selPal] == nullptr)
         {
-            pal->PostRender();
+            return;
         }
+        pals[selPal]->PostRender();
     }
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        pal->PostRender();
+    //    }
+    //}
 }
 
 void PlayerPalsManager::ShadowRender()
 {
-    for (Pal* pal : pals)
-    {
-        if (pal != nullptr)
-        {
-            pal->ShadowRender();
-        }
-    }
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        pal->ShadowRender();
+    //    }
+    //}
+    //if (selPal != -1)
+    //{
+    //    if (!pals[selPal]->GetTransform()->Active())
+    //    {
+    //        return;
+    //    }
+    //    pals[selPal]->ShadowRender();
+    //}
 }
 
 void PlayerPalsManager::GUIRender()
 {
+    if (pals[selPal] == nullptr)
+    {
+        return;
+    }
     //ImGui::Text("MyPalsSIze : %d", pals.size());
     //ImGui::Text("pathsize : %d", path.size());
     //
@@ -333,6 +363,10 @@ bool PlayerPalsManager::IsCollision(Ray ray, Vector3& hitPoint)
     float minDistance = FLT_MAX;
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return false;
+        }
         if (pals[selPal]->GetCollider()->IsRayCollision(ray, &contact))
         {
             minDistance = contact.distance;
@@ -425,45 +459,101 @@ void PlayerPalsManager::Collision()
     //    }
     //}
 
+    if (selPal == -1) return;
+    if (!pals[selPal]->GetTransform()->Active()) return;
+    // 소환한 한마리만 판정하기
 
-    for (Pal* pal : pals)
+    for (Collider* obs : LandScapeManager::Get()->GetObstacles())
     {
-        if (pal != nullptr)
+        if (pals[selPal]->GetCollider()->IsCollision(obs) && obs->Active())
         {
-            // 조건에따라 데미지 호출
-            //if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
-            //{
-            //    pal->Damage();
-            //}
-            if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) continue;
-            for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
-            {
-                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
-                    // 스킬이 매개변수 'collider'에 충돌했다면
-                {
-                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
-                    {
-                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
-                        pal->skillType = 1;
-                    }
-                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
-                    {
-                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-                        pal->skillType = 0;
-                    }
-                    else
-                    {
-                        pal->skillType = 0;
-                    }
-                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
-                    //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
-                    pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
-                    pal->Damage();
-                    return;
-                }
-            }
+            Vector3 nol = pals[selPal]->GetTransform()->GlobalPos() - obs->GlobalPos();
+            nol.y = 0;
+            nol = nol.GetNormalized();
+            Vector3 dir = pals[selPal]->GetTransform()->GlobalPos() - lastPos;
+            dir.y = 0;
+            Vector3 tmpV1 = dir;
+            Vector3 tmpV2 = obs->GlobalPos() - pals[selPal]->GetTransform()->GlobalPos();
+            tmpV2.y = 0;
+            if (Dot(tmpV1, tmpV2) <= 0.0f) continue;
+            Vector3 mDir = dir * -1;
+            Vector3 tmp = nol * Dot(mDir, nol);
+            Vector3 fDir = dir + tmp;
+            pals[selPal]->GetTransform()->Pos() = lastPos + fDir;
+            pals[selPal]->GetTransform()->UpdateWorld();
+            //isCollision = true;
         }
     }
+
+
+    if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) return;
+    for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
+    {
+        if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pals[selPal]->GetCollider()))
+            // 스킬이 매개변수 'collider'에 충돌했다면
+        {
+            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
+            {
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                pals[selPal]->skillType = 1;
+            }
+            else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+            {
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+                pals[selPal]->skillType = 1;
+            }
+            else
+            {
+                pals[selPal]->skillType = 0;
+            }
+            FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pals[selPal]->GetTransform()->GlobalPos());
+            //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            pals[selPal]->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+            pals[selPal]->Damage();
+            return;
+        }
+    }
+
+
+    // 한마리만 소환할 거면 아래 필요없음 240324
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        // 조건에따라 데미지 호출
+    //        //if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
+    //        //{
+    //        //    pal->Damage();
+    //        //}
+    //        if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) continue;
+    //        for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
+    //        {
+    //            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
+    //                // 스킬이 매개변수 'collider'에 충돌했다면
+    //            {
+    //                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
+    //                {
+    //                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+    //                    pal->skillType = 1;
+    //                }
+    //                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+    //                {
+    //                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+    //                    pal->skillType = 0;
+    //                }
+    //                else
+    //                {
+    //                    pal->skillType = 0;
+    //                }
+    //                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
+    //                //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+    //                pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+    //                pal->Damage();
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
 
 }
 
@@ -548,6 +638,10 @@ void PlayerPalsManager::Move()
 void PlayerPalsManager::Summons(Vector3 summonPos)
 {
     if (selPal == -1) return;
+    if (pals[selPal] == nullptr)
+    {
+        return;
+    }
     pals[selPal]->isSpawned = true;
     pals[selPal]->Summons(summonPos); 
     isSummonedSelPal = selPal;
@@ -558,6 +652,10 @@ void PlayerPalsManager::SUmmonedPalActiveFalse()
     if (isSummonedSelPal == -1)
     {
         return; // 처음 소환시
+    }
+    if (pals[isSummonedSelPal] == nullptr)
+    {
+        return;
     }
     pals[isSummonedSelPal]->GetTransform()->SetActive(false);
     pals[isSummonedSelPal]->isSpawned = false;
@@ -622,4 +720,9 @@ void PlayerPalsManager::Caught(Pal* CaughtPal)
     }
 
 
+}
+
+void PlayerPalsManager::SetSelPal(int selPal)
+{
+    this->selPal = selPal;
 }
