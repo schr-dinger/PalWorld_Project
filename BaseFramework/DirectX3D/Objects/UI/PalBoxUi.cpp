@@ -95,6 +95,10 @@ void PalBoxUi::Update()
 			}
 			else if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr)
 			{
+				if (boxIcon[i]->GetPal() != nullptr)
+				{
+					PlayerPalsManager::Get()->GetPal(i + 5)->GetTransform()->SetActive(false);
+				}
 				UiMouseManager::Get()->SetPal(boxIcon[i]->GetPal());
 				UiMouseManager::Get()->SetIndex(i + 5);
 				SOUND->Stop("UI_1");
@@ -136,7 +140,10 @@ void PalBoxUi::Update()
 			}
 			else if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() == nullptr)
 			{
-				PlayerPalsManager::Get()->GetPal(i)->GetTransform()->SetActive(false);
+				if (partyIcon[i]->GetPal() != nullptr)
+				{
+					PlayerPalsManager::Get()->GetPal(i)->GetTransform()->SetActive(false);
+				}
 				UiMouseManager::Get()->SetPal(partyIcon[i]->GetPal());
 				UiMouseManager::Get()->SetIndex(i);
 				SOUND->Stop("UI_1");

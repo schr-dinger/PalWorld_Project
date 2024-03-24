@@ -20,8 +20,8 @@ FakeShadow::~FakeShadow()
 
 void FakeShadow::SetRenderTarget(int n)
 {
-    renderTarget->Set(depthStencil);
-    //renderTarget->Set(depthStencil, {1.0f,0.5f,0.0f,1.0f}); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
+    //renderTarget->Set(depthStencil);
+    renderTarget->Set(depthStencil, {1.0f,1.0f,1.0f,0.0f}); // 렌더 타겟 설정 (테스트씬에서는 프리렌더에서 했던 것)
 
     SetViewProjection(n);
 }

@@ -33,7 +33,7 @@ private:
 	SphereCollider* range;
 	SphereCollider* mouseHit;
 
-	BlendState* blendState[2];
+	BlendState* blendState[3];
 
 	FakeShadow* shadow;
 
