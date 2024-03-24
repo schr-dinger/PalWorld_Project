@@ -57,14 +57,14 @@ private:
     Shadow* shadow;
 
     //int treeN = 10;
-    int treeN = 15;
+    int treeN = 2;
 
     int rockN = 10;
 
     int grassN1 = 2;
 
     //int grassN2 = 20;
-    int grassN2 = 15;
+    int grassN2 = 2;
 
     float WIDTH = 500;
     float HEIGHT = 500;

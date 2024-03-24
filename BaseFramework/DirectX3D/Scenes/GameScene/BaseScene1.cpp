@@ -3,6 +3,8 @@
 
 BaseScene1::BaseScene1()
 {
+	LandScapeManager::Get()->Update();
+
 	//Let there be light
 	SetLights();
 	// 소리 추가
@@ -24,6 +26,7 @@ BaseScene1::BaseScene1()
 
 
 	//terrainF = new Terrain();
+
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 	//
 	water = new Water(L"Textures/Landscape/Wave.dds", 500, 500);
@@ -186,7 +189,7 @@ void BaseScene1::Render()
 	// 그림자 + 터레인
 	shadow->SetRender();
 	LandScapeManager::Get()->Render();
-	//AStarManager::Get()->Render();
+	AStarManager::Get()->Render();
 	UiManager::Get()->Render();
 
 

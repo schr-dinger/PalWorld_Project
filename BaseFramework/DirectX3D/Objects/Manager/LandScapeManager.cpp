@@ -49,7 +49,6 @@ LandScapeManager::LandScapeManager()
 
 
     MakeObstacle();
-
     //for (Collider* collider : boxes) collider->UpdateWorld();
 
 

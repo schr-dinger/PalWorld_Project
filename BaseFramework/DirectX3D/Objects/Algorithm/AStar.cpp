@@ -134,9 +134,20 @@ void AStar::SetNode(Terrain* terrain)
             //    nodes.back()->SetState(Node::OBSTACLE); //장애물로 설정하고
             //    AddObstacle(nodes.back()); //장애물 추가 함수 호출
             //}
+
+
         }
     }
     // 여기까지 오면 가로세로 번갈아 가면서 노드 설치가 끝난다
+    for (Collider* col : LandScapeManager::Get()->GetObstacles())
+    {
+        if (!(nodes[FindCloseNode(col->GlobalPos())]->GetState() == Node::OBSTACLE))
+        {
+            nodes[FindCloseNode(col->GlobalPos())]->SetState(Node::OBSTACLE);
+            AddObstacle(nodes[FindCloseNode(col->GlobalPos())]);
+        }
+    }
+
 
     SetEdge(); // 인접지 설정만 해주면 여기서 할 작업은 끝
 }
