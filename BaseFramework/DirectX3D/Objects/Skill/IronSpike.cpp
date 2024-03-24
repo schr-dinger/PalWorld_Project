@@ -48,7 +48,7 @@ void IronSpike::Update()
 	if (pal)
 	{
 
-		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 5 * DELTA;
+		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y )  Spike->Pos().y += 5 * DELTA;
 		else time += 3 * DELTA;
 
 	}
@@ -122,11 +122,9 @@ void IronSpike::SetSkill()
 
 	}
 	else
-	{
+	{	
 
-		Spike->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -5, 0) + pal->GetTransform()->Back() * 5;
-		Spike->UpdateWorld();
-		//particle->Play(pal->GetTransform()->GlobalPos() + pal->GetTransform()->Back() * 10);
+		
 
 	}
 
