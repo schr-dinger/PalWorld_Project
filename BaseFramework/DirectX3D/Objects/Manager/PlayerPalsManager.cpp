@@ -65,15 +65,19 @@ PlayerPalsManager::PlayerPalsManager()
     for (map<string, ModelAnimatorInstancing*>::iterator iter = palsMAI.begin(); iter != palsMAI.end(); iter++)
     {
         iter->second->Update();
-        iter->second->Render();
+        for (Transform* palTransform : iter->second->GetInstancingTransform())
+        {
+            palTransform->SetActive(false);
+        }
+        //iter->second->Render();
     }
     for (Pal* pal : pals)
     {
         if (pal != nullptr)
         {
             pal->Update();
-            pal->Render();
-            pal->GetTransform()->SetActive(false);
+            //pal->Render();
+            //pal->GetTransform()->SetActive(false);
         }
     }
 
