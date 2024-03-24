@@ -67,7 +67,9 @@ BaseScene1::BaseScene1()
 
 
 	// 소리 실행
-	SOUND->Play("BGM_Battle");
+	//SOUND->Play("BGM_Battle");
+	SOUND->Play("BGM",0.2f);
+
 }
 
 BaseScene1::~BaseScene1()
@@ -499,7 +501,8 @@ void BaseScene1::SetSound()
 	SOUND->Add("EarthQuaSet", "Sounds/pal/earthQuaSet.wav");
 
 	// ui
-	SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
+	//SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
+	SOUND->Add("BGM", "Sounds/UI/BGM.wav", true, true);
 	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
 	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
 	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");
