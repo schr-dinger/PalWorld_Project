@@ -7,7 +7,7 @@ UiMouseManager::UiMouseManager()
 	mouse->Scale() *= 0.3f;
 
 	crosshair = new Quad(L"Textures/UI/T_aim_test.png");
-	crosshair->Scale() *= 0.25f;
+	crosshair->Scale() *= 0.125f;
 	crosshair->Pos() = Vector3(640.0f, 360.0f, 0.0f);
 
 	quad = new Quad(size);
@@ -17,6 +17,9 @@ UiMouseManager::UiMouseManager()
 
 	crosshair->UpdateWorld();
 
+	FOR(2) blendState[i] = new BlendState();
+	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
 }
 
 UiMouseManager::~UiMouseManager()
@@ -90,7 +93,10 @@ void UiMouseManager::Render()
 {
 	if (UiManager::Get()->GetUiOn())
 	{
+		blendState[1]->SetState();
 		mouse->Render();
+		blendState[0]->SetState();
+
 	}
 	else
 	{

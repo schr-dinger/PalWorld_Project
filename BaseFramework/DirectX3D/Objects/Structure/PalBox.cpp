@@ -80,7 +80,7 @@ void PalBox::Update()
 	//}
 
 	if (KEY_PRESS('F') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
-		&& !Done)
+		&& !Done && UiManager::Get()->buildPalBox)
 	{
 		Progressing = true;
 		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
