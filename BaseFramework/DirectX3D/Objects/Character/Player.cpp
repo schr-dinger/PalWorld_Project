@@ -666,7 +666,7 @@ void Player::Jump(float _ground)
         if (curState == J_LOOP)
         {
             SetState(J_END);
-            SOUND->Play("JumpLanding");
+            SOUND->Play("JumpLanding", 0.4f);
         }
         isJump = false;
         isSpace = false;
