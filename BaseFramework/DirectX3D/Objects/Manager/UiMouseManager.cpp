@@ -12,7 +12,7 @@ UiMouseManager::UiMouseManager()
 
 	quad = new Quad(size);
 	quadBack = new Quad(size);
-	quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
+	quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20_C.png");
 	tempPal = nullptr;
 
 	crosshair->UpdateWorld();
@@ -91,6 +91,7 @@ void UiMouseManager::Update()
 
 void UiMouseManager::Render()
 {
+
 	if (UiManager::Get()->GetUiOn())
 	{
 		blendState[1]->SetState();
@@ -110,7 +111,10 @@ void UiMouseManager::Render()
 	else
 	{
 		SetRender();
+		//blendState[1]->SetState();
 		quadBack->Render();
+		//blendState[0]->SetState();
 		quad->Render();
 	}
+
 }
