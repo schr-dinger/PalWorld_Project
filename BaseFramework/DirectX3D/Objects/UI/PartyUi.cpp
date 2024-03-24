@@ -21,19 +21,21 @@ PartyUi::PartyUi()
 	tmp->Scale() *= 3.0f;
 	//tmp->Scale() *= 0.01f;
 	tmp->SetActive(false);
-	tmp->SetShader(L"Basic/Texture.hlsl");
+	//tmp->SetShader(L"Basic/Texture.hlsl");
 	models.insert({ "펭키", tmp });
+
 	tmp = new ModelAnimator("Mammoth");
 	tmp->ReadClip("Idle");
-	tmp->Pos() = { 770.0f,150.0f, -150.0f };
-	tmp->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
-	tmp->Scale() *= 3.0f;
+	tmp->Pos() = { 770.0f,150.0f, -5000.0f };
+	tmp->Rot() = {0,25 * (XM_2PI / 360.0f),0 };
+	tmp->Scale() *= 1.0f;
 	tmp->SetActive(false);
 	models.insert({ "그린모스", tmp });
+
 	tmp = new ModelAnimator("DarkWolf");
 	tmp->ReadClip("Idle");
-	tmp->Pos() = { 770.0f,150.0f, -150.0f };
-	tmp->Rot() = { 0,25 * (XM_2PI / 360.0f),0 };
+	tmp->Pos() = { 770.0f,150.0f, -400.0f };
+	tmp->Rot() = {0,25 * (XM_2PI / 360.0f),0 };
 	tmp->Scale() *= 3.0f;
 	tmp->SetActive(false);
 	models.insert({ "다크울프", tmp });

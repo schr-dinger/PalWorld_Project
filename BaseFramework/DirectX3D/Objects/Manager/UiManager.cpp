@@ -102,7 +102,7 @@ void UiManager::PostRender()
 
 void UiManager::GuiRender()
 {
-	fieldUI->GUIRender();
+	//fieldUI->GUIRender();
 	//if (palBoxUiOn)	palBoxUi->GuiRender();
 	//if (buildUiOn)	buildUi->GuiRender();
 	if (partyUiOn) partyUi->GuiRender();

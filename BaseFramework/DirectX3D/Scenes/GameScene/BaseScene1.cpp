@@ -48,6 +48,8 @@ BaseScene1::BaseScene1()
 
 	FieldPalSkillManager::Get(); // 생성자용
 	MyPalSkillManager::Get();	 // 생성자용
+	AStarManager::Get();
+	LandScapeManager::Get();
 
 	//palBoxUi = new PalBoxUi();
 

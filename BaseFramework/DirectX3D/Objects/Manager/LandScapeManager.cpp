@@ -307,6 +307,7 @@ void LandScapeManager::MakeObstacle()
         if (tree->GetTransform()->Active())
         {
             obstacles.push_back(tree->GetCollider());
+            //AStarManager::Get()->GetAStar()->AddObstacle(tree->GetCollider());
         }
     }
 
@@ -315,6 +316,7 @@ void LandScapeManager::MakeObstacle()
         if (rock->GetTransform()->Active())
         {
             obstacles.push_back(rock->GetCollider());
+            //AStarManager::Get()->GetAStar()->AddObstacle(rock->GetCollider());
         }
 
     }
