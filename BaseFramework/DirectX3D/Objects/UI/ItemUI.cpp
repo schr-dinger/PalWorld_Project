@@ -147,7 +147,7 @@ void ItemUI::Update()
 					}
 
 				}
-				mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+				
 			}
 
 
@@ -176,7 +176,7 @@ void ItemUI::Update()
 				}
 
 
-				mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+				
 			}
 			//	Slot[i]->SetTem(nullptr);
 
@@ -259,6 +259,7 @@ void ItemUI::Update()
 		}
 
 	}
+
 
 	UiMouseManager::Get()->Update();
 

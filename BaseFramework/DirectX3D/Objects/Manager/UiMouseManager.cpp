@@ -12,7 +12,7 @@ UiMouseManager::UiMouseManager()
 
 	quad = new Quad(size);
 	quadBack = new Quad(size);
-	quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
+	
 	tempPal = nullptr;
 
 	crosshair->UpdateWorld();
@@ -34,10 +34,12 @@ void UiMouseManager::SetRender()
 {
 	if (tempPal != nullptr)
 	{
+		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
 		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
 	}
 	else if (tempItem != nullptr)
 	{
+		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
 	}
 }
