@@ -18,7 +18,7 @@ Device::Device()
     swapChainDesc.BufferCount = 1;
     swapChainDesc.OutputWindow = hWnd;
     swapChainDesc.Windowed = true;//창모드 유무
-
+    ShowCursor(false);
     D3D11CreateDeviceAndSwapChain(
         nullptr,
         D3D_DRIVER_TYPE_HARDWARE,

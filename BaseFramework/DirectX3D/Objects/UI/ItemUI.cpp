@@ -294,7 +294,7 @@ void ItemUI::PostRender()
 	}
 
 
-	UiMouseManager::Get()->Render();
+	//UiMouseManager::Get()->Render();
 
 	{
 
