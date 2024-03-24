@@ -8,8 +8,8 @@ DarkWolf::DarkWolf(Transform* transform, ModelAnimatorInstancing* instancing, UI
     modelName = "DarkWolf";
     level = 15;
     speed = 5; //속력 : 기본 스탯
-    maxHP = 1000;
-    curHP = 1000;
+    maxHP = 300;
+    curHP = 300;
 
     // 부모에서 가져온 스킬 세팅
     skill[0] = new Tornado();

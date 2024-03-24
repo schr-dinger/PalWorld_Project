@@ -3,7 +3,7 @@
 IceSpear::IceSpear()
 {
 	name = "¾óÀ½Ã¢";
-	damage = 100;
+	damage = 40;
 	startPos = Vector3();
 
 	iceSpear = new Model("IceSpear");

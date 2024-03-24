@@ -5,7 +5,7 @@ IronSpike::IronSpike()
 {
 
 	name = "스파이크";
-	damage = 300;
+	damage = 120;
 	// startPos = Vector3();
 
 

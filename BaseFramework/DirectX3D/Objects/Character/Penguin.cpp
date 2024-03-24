@@ -311,8 +311,8 @@ void Penguin::FieldAttack()
     //FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
     //ransSkill = RANDOM->Int(1, 1);
     skill[1]->SetActive(true);
-    skill[1]->SetSkill();
     skill[1]->SetEnemy(target);
+    skill[1]->SetSkill();
     skill[1]->SkillSound(transform->GlobalPos());
     FieldPalSkillManager::Get()->AddFieldSkill(skill[1]);
 }

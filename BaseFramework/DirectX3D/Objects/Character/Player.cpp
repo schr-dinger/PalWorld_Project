@@ -105,7 +105,7 @@ Player::Player() : ModelAnimator("NPC")
     weapons.resize(4);
        
 
-
+    //ItemManager::Get()->GetConsumDV()[1].second = 3;
 }
 
 Player::~Player()
@@ -409,9 +409,11 @@ void Player::Control()
         isGaim = false;
         isBaim = false;
     }
-    else if (KEY_PRESS('Q') || 
+    else if ((KEY_PRESS('Q') && ItemManager::Get()->GetConsumDV()[1].second > 0)
+        || 
         (KEY_PRESS('E') && PlayerPalsManager::Get()->GetSelPal() != -1 &&
             selPal != -1 &&
+            PlayerPalsManager::Get()->GetPal(selPal) != nullptr &&
 !PlayerPalsManager::Get()->GetPal(selPal)->isDead )) // 소환은 소환할 팰이 죽지 않았을 때만
     {
         if (curState != S_THROW )//&& ItemManager::Get()->GetConsumDV()[1].second != 0)
@@ -431,6 +433,8 @@ void Player::Control()
             Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
             SOUND->Play("Sphere_Flash", tmpPos);
+            ItemManager::Get()->GetConsumDV()[1].second--;
+
         }
     }
     else if (KEY_UP('E'))
@@ -449,7 +453,6 @@ void Player::Control()
             Float3 tmpPos = summonPalSpear->GlobalPos();
             SOUND->Stop("Sphere_Flash");
             SOUND->Play("Sphere_Flash", tmpPos);
-            ItemManager::Get()->GetConsumDV()[1].second--;
         }
 
     }
@@ -691,11 +694,10 @@ void Player::Collision()
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
 
                 }
-                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
                 {
                     curHP -= FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
                     FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-
                 }
                 else
                 {

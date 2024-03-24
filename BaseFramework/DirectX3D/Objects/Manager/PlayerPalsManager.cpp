@@ -115,13 +115,14 @@ void PlayerPalsManager::Update()
     //    }
     //    pal->Update();
     //}
+
     
-
-
-
-
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return;
+        }
         SetTarget();
         if (!pals[selPal]->target || !pals[selPal]->target->Active())
         {
@@ -182,6 +183,10 @@ void PlayerPalsManager::Render()
 
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return;
+        }
         blendState[1]->SetState(); // 투명도 적용
         palsMAI[pals[selPal]->name]->Render();
         if (pals[selPal]->GetTransform()->Active())
@@ -196,32 +201,48 @@ void PlayerPalsManager::Render()
 
 void PlayerPalsManager::PostRender()
 {
-    //if (selPal != -1)
-    //{
-    //    pals[selPal]->PostRender();
-    //}
-    for (Pal* pal : pals)
+    if (selPal != -1)
     {
-        if (pal != nullptr)
+        if (pals[selPal] == nullptr)
         {
-            pal->PostRender();
+            return;
         }
+        pals[selPal]->PostRender();
     }
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        pal->PostRender();
+    //    }
+    //}
 }
 
 void PlayerPalsManager::ShadowRender()
 {
-    for (Pal* pal : pals)
-    {
-        if (pal != nullptr)
-        {
-            pal->ShadowRender();
-        }
-    }
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        pal->ShadowRender();
+    //    }
+    //}
+    //if (selPal != -1)
+    //{
+    //    if (!pals[selPal]->GetTransform()->Active())
+    //    {
+    //        return;
+    //    }
+    //    pals[selPal]->ShadowRender();
+    //}
 }
 
 void PlayerPalsManager::GUIRender()
 {
+    if (pals[selPal] == nullptr)
+    {
+        return;
+    }
     //ImGui::Text("MyPalsSIze : %d", pals.size());
     //ImGui::Text("pathsize : %d", path.size());
     //
@@ -333,6 +354,10 @@ bool PlayerPalsManager::IsCollision(Ray ray, Vector3& hitPoint)
     float minDistance = FLT_MAX;
     if (selPal != -1)
     {
+        if (pals[selPal] == nullptr)
+        {
+            return false;
+        }
         if (pals[selPal]->GetCollider()->IsRayCollision(ray, &contact))
         {
             minDistance = contact.distance;
@@ -425,7 +450,7 @@ void PlayerPalsManager::Collision()
     //    }
     //}
 
-    if (selPal != -1) return;
+    if (selPal == -1) return;
     if (!pals[selPal]->GetTransform()->Active()) return;
     // 소환한 한마리만 판정하기
     if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) return;
@@ -439,10 +464,10 @@ void PlayerPalsManager::Collision()
                 FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                 pals[selPal]->skillType = 1;
             }
-            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+            else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
             {
                 FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-                pals[selPal]->skillType = 0;
+                pals[selPal]->skillType = 1;
             }
             else
             {
@@ -580,6 +605,10 @@ void PlayerPalsManager::Move()
 void PlayerPalsManager::Summons(Vector3 summonPos)
 {
     if (selPal == -1) return;
+    if (pals[selPal] == nullptr)
+    {
+        return;
+    }
     pals[selPal]->isSpawned = true;
     pals[selPal]->Summons(summonPos); 
     isSummonedSelPal = selPal;
@@ -590,6 +619,10 @@ void PlayerPalsManager::SUmmonedPalActiveFalse()
     if (isSummonedSelPal == -1)
     {
         return; // 처음 소환시
+    }
+    if (pals[isSummonedSelPal] == nullptr)
+    {
+        return;
     }
     pals[isSummonedSelPal]->GetTransform()->SetActive(false);
     pals[isSummonedSelPal]->isSpawned = false;

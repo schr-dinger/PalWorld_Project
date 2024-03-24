@@ -4,7 +4,7 @@ Tornado::Tornado()
 {
 
 	name = "토네이도";
-	damage = 200;
+	damage = 100;
 	startPos = Vector3();
 	
 	Tornado1 = new Model("TestTornadoIn");

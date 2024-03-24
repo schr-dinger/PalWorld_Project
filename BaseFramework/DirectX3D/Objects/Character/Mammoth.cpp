@@ -7,8 +7,8 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     modelName = "Mammoth";
     level = 30;
     speed = 5; //속력 : 기본 스탯
-    maxHP = 1000;
-    curHP = 1000;
+    maxHP = 800;
+    curHP = 800;
 
     // 부모에서 가져온 스킬 세팅
     skill[0] = new IronSpike();
