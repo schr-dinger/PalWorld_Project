@@ -130,5 +130,8 @@ void UiManager::ControlOn()
 		InvenIsOn = false;
 		palModeUiOn = false;
 		WorkBenchUiOn = false;
+		UiMouseManager::Get()->SetPal(nullptr);
+		UiMouseManager::Get()->SetItem(nullptr);
+		UiMouseManager::Get()->SetRender();
 	}
 }

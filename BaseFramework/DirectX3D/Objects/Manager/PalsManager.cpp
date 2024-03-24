@@ -77,7 +77,7 @@ PalsManager::PalsManager()
     //palsInstancing[1]->GetMaterial(1)->SetDiffuseMap(L"Textures/Color/White.png");
 
     // 테스트 : 그림자
-    shadow = new Shadow();
+    shadow = new Shadow(L"PalsManager");
 }
 
 PalsManager::~PalsManager()

@@ -99,7 +99,7 @@ GameManager::~GameManager()
 
 void GameManager::Update()
 {
-    m.lock();
+    //m.lock();
 
     Keyboard::Get()->Update();
     Timer::Get()->Update();    
@@ -107,7 +107,7 @@ void GameManager::Update()
     SceneManager::Get()->Update();
 
     Environment::Get()->Update();
-    m.unlock();
+    //m.unlock();
 
 }
 
@@ -134,7 +134,7 @@ void GameManager::Render()
     string fps = "FPS : " + to_string(Timer::Get()->GetFPS());
     Font::Get()->RenderText(fps, { 10, WIN_HEIGHT - 3 });
     
-    static bool isActive = true;
+    static bool isActive = false;
 
     if (isActive)
     {

@@ -1,8 +1,8 @@
 #include "Framework.h"
 #include "Shadow.h"
 
-Shadow::Shadow(UINT width, UINT height)
-    : width(width), height(height)
+Shadow::Shadow(wstring tag, UINT width, UINT height)
+    : tag(tag), width(width), height(height)
 {
     //렌더 타겟, 뎁스 스텐실, 버퍼 생성
     renderTarget = new RenderTarget(width, height);
@@ -16,7 +16,8 @@ Shadow::Shadow(UINT width, UINT height)
     quad->UpdateWorld();
 
     //텍스처 생성 (및 테스트용으로 만든 쿼드에도 넣기)
-    Texture* texture = Texture::Add(L"Shadow", renderTarget->GetSRV());
+
+    Texture* texture = Texture::Add(L"Shadow" + tag, renderTarget->GetSRV());
     quad->GetMaterial()->SetDiffuseMap(texture);
 }
 

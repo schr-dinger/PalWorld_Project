@@ -21,7 +21,7 @@ BaseScene1::BaseScene1()
 	blendState[1]->AlphaToCoverage(true);
 	rasterizer[1]->CullMode(D3D11_CULL_NONE);
 
-	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
+	shadow = new Shadow(L"BaseScene", 16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
 
 
@@ -192,7 +192,8 @@ void BaseScene1::Render()
 	shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	AStarManager::Get()->Render();
-	UiManager::Get()->Render();
+
+	//UiManager::Get()->Render(); 랜더 안함
 
 
 	//paTest->Render();
@@ -218,19 +219,19 @@ void BaseScene1::GUIRender()
 {
 	//PlayerManager::Get()->GUIRender();
 
-	water->GUIRender();
+	//water->GUIRender();
 	//terrain->GUIRender();
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
 	//PlayerPalsManager::Get()->GUIRender();
 
-	PlayerManager::Get()->GUIRender();
+	//PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
 	//testUI->GUIRender();
-	UiManager::Get()->GuiRender();
+	//UiManager::Get()->GuiRender();
 	//LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);

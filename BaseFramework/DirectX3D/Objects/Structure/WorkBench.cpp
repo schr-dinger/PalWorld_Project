@@ -3,12 +3,14 @@
 
 WorkBench::WorkBench()
 {
-	FOR(2)
+	FOR(3)
 	{
 		blendState[i] = new BlendState();
 	}
 
 	blendState[1]->Alpha(true);
+	blendState[1]->AlphaToCoverage(true);
+	blendState[2]->Alpha(true);
 
 	building = new Model("WorkBenchF");
 	finished = new Model("WorkBench");
@@ -135,6 +137,15 @@ void WorkBench::PreRender()
 
 void WorkBench::Render()
 {
+	WorkImage->SetRender();
+	blendState[1]->SetState();
+	if (WorkItem != nullptr)
+	{
+		WorkImage->Render();
+	}
+	blendState[0]->SetState();
+	blendState[2]->SetState();
+
 	if (!Done)
 	{
 		shadow->SetRender();
@@ -145,20 +156,17 @@ void WorkBench::Render()
 	{
 		//shadow->SetRender();
 		//building->SetShader(L"Light/Shadow.hlsl");
-		blendState[1]->SetState();
 		building->Render();
-		blendState[0]->SetState();
 
 	}
 
 	if (Done)
 	{
-		blendState[1]->SetState();
 		finished->Render();
-		blendState[0]->SetState();
 	}
 
-	if (WorkItem != nullptr) WorkImage->Render();
+	blendState[0]->SetState();
+
 	range->Render();
 	mouseHit->Render();
 	
@@ -218,7 +226,10 @@ void WorkBench::Interaction()
 		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
 		produceBar->Scale() = { 1.0f,0.5f,0.3f };
 
-		WorkImage->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+		Vector3 tmp = WorkImage->GlobalPos() - CAM->GlobalPos();
+		tmp = tmp.GetNormalized();
+		WorkImage->Rot().y = atan2(tmp.x, tmp.z);
+		WorkImage->Rot().x = asinf(-tmp.y);
 		WorkImage->Update();
 		produceBar->UpdateWorld();
 		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))

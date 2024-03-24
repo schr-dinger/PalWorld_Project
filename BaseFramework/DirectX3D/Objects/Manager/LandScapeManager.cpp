@@ -28,7 +28,7 @@ LandScapeManager::LandScapeManager()
     grass2 = new ModelInstancing("Grass2");
     PlaceGrass(grass2, grassN2, terrainF);
 
-    shadow = new Shadow();
+    shadow = new Shadow(L"Land");
     
     //walls[0] = new CapsuleCollider(5.0f,26.0f);
     //walls[0]->Pos() = { 42.3,32.6,332.1 };

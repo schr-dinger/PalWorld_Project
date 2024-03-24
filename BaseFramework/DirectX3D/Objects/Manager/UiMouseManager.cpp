@@ -12,14 +12,14 @@ UiMouseManager::UiMouseManager()
 
 	quad = new Quad(size);
 	quadBack = new Quad(size);
-	
+	quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20_C.png");
 	tempPal = nullptr;
 
 	crosshair->UpdateWorld();
 
 	FOR(2) blendState[i] = new BlendState();
 	blendState[1]->Alpha(true);
-	blendState[1]->AlphaToCoverage(true);
+	//blendState[1]->AlphaToCoverage(true);
 }
 
 UiMouseManager::~UiMouseManager()
@@ -32,15 +32,19 @@ UiMouseManager::~UiMouseManager()
 
 void UiMouseManager::SetRender()
 {
-	if (tempPal != nullptr)
+	if (tempPal != nullptr && tempItem == nullptr)
 	{
 		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
 		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
 	}
-	else if (tempItem != nullptr)
+	else if (tempItem != nullptr && tempPal == nullptr)
 	{
 		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
+	}
+	else if (tempItem == nullptr && tempPal == nullptr)
+	{
+		quad->GetMaterial()->SetDiffuseMap(L"Textures/Color/PureGlass.png");
 	}
 }
 
@@ -93,11 +97,11 @@ void UiMouseManager::Update()
 
 void UiMouseManager::Render()
 {
+	blendState[1]->SetState();
+
 	if (UiManager::Get()->GetUiOn())
 	{
-		blendState[1]->SetState();
 		mouse->Render();
-		blendState[0]->SetState();
 
 	}
 	else
@@ -112,7 +116,11 @@ void UiMouseManager::Render()
 	else
 	{
 		SetRender();
+		//blendState[1]->SetState();
 		quadBack->Render();
+		//blendState[0]->SetState();
 		quad->Render();
 	}
+	blendState[0]->SetState();
+
 }
