@@ -108,21 +108,9 @@ void PlayerPalsManager::Update()
     {
         iter->second->Update();
     }
-    if (selPal != -1 && pals[selPal] != nullptr && pals[selPal]->GetTransform()->Active())
-    {
-        lastPos = pals[selPal]->GetTransform()->GlobalPos();
-    }
+    // 충돌 판정 진행
+    Collision();
 
-    //for (Pal* pal : pals)
-    //{
-    //    if (pal == nullptr)
-    //    {
-    //        continue;
-    //    }
-    //    pal->Update();
-    //}
-
-    
     if (selPal != -1)
     {
         if (pals[selPal] == nullptr)
@@ -151,21 +139,21 @@ void PlayerPalsManager::Update()
         //}
         // 소환한 펠만 업데이트, 단 모델 인스턴싱은 미리 계속 업데이트
         
-        palsMAI[pals[selPal]->name]->Update();
-        pals[selPal]->Update();
-        // 충돌 판정 진행
-        Collision();
+        //palsMAI[pals[selPal]->name]->Update();
+        lastPos = pals[selPal]->GetTransform()->GlobalPos();
 
+        pals[selPal]->Update();
+        
         palStateIcon->Pos() = pals[selPal]->GetTransform()->Pos() + Vector3(0.0f, 2.0f, 0.0f);
         palStateIcon->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
     }
     
     palStateIcon->Update();
-    //if (selPal != -1)
+
+    //if (selPal != -1 && pals[selPal] != nullptr && pals[selPal]->GetTransform()->Active())
     //{
-    //    
+    //    lastPos = pals[selPal]->GetTransform()->GlobalPos();
     //}
-    
 }
 
 void PlayerPalsManager::Render()
@@ -465,6 +453,10 @@ void PlayerPalsManager::Collision()
     //}
 
     if (selPal == -1) return;
+    if (pals[selPal] == nullptr)
+    {
+        return;
+    }
     if (!pals[selPal]->GetTransform()->Active()) return;
     // 소환한 한마리만 판정하기
 
