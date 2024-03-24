@@ -90,7 +90,8 @@ void LandScapeManager::Update()
 {
     for (Tree* tree : trees)
     {
-        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() < 15.0f && !tree->isDead && CAM->ContainPoint(tree->GetTransform()->Pos()))
+        //if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() < 15.0f && !tree->isDead && CAM->ContainPoint(tree->GetTransform()->Pos()))
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() < 200.0f && !tree->isDead && CAM->ContainPoint(tree->GetTransform()->Pos(),7.0f))
         {
             tree->GetTransform()->SetActive(true);
         }

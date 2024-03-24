@@ -80,7 +80,7 @@ void WorkBench::Update()
 	
 	 
 
-	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+	if (KEY_PRESS('F') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
 		&& !Done)
 	{
 		Progressing = true;
