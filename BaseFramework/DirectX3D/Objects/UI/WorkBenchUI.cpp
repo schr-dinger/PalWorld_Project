@@ -4,16 +4,16 @@
 WorkBenchUI::WorkBenchUI()
 {
 
-	WorkBase = new Quad(Vector2(350, 300));
+	WorkBase = new Quad(Vector2(350, 400));
 	WorkBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 	WorkBase->Pos() = { WorkIconP.x,WorkIconP.y,0 };
 
-	WorkBaseName = new Quad(Vector2(100, 50));
-	WorkBaseName->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
-	WorkBaseName->Pos() = { WorkIconP.x,WorkIconP.y + 150,0 };
+	WorkBaseName = new Quad(Vector2(300, 40));
+	WorkBaseName->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	WorkBaseName->Pos() = { WorkIconP.x,WorkIconP.y + 160,0 };
 
 	SetBase = new Quad(Vector2(200, 150));
-	SetBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
+	SetBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
 	SetBase->Pos() = { SetIconP.x, SetIconP.y ,0 };
 
 	SetButton1 = new ClickQuad(Vector2(50, 50));
@@ -101,8 +101,9 @@ void WorkBenchUI::Render()
 
 void WorkBenchUI::PostRender()
 {
-	WorkBaseName->Render();
+	
 	WorkBase->Render();
+	WorkBaseName->Render();
 	SetBase->Render();
 	SetButton1->Render();
 	SetButton2->Render();
@@ -112,16 +113,23 @@ void WorkBenchUI::PostRender()
 		test[i]->Render();
 
 	}
-
-	Font::Get()->SetStyle("FieldEquibName");
-	Font::Get()->RenderText(" 작업대 ", { WorkIconP.x - 40,WorkIconP.y + 160 });
 	
-	string a = to_string(Count);
-	Font::Get()->RenderText("Count : ", {SetIconP.x - 50 ,SetIconP.y + 50});
-	Font::Get()->RenderText(a, { SetIconP.x + 20 ,SetIconP.y + 50 });
+	
+	{
+		Font::Get()->SetStyle("PartyBoxName");
+		Font::Get()->RenderText(" 작업대 ", { WorkIconP.x - 120,WorkIconP.y + 170 });
 
-	Font::Get()->GetDC()->EndDraw();
-	Font::Get()->GetDC()->BeginDraw();
+		string a = to_string(Count);
+		Font::Get()->RenderText("Count : ", { SetIconP.x - 50 ,SetIconP.y + 50 });
+		Font::Get()->RenderText(a, { SetIconP.x + 20 ,SetIconP.y + 50 });
+
+		Font::Get()->SetStyle("Default");
+		Font::Get()->GetDC()->EndDraw();
+		Font::Get()->GetDC()->BeginDraw();
+
+	}
+
+	
 
 	//string a = to_string(ItemManager::Get()->GetConsumV()[0].size());
 	//string b = to_string(ItemManager::Get()->GetConsumV()[1].size());

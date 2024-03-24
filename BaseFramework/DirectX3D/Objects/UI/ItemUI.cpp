@@ -9,9 +9,9 @@ ItemUI::ItemUI()
 	invBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
 	invBase->Pos() = { boxIconP.x + 150,boxIconP.y - 100,0 };
 
-	invBaseName = new Quad(Vector2(100, 50));
+	invBaseName = new Quad(Vector2(350, 50));
 	invBaseName->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
-	invBaseName->Pos() = { boxIconP.x + 50, boxIconP.y + 75 };
+	invBaseName->Pos() = { boxIconP.x + 150, boxIconP.y + 75 };
 
 	EquipBase = new Quad(Vector2(150, 400));
 	EquipBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass80.png");
