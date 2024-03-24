@@ -91,12 +91,11 @@ void UiMouseManager::Update()
 
 void UiMouseManager::Render()
 {
+	blendState[1]->SetState();
 
 	if (UiManager::Get()->GetUiOn())
 	{
-		blendState[1]->SetState();
 		mouse->Render();
-		blendState[0]->SetState();
 
 	}
 	else
@@ -111,10 +110,11 @@ void UiMouseManager::Render()
 	else
 	{
 		SetRender();
-		blendState[1]->SetState();
+		//blendState[1]->SetState();
 		quadBack->Render();
-		blendState[0]->SetState();
+		//blendState[0]->SetState();
 		quad->Render();
 	}
+	blendState[0]->SetState();
 
 }
