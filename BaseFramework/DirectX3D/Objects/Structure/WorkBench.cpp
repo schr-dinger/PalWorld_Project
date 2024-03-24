@@ -39,6 +39,11 @@ WorkBench::WorkBench()
 		L"Textures/UI/hp_bar_BG.png"
 	);
 	WorkItem = nullptr;
+
+
+
+	test = new Quad(Vector2(0.3,0.3));
+
 }
 
 WorkBench::~WorkBench()
@@ -78,7 +83,8 @@ void WorkBench::Update()
 	
 	 
 
-	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit))
+	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+		&& !Done)
 	{
 		Progressing = true;
 		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
@@ -112,6 +118,14 @@ void WorkBench::Update()
 	finished->UpdateWorld();
 	range->UpdateWorld();
 	mouseHit->UpdateWorld();
+
+
+	//test
+
+	test->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+
+	test->Update();
+
 }
 
 void WorkBench::PreRender()
@@ -155,12 +169,13 @@ void WorkBench::Render()
 
 	range->Render();
 	mouseHit->Render();
-
+	if(WorkItem != nullptr)test->Render();
 }
 
 void WorkBench::PostRender()
 {
 	produceBar->Render();
+	
 }
 
 void WorkBench::GUIRender()
@@ -192,14 +207,25 @@ void WorkBench::Interaction()
 	{
 
 		if (!CAM->ContainPoint(gaugePos) || abs((building->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos())
-			.Length()) > 20) produceBar->SetActive(false);
-		else produceBar->SetActive(true);
+			.Length()) > 20)
+		{
+			test->SetActive(false);
+			produceBar->SetActive(false);
+		}
+		else
+		{
+			test->SetActive(true);
+			produceBar->SetActive(true);
+		}
 
 
 		produceBar->SetAmount(time / CompleteTime);
 
-
-		gaugePos = building->Pos() + Vector3(0, 1.8f, 0);
+		
+		test->Pos() = building->Pos() + Vector3(0, 1.4f, 0);
+		test->GetMaterial()->SetDiffuseMap(WorkItem->icon);
+	
+		gaugePos = building->Pos() + Vector3(0, 1.2f, 0);
 		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
 
 		produceBar->Scale() = { 1.0f,0.5f,0.3f };
@@ -214,8 +240,10 @@ void WorkBench::Interaction()
 
 
 	}
-	else PlayerManager::Get()->GetPlayer()->isWork = false;
-
+	else
+	{
+		PlayerManager::Get()->GetPlayer()->isWork = false;
+	}
 
 }
 
@@ -250,6 +278,7 @@ void WorkBench::BarUpdate()
 		}
 		WorkItem = nullptr;
 
+		//test->GetMaterial()->
 		PlayerManager::Get()->GetPlayer()->isWork = false;
 	}
 	else

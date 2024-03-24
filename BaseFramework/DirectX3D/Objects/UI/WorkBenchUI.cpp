@@ -113,7 +113,8 @@ void WorkBenchUI::PostRender()
 
 	}
 
-	Font::Get()->RenderText(" 작업대 ", { WorkIconP.x - 30,WorkIconP.y + 160 });
+	Font::Get()->SetStyle("FieldEquibName");
+	Font::Get()->RenderText(" 작업대 ", { WorkIconP.x - 40,WorkIconP.y + 160 });
 	string a = to_string(Count);
 
 	Font::Get()->RenderText("Count : ", {SetIconP.x - 50 ,SetIconP.y + 50});

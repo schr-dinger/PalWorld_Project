@@ -54,5 +54,10 @@ private:
 	Vector3 gaugePos;
 	Item* WorkItem;
 	ProgressBar* produceBar;
+
+
+	Quad* test;
+
+
 };
 

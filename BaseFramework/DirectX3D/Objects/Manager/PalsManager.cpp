@@ -310,6 +310,7 @@ void PalsManager::Collision()
             pals[i]->GetTransform()->Pos() = lastPos[i] + fDir;
             pals[i]->GetTransform()->UpdateWorld();
         }
+        
 
     }
 
