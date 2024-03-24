@@ -19,7 +19,7 @@ UiMouseManager::UiMouseManager()
 
 	FOR(2) blendState[i] = new BlendState();
 	blendState[1]->Alpha(true);
-	blendState[1]->AlphaToCoverage(true);
+	//blendState[1]->AlphaToCoverage(true);
 }
 
 UiMouseManager::~UiMouseManager()
@@ -32,11 +32,11 @@ UiMouseManager::~UiMouseManager()
 
 void UiMouseManager::SetRender()
 {
-	if (tempPal != nullptr)
+	if (tempPal != nullptr && tempItem == nullptr)
 	{
 		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
 	}
-	else if (tempItem != nullptr)
+	else if (tempItem != nullptr && tempPal == nullptr)
 	{
 		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
 	}
@@ -111,9 +111,9 @@ void UiMouseManager::Render()
 	else
 	{
 		SetRender();
-		//blendState[1]->SetState();
+		blendState[1]->SetState();
 		quadBack->Render();
-		//blendState[0]->SetState();
+		blendState[0]->SetState();
 		quad->Render();
 	}
 

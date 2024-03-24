@@ -21,7 +21,7 @@ BaseScene1::BaseScene1()
 	blendState[1]->AlphaToCoverage(true);
 	rasterizer[1]->CullMode(D3D11_CULL_NONE);
 
-	shadow = new Shadow(16384, 16384); // 픽셀 깨짐 최소화
+	shadow = new Shadow(L"BaseScene", 16384, 16384); // 픽셀 깨짐 최소화
 	//shadow = new Shadow();
 
 

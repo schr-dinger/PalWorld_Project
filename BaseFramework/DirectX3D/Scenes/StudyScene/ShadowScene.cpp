@@ -12,7 +12,7 @@ ShadowScene::ShadowScene()
     human->ReadClip("Idle", 1);
     human->UpdateWorld();
 
-    shadow = new Shadow();
+    shadow = new Shadow(L"ShadowScene");
 
     // 같이 알아보는 활용법 : 빛 호출 혹은 만들기 (<-빛 사용 방법)
 
