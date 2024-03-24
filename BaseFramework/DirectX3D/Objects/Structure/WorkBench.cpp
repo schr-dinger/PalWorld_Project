@@ -174,7 +174,7 @@ void WorkBench::Render()
 
 void WorkBench::PostRender()
 {
-	produceBar->Render();
+	if (WorkItem != nullptr)produceBar->Render();
 	
 }
 
