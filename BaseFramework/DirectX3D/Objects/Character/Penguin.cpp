@@ -502,7 +502,7 @@ void Penguin::MoveP()
     // 
     if (action == ACTION::ATTACK) return; //
     if (action == ACTION::DAMAGE) return; // 
-    if (action == ACTION::WORK) return; //
+    //if (action == ACTION::WORK) return; //
     //if (action == ACTION::) return; // 
 
 

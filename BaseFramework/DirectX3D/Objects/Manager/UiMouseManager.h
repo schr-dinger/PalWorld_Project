@@ -31,6 +31,8 @@ private:
 	Mstate mstate = Mstate::D;
 	float grabTimer = 0.0f;
 
+	Quad* crosshair;
+
 	Quad* quad;
 	Quad* quadBack;
 	Pal* tempPal;

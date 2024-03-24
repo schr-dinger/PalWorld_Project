@@ -6,10 +6,17 @@ UiMouseManager::UiMouseManager()
 	mouse = new Quad(L"Textures/Cursor/Cursor_default.png");
 	mouse->Scale() *= 0.3f;
 
+	crosshair = new Quad(L"Textures/UI/T_aim_test.png");
+	crosshair->Scale() *= 0.25f;
+	crosshair->Pos() = Vector3(640.0f, 360.0f, 0.0f);
+
 	quad = new Quad(size);
 	quadBack = new Quad(size);
 	quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
 	tempPal = nullptr;
+
+	crosshair->UpdateWorld();
+
 }
 
 UiMouseManager::~UiMouseManager()
@@ -17,6 +24,7 @@ UiMouseManager::~UiMouseManager()
 	delete mouse;
 	delete quad;
 	delete quadBack;
+	delete crosshair;
 }
 
 void UiMouseManager::SetRender()
@@ -68,7 +76,6 @@ void UiMouseManager::Update()
 
 
 	//cursor end
-
 	mouse->Update();
 
 
@@ -84,6 +91,10 @@ void UiMouseManager::Render()
 	if (UiManager::Get()->GetUiOn())
 	{
 		mouse->Render();
+	}
+	else
+	{
+		crosshair->Render();
 	}
 
 	if (tempPal == nullptr &&tempItem == nullptr)
