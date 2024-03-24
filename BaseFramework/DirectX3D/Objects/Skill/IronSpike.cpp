@@ -15,7 +15,7 @@ IronSpike::IronSpike()
 	Spike->SetTag("IR");
 	Spike->GetMaterial(0)->SetDiffuseMap(L"Textures/Model/Spike/T_DustCristal_02.png");
 	Spike->GetMaterial(0)->SetNormalMap(L"Textures/Model/Spike/T_Ice02_normal.png");
-
+	Spike->SetActive(false);
 	//particle = new ParticleSystem("TextData/Particles/Star.fx");
 
 	col = new CapsuleCollider();
@@ -48,7 +48,7 @@ void IronSpike::Update()
 	if (pal)
 	{
 
-		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 5 * DELTA;
+		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y )  Spike->Pos().y += 5 * DELTA;
 		else time += 3 * DELTA;
 
 	}
@@ -122,11 +122,9 @@ void IronSpike::SetSkill()
 
 	}
 	else
-	{
+	{	
 
-		Spike->Pos() = pal->GetTransform()->GlobalPos() + Vector3(0, -5, 0) + pal->GetTransform()->Back() * 5;
-		Spike->UpdateWorld();
-		//particle->Play(pal->GetTransform()->GlobalPos() + pal->GetTransform()->Back() * 10);
+		
 
 	}
 

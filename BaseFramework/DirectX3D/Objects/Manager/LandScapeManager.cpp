@@ -47,6 +47,8 @@ LandScapeManager::LandScapeManager()
     //walls[1]->SetTag("wall1");
     //walls[2]->SetTag("wall2");
 
+    for (Tree* tree : trees) tree->Update();
+    for (Rock* rock : rocks) rock->Update();
 
     MakeObstacle();
     //for (Collider* collider : boxes) collider->UpdateWorld();
@@ -98,7 +100,6 @@ void LandScapeManager::Update()
         else
         {
             tree->GetTransform()->SetActive(false);
-
         }
     }
 
@@ -190,6 +191,7 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
         for (float x = 1; x <= size; ++x)
         {
             Transform* transform = tree->Add();
+            transform->SetActive(false);
             transform->Rot().x += XM_PIDIV2;
             transform->Rot().y = RANDOM->Float(0.0f, XM_2PI);
 
@@ -198,8 +200,9 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
             transform->Pos().y = -30.0f;
             transform->Scale() *= 0.01f;
 
-            if (terrain->GetHeight(transform->Pos()) < 20.0f)
+            if (terrain->GetHeight(transform->Pos()) < 20.0f && terrain->GetHeight(transform->Pos()) > 5.0f)
             {
+                transform->SetActive(true);
                 transform->Pos().y = terrain->GetHeight(transform->Pos());
                 Tree* tree = new Tree(transform, one);
                 trees.push_back(tree);
@@ -230,7 +233,8 @@ void LandScapeManager::PlaceRock(ModelInstancing* tree, int size, Terrain* terra
 
             transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
-            transform->Scale() *= 0.01f;
+            //transform->Scale() *= 0.01f;
+            transform->Scale() *= RANDOM->Float(0.005f, 0.02f);
 
             transform->Pos().y = terrain->GetHeight(transform->Pos());
 
@@ -305,10 +309,9 @@ void LandScapeManager::MakeObstacle()
 {
     for (Tree* tree : trees)
     {
-        if (tree->GetTransform()->Active())
+        if (tree->GetTransform()->Active()&&!tree->isDead)
         {
             obstacles.push_back(tree->GetCollider());
-            //AStarManager::Get()->GetAStar()->AddObstacle(tree->GetCollider());
         }
     }
 
@@ -317,7 +320,6 @@ void LandScapeManager::MakeObstacle()
         if (rock->GetTransform()->Active())
         {
             obstacles.push_back(rock->GetCollider());
-            //AStarManager::Get()->GetAStar()->AddObstacle(rock->GetCollider());
         }
 
     }
