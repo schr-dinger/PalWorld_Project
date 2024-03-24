@@ -327,7 +327,6 @@ void PalsManager::Collision()
             //pal->GetCollider()->SetActive(false); 
             // 팰스피어에 맞는 순간 공격 안당하게 하기
             pal->isInvincible = true;
-
             return; //팔스피어(포획)에 맞았여기서 리턴
         }
         //else if (MyPalSkillManager::Get()->IsCollision(pal->GetCollider()) && pal->isInvincible == false) // 팰스피어에 맞지 않고 내 팰 스킬에 맞았다면 맞기

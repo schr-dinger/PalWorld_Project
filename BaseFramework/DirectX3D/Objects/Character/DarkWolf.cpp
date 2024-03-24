@@ -274,7 +274,7 @@ void DarkWolf::Damage()
 {
     // 무적이 되는 조건들
 //if (action == ACTION::DAMAGE) return; // 맞고 있을 땐 안 맞는다.
-
+    if (isInvincible) return;
 //체력에 -
     //curHP -= 200 * DELTA;
     if (skillType == 0)
@@ -403,7 +403,10 @@ void DarkWolf::Move()
             skillTime = 0.0f;
             if (isSpawned)
             {
-                Attack();
+                if (target->Active())
+                {
+                    Attack();
+                }
             }
             else
             {

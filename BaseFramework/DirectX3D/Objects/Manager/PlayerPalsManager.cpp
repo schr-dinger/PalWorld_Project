@@ -425,45 +425,77 @@ void PlayerPalsManager::Collision()
     //    }
     //}
 
-
-    for (Pal* pal : pals)
+    if (selPal != -1) return;
+    if (!pals[selPal]->GetTransform()->Active()) return;
+    // 소환한 한마리만 판정하기
+    if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) return;
+    for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
     {
-        if (pal != nullptr)
+        if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pals[selPal]->GetCollider()))
+            // 스킬이 매개변수 'collider'에 충돌했다면
         {
-            // 조건에따라 데미지 호출
-            //if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
-            //{
-            //    pal->Damage();
-            //}
-            if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) continue;
-            for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
+            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
             {
-                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
-                    // 스킬이 매개변수 'collider'에 충돌했다면
-                {
-                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
-                    {
-                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
-                        pal->skillType = 1;
-                    }
-                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
-                    {
-                        FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-                        pal->skillType = 0;
-                    }
-                    else
-                    {
-                        pal->skillType = 0;
-                    }
-                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
-                    //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
-                    pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
-                    pal->Damage();
-                    return;
-                }
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+                pals[selPal]->skillType = 1;
             }
+            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+            {
+                FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+                pals[selPal]->skillType = 0;
+            }
+            else
+            {
+                pals[selPal]->skillType = 0;
+            }
+            FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pals[selPal]->GetTransform()->GlobalPos());
+            //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+            pals[selPal]->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+            pals[selPal]->Damage();
+            return;
         }
     }
+
+
+    // 한마리만 소환할 거면 아래 필요없음 240324
+    //for (Pal* pal : pals)
+    //{
+    //    if (pal != nullptr)
+    //    {
+    //        // 조건에따라 데미지 호출
+    //        //if (FieldPalSkillManager::Get()->IsCollision(pal->GetCollider())) // 필드 스킬에 맞았을 때
+    //        //{
+    //        //    pal->Damage();
+    //        //}
+    //        if (FieldPalSkillManager::Get()->GetFieldSkills().size() == 0) continue;
+    //        for (int i = 0; i < FieldPalSkillManager::Get()->GetFieldSkills().size(); i++)
+    //        {
+    //            if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
+    //                // 스킬이 매개변수 'collider'에 충돌했다면
+    //            {
+    //                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
+    //                {
+    //                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+    //                    pal->skillType = 1;
+    //                }
+    //                if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+    //                {
+    //                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
+    //                    pal->skillType = 0;
+    //                }
+    //                else
+    //                {
+    //                    pal->skillType = 0;
+    //                }
+    //                FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
+    //                //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
+    //                pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
+    //                pal->Damage();
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
 
 }
 

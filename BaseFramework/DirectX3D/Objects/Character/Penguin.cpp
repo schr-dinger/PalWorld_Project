@@ -325,7 +325,7 @@ void Penguin::Damage()
 {
     // 
     //if (action == ACTION::DAMAGE) return; // 
-
+    if (isInvincible) return;
     //
     //curHP -= 200 * DELTA;
     if (skillType == 0)
@@ -470,7 +470,10 @@ void Penguin::Move()
             skillTime = 0.0f;
             if (isSpawned)
             {
-                Attack();
+                if (target->Active())
+                {
+                    Attack();
+                }
             }
             else
             {
