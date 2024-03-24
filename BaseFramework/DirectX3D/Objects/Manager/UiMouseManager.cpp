@@ -34,10 +34,12 @@ void UiMouseManager::SetRender()
 {
 	if (tempPal != nullptr && tempItem == nullptr)
 	{
+		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50_C.png");
 		quad->GetMaterial()->SetDiffuseMap(tempPal->GetTextureC());
 	}
 	else if (tempItem != nullptr && tempPal == nullptr)
 	{
+		quadBack->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass50.png");
 		quad->GetMaterial()->SetDiffuseMap(tempItem->GetTexture());
 	}
 	else if (tempItem == nullptr && tempPal == nullptr)

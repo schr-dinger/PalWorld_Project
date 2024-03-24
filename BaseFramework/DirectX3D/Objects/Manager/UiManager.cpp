@@ -51,6 +51,7 @@ void UiManager::Update()
 		itemUi->SetItem();
 		SOUND->Stop("UI_3");
 		SOUND->Play("UI_3");
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 	}
 
 	if (KEY_DOWN('4') && !buildUiOn && !palBoxUiOn && !partyUiOn && !InvenIsOn)
