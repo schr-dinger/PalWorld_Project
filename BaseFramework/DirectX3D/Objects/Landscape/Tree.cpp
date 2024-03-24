@@ -91,6 +91,7 @@ void Tree::GUIRender()
 
 void Tree::Hit()
 {
+	SOUND->Play("Pick_HitWood");
 	Hp -= 50.0f;
 }
 

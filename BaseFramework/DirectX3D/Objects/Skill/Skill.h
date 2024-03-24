@@ -22,6 +22,8 @@ public:
 	virtual bool Active() = 0;
 	virtual void SetActive(bool active) = 0;
 	virtual void SetSkill() = 0; //모든 스킬 모델 원위치 시키기
+	virtual void SkillSound(Float3 pos) = 0; // 스킬 소리 출력
+	virtual void SkillHitSound(Float3 pos) = 0; // 스킬 맞는 소리 출력
 
 
 

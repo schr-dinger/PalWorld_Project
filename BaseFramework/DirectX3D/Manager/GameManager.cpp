@@ -159,6 +159,7 @@ void GameManager::Create()
     Device::Get();
     Environment::Get();
     Observer::Get();
+    Audio::Get();
     
     Font::Get()->AddColor("White", 1, 1, 1);
     Font::Get()->AddColor("Gray", 

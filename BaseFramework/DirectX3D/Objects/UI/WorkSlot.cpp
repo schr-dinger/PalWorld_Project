@@ -7,7 +7,7 @@ WorkSlot::WorkSlot(int Number)
 	NUM = Number;
 
 	MakeSlot = new Quad(Vector2(50, 50));
-	MakeSlotBase = new Quad(Vector2(50, 50));
+	MakeSlotBase = new ClickQuad(Vector2(50, 50));
 
 	wstring file = L"Textures/UI/Make/Work" + to_wstring(NUM) + L".png";
 	MakeSlot->GetMaterial()->SetDiffuseMap(file);
@@ -69,11 +69,20 @@ WorkSlot::~WorkSlot()
 void WorkSlot::Update()
 {
 
-	if (CheckItem()) MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	if (CheckItem() && !MakeSlotBase->MouseCollision()) MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png"), Sound_C = false;
+	else if (MakeSlotBase->MouseCollision())
+	{
+		MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlueGlass.png");
+		if (!Sound_C)
+		{
+			SOUND->Stop("UI_2"), SOUND->Play("UI_2");
+			Sound_C = true;
+		}
+	}
 	else
 	{
-		MakeSlotBase->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
-
+		MakeSlotBase->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/RedGlass80.png");
+		Sound_C = false;
 	}
 
 	MakeSlotBase->Update();
@@ -112,7 +121,7 @@ void WorkSlot::PostRender()
 void WorkSlot::GUIRender()
 {
 
-	MakeSlotBase->GUIRender();
+	
 
 
 }

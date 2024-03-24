@@ -30,7 +30,9 @@ public:
         bool bgm = false, bool loop = false, bool is3D = false);
 
     void Play(string key, float valume = 1.0f);
+    void Play(string key, float valume , int count);
     void Play(string key, Float3 position, float valume = 1.0f);
+
     void Stop(string key);
     void Pause(string key);
     void Resume(string key);

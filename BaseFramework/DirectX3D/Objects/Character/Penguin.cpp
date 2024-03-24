@@ -25,6 +25,10 @@ Penguin::Penguin(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     skill[1]->Setpal(this); // 
     skill[1]->SetSkill();   // 
 
+    skill[2] = new IronSpike();
+    skill[2]->Setpal(this); // 
+    skill[2]->SetSkill();   // 
+
     // 
     icon = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal.png");
     iconC = Texture::Add(L"Textures/Model/PenGuin/T_Penguin_icon_normal_C.png");
@@ -138,7 +142,10 @@ void Penguin::Update()
             Move(); //
         }
     }
-
+    else if (target != nullptr && !target->Active() && isSpawned)
+    {
+        target = nullptr;
+    }
 
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
@@ -276,11 +283,19 @@ void Penguin::Attack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(1, 1);
-    skill[ransSkill]->SetActive(true);
-    skill[ransSkill]->SetEnemy(target);
-    skill[ransSkill]->SetSkill();
-    MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
+    //ransSkill = RANDOM->Int(1, 1);
+    //skill[ransSkill]->SetActive(true);
+    //skill[ransSkill]->SetEnemy(target);
+    //skill[ransSkill]->SetSkill();
+    //skill[ransSkill]->SkillSound(transform->GlobalPos());
+    //MyPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
+
+    //ransSkill = RANDOM->Int(1, 1);
+    skill[1]->SetActive(true);
+    skill[1]->SetEnemy(target);
+    skill[1]->SetSkill();
+    skill[1]->SkillSound(transform->GlobalPos());
+    MyPalSkillManager::Get()->AddFieldSkill(skill[1]);
 
 }
 
@@ -292,11 +307,18 @@ void Penguin::FieldAttack()
     eventIters[(int)ACTION::ATTACK] = totalEvent[(int)ACTION::ATTACK].begin();
 
     // ??? ?????
-    ransSkill = RANDOM->Int(0, 1);
-    skill[ransSkill]->SetActive(true);
-    skill[ransSkill]->SetSkill();
-    skill[ransSkill]->SetEnemy(target);
-    FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
+    //ransSkill = RANDOM->Int(1, 1);
+    //skill[ransSkill]->SetActive(true);
+    //skill[ransSkill]->SetSkill();
+    //skill[ransSkill]->SetEnemy(target);
+    //skill[ransSkill]->SkillSound(transform->GlobalPos());
+    //FieldPalSkillManager::Get()->AddFieldSkill(skill[ransSkill]);
+    //ransSkill = RANDOM->Int(1, 1);
+    skill[1]->SetActive(true);
+    skill[1]->SetSkill();
+    skill[1]->SetEnemy(target);
+    skill[1]->SkillSound(transform->GlobalPos());
+    FieldPalSkillManager::Get()->AddFieldSkill(skill[1]);
 }
 
 void Penguin::Damage()

@@ -25,7 +25,7 @@ public:
 
 public:
 
-	//string name;	
+	string name;	
 	int num;
 	Type type;
 

@@ -25,6 +25,7 @@ PalModeUi::PalModeUi()
 	donutPiece = new Quad(donutSize);
 	donutPiece->GetMaterial()->SetDiffuseMap(L"Textures/UI/DonutPiece.png");
 	donutPiece->Pos() = center;
+	donutPiece->SetActive(false);
 
 }
 
@@ -42,43 +43,72 @@ PalModeUi::~PalModeUi()
 void PalModeUi::Update()
 {
 	SetTexture();
-	donutPiece->Rot().z = pieceRot;
-
-	if (selectA->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
-	{
-		PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::AGGRESSIVE);
-		UiManager::Get()->palModeUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
-	}
 
 	if (selectA->MouseCollision())
 	{
+		if (!isPlayed)
+		{
+			isPlayed = true;
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2");
+		}
 		pieceRot = XM_2PI * (11.0f / 12.0f);
+		donutPiece->SetActive(true);
+		if (KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
+		{
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
+			PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::AGGRESSIVE);
+			UiManager::Get()->palModeUiOn = false;
+			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+		}
 	}
-
-	if (selectP->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
+	else if (selectP->MouseCollision())
 	{
-		PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::PASSIVE);
-		UiManager::Get()->palModeUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
-	}
-
-	if (selectP->MouseCollision())
-	{
+		if (!isPlayed)
+		{
+			isPlayed = true;
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2");
+		}
 		pieceRot = XM_2PI * (7.0f / 12.0f);
-	}
+		donutPiece->SetActive(true);
+		if (KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
+		{
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
+			PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::PASSIVE);
+			UiManager::Get()->palModeUiOn = false;
+			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
 
-	if (selectW->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
-	{
-		PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::WORK);
-		UiManager::Get()->palModeUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
-	}
+		}
 
-	if (selectW->MouseCollision())
+	}
+	else if (selectW->MouseCollision())
 	{
+		if (!isPlayed)
+		{
+			isPlayed = true;
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2");
+		}
 		pieceRot = XM_2PI * (3.0f / 12.0f);
+		donutPiece->SetActive(true);
+		if (KEY_DOWN(VK_LBUTTON) && UiManager::Get()->palModeUiOn)
+		{
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
+			PlayerPalsManager::Get()->SetMode(PlayerPalsManager::MODE::WORK);
+			UiManager::Get()->palModeUiOn = false;
+			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+		}
 	}
+	else
+	{
+		donutPiece->SetActive(false);
+		isPlayed = false;
+	}
+	donutPiece->Rot().z = pieceRot;
 
 
 	baseDonut->Update();

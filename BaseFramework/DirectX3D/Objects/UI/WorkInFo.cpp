@@ -61,22 +61,25 @@ void WorkInFo::Render(int P_Count)
 	InFoIcon->Render();
 	ItemCount->Render();
 
-
+	Font::Get()->SetStyle("FieldEquibName");
 	switch (NUM)
 	{
 	case 1:
-		Font::Get()->RenderText("나무", Vector2(InFoPos.x + 30, InFoPos.y + 10));
+		Font::Get()->RenderText("나무", Vector2(InFoPos.x, InFoPos.y + 10));
 		break;
 	case 2:
-		Font::Get()->RenderText("돌", Vector2(InFoPos.x + 30, InFoPos.y + 10));
+		Font::Get()->RenderText("돌", Vector2(InFoPos.x + 10, InFoPos.y + 10));
 		break;
 	default:
 		break;
 	}
 
+	Font::Get()->SetStyle("FieldPlay");
 	int a = ItemManager::Get()->GetItemDV()[NUM].second;
 	string b = to_string(a) + " / " + to_string(Count * P_Count);
-	Font::Get()->RenderText(b, Vector2(InFoPos.x + 120, InFoPos.y + 10));
+	Font::Get()->RenderText(b, Vector2(InFoPos.x + 85, InFoPos.y + 10));
+	Font::Get()->GetDC()->EndDraw();
+	Font::Get()->GetDC()->BeginDraw();
 
 
 }

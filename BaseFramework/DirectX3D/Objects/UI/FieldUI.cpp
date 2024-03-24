@@ -236,6 +236,7 @@ FieldUI::FieldUI()
 	ProjLoadNumFontPos = { 1225.0f, 96.0f };
 	ProjTotalNumFontPos = { 1225.0f, 65.0f};
 
+	selPal = 0;
 
 	// 플레이어 팔 매니저에 따라 세팅
 	SetPalUI();
@@ -245,6 +246,7 @@ FieldUI::FieldUI()
 	maxHp = 500;
 	curHp = 500;
 	tmpPalSpear = 123;
+
 }
 
 FieldUI::~FieldUI()
@@ -424,7 +426,8 @@ void FieldUI::PostRender()
 		tmpString = "팰 스피어";
 		Font::Get()->SetStyle("FieldEquibName");
 		Font::Get()->RenderText(tmpString, { palSpearTextFontPos.x, palSpearTextFontPos.y }, 1);
-		tmpString = "장비 뭐시기"; // 플레이어에서 가져와야 함
+
+		tmpString = ItemManager::Get()->GetEquipVN(PlayerManager::Get()->GetPlayer()->GetWepSel()); // *플레이어에서 가져와야 함 --------------------------------------------
 		Font::Get()->SetStyle("FieldEquibName");
 		Font::Get()->RenderText(tmpString, { equipTextFontPos.x, equipTextFontPos.y }, 1);
 
@@ -449,7 +452,7 @@ void FieldUI::PostRender()
 		tmpString = to_string(tmpT); // 일의 자리
 		Font::Get()->RenderText(tmpString, { parSpear001FontPos.x, parSpear001FontPos.y },1);
 
-		// 장비아이템용, 투사체 출력 유무
+		// 장비아이템용, 투사체 출력 유무 ----------------------------------
 		int tmpBow = 0;
 		switch (PlayerManager::Get()->GetPlayer()->GetWepSel())
 		{

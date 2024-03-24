@@ -123,7 +123,7 @@ void PlayerPalsManager::Update()
     if (selPal != -1)
     {
         SetTarget();
-        if (!pals[selPal]->target)
+        if (!pals[selPal]->target || !pals[selPal]->target->Active())
         {
             PathFinding();
             Move();
@@ -287,6 +287,7 @@ void PlayerPalsManager::SetTarget()
 
             if (!closePal)
             {
+                pals[selPal]->SetTarget(nullptr);
                 mode = MODE::PASSIVE;
             }
             else
@@ -445,15 +446,16 @@ void PlayerPalsManager::Collision()
                         FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                         pal->skillType = 1;
                     }
-                    else if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
+                    if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "스파이크")
                     {
                         FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->SetActive(false);
-                        pal->skillType = 1;
+                        pal->skillType = 0;
                     }
                     else
                     {
                         pal->skillType = 0;
                     }
+                    FieldPalSkillManager::Get()->GetFieldSkills()[i]->SkillHitSound(pal->GetTransform()->GlobalPos());
                     //skill->SetActive(false); // <-이 줄이 없으면 관통탄이 된다
                     pal->damage = FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetDamage();
                     pal->Damage();

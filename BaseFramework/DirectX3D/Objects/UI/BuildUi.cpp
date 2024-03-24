@@ -38,30 +38,61 @@ void BuildUi::Update()
 	SetTexture();
 	donutPiece->Rot().z = pieceRot;
 
-	if (selectPalBox->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn )
-	{
-		UiManager::Get()->buildPalBox = true;
-		UiManager::Get()->buildUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
-	}
+	
 
 	if (selectPalBox->MouseCollision())
 	{
+		if (!isPalBox)
+		{
+			isPalBox = true;
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2");
+		}
 		pieceRot = XM_2PI * (0.0f / 6.0f);
+		donutPiece->SetActive(true);
+		if (KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn)
+		{
+			UiManager::Get()->buildPalBox = true;
+			UiManager::Get()->buildUiOn = false;
+			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
+		}
 	}
-
-	if (selectWorkBench->MouseCollision() && KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn)
+	else if (!selectPalBox->MouseCollision())
 	{
-		UiManager::Get()->buildWorkBench = true;
-		UiManager::Get()->buildUiOn = false;
-		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+		donutPiece->SetActive(false);
+		isPalBox = false;
 	}
 
 	if (selectWorkBench->MouseCollision())
 	{
+		if (!isWorkBench)
+		{
+			isWorkBench = true;
+			SOUND->Stop("UI_2");
+			SOUND->Play("UI_2");
+		}
 		pieceRot = XM_2PI * (1.0f / 6.0f);
+		donutPiece->SetActive(true);
+		if (KEY_DOWN(VK_LBUTTON) && UiManager::Get()->buildUiOn)
+		{
+			UiManager::Get()->buildWorkBench = true;
+			UiManager::Get()->buildUiOn = false;
+			mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+			SOUND->Stop("UI_1");
+			SOUND->Play("UI_1");
+		}
 	}
-
+	else if (!selectWorkBench->MouseCollision())
+	{
+		if (!isPalBox) // 위에서 선택 안됐을 때만 false
+		{
+			donutPiece->SetActive(false);
+		}
+		isWorkBench = false;
+	}
+	
 
 	baseDonut->Update();
 	selectPalBox->Update();

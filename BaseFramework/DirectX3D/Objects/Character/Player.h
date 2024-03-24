@@ -7,8 +7,8 @@ private:
         IDLE,
         WALK,
         RUN,
-        //Make,
-        //Build,
+        WORK,
+        BUILD,
 
 
         J_START,
@@ -86,6 +86,10 @@ public:
 
     int GetCurHP() { return curHP; }
     int GetMaxHP() { return maxHP; }
+
+    bool isWork = false;
+    bool isBuild = false;
+
 private:
     ACTION action;
     ACTION curState = ACTION::IDLE;
@@ -133,7 +137,7 @@ private:
     Model* summonPalSpearThrow;
     SphereCollider* summonPalSpearCollider;
     Vector3 summonPalSpearDIr;
-    float speed = 20;
+    float speed = 25;
     // 팰스피어 중력
     float gravi = 9.8f;
     float downForce = 0;
@@ -158,6 +162,14 @@ private:
     vector<Model*> weapons;
 
     SphereCollider* MiningCollider;
+
+    
+
+    //
+
+    
+    
+
     //player collider
 
     // 충돌용

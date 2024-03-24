@@ -42,6 +42,8 @@ private:
 	Quad* SlaveBase;
 	ClickQuad* SlaveIcon[5];
 
-
+	// UI Sound
+	bool boxIconSound[30];
+	bool partyIconSound[5];
 };
 

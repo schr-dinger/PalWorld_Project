@@ -39,6 +39,7 @@ WorkBench::WorkBench()
 		L"Textures/UI/hp_bar_BG.png"
 	);
 	WorkItem = nullptr;
+	WorkImage = new Quad(Vector2(0.3, 0.3));
 }
 
 WorkBench::~WorkBench()
@@ -53,6 +54,7 @@ WorkBench::~WorkBench()
 	delete light;
 	delete produceBar;
 	delete WorkItem;
+	delete WorkImage;
 }
 
 void WorkBench::Update()
@@ -73,15 +75,22 @@ void WorkBench::Update()
 	if (Progressing && isPlaced)
 	{
 		off2 += 0.5f * DELTA;
+		
 	}
+	
+	 
 
-	if (KEY_PRESS('T'))
+	if (KEY_PRESS('T') && PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit)
+		&& !Done)
 	{
 		Progressing = true;
+		if (!PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = true;
 	}
 	else
 	{
 		Progressing = false;
+		if (PlayerManager::Get()->GetPlayer()->isBuild) PlayerManager::Get()->GetPlayer()->isBuild = false;
+		
 	}
 
 	if (off2 > 12.0f)
@@ -147,9 +156,10 @@ void WorkBench::Render()
 		blendState[0]->SetState();
 	}
 
+	if (WorkItem != nullptr) WorkImage->Render();
 	range->Render();
 	mouseHit->Render();
-
+	
 }
 
 void WorkBench::PostRender()
@@ -185,26 +195,42 @@ void WorkBench::Interaction()
 	if (WorkItem != nullptr)
 	{
 
-		if (!CAM->ContainPoint(gaugePos)) produceBar->SetActive(false);
-		else produceBar->SetActive(true);
+		if (!CAM->ContainPoint(gaugePos) || abs((building->Pos() - PlayerManager::Get()->GetPlayer()->GlobalPos())
+			.Length()) > 20)
+		{
+			WorkImage->SetActive(false);
+			produceBar->SetActive(false);
+		}
+		else
+		{
+			WorkImage->SetActive(true);
+			produceBar->SetActive(true);
+		}
 
+		WorkImage->GetMaterial()->SetDiffuseMap(WorkItem->icon);
+
+		gaugePos = building->Pos() + Vector3(0, 1.2f, 0);
+		WorkImage->Pos() = building->Pos() + Vector3(0, 1.4f, 0);
 
 		produceBar->SetAmount(time / CompleteTime);
-
-
-		gaugePos = building->Pos() + Vector3(0, 1.8f, 0);
 		produceBar->Pos() = CAM->WorldToScreen(gaugePos);
-
 		produceBar->Scale() = { 1.0f,0.5f,0.3f };
 
+		WorkImage->Rot().y = CAM->GetParent()->Rot().y + XM_PI;
+		WorkImage->Update();
 		produceBar->UpdateWorld();
 		if (PlayerManager::Get()->GetPlayer()->GetPlayerCol()->IsCollision(mouseHit) && KEY_PRESS('Y'))
 		{
 			BarUpdate();
+			PlayerManager::Get()->GetPlayer()->isWork = true;
 		}
+		else if ((KEY_UP('Y'))) PlayerManager::Get()->GetPlayer()->isWork = false;
 
 
 	}
+	else PlayerManager::Get()->GetPlayer()->isWork = false;
+
+
 }
 
 bool WorkBench::PalWorkCheck()
@@ -238,9 +264,11 @@ void WorkBench::BarUpdate()
 		}
 		WorkItem = nullptr;
 
+		PlayerManager::Get()->GetPlayer()->isWork = false;
 	}
 	else
 	{
+		
 		time += 10 * DELTA;
 	}
 

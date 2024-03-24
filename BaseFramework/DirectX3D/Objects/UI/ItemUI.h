@@ -47,5 +47,8 @@ private:
 
 	int select = 0;
 
+	// UI Sound
+	bool slotSound[30];
+	bool P_EquipSound[3];
 };
 

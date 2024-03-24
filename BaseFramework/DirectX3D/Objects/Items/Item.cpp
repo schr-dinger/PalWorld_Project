@@ -3,7 +3,7 @@
 Item::Item()
 {
 
-	//name = "";
+	name = "";
 	num = 0;
 	//icon = nullptr;
 
