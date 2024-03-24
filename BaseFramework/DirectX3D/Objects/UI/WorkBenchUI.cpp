@@ -17,11 +17,11 @@ WorkBenchUI::WorkBenchUI()
 	SetBase->Pos() = { SetIconP.x, SetIconP.y ,0 };
 
 	SetButton1 = new ClickQuad(Vector2(50, 50));
-	SetButton1->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	SetButton1->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/UI/plus.png");
 	SetButton1->GetQuad()->Pos() = { SetIconP.x - 50, SetIconP.y - 20 ,0 };
 
 	SetButton2 = new ClickQuad(Vector2(50, 50));
-	SetButton2->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/GrayGlass80.png");
+	SetButton2->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/UI/minus.png");
 	SetButton2->GetQuad()->Pos() = { SetIconP.x + 50, SetIconP.y - 20 ,0 };
 
 
