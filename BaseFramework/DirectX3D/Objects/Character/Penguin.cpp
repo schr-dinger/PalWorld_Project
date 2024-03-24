@@ -142,10 +142,6 @@ void Penguin::Update()
             Move(); //
         }
     }
-    else if (target != nullptr && !target->Active() && isSpawned)
-    {
-        target = nullptr;
-    }
 
 
     if (isSpawned && PlayerPalsManager::Get()->GetPathSize() != 0 && target == nullptr)
