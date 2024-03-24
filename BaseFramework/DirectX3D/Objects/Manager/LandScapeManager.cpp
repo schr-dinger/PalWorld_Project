@@ -90,7 +90,7 @@ void LandScapeManager::Update()
 {
     for (Tree* tree : trees)
     {
-        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() < 50.0f && !tree->isDead)
+        if ((tree->GetTransform()->Pos() - PlayerManager::Get()->GetPlayer()->Pos()).Length() < 15.0f && !tree->isDead && CAM->ContainPoint(tree->GetTransform()->Pos()))
         {
             tree->GetTransform()->SetActive(true);
         }
@@ -192,7 +192,8 @@ void LandScapeManager::PlaceTree(ModelInstancing* tree, int size, Terrain* terra
             transform->Rot().x += XM_PIDIV2;
             transform->Rot().y = RANDOM->Float(0.0f, XM_2PI);
 
-            transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
+            //transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
+            transform->Pos() = { 100.0f + x * ((WIDTH - 100.0f) / size) + Random(-50.0f,50.0f) ,0, 100.0f + z * ((WIDTH - 100.0f) / size) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
             transform->Scale() *= 0.01f;
 
@@ -248,7 +249,9 @@ void LandScapeManager::PlaceGrass(ModelInstancing* tree, int size, Terrain* terr
             transform->Rot().x += XM_PIDIV2;
             transform->Rot().y = x;
 
-            transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
+            //transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
+            transform->Pos() = { 0.0f + x * ((WIDTH - 50.0f) / size) + Random(-50.0f,50.0f) ,0, 0.0f + z * ((WIDTH - 50.0f) / size) + Random(-50.0f,50.0f) };
+
             transform->Pos().y = -30.0f;
             transform->Scale() *= 0.01f;
 
