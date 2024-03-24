@@ -32,7 +32,7 @@ Mammoth::Mammoth(Transform* transform, ModelAnimatorInstancing* instancing, UINT
     eventIters.resize(instancing->GetClipSize());
 
     //이벤트 세팅
-    SetEvent((int)ACTION::ATTACK, bind(&Mammoth::EndAttack, this), 1.5f);
+    SetEvent((int)ACTION::ATTACK, bind(&Mammoth::EndAttack, this), 0.8f);
     SetEvent((int)ACTION::DAMAGE, bind(&Mammoth::EndDamage, this), 0.3f);
 
     FOR(totalEvent.size())
@@ -377,15 +377,21 @@ void Mammoth::Move()
     //if (action == ACTION::WORK) return; // 작업할 때는 움직이지 않음
     //if (action == ACTION::) return; // 추가 가능
 
-    if (velocity.Length() < 5)
+    if (velocity.Length() < 12)
     {
-        if (isSpawned)
+        SetAction(ACTION::IDLE);
+        skillTime += DELTA;
+        if (skillTime > 0.8f)
         {
-            Attack();
-        }
-        else
-        {
-            FieldAttack();
+            skillTime = 0.0f;
+            if (isSpawned)
+            {
+                Attack();
+            }
+            else
+            {
+                FieldAttack();
+            }
         }
         //speed = 0;
         //SetAction(ACTION::IDLE);
@@ -408,10 +414,20 @@ void Mammoth::Move()
         SetAction(ACTION::IDLE);
     }
 
-    velocity.y = 0.0f;
-    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
-    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // 뒤 돌리기(모델 Back()이 실제로 앞
+    if (velocity.Length() < 12)
+    {
+        velocity.y = 0.0f;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        velocity = {};
+
+    }
+    else
+    {
+        velocity.y = 0.0f;
+        transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        // 
+    }
 }
 
 void Mammoth::MoveP()

@@ -3,7 +3,7 @@ class IronSpike : public Skill
 {
 private:
 
-	float Life_Time = 10;
+	float Life_Time = 6;
 
 public:
 

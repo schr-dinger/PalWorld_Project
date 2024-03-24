@@ -459,16 +459,23 @@ void Penguin::Move()
     if (action == ACTION::WORK) return; // 
     //if (action == ACTION::) return; // 
 
-    if (velocity.Length() < 5)
+    if (velocity.Length() < 8)
     {
-        if (isSpawned)
+        SetAction(ACTION::IDLE);
+        skillTime += DELTA;
+        if (skillTime > 0.8f)
         {
-            Attack();
+            skillTime = 0.0f;
+            if (isSpawned)
+            {
+                Attack();
+            }
+            else
+            {
+                FieldAttack();
+            }
         }
-        else
-        {
-            FieldAttack();
-        }
+        
         //speed = 0;
         //SetAction(ACTION::IDLE);
     }
@@ -490,10 +497,21 @@ void Penguin::Move()
         SetAction(ACTION::IDLE);
     }
 
-    velocity.y = 0.0f;
-    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
-    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
-    // 
+    if (velocity.Length() < 8)
+    {
+        velocity.y = 0.0f;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        velocity = {};
+
+    }
+    else
+    {
+        velocity.y = 0.0f;
+        transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        // 
+    }
+    
 
 }
 
