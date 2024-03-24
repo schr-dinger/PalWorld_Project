@@ -230,7 +230,8 @@ void LandScapeManager::PlaceRock(ModelInstancing* tree, int size, Terrain* terra
 
             transform->Pos() = { x * (WIDTH / size) + Random(-50.0f,50.0f) ,0, z * (WIDTH / size) + Random(-50.0f,50.0f) };
             transform->Pos().y = -30.0f;
-            transform->Scale() *= 0.01f;
+            //transform->Scale() *= 0.01f;
+            transform->Scale() *= RANDOM->Float(0.005f, 0.02f);
 
             transform->Pos().y = terrain->GetHeight(transform->Pos());
 
