@@ -78,7 +78,7 @@ void WorkInFo::Render(int P_Count)
 	int a = ItemManager::Get()->GetItemDV()[NUM].second;
 	string b = to_string(a) + " / " + to_string(Count * P_Count);
 	Font::Get()->SetStyle("FieldPlay");
-	Font::Get()->RenderText(b, Vector2(InFoPos.x + 85, InFoPos.y + 10),2);
+	Font::Get()->RenderText(b, Vector2(InFoPos.x + 160, InFoPos.y + 10),2);
 	Font::Get()->GetDC()->EndDraw();
 	Font::Get()->GetDC()->BeginDraw();
 
