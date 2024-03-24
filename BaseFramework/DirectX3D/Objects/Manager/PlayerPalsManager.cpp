@@ -27,19 +27,19 @@ PlayerPalsManager::PlayerPalsManager()
         
     }
     
-    FOR(2)
-    {
-        Transform* transform = palsMAI["그린모스"]->Add();
-        //transform->SetActive(false);
-        transform->Scale() *= 0.01;// 사이즈 조절은 여기서
-        Pal* pal = new Mammoth(transform, palsMAI["그린모스"], palsMAIIndex["그린모스"]);
-        // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
-        //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
-        palsMAIIndex["그린모스"]++;// 해당 모델 인스턴싱 인덱스 증가
-        //pals.push_back(pal);
-        pals[i+2] = pal;
-
-    }
+    //FOR(2)
+    //{
+    //    Transform* transform = palsMAI["그린모스"]->Add();
+    //    //transform->SetActive(false);
+    //    transform->Scale() *= 0.01;// 사이즈 조절은 여기서
+    //    Pal* pal = new Mammoth(transform, palsMAI["그린모스"], palsMAIIndex["그린모스"]);
+    //    // *새로 만든 팔과, 잡은 팔의 체력, 레벨, 공격력 등 스펙 똑같이 넣어줘야 함 
+    //    //  -> 팩토리 패턴 구현때 넣기, 현재는 같은 개체의 새로운 팔 생성
+    //    palsMAIIndex["그린모스"]++;// 해당 모델 인스턴싱 인덱스 증가
+    //    //pals.push_back(pal);
+    //    pals[i+2] = pal;
+    //
+    //}
 
     FOR(1)
     {
