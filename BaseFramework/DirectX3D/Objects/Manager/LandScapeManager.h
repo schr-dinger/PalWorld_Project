@@ -59,6 +59,7 @@ private:
     //int treeN = 10;
     int treeN = 1;
 
+
     int rockN = 1;
 
     int grassN1 = 2;

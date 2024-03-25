@@ -38,7 +38,7 @@ PlayerPalsManager::PlayerPalsManager()
     //    palsMAIIndex["그린모스"]++;// 해당 모델 인스턴싱 인덱스 증가
     //    //pals.push_back(pal);
     //    pals[i+2] = pal;
-
+    //
     //}
 
     FOR(1)
@@ -489,6 +489,10 @@ void PlayerPalsManager::Collision()
         if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetCol()->IsCollision(pals[selPal]->GetCollider()))
             // 스킬이 매개변수 'collider'에 충돌했다면
         {
+            if (!FieldPalSkillManager::Get()->GetFieldSkills()[i]->Active())
+            {
+                continue;
+            }
             if (FieldPalSkillManager::Get()->GetFieldSkills()[i]->GetName() == "얼음창")
             {
                 FieldPalSkillManager::Get()->GetFieldSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다

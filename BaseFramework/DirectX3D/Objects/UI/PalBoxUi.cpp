@@ -83,6 +83,7 @@ void PalBoxUi::Update()
 			}
 			if (KEY_DOWN(VK_LBUTTON) && UiMouseManager::Get()->GetPal() != nullptr)
 			{
+				UiMouseManager::Get()->GetPal()->SetFullHp();
 				int tmp = UiMouseManager::Get()->GetIndex();
 				Pal* palTmp = PlayerPalsManager::Get()->GetPalvector()[i + 5];
 				PlayerPalsManager::Get()->GetPalvector()[i + 5] = PlayerPalsManager::Get()->GetPalvector()[tmp];

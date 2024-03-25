@@ -24,7 +24,7 @@ public:
     Texture* GetTexture() { return icon; }
     Texture* GetTextureC() { return iconC; }
     float GetCurHp() { return curHP / maxHP; }
-
+    virtual void SetFullHp() override;
     // 액션 : 공격
     void Attack();      // 내 팔 공격
     void FieldAttack(); // 필드 팔 공격
@@ -108,5 +108,7 @@ private:
     int tmpN;
 
     int ransSkill;
+
+    
 };
 

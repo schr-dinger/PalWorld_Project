@@ -89,8 +89,8 @@ void UiMouseManager::Update()
 
 
 
-	quad->Pos() = mousePos + Vector3(50,-50,0);
-	quadBack->Pos() = mousePos + Vector3(50,-50,0);
+	quad->Pos() = mousePos + Vector3(80,-50,0);
+	quadBack->Pos() = mousePos + Vector3(80,-50,0);
 	quad->UpdateWorld();
 	quadBack->UpdateWorld();
 }

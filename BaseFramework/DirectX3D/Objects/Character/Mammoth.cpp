@@ -224,6 +224,11 @@ void Mammoth::GUIRender()
     //ImGui::Text("Time : %f", onUITime);
 }
 
+void Mammoth::SetFullHp()
+{
+    curHP = maxHP;
+}
+
 void Mammoth::Attack()
 {
     action = ACTION::ATTACK;
@@ -404,7 +409,7 @@ void Mammoth::Move()
         SetAction(ACTION::WALK);
 
     }
-    else if (velocity.Length() < 50)
+    else if (velocity.Length() < 30)
     {
         speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);

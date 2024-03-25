@@ -235,6 +235,11 @@ void DarkWolf::GUIRender()
 {
 }
 
+void DarkWolf::SetFullHp()
+{
+    curHP = maxHP;
+}
+
 void DarkWolf::Attack()
 {
     action = ACTION::ATTACK;
@@ -419,7 +424,7 @@ void DarkWolf::Move()
         SetAction(ACTION::WALK);
 
     }
-    else if (velocity.Length() < 50)
+    else if (velocity.Length() < 30)
     {
         speed = 4; //두 배로 빨라진다
         SetAction(ACTION::RUN);

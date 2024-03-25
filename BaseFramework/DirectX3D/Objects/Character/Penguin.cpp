@@ -486,7 +486,7 @@ void Penguin::Move()
         SetAction(ACTION::WALK);
 
     }
-    else if (velocity.Length() < 50)
+    else if (velocity.Length() < 30)
     {
         speed = 4; //
         SetAction(ACTION::RUN);
@@ -566,7 +566,7 @@ void Penguin::MoveW()
     if (action == ACTION::DAMAGE) return; // 
     //if (action == ACTION::WORK) return; // 
 
-    if (velocity.Length() < 5)
+    if (velocity.Length() < 3)
     {
         speed = 0;
         SetAction(ACTION::WORK);
@@ -576,6 +576,7 @@ void Penguin::MoveW()
         {
             target = nullptr;
             SetAction(ACTION::IDLE);
+            PlayerPalsManager::Get()->GetMode() == PlayerPalsManager::MODE::PASSIVE;
         }
     }
     else
@@ -584,10 +585,20 @@ void Penguin::MoveW()
         SetAction(ACTION::RUN);
         StructureManager::Get()->GetPalBox()->SetProgress(false);
     }
-
-    velocity.y = 0.0f;
-    transform->Pos() += velocity.GetNormalized() * speed * DELTA;
-    transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+    if (target == nullptr)
+    {
+        velocity.y = 0.0f;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+        velocity = Vector3();
+        SetAction(ACTION::IDLE);
+    }
+    else
+    {
+        velocity.y = 0.0f;
+        transform->Pos() += velocity.GetNormalized() * speed * DELTA;
+        transform->Rot().y = atan2(velocity.x, velocity.z) + XM_PI;
+    }
+    
 
 }
 
@@ -635,6 +646,11 @@ void Penguin::UpdateUI()
     palHpBar->Pos() = palQuad->Pos() + Vector3(0.0, -10.0f, 0.0f);
     palHpBar->UpdateWorld(); // 
 
+}
+
+void Penguin::SetFullHp()
+{
+    curHP = maxHP;
 }
 
 //void Penguin::ClipSync()

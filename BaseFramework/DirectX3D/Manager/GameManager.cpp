@@ -30,6 +30,7 @@ GameManager::GameManager()
     Create();
 
     SetSound();
+    Collider::RenderOnOff();
 
     //SceneManager::Get()->Create("NewScene", new BaseScene1());
     SceneManager::Get()->Create("Loading", new LoadingScene());
