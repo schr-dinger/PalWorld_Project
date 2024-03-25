@@ -23,6 +23,7 @@
 #include "Scenes/StudyScene/WaterScene.h"
 #include "Scenes/GameScene/TitleScene.h"
 #include "Scenes/GameScene/LoadingScene.h"
+#include "Scenes/GameScene/LoadingScene_2.h"
 #include "Scenes/GameScene/BaseScene1.h"
 #include "Scenes/GameScene/BossScene.h"
 
@@ -34,10 +35,12 @@ GameManager::GameManager()
     Collider::RenderOnOff();
 
     //SceneManager::Get()->Create("NewScene", new BaseScene1());
+    SceneManager::Get()->Create("Loading_2", new LoadingScene_2());
     SceneManager::Get()->Create("Loading", new LoadingScene());
     SceneManager::Get()->Create("Title", new TitleScene());
 
-    //SceneManager::Get()->Add("NewScene");
+    //SceneManager::Get()->Add("NewScene
+    SceneManager::Get()->Add("Loading_2");
     SceneManager::Get()->Add("Loading");
     SceneManager::Get()->Add("Title");
 
