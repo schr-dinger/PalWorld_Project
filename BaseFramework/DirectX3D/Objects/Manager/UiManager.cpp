@@ -31,6 +31,8 @@ void UiManager::Update()
 		buildUiOn = !buildUiOn;
 		SOUND->Stop("UI_3");
 		SOUND->Play("UI_3");
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+
 	}
 
 	if (KEY_DOWN('P') && !palBoxUiOn && !buildUiOn && !InvenIsOn && !palModeUiOn && !WorkBenchUiOn)
@@ -43,6 +45,8 @@ void UiManager::Update()
 		partyUi->SetPal();
 		SOUND->Stop("UI_3");
 		SOUND->Play("UI_3");
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+
 	}
 
 	if (KEY_DOWN('4') && !palBoxUiOn && !buildUiOn && !partyUiOn && !InvenIsOn && !WorkBenchUiOn)
@@ -50,6 +54,8 @@ void UiManager::Update()
 		palModeUiOn = !palModeUiOn;
 		SOUND->Stop("UI_3");
 		SOUND->Play("UI_3");
+		mousePos = { WIN_WIDTH / 2.0f,WIN_HEIGHT / 2.0f };
+
 	}
 
 

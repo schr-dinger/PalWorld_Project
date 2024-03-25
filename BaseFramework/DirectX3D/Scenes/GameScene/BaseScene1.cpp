@@ -166,8 +166,11 @@ void BaseScene1::PreRender()
 	//LandScapeManager::Get()->PreRender();
 
 	// 그림자
+	
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
 	shadow->SetRenderTargetPos(CAM->GlobalPos());
+	LightBuffer::Light* light = Environment::Get()->GetLight(0);
+	if (light->active == 0) return;
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
 	RenderShadowModel();
 }

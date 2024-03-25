@@ -106,6 +106,8 @@ Player::Player() : ModelAnimator("NPC")
        
 
     //ItemManager::Get()->GetConsumDV()[1].second = 3;
+    ItemManager::Get()->GetBulletDV()[1].second = 20;
+
 }
 
 Player::~Player()
@@ -468,9 +470,17 @@ void Player::Control()
 
     }
 
-    if (KEY_DOWN('R'))
+    if (KEY_DOWN('Z'))
     {
         test = !test;
+        if (test)
+        {
+            ShowCursor(false);
+        }
+        else
+        {
+            ShowCursor(true);
+        }
     }
 
 

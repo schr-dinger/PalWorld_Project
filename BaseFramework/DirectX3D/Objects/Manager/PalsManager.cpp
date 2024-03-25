@@ -115,7 +115,7 @@ void PalsManager::Update()
     //    Spawn(); //생성(스폰)
     //}
 
-    PathCollider();
+    //PathCollider();
 
     // 모델 업데이트
     for (ModelAnimatorInstancing* pal : palsInstancing)
@@ -128,11 +128,11 @@ void PalsManager::Update()
     // 충돌 판정 진행
     Collision();
 
-    if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
-    {
-        pals[0]->FieldAttack();
-        //FieldAttack();
-    }
+    //if (KEY_DOWN('K') && !pals[0]->skill[0]->Active())
+    //{
+    //    pals[0]->FieldAttack();
+    //    //FieldAttack();
+    //}
 
 }
 
@@ -367,6 +367,10 @@ void PalsManager::Collision()
             if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetCol()->IsCollision(pal->GetCollider()))
                 // 스킬이 매개변수 'collider'에 충돌했다면
             {
+                if (!MyPalSkillManager::Get()->GetPlayerSkills()[i]->Active())
+                {
+                    continue;
+                }
                 if (MyPalSkillManager::Get()->GetPlayerSkills()[i]->GetName() == "얼음창")
                 {
                     MyPalSkillManager::Get()->GetPlayerSkills()[i]->SetActive(false); // <-이 줄이 없으면 관통탄이 된다

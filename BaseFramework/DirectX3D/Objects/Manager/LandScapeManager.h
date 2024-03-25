@@ -57,7 +57,7 @@ private:
     Shadow* shadow;
 
     //int treeN = 10;
-    int treeN = 12;
+    int treeN = 15;
 
     int rockN = 10;
 
