@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\GameScene\LoadingScene_2.h" />
+    <ClInclude Include="Scenes\GameScene\BossScene.h" />
     <ClInclude Include="Scenes\GameScene\LoadingScene.h" />
     <ClInclude Include="Objects\Skill\IronSpike.h" />
     <ClInclude Include="Objects\Skill\IceSpear.h" />
@@ -316,6 +318,8 @@
     <ClInclude Include="Scenes\GameScene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\GameScene\LoadingScene_2.cpp" />
+    <ClCompile Include="Scenes\GameScene\BossScene.cpp" />
     <ClCompile Include="Scenes\GameScene\LoadingScene.cpp" />
     <ClCompile Include="Objects\Skill\IronSpike.cpp" />
     <ClCompile Include="Objects\Character\Penguin.cpp" />

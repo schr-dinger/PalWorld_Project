@@ -194,6 +194,8 @@
     <ClCompile Include="Objects\Skill\IronSpike.cpp" />
     <ClCompile Include="Scenes\GameScene\LoadingScene.cpp" />
     <ClCompile Include="Scenes\GameScene\TitleScene.cpp" />
+    <ClCompile Include="Scenes\GameScene\BossScene.cpp" />
+    <ClCompile Include="Scenes\GameScene\LoadingScene_2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Manager\AStarManager.h" />
@@ -368,6 +370,8 @@
     <ClInclude Include="Objects\Skill\IronSpike.h" />
     <ClInclude Include="Scenes\GameScene\LoadingScene.h" />
     <ClInclude Include="Scenes\GameScene\TitleScene.h" />
+    <ClInclude Include="Scenes\GameScene\BossScene.h" />
+    <ClInclude Include="Scenes\GameScene\LoadingScene_2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX3D.rc" />

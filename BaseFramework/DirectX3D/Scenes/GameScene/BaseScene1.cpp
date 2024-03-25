@@ -1,5 +1,6 @@
 #include "Framework.h"
 #include "BaseScene1.h"
+#include "Scenes/GameScene/LoadingScene_2.h"
 
 BaseScene1::BaseScene1()
 {

@@ -24,6 +24,7 @@
 #include "Scenes/GameScene/TitleScene.h"
 #include "Scenes/GameScene/LoadingScene.h"
 #include "Scenes/GameScene/BaseScene1.h"
+#include "Scenes/GameScene/BossScene.h"
 
 GameManager::GameManager()
 {
