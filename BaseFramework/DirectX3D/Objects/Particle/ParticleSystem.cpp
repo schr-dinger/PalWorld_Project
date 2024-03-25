@@ -79,7 +79,7 @@ void ParticleSystem::Render()
 
     //출력 상태 준비
     blendState[1]->SetState();
-    depthState[1]->SetState();
+    //depthState[1]->SetState();
 
     DC->DrawIndexedInstanced(6, drawCount, 0, 0, 0); // 마지막 매개변수 3개는 다른 곳에서 설정을 해두고
                                                      // 여기선 0, 0, 0 하면 가장 속이 편하다
@@ -143,21 +143,21 @@ void ParticleSystem::UpdatePhysical()
                                 // 시계/반시계 회전 값이 있으면 반영
 
         //빌보드 옵션이 켜져 있었을 경우, 그림을 빌보드 출력이 되도록
-        if (data.isBillboard)
-        {
-            Vector3 tmpRot;
-            Vector3 c = CAM->Forward();
-            tmpRot.y = atan2(c.x, c.z);
-            Vector2 a = { c.x, c.z };
-            tmpRot.x = atan2(a.Length(), c.y) - XM_PIDIV2;
-            //tmpRot.x = atanf(a.Length() / c.y);
-            particleInfo[i].transform.Rot().x = tmpRot.x;
-            particleInfo[i].transform.Rot().y = tmpRot.y;
-
-            //particleInfo[i].transform.Rot().x = atan2(CAM->Forward().z, CAM->Forward().y);
-            //particleInfo[i].transform.Rot().y = atan2(CAM->Forward().x, CAM->Forward().z);
-
-        }
+        //if (data.isBillboard)
+        //{
+        //    Vector3 tmpRot;
+        //    Vector3 c = CAM->Forward();
+        //    tmpRot.y = atan2(c.x, c.z);
+        //    Vector2 a = { c.x, c.z };
+        //    tmpRot.x = atan2(a.Length(), c.y) - XM_PIDIV2;
+        //    //tmpRot.x = atanf(a.Length() / c.y);
+        //    particleInfo[i].transform.Rot().x = tmpRot.x;
+        //    particleInfo[i].transform.Rot().y = tmpRot.y;
+        //
+        //    //particleInfo[i].transform.Rot().x = atan2(CAM->Forward().z, CAM->Forward().y);
+        //    //particleInfo[i].transform.Rot().y = atan2(CAM->Forward().x, CAM->Forward().z);
+        //
+        //}
         // * 왜 카메라인가 (벡터가 아니고) -> 벡터를 쓰면 카메라와 방향을 맞추기보다
         //   이미지가 카메라*를* 바라보게 된다 -> 보는 입장에서 꼭 정면 100%라는 보장이 없어서
 
