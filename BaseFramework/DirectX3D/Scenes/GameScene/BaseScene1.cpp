@@ -12,7 +12,7 @@ BaseScene1::BaseScene1()
 	//SetSound();
 
 	// 그림자용 모델
-	SetShadowModel();
+	//SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -173,7 +173,7 @@ void BaseScene1::PreRender()
 	LightBuffer::Light* light = Environment::Get()->GetLight(0);
 	if (light->active == 0) return;
 	PlayerManager::Get()->GetPlayer()->ShadowRender();
-	RenderShadowModel();
+	//RenderShadowModel();
 }
 
 void BaseScene1::Render()
