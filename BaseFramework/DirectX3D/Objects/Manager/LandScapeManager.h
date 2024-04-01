@@ -55,10 +55,7 @@ private:
     //CapsuleCollider* walls[3];
 
     Shadow* shadow;
-
-    //int treeN = 10;
     int treeN = 7;
-
 
     int rockN = 2;
 
