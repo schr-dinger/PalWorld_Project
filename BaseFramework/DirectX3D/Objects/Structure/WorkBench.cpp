@@ -95,12 +95,15 @@ void WorkBench::Update()
 		
 	}
 
+
 	if (off2 > 12.0f)
 	{
 		Done = true;
-		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildWorkBench) PlayerManager::Get()->GetPlayer()->isBuild = false;
+		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildWorkBench)
+			PlayerManager::Get()->GetPlayer()->isBuild = false;
 		UiManager::Get()->buildWorkBench = false;
 		
+
 	}
 
 
@@ -111,7 +114,7 @@ void WorkBench::Update()
 			isPlaced = true;
 		}
 	}
-	//»óÈ£ÀÛ¿ë ÇÔ¼ö
+	//ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½Ô¼ï¿½
 	Interaction();
 
 	cube->UpdateWorld();

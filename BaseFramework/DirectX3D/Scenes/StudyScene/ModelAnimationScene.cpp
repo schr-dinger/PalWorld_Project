@@ -42,7 +42,8 @@ ModelAnimationScene::ModelAnimationScene()
 
     modelAnimator = new ModelAnimator("NPC");
     
-    modelAnimator->ReadClip("B_Run");
+    modelAnimator->ReadClip("work",0);
+    modelAnimator->ReadClip("work", 1);
 
     testyo = new Transform();
     test = new Model("PickExe");

@@ -55,5 +55,10 @@ private:
 	Item* WorkItem;
 	Quad* WorkImage;
 	ProgressBar* produceBar;
+
+
+	Quad* test;
+
+
 };
 

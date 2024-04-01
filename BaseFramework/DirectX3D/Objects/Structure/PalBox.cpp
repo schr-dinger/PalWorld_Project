@@ -93,13 +93,11 @@ void PalBox::Update()
 	}
 
 
-
-
-
 	if (off2 > 13.0f)
 	{
 		Done = true;
-		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildPalBox) PlayerManager::Get()->GetPlayer()->isBuild = false;
+		if (PlayerManager::Get()->GetPlayer()->isBuild && UiManager::Get()->buildPalBox)
+			PlayerManager::Get()->GetPlayer()->isBuild = false;
 		UiManager::Get()->buildPalBox = false;
 		
 	}
@@ -112,7 +110,7 @@ void PalBox::Update()
 			isPlaced = true;
 		}
 	}
-	//»óÈ£ÀÛ¿ë ÇÔ¼ö
+	//ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½Ô¼ï¿½
 	Interaction();
 
 	cube->UpdateWorld();

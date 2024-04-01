@@ -74,8 +74,6 @@ BaseScene1::BaseScene1()
 
 	// 소리 실행
 	//SOUND->Play("BGM_Battle");
-	SOUND->Play("BGM",0.2f);
-
 }
 
 BaseScene1::~BaseScene1()
@@ -169,10 +167,8 @@ void BaseScene1::PreRender()
 	// 그림자
 	
 	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	shadow->SetRenderTargetPos(CAM->GlobalPos());
-	LightBuffer::Light* light = Environment::Get()->GetLight(0);
-	if (light->active == 0) return;
-	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	//shadow->SetRenderTargetPos(CAM->GlobalPos());
+	//PlayerManager::Get()->GetPlayer()->ShadowRender();
 	//RenderShadowModel();
 }
 
@@ -193,7 +189,7 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	shadow->SetRender();
+	//shadow->SetRender();
 	LandScapeManager::Get()->Render();
 	AStarManager::Get()->Render();
 
@@ -228,15 +224,15 @@ void BaseScene1::GUIRender()
 	//palBox->GUIRender();
 
 	//PalsManager::Get()->GUIRender();
-	//PlayerPalsManager::Get()->GUIRender();
+	PlayerPalsManager::Get()->GUIRender();
 
 	//PlayerManager::Get()->GUIRender();
 	//PalSpearManager::Get()->GUIRender();
 
 	// UI테스트
 	//testUI->GUIRender();
-	//UiManager::Get()->GuiRender();
-	//LandScapeManager::Get()->GUIRender();
+	UiManager::Get()->GuiRender();
+	LandScapeManager::Get()->GUIRender();
 	//ImGui::Text("Wold X : %f", CAM->ScreenToWorld(mousePos).x);
 	//ImGui::Text("Wold Y : %f", CAM->ScreenToWorld(mousePos).y);
 	//ImGui::Text("Wold Z : %f", CAM->ScreenToWorld(mousePos).z);
@@ -425,7 +421,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-	blendState[1]->SetState();
+	//blendState[1]->SetState();
 	rasterizer[1]->SetState();
 	/*
 	// 나무1
@@ -444,7 +440,7 @@ void BaseScene1::RenderShadowModel()
 	// 나무2
 	for (Transform* tree2 : LandScapeManager::Get()->GetTree2Instancing()->GetTransforms())
 	{
-		if (tree2->Active() && Distance(PlayerManager::Get()->GetPlayer()->GlobalPos(), tree2->GlobalPos()) < 100.0f)
+		if (tree2->Active() && Distance(PlayerManager::Get()->GetPlayer()->GlobalPos(), tree2->GlobalPos()) < 60.0f)
 			//&& CAM->ContainPoint(tree2->GlobalPos(), 7.0f // 넣으면 어색해짐, 프레임은 잘 나옴
 		{
 			treeS2->Pos() = tree2->GlobalPos();
@@ -484,51 +480,48 @@ void BaseScene1::RenderShadowModel()
 	rasterizer[0]->SetState();
 }
 
-//void BaseScene1::SetSound()
-//{
-//	// action
-//	//SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav", false, true);
-//	//SOUND->Add("Run", "Sounds/Action/RunGrass.wav", false, true);
-//	SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav");
-//	SOUND->Add("Run", "Sounds/Action/RunGrass.wav");
-//	SOUND->Add("JumpLanding", "Sounds/Action/JumpLanding.wav");
-//	SOUND->Add("Work", "Sounds/Action/WorkBenchWork.wav", false, true);
-//	SOUND->Add("Build", "Sounds/Action/Hammer.wav", false, true);
-//	SOUND->Add("Gun_Aim", "Sounds/Action/Gun_Aim.wav");
-//	SOUND->Add("Gun_Draw", "Sounds/Action/Gun_Draw.wav");
-//	SOUND->Add("Gun_Fire", "Sounds/Action/Gun_Fire.wav");
-//	SOUND->Add("Gun_Reload", "Sounds/Action/Gun_Reload.wav");
-//	SOUND->Add("Pick_Attack", "Sounds/Action/Pick_Attack.wav",false,true);
-//	//SOUND->Add("Pickdraw", "Sounds/Action/pickdraw.wav");
-//	SOUND->Add("Pick_HitWood", "Sounds/Action/pickhit1.wav");
-//	//SOUND->Add("Pickhit2", "Sounds/Action/pickhit2.wav");
-//	SOUND->Add("Pick_HitRock", "Sounds/Action/pickhit3.wav");
-//
-//
-//	// skill
-//	SOUND->Add("IceMissileHit_1", "Sounds/Skill/IceMissileHit_1.wav");
-//	SOUND->Add("IceMissileHit_2", "Sounds/Skill/IceMissileHit_2.wav");
-//	SOUND->Add("IceMissileShoot", "Sounds/Skill/IceMissileShoot.wav");
-//	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.mp3");
-//	//SOUND->Add("WindCutterHit", "Sounds/Skill/WindCutterHit.wav");
-//	SOUND->Add("WindCutterShoot", "Sounds/Skill/WindCutterShoot.wav");
-//	SOUND->Add("EarthQuakeHit", "Sounds/pal/EarthQuakeHit.wav");
-//	SOUND->Add("EarthQuaSet", "Sounds/pal/earthQuaSet.wav");
-//
-//	// ui
-//	//SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
-//	SOUND->Add("BGM", "Sounds/UI/BGM.wav", true, true);
-//	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
-//	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
-//	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");
-//	SOUND->Add("UI_3", "Sounds/UI/UI_3.wav");
-//
-//	
-//	// sphere
-//	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav",false, false, true);
-//	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav", false, false, true);
-//	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav", false, false, true);
-//	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav", false, false, true);
-//
-//
-//}
+void BaseScene1::SetSound()
+{
+	// action
+	SOUND->Add("Walk", "Sounds/Action/WalkGrass.wav", false, true);
+	SOUND->Add("Run", "Sounds/Action/RunGrass.wav", false, true);
+	SOUND->Add("JumpLanding", "Sounds/Action/JumpLanding.wav");
+	SOUND->Add("Work", "Sounds/Action/WorkBenchWork.wav", false, true);
+	SOUND->Add("Build", "Sounds/Action/Hammer.wav", false, true);
+	SOUND->Add("Gun_Aim", "Sounds/Action/Gun_Aim.wav");
+	SOUND->Add("Gun_Draw", "Sounds/Action/Gun_Draw.wav");
+	SOUND->Add("Gun_Fire", "Sounds/Action/Gun_Fire.wav");
+	SOUND->Add("Gun_Reload", "Sounds/Action/Gun_Reload.wav");
+	SOUND->Add("Pick_Attack", "Sounds/Action/Pick_Attack.wav",false,true);
+	//SOUND->Add("Pickdraw", "Sounds/Action/pickdraw.wav");
+	SOUND->Add("Pick_HitWood", "Sounds/Action/pickhit1.wav");
+	//SOUND->Add("Pickhit2", "Sounds/Action/pickhit2.wav");
+	SOUND->Add("Pick_HitRock", "Sounds/Action/pickhit3.wav");
+
+
+	// skill
+	SOUND->Add("IceMissileHit_1", "Sounds/Skill/IceMissileHit_1.wav");
+	SOUND->Add("IceMissileHit_2", "Sounds/Skill/IceMissileHit_2.wav");
+	SOUND->Add("IceMissileShoot", "Sounds/Skill/IceMissileShoot.wav");
+	SOUND->Add("WindCutterHit", "Sounds/pal/WindCutterHit.mp3");
+	//SOUND->Add("WindCutterHit", "Sounds/Skill/WindCutterHit.wav");
+	SOUND->Add("WindCutterShoot", "Sounds/Skill/WindCutterShoot.wav");
+	SOUND->Add("EarthQuakeHit", "Sounds/pal/EarthQuakeHit.wav");
+	SOUND->Add("EarthQuaSet", "Sounds/pal/earthQuaSet.wav");
+
+	// ui
+	SOUND->Add("BGM_Battle", "Sounds/UI/BGM_Battle.wav", true, true);
+	SOUND->Add("LevelUp", "Sounds/UI/LevelUp.wav");
+	SOUND->Add("UI_1", "Sounds/UI/UI_1.wav");
+	SOUND->Add("UI_2", "Sounds/UI/UI_2.wav");
+	SOUND->Add("UI_3", "Sounds/UI/UI_3.wav");
+
+	
+	// sphere
+	SOUND->Add("Sphere_Flash", "Sounds/pal/Sphere_Flash.wav");
+	SOUND->Add("Sphere_Hit", "Sounds/pal/Sphere_Hit.wav");
+	SOUND->Add("Sphere_Shake", "Sounds/pal/Sphere_Shake.wav");
+	SOUND->Add("Sphere_Success", "Sounds/pal/Sphere_Success.wav");
+
+
+}

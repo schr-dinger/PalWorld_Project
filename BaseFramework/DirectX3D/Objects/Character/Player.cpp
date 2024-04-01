@@ -841,12 +841,18 @@ void Player::AttackPal()
             {
                 particle->Play(hitPoint);
             }
+
+
+
         }
         break;
     case 2:
         SetState(BW_FIRE);
         break;
     case 3:
+        MiningCollider->SetActive(true);
+                
+
         SetState(M_ATTACK);
         SOUND->Play("Pick_Attack",1,1);
              

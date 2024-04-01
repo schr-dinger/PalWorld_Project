@@ -13,5 +13,10 @@ public:
     virtual void GUIRender() override;
 
 private:
-    Model* model;
+    Model* Spike;
+
+    Quad* test;
+
+    ParticleSystem* particle[3];
+
 };

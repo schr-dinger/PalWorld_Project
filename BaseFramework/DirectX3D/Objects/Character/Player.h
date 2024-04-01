@@ -165,7 +165,7 @@ private:
 
     SphereCollider* MiningCollider;
 
-    
+    float test1;
 
     // UI ¼Ò¸®¿ë
     float walkTime = 0.0f;

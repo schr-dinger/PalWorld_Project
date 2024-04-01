@@ -76,9 +76,11 @@ void Audio::Play(string key, float valume)
         nullptr, false, &sounds[key]->channel);
     sounds[key]->channel->setVolume(valume);
     
-
+    
     
 }
+
+
 
 void Audio::Play(string key, float valume, int count)
 {
@@ -88,6 +90,25 @@ void Audio::Play(string key, float valume, int count)
         nullptr, false, &sounds[key]->channel);
     sounds[key]->channel->setVolume(valume);
     sounds[key]->channel->setLoopCount(count);
+
+    
+    
+
+}
+
+void Audio::PlayDelay(string key, float valume, int delay)
+{
+    if (sounds.count(key) == 0) return;
+
+    soundSystem->playSound(sounds[key]->sound,
+        nullptr, false, &sounds[key]->channel);
+    sounds[key]->channel->setVolume(valume);
+    
+    unsigned long long startDelay = 0; // 시작 지연시간
+    unsigned long long endDelay = Timer::Get()->GetElapsedTime() + 1000; // 현재 시간에서 1초 후
+    sounds[key]->channel->setDelay(startDelay, endDelay, true);
+   
+   
 
 }
 

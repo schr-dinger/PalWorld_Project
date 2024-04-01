@@ -73,8 +73,7 @@ void WorkInFo::Render(int P_Count)
 	default:
 		break;
 	}
-
-	
+		
 	int a = ItemManager::Get()->GetItemDV()[NUM].second;
 	string b = to_string(a) + " / " + to_string(Count * P_Count);
 	Font::Get()->SetStyle("FieldPlay");
