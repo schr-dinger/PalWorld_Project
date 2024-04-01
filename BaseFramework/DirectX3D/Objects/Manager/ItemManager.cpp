@@ -9,7 +9,7 @@ ItemManager::ItemManager()
 
 
 	Item* test = new Equipment(1);
-	Item* test2 = new Equipment(2);
+	Item* test2 = new Equipment(3);
 	Item* test3 = new Ingredient(1);
 	Item* test4 = new Ingredient(2);
 	Item* test5 = new Consumable(1);
