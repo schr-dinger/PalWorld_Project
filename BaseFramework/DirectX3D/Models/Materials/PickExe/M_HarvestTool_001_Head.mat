@@ -1,6 +1,6 @@
 <Material Name="M_HarvestTool_001_Head">
     <Shader Vertex="" Pixel=""/>
-    <Texture Diffuse="Textures/Color/White.png" Specular="Textures/Color/White.png" Normal="Textures/Color/White.png"/>
+    <Texture Diffuse="Textures/Model/PickExe/T_DarkMetal_1K_D.png" Specular="Textures/Color/White.png" Normal="Textures/Model/PickExe/T_DarkMetal_1K_N.png"/>
     <Property Shininess="25" HasNormalMap="0">
         <Diffuse R="0.80000001" G="0.80000001" B="0.80000001" A="1"/>
         <Specular R="0.80000001" G="0.80000001" B="0.80000001" A="1"/>
