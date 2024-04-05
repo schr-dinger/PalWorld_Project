@@ -30,6 +30,7 @@ private:
 	float time = 0;
 	float danger = 0;
 	bool Start = false;
+	Vector3 tmpPos;
 
 };
 

@@ -76,7 +76,7 @@ private:
 
     float speed;
     float maxHP;
-    float curHP;
+    //float curHP;
 
     UINT index;
 

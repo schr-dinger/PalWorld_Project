@@ -236,7 +236,7 @@ void Player::Update()
 
 void Player::Render()
 {
-    particle->Render();
+    //particle->Render();
 
     testPalSpear->Render();
     testFrontSphere->Render();
@@ -643,12 +643,12 @@ void Player::Move()
 void Player::Rotate()
 {
 
-    //Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
-    //SetCursorPos(clientCenterPos.x, clientCenterPos.y);
-    //CAM->Rot().x -= delta.y * rotSpeed * DELTA;
-    //CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
+    Vector3 delta = mousePos - Vector3(CENTER_X, CENTER_Y);
+    SetCursorPos(clientCenterPos.x, clientCenterPos.y);
+    CAM->Rot().x -= delta.y * rotSpeed * DELTA;
+    CamTransform->Rot().y += delta.x * rotSpeed * DELTA;
 
-    //if (isAiming)   Rot().y = CamTransform->Rot().y;
+    if (isAiming)   Rot().y = CamTransform->Rot().y;
 
 
 

@@ -12,7 +12,7 @@ BaseScene1::BaseScene1()
 	//SetSound();
 
 	// 그림자용 모델
-	//SetShadowModel();
+	SetShadowModel();
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -73,7 +73,7 @@ BaseScene1::BaseScene1()
 
 
 	// 소리 실행
-	//SOUND->Play("BGM_Battle");
+	SOUND->Play("BGM",0.2f);
 }
 
 BaseScene1::~BaseScene1()
@@ -121,7 +121,6 @@ void BaseScene1::Update()
 	PalsManager::Get()->Update();
 	PlayerPalsManager::Get()->Update();
 	LandScapeManager::Get()->Update();
-	//PlayerManager::Get()->Update();
 	FieldPalSkillManager::Get()->Update(); // 벡터 터짐 방지
 	MyPalSkillManager::Get()->Update();	   //  -> 맨 마지막에 업데이트
 
@@ -166,10 +165,9 @@ void BaseScene1::PreRender()
 
 	// 그림자
 	
-	//shadow->SetRenderTargetPos(PlayerManager::Get()->GetPlayer()->GlobalPos());
-	//shadow->SetRenderTargetPos(CAM->GlobalPos());
-	//PlayerManager::Get()->GetPlayer()->ShadowRender();
-	//RenderShadowModel();
+	shadow->SetRenderTargetPos(CAM->GlobalPos());
+	PlayerManager::Get()->GetPlayer()->ShadowRender();
+	RenderShadowModel();
 }
 
 void BaseScene1::Render()
@@ -189,9 +187,9 @@ void BaseScene1::Render()
 
 	//PalSpearManager::Get()->Render();
 	// 그림자 + 터레인
-	//shadow->SetRender();
+	shadow->SetRender();
 	LandScapeManager::Get()->Render();
-	AStarManager::Get()->Render();
+	//AStarManager::Get()->Render();
 
 	//UiManager::Get()->Render(); 랜더 안함
 
@@ -421,7 +419,7 @@ void BaseScene1::RenderShadowModel()
 			tmpIII++;
 		}
 	}
-	//blendState[1]->SetState();
+	blendState[1]->SetState();
 	rasterizer[1]->SetState();
 	/*
 	// 나무1

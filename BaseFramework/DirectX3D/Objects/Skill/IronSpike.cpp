@@ -22,7 +22,7 @@ IronSpike::IronSpike()
 	col->SetParent(Spike);
 	col->Rot().x += XM_PIDIV2;
 	col->Scale() *= 0.4f;
-
+	tmpPos = {};
 }
 
 IronSpike::~IronSpike()
@@ -48,15 +48,20 @@ void IronSpike::Update()
 	if (pal)
 	{
 
-		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y )  Spike->Pos().y += 5 * DELTA;
+		//if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y )  Spike->Pos().y += 5 * DELTA;
+		//else time += 3 * DELTA;
+
+		if (Spike->Pos().y < tmpPos.y)  Spike->Pos().y += 5 * DELTA;
 		else time += 3 * DELTA;
 
 	}
 	else
 	{
-		if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 5 * DELTA;
-		else time += 3 * DELTA;
+		//if (Spike->Pos().y < pal->GetTransform()->GlobalPos().y)  Spike->Pos().y += 5 * DELTA;
+		//else time += 3 * DELTA;
 
+		if (Spike->Pos().y < tmpPos.y)  Spike->Pos().y += 5 * DELTA;
+		else time += 3 * DELTA;
 	}
 
 	//particle->Update();
@@ -116,6 +121,7 @@ void IronSpike::SetSkill()
 
 
 		Spike->Pos() = enemy->GlobalPos() + Vector3(0, -5, 0);
+		tmpPos = enemy->GlobalPos();
 		Spike->UpdateWorld();
 		//particle->Play(enemy->GlobalPos() + Vector3(0, 1, 0));
 		time = 0.0f;

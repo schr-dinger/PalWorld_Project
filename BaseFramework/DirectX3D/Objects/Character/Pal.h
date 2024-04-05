@@ -44,12 +44,14 @@ public:
 
 	virtual ModelAnimatorInstancing* GetInstancing() = 0;
 	Quad* GetEmote() { return emote; }
+	float GetCurHP() { return curHP; }
 public:  // 
 	// 
 	string name;
 	string modelName;
 	int level;
 	//ModelAnimatorInstancing* instancing;
+	float curHP;
 
 	// 
 	Skill* skill[3];

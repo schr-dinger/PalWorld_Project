@@ -85,7 +85,7 @@ private:
 
     float speed; //속력 : 기본 스탯
     float maxHP;
-    float curHP;
+    //float curHP;
 
     //Vector3 velocity; //속력 : 실제 움직임
 

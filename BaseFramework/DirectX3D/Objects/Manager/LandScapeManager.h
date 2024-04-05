@@ -55,14 +55,22 @@ private:
     //CapsuleCollider* walls[3];
 
     Shadow* shadow;
-    int treeN = 7;
+    //int treeN = 7;
+    //
+    //int rockN = 2;
+    //
+    //int grassN1 = 2;
+    //
+    //int grassN2 = 10;
 
-    int rockN = 2;
+    int treeN = 15;
 
-    int grassN1 = 2;
+    int rockN = 15;
 
-    //int grassN2 = 20;
-    int grassN2 = 10;
+    int grassN1 = 5;
+
+    int grassN2 = 20;
+
 
     float WIDTH = 500;
     float HEIGHT = 500;
