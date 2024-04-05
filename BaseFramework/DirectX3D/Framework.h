@@ -276,3 +276,6 @@ extern Vector3 mousePos;
 extern int mouseWheel;
 extern thread th;
 extern mutex m;
+extern ProgressBar* loadingBar;
+extern Scene* loadingScene;
+

@@ -3,6 +3,8 @@
 #include "Scenes/GameScene/LoadingScene.h"
 //#include "Scenes/GameScene/BaseScene1.h"
 
+Scene* loadingScene;
+
 TitleScene::TitleScene()
 {
 	SOUND->Play("BGM_Title");
@@ -37,7 +39,8 @@ TitleScene::TitleScene()
 	gameExit->GetQuad()->GetMaterial()->SetDiffuseMap(L"Textures/Color/BlackGlass20.png");
 	gameExit->GetQuad()->Pos() = middle + Vector3(0.0f, -150.0f, 0.0f);
 	keySound[1] = true;
-
+	loadingScene = new LoadingScene();
+	SceneManager::Get()->Create("Loading", loadingScene);
 }
 
 TitleScene::~TitleScene()
@@ -68,7 +71,8 @@ void TitleScene::Update()
 	if (!isGrowing && gameStart->MouseCollision() && KEY_DOWN(VK_LBUTTON))
 	{
 		SOUND->Stop("BGM_Title");
-		SceneManager::Get()->Create("Loading", new LoadingScene());
+		//loadingScene = new LoadingScene();
+		//SceneManager::Get()->Create("Loading", loadingScene);
 		SceneManager::Get()->ChangeScene("Loading");
 		SceneManager::Get()->Remove("Title");
 

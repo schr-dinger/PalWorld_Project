@@ -4,6 +4,7 @@
 
 int initCount = 0;
 mutex m;
+ProgressBar* loadingBar; 
 
 void SceneLoading()
 {
@@ -12,15 +13,75 @@ void SceneLoading()
 	Scene* tmp = new BaseScene1();
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
-	//initCount++;
+	initCount++;
+	//loadingBar->SetAmount((float)initCount / 10.0f);
+	//loadingBar->Update();
+	//Environment::Get()->PostSet();
+	//loadingBar->Render();
+
+	Device::Get()->Clear();
+	Environment::Get()->PostSet();
+	loadingBar->SetAmount((float)initCount / 10.0f);
+	loadingBar->Update();
+	loadingScene->PostRender();
+	Device::Get()->Present();
+
 	tmp->Update();
-	//initCount++;
-	tmp->PreRender();
+	Sleep(500);
 	initCount++;
-	tmp->Render();
+	//loadingBar->SetAmount((float)initCount / 10.0f);
+	//loadingBar->Update();
+	//loadingBar->Render();
+	Device::Get()->Clear();
+	//loadingScene->Update();
+	//loadingScene->PostRender();
+	loadingBar->SetAmount((float)initCount / 10.0f);
+	loadingBar->Update();
+	loadingScene->PostRender();	
+	Device::Get()->Present();
+	Sleep(500);
+
+	//tmp->PreRender();
 	initCount++;
-	tmp->PostRender();
+	//loadingBar->SetAmount((float)initCount / 10.0f);
+	//loadingBar->Update();
+	//loadingBar->Render();
+	Device::Get()->Clear();
+	//loadingScene->Update();
+	//loadingScene->PostRender();
+	loadingBar->SetAmount((float)initCount / 10.0f);
+	loadingBar->Update();
+	loadingScene->PostRender();
+	Device::Get()->Present();
+	Sleep(500);
+
+	//tmp->Render();
 	initCount++;
+	//loadingBar->SetAmount((float)initCount / 10.0f);
+	//loadingBar->Update();
+	//loadingBar->Render();
+	Device::Get()->Clear();
+	//loadingScene->Update();
+	//loadingScene->PostRender();
+	loadingBar->SetAmount((float)initCount / 10.0f);
+	loadingBar->Update();
+	loadingScene->PostRender();
+	Device::Get()->Present();
+	Sleep(500);
+
+	//tmp->PostRender();
+	initCount++;
+	//loadingBar->SetAmount((float)initCount / 10.0f);
+	//loadingBar->Update();
+	//loadingBar->Render();
+	Device::Get()->Clear();
+	//loadingScene->Update();
+	//loadingScene->PostRender();
+	loadingBar->SetAmount((float)initCount / 10.0f);
+	loadingBar->Update();
+	loadingScene->PostRender();
+	Device::Get()->Present();
+
 	m.unlock();
 
 }
@@ -61,19 +122,26 @@ void LoadingScene::Update()
 {
 	fakeT += DELTA;
 
-	if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 5)
+	if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 3)
 	{
 		initCount++;
 		fakeT = 0.0f;
 	}
-	else if(fakeT > RANDOM->Float(1.0f, 4.0f))
+	//else if(fakeT > RANDOM->Float(1.0f, 4.0f))
+	//{
+	//	initCount++;
+	//	fakeT = 0.0f;
+	//}
+	if (fakeT > RANDOM->Float(1.0f, 4.0f) && initCount >= 8)
 	{
 		initCount++;
 		fakeT = 0.0f;
 	}
 
 
-	if (!first && initCount == 4)
+
+
+	if (!first && initCount == 3)
 	{
 		th = new thread(SceneLoading);
 		first = true;

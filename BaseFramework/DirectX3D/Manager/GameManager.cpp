@@ -35,8 +35,8 @@ GameManager::GameManager()
     Collider::RenderOnOff();
 
     //SceneManager::Get()->Create("NewScene", new BaseScene1());
-    SceneManager::Get()->Create("Loading_2", new LoadingScene_2());
-    SceneManager::Get()->Create("Loading", new LoadingScene());
+    //SceneManager::Get()->Create("Loading_2", new LoadingScene_2());
+    //SceneManager::Get()->Create("Loading", new LoadingScene());
     SceneManager::Get()->Create("Title", new TitleScene());
 
     //SceneManager::Get()->Add("NewScene
