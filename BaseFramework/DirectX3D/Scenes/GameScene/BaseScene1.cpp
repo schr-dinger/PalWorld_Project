@@ -44,7 +44,15 @@ BaseScene1::BaseScene1()
 
 
 	//terrainF = new Terrain();
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	skyBox = new SkyBox(L"Textures/Landscape/testsky.dds");
 	//
 	water = new Water(L"Textures/Landscape/Wave.dds", 500, 500);

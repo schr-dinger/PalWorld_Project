@@ -14,10 +14,6 @@ void SceneLoading()
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
 	initCount++;
-	//loadingBar->SetAmount((float)initCount / 10.0f);
-	//loadingBar->Update();
-	//Environment::Get()->PostSet();
-	//loadingBar->Render();
 
 	Device::Get()->Clear();
 	Environment::Get()->PostSet();
@@ -27,61 +23,15 @@ void SceneLoading()
 	Device::Get()->Present();
 
 	tmp->Update();
-	//Sleep(500);
 	initCount++;
-	//loadingBar->SetAmount((float)initCount / 10.0f);
-	//loadingBar->Update();
-	//loadingBar->Render();
+	
 	Device::Get()->Clear();
-	//loadingScene->Update();
-	//loadingScene->PostRender();
+	
 	loadingBar->SetAmount((float)initCount / 10.0f);
 	loadingBar->Update();
 	loadingScene->PostRender();	
 	Device::Get()->Present();
-	//Sleep(500);
-	//
-	////tmp->PreRender();
-	//initCount++;
-	////loadingBar->SetAmount((float)initCount / 10.0f);
-	////loadingBar->Update();
-	////loadingBar->Render();
-	//Device::Get()->Clear();
-	////loadingScene->Update();
-	////loadingScene->PostRender();
-	//loadingBar->SetAmount((float)initCount / 10.0f);
-	//loadingBar->Update();
-	//loadingScene->PostRender();
-	//Device::Get()->Present();
-	//Sleep(500);
-	//
-	////tmp->Render();
-	//initCount++;
-	////loadingBar->SetAmount((float)initCount / 10.0f);
-	////loadingBar->Update();
-	////loadingBar->Render();
-	//Device::Get()->Clear();
-	////loadingScene->Update();
-	////loadingScene->PostRender();
-	//loadingBar->SetAmount((float)initCount / 10.0f);
-	//loadingBar->Update();
-	//loadingScene->PostRender();
-	//Device::Get()->Present();
-	//Sleep(500);
-	//
-	////tmp->PostRender();
-	//initCount++;
-	////loadingBar->SetAmount((float)initCount / 10.0f);
-	////loadingBar->Update();
-	////loadingBar->Render();
-	//Device::Get()->Clear();
-	////loadingScene->Update();
-	////loadingScene->PostRender();
-	//loadingBar->SetAmount((float)initCount / 10.0f);
-	//loadingBar->Update();
-	//loadingScene->PostRender();
-	//Device::Get()->Present();
-
+	
 	m.unlock();
 
 }
@@ -122,11 +72,11 @@ void LoadingScene::Update()
 {
 	fakeT += DELTA;
 
-	if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 1)
-	{
-		initCount++;
-		fakeT = 0.0f;
-	}
+	//if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 1)
+	//{
+	//	initCount++;
+	//	fakeT = 0.0f;
+	//}
 	//else if(fakeT > RANDOM->Float(1.0f, 4.0f))
 	//{
 	//	initCount++;
@@ -141,7 +91,7 @@ void LoadingScene::Update()
 
 
 
-	if (!first && initCount == 1)
+	if (!first && initCount == 0)
 	{
 		th = new thread(SceneLoading);
 		first = true;
