@@ -12,14 +12,18 @@ void SceneLoading()
 	Scene* tmp = new BaseScene1();
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
+	Sleep(1000);
 	//initCount++;
 	tmp->Update();
 	//initCount++;
 	tmp->PreRender();
 	initCount++;
+	Sleep(1000);
 	tmp->Render();
 	initCount++;
+	Sleep(1000);
 	tmp->PostRender();
+	Sleep(1000);
 	initCount++;
 	m.unlock();
 
