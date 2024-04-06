@@ -7,26 +7,13 @@ mutex m;
 
 void SceneLoading()
 {
-
-	m.lock();
 	Scene* tmp = new BaseScene1();
 	SceneManager::Get()->Create("NewScene", tmp);
 	SceneManager::Get()->Add("NewScene");
-	Sleep(1000);
-	//initCount++;
-	tmp->Update();
-	//initCount++;
-	tmp->PreRender();
-	initCount++;
-	Sleep(1000);
-	tmp->Render();
-	initCount++;
-	Sleep(1000);
-	tmp->PostRender();
-	Sleep(1000);
-	initCount++;
-	m.unlock();
-
+	//tmp->Update();
+	//tmp->PreRender();
+	//tmp->Render();
+	//tmp->PostRender();
 }
 
 
@@ -65,19 +52,19 @@ void LoadingScene::Update()
 {
 	fakeT += DELTA;
 
-	if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 5)
-	{
-		initCount++;
-		fakeT = 0.0f;
-	}
-	else if(fakeT > RANDOM->Float(1.0f, 4.0f))
-	{
-		initCount++;
-		fakeT = 0.0f;
-	}
+	//if (fakeT > RANDOM->Float(2.0f,3.0f) && initCount < 5)
+	//{
+	//	initCount++;
+	//	fakeT = 0.0f;
+	//}
+	//else if(fakeT > RANDOM->Float(1.0f, 4.0f))
+	//{
+	//	initCount++;
+	//	fakeT = 0.0f;
+	//}
 
 
-	if (!first && initCount == 4)
+	if (!first && initCount == 0)
 	{
 		th = new thread(SceneLoading);
 		first = true;

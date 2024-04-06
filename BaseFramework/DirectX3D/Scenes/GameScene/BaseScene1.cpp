@@ -4,12 +4,19 @@
 
 BaseScene1::BaseScene1()
 {
+	initCount++;
+
+	m.lock();
 	LandScapeManager::Get()->Update();
 
 	//Let there be light
 	SetLights();
 	// 소리 추가
 	//SetSound();
+
+	m.unlock();
+	initCount++;
+	m.lock();
 
 	// 그림자용 모델
 	SetShadowModel();
@@ -37,6 +44,10 @@ BaseScene1::BaseScene1()
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
 
 
+	m.unlock();
+	initCount++;
+	m.lock();
+
 	//PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
@@ -47,10 +58,15 @@ BaseScene1::BaseScene1()
 
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
 
+	m.unlock();
+	initCount++;
+	m.lock();
+
 	FieldPalSkillManager::Get(); // 생성자용
 	MyPalSkillManager::Get();	 // 생성자용
 	AStarManager::Get();
 	LandScapeManager::Get();
+
 
 	//palBoxUi = new PalBoxUi();
 
@@ -74,6 +90,9 @@ BaseScene1::BaseScene1()
 
 	// 소리 실행
 	SOUND->Play("BGM",0.2f);
+
+	m.unlock();
+	initCount++;
 }
 
 BaseScene1::~BaseScene1()
