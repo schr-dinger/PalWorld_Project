@@ -5,7 +5,15 @@
 BaseScene1::BaseScene1()
 {
 	LandScapeManager::Get()->Update();
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	//Let there be light
 	SetLights();
 	// 소리 추가
@@ -13,6 +21,15 @@ BaseScene1::BaseScene1()
 
 	// 그림자용 모델
 	SetShadowModel();
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	FOR(2)
 	{
 		blendState[i] = new BlendState();
@@ -35,23 +52,63 @@ BaseScene1::BaseScene1()
 	water->Scale() *= 4.0f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveSpeed = 0.01f;
 	water->GetRefraction()->GetWaterBuffer()->Get().waveScale = 0.2f;
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 
 	//PalsManager::Get()->SetTarget(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
-	
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	//PlayerPalsManager::Get()->SetTarget(); // 플레이어에서 플레이어가 타겟한 타겟으로 설정하기
 	PlayerPalsManager::Get()->SetPlayer(PlayerManager::Get()->GetPlayer());
 	PlayerPalsManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	PalSpearManager::Get()->SetTerrain(LandScapeManager::Get()->GetTerrain());
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	FieldPalSkillManager::Get(); // 생성자용
 	MyPalSkillManager::Get();	 // 생성자용
 	AStarManager::Get();
 	LandScapeManager::Get();
-
+	{
+		initCount++;
+		Device::Get()->Clear();
+		Environment::Get()->PostSet();
+		loadingBar->SetAmount((float)initCount / 10.0f);
+		loadingBar->Update();
+		loadingScene->PostRender();
+		Device::Get()->Present();
+	}
 	//palBoxUi = new PalBoxUi();
 
 	// 스킬 테스트

@@ -278,4 +278,5 @@ extern thread th;
 extern mutex m;
 extern ProgressBar* loadingBar;
 extern Scene* loadingScene;
+extern int initCount;
 
